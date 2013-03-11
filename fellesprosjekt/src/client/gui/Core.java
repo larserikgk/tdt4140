@@ -2,16 +2,19 @@ package client.gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
-public class Core extends JPanel implements ActionListener
+public class Core extends JPanel implements ActionListener, PropertyChangeListener
 {
 	private static final long 	serialVersionUID = 1L;
 	private GregorianCalendar	calendar, copy;
+	private Cell				selected;
 	private ButtonGroup			cells;
 	
 	public Core(GregorianCalendar calendar)
@@ -69,16 +72,15 @@ public class Core extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		Date oldDate, newDate;
-		oldDate = calendar.getTime();
+		if(!(e.getSource() instanceof Cell))
+			return;
 		
-		if(e.getSource() instanceof Cell)
-		{
-			calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(((Cell)e.getSource()).getText()));
-		}
-
-		newDate = calendar.getTime();
-		firePropertyChange("selectedDate", oldDate, newDate);
+		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(((Cell)e.getSource()).getText()));
+		Cell oldValue = selected;
+		
+		selected = (Cell)e.getSource();
+		
+		firePropertyChange("selectedDate", oldValue, selected);
 	}
 
 	public GregorianCalendar getCalendar() 
