@@ -16,5 +16,5 @@ public interface IServerConnector
 	public ArrayList<Event>getEvents(User user, int count);
 	public ArrayList<Event>getMeetings(User user, int count);
 	public ArrayList<Event>getAppointment(User user, int count);
-	public ArrayList<Notification>getNotifications(User user, int count);
+	public ArrayList<Notification>getNotifications(User user, boolean newOnly, int count);
 }
