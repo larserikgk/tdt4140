@@ -26,6 +26,13 @@ import javax.swing.SwingConstants;
 
 public class GUI_Main extends JPanel {
 	
+	Color main_bg_light_grey = new Color(Integer.parseInt("e2dfe0",16));
+	Color main_bg_dark_grey = new Color(Integer.parseInt("595959",16));
+	Color dark_grey = new Color(Integer.parseInt("181818",16));
+	Color light_blue = new Color(Integer.parseInt("159ec0",16));
+	Color orange = new Color(Integer.parseInt("c53d2c",16));
+	Color notification_red = new Color(Integer.parseInt("ff0000",16));
+	
     public static void main (String args[]) { 
         JFrame frame = new JFrame("FP Calendar"); 
         frame.getContentPane().add(new GUI_Main()); 
@@ -35,7 +42,7 @@ public class GUI_Main extends JPanel {
     
     
 	public GUI_Main() {
-		setBackground(new Color(Integer.parseInt("ffffff",16)));
+		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{519, 205, 10, 0};
 		gridBagLayout.rowHeights = new int[]{41, 27, 0, 26, 293, 233, 0};
@@ -45,7 +52,7 @@ public class GUI_Main extends JPanel {
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		panel.setBackground(new Color(Integer.parseInt("181818",16)));
+		panel.setBackground(dark_grey);
 		gbc_panel.gridwidth = 3;
 		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.fill = GridBagConstraints.BOTH;
@@ -54,7 +61,8 @@ public class GUI_Main extends JPanel {
 		add(panel, gbc_panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblFileEdit = DefaultComponentFactory.getInstance().createLabel("File                  Edit");
+		//Preview purposes only
+		JLabel lblFileEdit = DefaultComponentFactory.getInstance().createLabel("     File                  Edit");
 		lblFileEdit.setHorizontalAlignment(SwingConstants.LEFT);
 		lblFileEdit.setForeground(Color.WHITE);
 		panel.add(lblFileEdit);
@@ -76,7 +84,7 @@ public class GUI_Main extends JPanel {
 		add(lblJensStoltenberg, gbc_lblJensStoltenberg);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(Integer.parseInt("181818",16)));
+		panel_2.setBackground(dark_grey);
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
 		gbc_panel_2.gridheight = 3;
@@ -98,7 +106,7 @@ public class GUI_Main extends JPanel {
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 5;
 		add(panel_1, gbc_panel_1);
-		panel_1.setBackground(new Color(Integer.parseInt("181818",16)));
+		panel_1.setBackground(dark_grey);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{203, 107, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_1.rowHeights = new int[]{23, 0, 0, 0, 0, 0, 0, 0};
