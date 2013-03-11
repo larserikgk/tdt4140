@@ -8,3 +8,6 @@
 # Eclipse files #
 *.project
 *.classpath
+
+# Update #
+update.sh
