@@ -64,7 +64,7 @@ public class Event {
 	}
 
 	public void setEnd(Date end) {
-		this.end = end;
+		if (end.compareTo(start)>=0) this.end = end;
 	}
 
 	public String getDescription() {
