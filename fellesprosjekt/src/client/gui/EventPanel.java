@@ -5,9 +5,12 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -17,6 +20,7 @@ import javax.swing.border.Border;
 public class EventPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
+	private JFrame frame;
 	
 	//Disse variablene er de samme som i GUI_Main (fjerner dem senere)
 	static final Color main_bg_light_grey = new Color(Integer.parseInt("e2dfe0",16));
@@ -163,6 +167,16 @@ public class EventPanel extends JPanel {
 		gbc_btnCreate.gridx = 4;
 		gbc_btnCreate.gridy = 9;
 		add(btnCreate, gbc_btnCreate);
+		
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
+	}
+	
+	public void setFrame(JFrame frame){
+		this.frame = frame;
 	}
 
 }

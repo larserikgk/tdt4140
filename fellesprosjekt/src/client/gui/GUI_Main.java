@@ -40,10 +40,6 @@ public class GUI_Main extends JPanel {
         JFrame frame = new JFrame("FP Calendar"); 
         frame.getContentPane().add(new GUI_Main());
         frame.pack(); 
-        int frameWidth = 1000;
-        int frameHeight = 500;
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setBounds((int) screenSize.getWidth() - frameWidth, 0, frameWidth, frameHeight);
         frame.setVisible(true);
         }
     
@@ -51,8 +47,8 @@ public class GUI_Main extends JPanel {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{26, 670, 257, 10, 0};
 		gridBagLayout.rowHeights = new int[]{41, 27, 0, 26, 293, 233, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		JPanel panel = new JPanel();
 		panel.setBackground(dark_grey);
@@ -89,6 +85,15 @@ public class GUI_Main extends JPanel {
 		gbc_lblJensStoltenberg.gridy = 1;
 		add(lblJensStoltenberg, gbc_lblJensStoltenberg);
 		
+		CoolCalendar coolCalendar = new CoolCalendar();
+		GridBagConstraints gbc_coolCalendar = new GridBagConstraints();
+		gbc_coolCalendar.gridheight = 2;
+		gbc_coolCalendar.insets = new Insets(0, 0, 5, 5);
+		gbc_coolCalendar.fill = GridBagConstraints.BOTH;
+		gbc_coolCalendar.gridx = 1;
+		gbc_coolCalendar.gridy = 3;
+		add(coolCalendar, gbc_coolCalendar);
+		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(dark_grey);
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
@@ -124,18 +129,38 @@ public class GUI_Main extends JPanel {
 		add(panel_1, gbc_panel_1);
 		panel_1.setBackground(dark_grey);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{203, 107, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_1.columnWidths = new int[]{36, 107, 0, 0, 0, 0, 0, 0, 186, 0, 25, 0};
 		gbl_panel_1.rowHeights = new int[]{23, 0, 0, 0, 0, 0, 0, 0, 10, 0};
 		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		panel_1.setAlignmentX(RIGHT_ALIGNMENT);
+		
+		JLabel selectedDate_txt = DefaultComponentFactory.getInstance().createLabel("12 March 2013");
+		selectedDate_txt.setFont(FONT_TEXT1);
+		selectedDate_txt.setForeground(Color.WHITE);
+		GridBagConstraints gbc_selectedDate_txt = new GridBagConstraints();
+		gbc_selectedDate_txt.anchor = GridBagConstraints.WEST;
+		gbc_selectedDate_txt.insets = new Insets(0, 0, 5, 5);
+		gbc_selectedDate_txt.gridx = 1;
+		gbc_selectedDate_txt.gridy = 1;
+		panel_1.add(selectedDate_txt, gbc_selectedDate_txt);
+		
+		JLabel selectedDateEvents = new JLabel("No events");
+		selectedDateEvents.setFont(FONT_TEXT2);
+		selectedDateEvents.setForeground(Color.WHITE);
+		GridBagConstraints gbc_selectedDateEvents = new GridBagConstraints();
+		gbc_selectedDateEvents.anchor = GridBagConstraints.WEST;
+		gbc_selectedDateEvents.insets = new Insets(0, 0, 5, 5);
+		gbc_selectedDateEvents.gridx = 1;
+		gbc_selectedDateEvents.gridy = 2;
+		panel_1.add(selectedDateEvents, gbc_selectedDateEvents);
 										
 		JButton btnCreateEvent = new JButton("+ Create event");
 		btnCreateEvent.setFont(FONT_TEXT1);
 		GridBagConstraints gbc_btnCreateEvent = new GridBagConstraints();
 		gbc_btnCreateEvent.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCreateEvent.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnCreateEvent.anchor = GridBagConstraints.SOUTHEAST;
 		gbc_btnCreateEvent.gridx = 9;
 		gbc_btnCreateEvent.gridy = 7;
 		panel_1.add(btnCreateEvent, gbc_btnCreateEvent);
@@ -143,13 +168,16 @@ public class GUI_Main extends JPanel {
 		btnCreateEvent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("CLICKED");
 				JFrame frame = new JFrame("Create event");
-				frame.getContentPane().add(new EventPanel());
+				EventPanel ep = new EventPanel();
+				ep.setFrame(frame);
+				frame.getContentPane().add(ep);
+				frame.setUndecorated(true);
+				frame.setLocation(300, 100);
 				frame.pack();
 				frame.setVisible(true);
-				
 			}
 		});
+		
 	}
 }
