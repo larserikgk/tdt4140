@@ -1,3 +1,5 @@
+package client.models;
+
 import java.util.ArrayList;
 
 
