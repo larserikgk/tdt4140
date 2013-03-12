@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
-public class Core extends JPanel implements ActionListener, PropertyChangeListener
+public class Core extends JPanel implements ActionListener
 {
 	private static final long 	serialVersionUID = 1L;
 	private GregorianCalendar	calendar, copy;
