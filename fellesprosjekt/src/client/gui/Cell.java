@@ -3,10 +3,7 @@ package client.gui;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.JToggleButton;
-
-import common.models.Event;
 
 public class Cell extends JToggleButton
 {

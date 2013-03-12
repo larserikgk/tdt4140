@@ -75,12 +75,14 @@ public class Core extends JPanel implements ActionListener
 		if(!(e.getSource() instanceof Cell))
 			return;
 		
-		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(((Cell)e.getSource()).getText()));
-		Cell oldValue = selected;
+		Cell oldValue 	= selected;
+		Date oldDate	= calendar.getTime();
 		
+		calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(((Cell)e.getSource()).getText()));
 		selected = (Cell)e.getSource();
 		
-		firePropertyChange("selectedDate", oldValue, selected);
+		firePropertyChange("selectedCell", oldValue, selected);
+		firePropertyChange("selectedDate", oldDate, calendar.getTime());
 	}
 
 	public GregorianCalendar getCalendar() 
