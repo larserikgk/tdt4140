@@ -1,5 +1,7 @@
 package common.util;
 
+import java.util.Date;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,27 +33,51 @@ public class XMLConverter
 		}
 	}
 	
-	public Element userToDOMElement(User user, Document doc)
+	@SuppressWarnings("deprecation")
+	private Element dateToDOMElement(Date date, Document doc)
 	{
-		Element username, password, name, user_;
+		Element year, month, day, hour, minute, seconds, date_;
+		
+		year		= doc.createElement("year");
+		month		= doc.createElement("month");
+		day			= doc.createElement("day");
+		hour		= doc.createElement("hour");
+		minute		= doc.createElement("minute");
+		date_		= doc.createElement("date");
+		
+		year.appendChild(doc.createTextNode(""+date.getYear()));
+		month.appendChild(doc.createTextNode(""+date.getMonth()));
+		day.appendChild(doc.createTextNode(""+date.getDate()));
+		hour.appendChild(doc.createTextNode(""+date.getHours()));
+		minute.appendChild(doc.createTextNode(""+date.getMinutes()));
+		
+		date_.appendChild(year);
+		date_.appendChild(month);
+		date_.appendChild(day);
+		date_.appendChild(hour);
+		date_.appendChild(minute);
+		
+		return date_;
+	}
+	
+	private Element userToDOMElement(User user, Document doc)
+	{
+		Element username, name, user_;
 		username 	= doc.createElement("username");
-		password 	= doc.createElement("password");
 		name		= doc.createElement("name");
 		user_ 		= doc.createElement("user");
 		
 		
 		user_.appendChild(username);
-		user_.appendChild(password);
 		user_.appendChild(name);
 		
 		username.appendChild(doc.createTextNode(user.getUsername()));
-		password.appendChild(doc.createTextNode(user.getPassword()));
 		name.appendChild(doc.createTextNode(user.getName()));
 		
 		return user_;
 	}
 	
-	public Element eventToDOMElement(Event event, Document doc)
+	private Element eventToDOMElement(Event event, Document doc)
 	{
 		Element 	id, 
 					start, 
@@ -68,6 +94,7 @@ public class XMLConverter
 		start		= doc.createElement("start");
 		end			= doc.createElement("end");
 		name		= doc.createElement("name");
+		description = doc.createElement("description");
 		location	= doc.createElement("location");
 		bookingID	= doc.createElement("bookingID");
 		isMeeting	= doc.createElement("isMeeting");
@@ -84,6 +111,18 @@ public class XMLConverter
 		event_.appendChild(participants);
 		
 		id.appendChild(doc.createTextNode(""+event.getId()));
+		start.appendChild(dateToDOMElement(event.getStart(), doc));
+		end.appendChild(dateToDOMElement(event.getEnd(), doc));
+		name.appendChild(doc.createTextNode(event.getName()));
+		description.appendChild(doc.createTextNode(event.getDescription()));
+		location.appendChild(doc.createTextNode(event.getLocation()));
+		bookingID.appendChild(doc.createTextNode(""+event.getBookingId()));
+		isMeeting.appendChild(doc.createTextNode(event.isMeeting() ? "true": "false"));
+		
+		for(User user : event.getParticipants())
+			participants.appendChild(userToDOMElement(user, doc));
+		
+		return event_;
 	}
 
 
