@@ -69,7 +69,7 @@ public class EventFrame extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
-		panel_2.setVisible(false);
+		panel_2.setVisible(true);
 		getContentPane().add(panel_2, "cell 4 5 1 4,grow");
 		panel_2.setLayout(new MigLayout("", "[125px]", "[23px][][][][][][][]"));
 		
@@ -167,6 +167,10 @@ public class EventFrame extends JFrame {
 	
 	public void setParentFrame(JFrame parentFrame){
 		this.parentFrame = parentFrame;
+	}
+	
+	public void setEventTitle(String title){
+		textField.setText(title);
 	}
 
 }
