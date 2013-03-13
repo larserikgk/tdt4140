@@ -14,5 +14,8 @@ public class Settings2
 	static final Font FONT_TITLE1 = new Font("Myriad Pro", Font.BOLD, 18);
 	static final Font FONT_TEXT1 = new Font("Myriad Pro", Font.PLAIN, 18);
 	static final Font FONT_TEXT2 = new Font("Myriad Pro", Font.PLAIN, 16);
+	
+	static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", 
+		"August", "September", "October", "November", "December"};
 		
 }

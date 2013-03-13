@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -16,6 +17,7 @@ public class Core extends JPanel implements ActionListener
 	private GregorianCalendar	calendar, copy;
 	private Cell				selected;
 	private ButtonGroup			cells;
+	private PropertyChangeSupport pcs;
 	
 	public Core(GregorianCalendar calendar)
 	{
