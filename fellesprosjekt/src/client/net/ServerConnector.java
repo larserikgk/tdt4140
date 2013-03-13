@@ -62,17 +62,12 @@ public class ServerConnector {
 		public void run() {
 			while(true) {
 				try {
-					Response res = (Response) sInput.readObject();			
-					caller.handleResponse(res);
+					
 				}
 				catch(IOException e) {
-					display("Server has close the connection: " + e);
-					if(caller != null) 
-						caller.connectionFailed();
-					break;
+					
 				}
-				catch(ClassNotFoundException e2) {/** Ignore errors */
-				}
+				
 			}
 		}
 	}

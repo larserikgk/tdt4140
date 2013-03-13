@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Properties;
+
 import server.db.SqlConnector;
 import server.logic.Server;
 
@@ -20,7 +22,7 @@ public class ClientHandler implements Runnable{
 	private SqlConnector database;
 	
 	
-	public ClientHandler(Socket socket, Server server) {
+	public ClientHandler(Socket socket, Server server, Properties settings) {
 		// TODO Auto-generated constructor stub
 	}
 
