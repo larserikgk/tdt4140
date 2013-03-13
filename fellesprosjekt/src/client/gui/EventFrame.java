@@ -21,13 +21,16 @@ import java.awt.GridLayout;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
+import javax.swing.JSpinner;
 
 public class EventFrame extends JFrame {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textField_title;
+	private JTextField textField_location;
 	private JFrame parentFrame;
 	
 	public EventFrame() {
+		setResizable(false);
+		setSize(709, 517);
 		getContentPane().setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		Border border = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);
 		//getContentPane().setBorder(border);
@@ -45,27 +48,65 @@ public class EventFrame extends JFrame {
 		lblTitle.setForeground(Color.WHITE);
 		getContentPane().add(lblTitle, "cell 2 2,alignx left,aligny center");
 		
-		textField = new JTextField();
-		getContentPane().add(textField, "cell 3 2,growx,aligny center");
-		textField.setColumns(10);
+		textField_title = new JTextField();
+		getContentPane().add(textField_title, "cell 3 2,growx,aligny center");
+		textField_title.setColumns(10);
 		
 		JLabel lblFrom = new JLabel("From");
 		lblFrom.setFont(Settings2.FONT_TEXT2);
 		lblFrom.setForeground(Color.WHITE);
 		getContentPane().add(lblFrom, "cell 2 3,alignx left,aligny center");
 		
+		JPanel panel_6 = new JPanel();
+		getContentPane().add(panel_6, "cell 3 3,grow");
+		panel_6.setLayout(new MigLayout("", "[][grow][][][]", "[]"));
+		
+		JSpinner spinner_3 = new JSpinner();
+		panel_6.add(spinner_3, "cell 0 0");
+		
+		JComboBox comboBox = new JComboBox();
+		panel_6.add(comboBox, "cell 1 0,growx");
+		
+		JSpinner spinner_2 = new JSpinner();
+		panel_6.add(spinner_2, "cell 2 0");
+		
+		JSpinner spinner_1 = new JSpinner();
+		panel_6.add(spinner_1, "cell 3 0");
+		
+		JSpinner spinner = new JSpinner();
+		panel_6.add(spinner, "cell 4 0");
+		
 		JLabel lblTo = new JLabel("To");
 		lblTo.setFont(Settings2.FONT_TEXT2);
 		lblTo.setForeground(Color.WHITE);
 		getContentPane().add(lblTo, "cell 2 4,alignx left,aligny center");
+		
+		JPanel panel_7 = new JPanel();
+		getContentPane().add(panel_7, "cell 3 4,grow");
+		panel_7.setLayout(new MigLayout("", "[][grow][][][]", "[]"));
+		
+		JSpinner spinner_6 = new JSpinner();
+		panel_7.add(spinner_6, "cell 0 0");
+		
+		JComboBox comboBox_1 = new JComboBox();
+		panel_7.add(comboBox_1, "cell 1 0,growx");
+		
+		JSpinner spinner_7 = new JSpinner();
+		panel_7.add(spinner_7, "cell 2 0");
+		
+		JSpinner spinner_5 = new JSpinner();
+		panel_7.add(spinner_5, "cell 3 0");
+		
+		JSpinner spinner_4 = new JSpinner();
+		panel_7.add(spinner_4, "cell 4 0");
 		
 		JLabel lblParticipants = new JLabel("Participants");
 		lblParticipants.setFont(Settings2.FONT_TEXT2);
 		lblParticipants.setForeground(Color.WHITE);
 		getContentPane().add(lblParticipants, "cell 2 5,alignx left,aligny top");
 		
-		JList list = new JList();
-		getContentPane().add(list, "cell 3 5,grow");
+		JList list_participants = new JList();
+		getContentPane().add(list_participants, "cell 3 5,grow");
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
@@ -82,6 +123,18 @@ public class EventFrame extends JFrame {
 		btnAddParticipants.setContentAreaFilled(false);
 		btnAddParticipants.setForeground(Color.WHITE);
 		btnAddParticipants.setBorderPainted(false);
+		btnAddParticipants.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = new ParticipantsFrame();
+				frame.setLocation(300, 100);
+				frame.setAlwaysOnTop(true);
+				frame.setFocusableWindowState(false);
+				frame.setEnabled(false);
+				frame.pack();
+				frame.setVisible(true);
+				
+			}
+		});
 		
 		panel_4.add(btnAddParticipants);
 		
@@ -113,26 +166,26 @@ public class EventFrame extends JFrame {
 		lblRepeat.setForeground(Color.WHITE);
 		getContentPane().add(lblRepeat, "cell 2 6,alignx left");
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"One-time event", "Daily", "Weekdays (Mon - Fri)", "Weekly", "Monthly", "Yearly"}));
-		getContentPane().add(comboBox, "cell 3 6,growx");
+		JComboBox comboBox_repeat = new JComboBox();
+		comboBox_repeat.setModel(new DefaultComboBoxModel(new String[] {"One-time event", "Daily", "Weekdays (Mon - Fri)", "Weekly", "Monthly", "Yearly"}));
+		getContentPane().add(comboBox_repeat, "cell 3 6,growx");
 		
 		JLabel lblLocation = new JLabel("Location");
 		lblLocation.setFont(Settings2.FONT_TEXT2);
 		lblLocation.setForeground(Color.WHITE);
 		getContentPane().add(lblLocation, "cell 2 7,alignx left,aligny center");
 		
-		textField_1 = new JTextField();
-		getContentPane().add(textField_1, "cell 3 7,growx,aligny center");
-		textField_1.setColumns(10);
+		textField_location = new JTextField();
+		getContentPane().add(textField_location, "cell 3 7,growx,aligny center");
+		textField_location.setColumns(10);
 		
 		JLabel lblDescription = new JLabel("Description");
 		lblDescription.setFont(Settings2.FONT_TEXT2);
 		lblDescription.setForeground(Color.WHITE);
 		getContentPane().add(lblDescription, "cell 2 8,aligny top");
 		
-		JTextPane textPane = new JTextPane();
-		getContentPane().add(textPane, "cell 3 8,grow");
+		JTextPane textPane_description = new JTextPane();
+		getContentPane().add(textPane_description, "cell 3 8,grow");
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, "cell 4 10,alignx right,aligny center");
@@ -170,7 +223,7 @@ public class EventFrame extends JFrame {
 	}
 	
 	public void setEventTitle(String title){
-		textField.setText(title);
+		textField_title.setText(title);
 	}
 
 }

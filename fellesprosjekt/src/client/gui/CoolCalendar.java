@@ -2,12 +2,14 @@ package client.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 
 //No worries, skal gjøre litt heftig refactor av navn her..
-public class CoolCalendar extends JPanel
+public class CoolCalendar extends JPanel implements PropertyChangeListener 
 {
 	private static final long 	serialVersionUID = 1L;
 	private GridBagConstraints constraints;
@@ -79,6 +81,7 @@ public class CoolCalendar extends JPanel
 	public void setCore(Core core)
 	{	
 		this.core = core;
+		this.core.addPropertyChangeListener(this);
 		
 		if(daybar!=null)
 			core.addPropertyChangeListener(daybar);
@@ -88,6 +91,10 @@ public class CoolCalendar extends JPanel
 	public Core getCore()
 	{
 		return core;
+	}
+	
+	public int getMonth(){
+		return calendar.get(Calendar.MONTH);
 	}
 	
 	//Flytter kalenderen til neste måned.
@@ -102,5 +109,10 @@ public class CoolCalendar extends JPanel
 	{
 		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)-1);
 		setCore(new Core(calendar));
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
 	}	
 }

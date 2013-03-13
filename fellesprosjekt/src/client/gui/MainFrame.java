@@ -27,24 +27,33 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Component;
 import java.awt.BorderLayout;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Date;
+import javax.swing.SwingConstants;
+import java.awt.Dimension;
 
 
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame implements PropertyChangeListener {
 	private static JFrame frame;
 	private JMenuBar menuBar;
+	private JLabel lblSelectedDate, lblMonth, lblFullName;
+	private JButton btnNextMonth, btnPrevMonth;
+	private CoolCalendar coolCalendar;
+	private Date selectedDate;
 	
 	//Colors
 	public static Color PANELGRAY	= new Color(33,33,33);
 	public static Color BUTTONBLUE	= new Color(24,161,195);
 	
 	
-	 public static void main (String args[]) { 
+	public static void main (String args[]) { 
 	        frame = new MainFrame(); 
 	        frame.setSize(700, 500);
 	        frame.setLocation(300, 200);
 	        frame.setVisible(true);
-	 }
+	}
 	 
 	public MainFrame() {
 		getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -76,16 +85,63 @@ public class MainFrame extends JFrame{
 		menuBar.add(mnNewMenu);
 		getContentPane().setLayout(new MigLayout("", "[70%,grow][30%,grow]", "[6%,grow][49%,grow][44%,grow]"));
 		
-		JLabel lblMarch = new JLabel("March 2013");
-		lblMarch.setFont(Settings2.FONT_TITLE1);
-		getContentPane().add(lblMarch, "cell 0 0");
+		JPanel panel_7 = new JPanel();
+		getContentPane().add(panel_7, "cell 0 0,alignx center,growy");
+		panel_7.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_8 = new JPanel();
+		panel_8.setBackground(Color.LIGHT_GRAY);
+		panel_7.add(panel_8, BorderLayout.WEST);
+		panel_8.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btnPrevMonth = new JButton("prev");
+		btnPrevMonth.setContentAreaFilled(false);
+		btnPrevMonth.setBorderPainted(false);
+		panel_8.add(btnPrevMonth);
+		btnPrevMonth.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				coolCalendar.previousMonth();
+				updateMonthLabels();
+			}
+		});
+		
+		JPanel panel_9 = new JPanel();
+		panel_9.setBackground(Color.LIGHT_GRAY);
+		panel_7.add(panel_9, BorderLayout.EAST);
+		panel_9.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btnNextMonth = new JButton("next");
+		btnNextMonth.setContentAreaFilled(false);
+		btnNextMonth.setBorderPainted(false);
+		panel_9.add(btnNextMonth);
+		btnNextMonth.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				coolCalendar.nextMonth();
+				updateMonthLabels();
+			}
+		});
+		
+		JPanel panel_10 = new JPanel();
+		panel_10.setMinimumSize(new Dimension(200, 10));
+		panel_7.add(panel_10, BorderLayout.CENTER);
+		panel_10.setLayout(new GridLayout(0, 1, 0, 0));
+		panel_10.setBackground(Color.LIGHT_GRAY);
+		
+		lblMonth = new JLabel("New label");
+		lblMonth.setFont(Settings2.FONT_TITLE1);
+		lblMonth.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_10.add(lblMonth);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(panel_2, "cell 1 0,grow");
 		panel_2.setLayout(new MigLayout("", "[60%,grow][40%,grow]", "[6%,grow]"));
 		
-		JLabel lblFullName = new JLabel("Full Name");
+		lblFullName = new JLabel("Full Name");
 		panel_2.add(lblFullName, "cell 0 0");
 		
 		JPanel panel_5 = new JPanel();
@@ -104,8 +160,10 @@ public class MainFrame extends JFrame{
 		getContentPane().add(panel_4, "cell 0 1,grow");
 		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		CoolCalendar coolCalendar = new CoolCalendar();
+		coolCalendar = new CoolCalendar();
 		panel_4.add(coolCalendar);
+		
+		coolCalendar.addPropertyChangeListener(this);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(PANELGRAY);
@@ -122,10 +180,11 @@ public class MainFrame extends JFrame{
 		getContentPane().add(panel, "cell 0 2,grow");
 		panel.setLayout(new MigLayout("", "[grow][]", "[][80%,grow][10%,grow]"));
 		
-		JLabel lblMarch_1 = new JLabel("15 March 2013");
-		lblMarch_1.setFont(Settings2.FONT_TEXT1);
-		lblMarch_1.setForeground(Color.WHITE);
-		panel.add(lblMarch_1, "cell 0 0");
+		lblSelectedDate = new JLabel("15 March 2013");
+		
+		lblSelectedDate.setFont(Settings2.FONT_TEXT1);
+		lblSelectedDate.setForeground(Color.WHITE);
+		panel.add(lblSelectedDate, "cell 0 0");
 		
 		final JList list = new JList();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -200,6 +259,8 @@ public class MainFrame extends JFrame{
 				openEventFrame(new EventFrame());
 			}
 		});
+		
+		updateMonthLabels();
 	}
 	
 	public void openEventFrame(JFrame eventFrame){
@@ -211,5 +272,27 @@ public class MainFrame extends JFrame{
 		setEnabled(false);
 		eventFrame.pack();
 		eventFrame.setVisible(true);
+	}
+
+	public void updateMonthLabels() {
+		lblMonth.setText(Settings2.MONTHS[coolCalendar.getMonth()]);
+		btnNextMonth.setText(Settings2.MONTHS[((coolCalendar.getMonth() + 1) % 12 + 12) % 12].substring(0, 3));
+		btnPrevMonth.setText(Settings2.MONTHS[((coolCalendar.getMonth() - 1) % 12 + 12) % 12].substring(0, 3));
+	}
+	
+	public void propertyChange(PropertyChangeEvent evt) 
+	{		
+		if(evt.getPropertyName().equals("selectedDate"))
+		{
+			if(!(evt.getNewValue() instanceof Date))
+				return;
+			
+			selectedDate = (Date)evt.getNewValue();
+			lblSelectedDate.setText(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
+		}
+	}
+	
+	public void setUser(String name){
+		lblFullName.setText(name);
 	}
 }
