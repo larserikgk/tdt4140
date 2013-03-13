@@ -1,6 +1,7 @@
 package server.db;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -15,7 +16,7 @@ public class SqlConnector {
 	private String username;
 	private String database;
 	private String password;
-	private Connection conn;
+	protected Connection conn;
 
 	public SqlConnector(Properties settings) {
 		this.url = settings.getProperty("url");

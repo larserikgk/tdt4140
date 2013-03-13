@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Component;
 import java.awt.BorderLayout;
 
@@ -141,6 +143,21 @@ public class MainFrame extends JFrame{
 		});
 		panel.add(list, "cell 0 1 2 1,grow");
 		
+		list.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        JList list = (JList)evt.getSource();
+		        System.out.println("Click count: "+evt.getClickCount());
+		        if (evt.getClickCount() == 2) {
+		            int index = list.locationToIndex(evt.getPoint());
+		            System.out.println("Double click: "+index+", "+list.getSelectedIndex());
+		            //Should open show/edit event
+		            EventFrame ef = new EventFrame();
+		            ef.setEventTitle((String) list.getSelectedValue());
+		            openEventFrame(ef);
+		        }
+		    }
+		});
+		
 		final JPanel panel_6 = new JPanel();
 		panel_6.setBackground(Settings2.COLOR_LIGHT_BLUE);
 		panel.add(panel_6, "cell 0 2,alignx right,aligny center");
@@ -180,17 +197,19 @@ public class MainFrame extends JFrame{
 		btnCreateEvent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFrame eventFrame = new EventFrame();
-				//frame.setUndecorated(true);
-				eventFrame.setLocation(300, 100);
-				eventFrame.setAlwaysOnTop(true);
-				((EventFrame) eventFrame).setParentFrame(frame);
-				setFocusableWindowState(false);
-				setEnabled(false);
-				eventFrame.pack();
-				eventFrame.setVisible(true);
+				openEventFrame(new EventFrame());
 			}
 		});
-		
+	}
+	
+	public void openEventFrame(JFrame eventFrame){
+		//frame.setUndecorated(true);
+		eventFrame.setLocation(300, 100);
+		eventFrame.setAlwaysOnTop(true);
+		((EventFrame) eventFrame).setParentFrame(frame);
+		setFocusableWindowState(false);
+		setEnabled(false);
+		eventFrame.pack();
+		eventFrame.setVisible(true);
 	}
 }
