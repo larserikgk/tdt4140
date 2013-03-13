@@ -1,16 +1,25 @@
 package common.util;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import common.models.Event;
 import common.models.Notification;
@@ -20,12 +29,16 @@ public class XMLConverter
 {
 	private DocumentBuilderFactory 	builderFactory;
 	private DocumentBuilder 		documentFactory;
+	private XPathFactory			xpathFactory;
+	private XPath					xpath;
 	
 	public XMLConverter()
 	{
 		try 
 		{
 			builderFactory 	= DocumentBuilderFactory.newInstance();
+			xpathFactory	= XPathFactory.newInstance();
+			xpath			= xpathFactory.newXPath();
 			documentFactory = builderFactory.newDocumentBuilder();
 		} 
 		catch (ParserConfigurationException e) 
@@ -33,43 +46,11 @@ public class XMLConverter
 			e.printStackTrace();
 		}
 	}
-	
-	public Document dateToDOMDocument(Date date)
-	{
-		Document doc = documentFactory.newDocument();
-		doc.appendChild(dateToDOMElement(date, doc));
-		
-		return doc;
-	}
-	
-	public Document userToDOMDocument(User user)
-	{
-		Document doc = documentFactory.newDocument();
-		doc.appendChild(userToDOMElement(user, doc));
-		
-		return doc;
-	}
-	
-	public Document eventToDOMDocument(Event event, boolean complete)
-	{
-		Document doc = documentFactory.newDocument();
-		doc.appendChild(eventToDOMElement(event, doc, complete));
-		
-		return doc;
-	}
-	
-	public Document notificationToDOMDocument(Notification notification, boolean complete)
-	{
-		Document doc = documentFactory.newDocument();
-		doc.appendChild(notificationToDOMElement(notification, doc, complete));
-		
-		return doc;
-	}
-	
+
 	@SuppressWarnings("deprecation")
-	private Element dateToDOMElement(Date date, Document doc)
+	public void dateToDOMElement(Date date, Document doc, Element parent)
 	{
-		Element year, month, day, hour, minute, seconds, date_;
+		Element year, month, day, hour, minute, date_;
 		
 		year		= doc.createElement("year");
 		month		= doc.createElement("month");
@@ -90,10 +71,10 @@ public class XMLConverter
 		date_.appendChild(hour);
 		date_.appendChild(minute);
 		
-		return date_;
+		(parent==null ? doc : parent).appendChild(date_);
 	}
 	
-	private Element userToDOMElement(User user, Document doc)
+	public void userToDOMElement(User user, Document doc, Element parent)
 	{
 		Element username, name, user_;
 		username 	= doc.createElement("username");
@@ -107,10 +88,10 @@ public class XMLConverter
 		username.appendChild(doc.createTextNode(user.getUsername()));
 		name.appendChild(doc.createTextNode(user.getName()));
 		
-		return user_;
+		(parent==null ? doc : parent).appendChild(user_);
 	}
 	
-	private Element eventToDOMElement(Event event, Document doc, boolean complete)
+	public void eventToDOMElement(Event event, Document doc, Element parent, boolean complete)
 	{
 		Element 	id, 
 					start, 
@@ -144,8 +125,8 @@ public class XMLConverter
 		event_.appendChild(participants);
 		
 		id.appendChild(doc.createTextNode(""+event.getId()));
-		start.appendChild(dateToDOMElement(event.getStart(), doc));
-		end.appendChild(dateToDOMElement(event.getEnd(), doc));
+		dateToDOMElement(event.getStart(),doc, start);
+		dateToDOMElement(event.getEnd(), doc, end);
 		name.appendChild(doc.createTextNode(event.getName()));
 		description.appendChild(doc.createTextNode(event.getDescription()));
 		location.appendChild(doc.createTextNode(event.getLocation()));
@@ -154,16 +135,15 @@ public class XMLConverter
 		
 		if(complete)
 			for(User user : event.getParticipants())
-				participants.appendChild(userToDOMElement(user, doc));
+				userToDOMElement(user, doc, participants);
 		else
 			for(User user : event.getParticipants())
 				participants.appendChild(doc.createTextNode(user.getName()));
 		
-		
-		return event_;
+		(parent==null ? doc : parent).appendChild(event_);
 	}
 
-	private Element notificationToDOMElement(Notification notification, Document doc, boolean complete)
+	public void notificationToDOMElement(Notification notification, Document doc, Element parent, boolean complete)
 	{
 		Element 	id,
 					type,
@@ -195,22 +175,140 @@ public class XMLConverter
 		}
 		
 		description.appendChild(doc.createTextNode(notification.getDescription()));
-		sentDate.appendChild(dateToDOMElement(notification.getSentDate(), doc));
+		dateToDOMElement(notification.getSentDate(),doc, sentDate);
 		
 		if(complete)
-			event.appendChild(eventToDOMElement(notification.getEvent(), doc, complete));
+			eventToDOMElement(notification.getEvent(), doc, event, complete);
 		else
 			event.appendChild(doc.createTextNode(""+notification.getEvent().getId()));
 		
-		return notification_;
+		(parent==null ? doc : parent).appendChild(notification_);
 	}
 	
-	public String DOMtoString(Document doc)
+	public String DOMDocumentToString(Document doc)
 	{
 		DOMImplementation impl = doc.getImplementation();
 		DOMImplementationLS implLS = (DOMImplementationLS) impl.getFeature("LS", "3.0");
 		LSSerializer ser = implLS.createLSSerializer();
 		return ser.writeToString(doc);
+	}
+	
+	public Document StringToDOMDocument(String xml_string)
+	{
+		Document doc = null;
+		
+		try {
+			doc = documentFactory.parse(new InputSource(new StringReader(xml_string)));
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return doc;
+	}
+
+	public Object genericObjectBuilder(Node current)
+	{			
+		
+		if(current.getNodeName().equals("date"))
+		{
+			return constructDateFromNode(current);
+		}
+		else if(current.getNodeName().equals("user"))
+		{
+			return constructUserFromNode(current);
+		}
+		else if(current.getNodeName().equals("event"))
+		{
+			
+		}
+		
+		return null;
+	}
+	
+	public Event constructEventFromNode(Node node)
+	{
+		NodeList children = node.getChildNodes();
+		Node temp;
+		
+		
+		return null;
+	}
+	
+	public User constructUserFromNode(Node node)
+	{
+		NodeList children = node.getChildNodes();
+		Node temp;
+		
+		String username, name;
+		
+		username 	= "";
+		name		= "";
+		
+		for(int i = 0; i < children.getLength(); i++)
+		{
+			temp = children.item(i);
+			if(temp.getNodeName().equals("year"))
+				username = temp.getNodeValue();
+			else if(temp.getNodeName().equals("month"))
+				name = temp.getNodeValue();
+		}
+		
+		return new User(username, "", name);
+	}
+	
+	public Date constructDateFromNode(Node node)
+	{
+		NodeList children = node.getChildNodes();
+		Node temp;
+		
+		int year, month, day, hour, minute;
+		
+		year 	= 0;
+		month	= 0;
+		day		= 0;
+		hour 	= 0;
+		minute	= 0;
+		
+		for(int i = 0; i < children.getLength(); i++)
+		{
+			temp = children.item(i);
+			if(temp.getNodeName().equals("year"))
+				year = Integer.parseInt(temp.getFirstChild().getTextContent());
+			else if(temp.getNodeName().equals("month"))
+				month = Integer.parseInt(temp.getFirstChild().getTextContent());
+			else if(temp.getNodeName().equals("day"))
+				day = Integer.parseInt(temp.getFirstChild().getTextContent());
+			else if(temp.getNodeName().equals("hour"))
+				hour = Integer.parseInt(temp.getFirstChild().getTextContent());
+			else if(temp.getNodeName().equals("minute"))
+				minute = Integer.parseInt(temp.getFirstChild().getTextContent());
+		}
+		
+		return new Date(year,month,day,hour,minute);
+	}
+	
+	public void testXPath(Document doc)
+	{
+		try {
+			System.out.println(xpath.evaluate("/date/year", doc));
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
+	public User DOMElementToUser(Element element)
+	{
+		
+		return null;
+	}
+	
+	public Document getNewDocument()
+	{
+		return documentFactory.newDocument();
 	}
 }
 
