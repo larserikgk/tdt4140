@@ -35,7 +35,7 @@ public class ParticipantsFrame extends BaseFrame {
 		getContentPane().setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		Border border = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);
 		//getContentPane().setBorder(border);
-		getContentPane().setLayout(new MigLayout("", "[2%,grow][5%,grow][15%,grow][25%,grow][5%,grow][20%,grow][20%,grow][2%,grow]", "[5%,grow][1%,grow][5%,grow][5%,grow][5%,grow][25%,grow][5%,grow][5%,grow][10%,grow][1%,grow][5%,grow]"));
+		getContentPane().setLayout(new MigLayout("", "[2%,grow][5%,grow][15%,grow][25%,grow][5%,grow][20%,grow][20%,grow][2%,grow]", "[5%,grow][1%,grow][5%,grow][1%,grow][5%,grow][40%,grow][1%,grow][5%,grow]"));
 	
 		JLabel lblAddParticipants = new JLabel("Add participants");
 		lblAddParticipants.setFont(Settings2.FONT_TITLE1);
@@ -69,20 +69,30 @@ public class ParticipantsFrame extends BaseFrame {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		getContentPane().add(panel_2, "cell 4 5,alignx center,growy");
-		panel_2.setLayout(new MigLayout("", "[grow]", "[grow][grow][grow]"));
+		panel_2.setLayout(new MigLayout("", "[grow]", "[][grow][grow][grow][]"));
 		
 		JPanel panel_4 = new JPanel();
-		panel_2.add(panel_4, "cell 0 0,growx,aligny center");
+		panel_4.setBackground(Color.gray);
+		panel_2.add(panel_4, "cell 0 1,growx,aligny center");
 		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton button_2 = new JButton(">");
+		button_2.setForeground(Color.BLUE);
+		button_2.setContentAreaFilled(false);
+		button_2.setBorderPainted(false);
+		button_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_4.add(button_2);
 		
 		JPanel panel_3 = new JPanel();
-		panel_2.add(panel_3, "cell 0 2,alignx center,aligny center");
+		panel_3.setBackground(Color.gray);
+		panel_2.add(panel_3, "cell 0 3,alignx center,aligny center");
 		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton button_1 = new JButton("<");
+		button_1.setForeground(Color.BLUE);
+		button_1.setContentAreaFilled(false);
+		button_1.setBorderPainted(false);
+		button_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_3.add(button_1);
 		
 		JTextPane textPane_description = new JTextPane();
@@ -90,7 +100,7 @@ public class ParticipantsFrame extends BaseFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Settings2.COLOR_LIGHT_BLUE);
-		getContentPane().add(panel_1, "flowx,cell 5 10,alignx right,aligny center");
+		getContentPane().add(panel_1, "flowx,cell 5 7,alignx right,aligny center");
 		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -101,7 +111,7 @@ public class ParticipantsFrame extends BaseFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(24, 161, 195));
-		getContentPane().add(panel, "cell 6 10,alignx left,aligny center");
+		getContentPane().add(panel, "cell 6 7,alignx left,aligny center");
 		panel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton btnApply = new JButton("Apply");

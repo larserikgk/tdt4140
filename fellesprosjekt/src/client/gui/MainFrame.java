@@ -10,6 +10,7 @@ import javax.swing.JMenu;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.JPanel;
 import javax.swing.JList;
@@ -23,8 +24,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.Component;
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
@@ -32,6 +36,8 @@ import java.beans.PropertyChangeListener;
 import java.util.Date;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
+import javax.swing.JLayeredPane;
+import javax.swing.JPopupMenu;
 
 
 
@@ -42,6 +48,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private JButton btnNextMonth, btnPrevMonth;
 	private CoolCalendar coolCalendar;
 	private Date selectedDate;
+	private JPanel panel_1;
 	
 	//Colors
 	public static Color PANELGRAY	= new Color(33,33,33);
@@ -57,8 +64,10 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	 
 	public MainFrame() {
 		super();
+		setMaximized();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		
+		// MENU BAR
 		menuBar = new JMenuBar();
 		menuBar.setToolTipText("");
 		menuBar.setForeground(Color.WHITE);
@@ -70,9 +79,23 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmLogOut = new JMenuItem("Log out");
+		mntmLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				close();
+				BaseFrame frame = new LoginFrame();
+				frame.setVisible(true);
+			}
+		});
+		
 		mnFile.add(mntmLogOut);
 		
 		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				close();			
+			}
+		});
+		
 		mnFile.add(mntmExit);
 		
 		JMenu mnEdit = new JMenu("Edit");
@@ -82,8 +105,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		JMenuItem mntmMenuItem = new JMenuItem("Menu item 1");
 		mnEdit.add(mntmMenuItem);
 		
-		JMenu mnNewMenu = new JMenu("New menu");
-		menuBar.add(mnNewMenu);
+		// Content Pane
 		getContentPane().setLayout(new MigLayout("", "[70%,grow][30%,grow]", "[6%,grow][49%,grow][44%,grow]"));
 		
 		JPanel panel_7 = new JPanel();
@@ -150,13 +172,48 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_2.add(panel_5, "cell 1 0,grow");
 		panel_5.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JButton btnNotifications = new JButton("Notifications");
+		final JButton btnNotifications = new JButton("Notifications");
 		btnNotifications.setContentAreaFilled(false);
 		btnNotifications.setBorderPainted(false);
 		btnNotifications.setForeground(Color.white);
 		panel_5.add(btnNotifications);
-
 		
+		final JPopupMenu popupMenu = new JPopupMenu();
+		//popupMenu.setBackground(new Color(200, 100, 100));
+		
+		JMenuItem mntmInvitationTomte = new JMenuItem("Invitation to \"M\u00F8te 1\"");
+		mntmInvitationTomte.setContentAreaFilled(false);
+		mntmInvitationTomte.setBorderPainted(false);
+		popupMenu.add(mntmInvitationTomte);
+		
+		JMenuItem mntmmteIs = new JMenuItem("\"M\u00F8te 2\" is canceled");
+		popupMenu.add(mntmmteIs);
+		
+		/*
+		if (popupMenu.getSubElements().length == 0) {
+			JMenuItem noNots = new JMenuItem("No notifications");
+			popupMenu.add(noNots);
+		}*/
+		
+		btnNotifications.addMouseListener(new MouseListener () {
+			public void mouseClicked(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					popupMenu.show(btnNotifications, - btnNotifications.getWidth(), btnNotifications.getHeight());
+					popupMenu.setPopupSize(2 * btnNotifications.getWidth(), 3 * btnNotifications.getHeight());
+				}
+			}
+
+			public void mouseEntered(MouseEvent e) {}
+
+			public void mouseExited(MouseEvent e) {}
+			
+			public void mousePressed(MouseEvent e) {}
+			
+			public void mouseReleased(MouseEvent e) {}
+		});
+		
+		
+		//Calendar
 		JPanel panel_4 = new JPanel();
 		getContentPane().add(panel_4, "cell 0 1,grow");
 		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
@@ -165,16 +222,17 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_4.add(coolCalendar);
 		
 		coolCalendar.addPropertyChangeListener(this);
+				
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(PANELGRAY);
+		panel_1 = new JPanel();
 		getContentPane().add(panel_1, "cell 1 1 1 2,grow");
-		panel_1.setLayout(new MigLayout("", "[291px]", "[657px]"));
+		panel_1.setBackground(Settings2.COLOR_DARK_GRAY);
+		panel_1.setLayout(new MigLayout("", "[138px]", "[24px]"));
 		
 		JLabel label = new JLabel("Upcoming events");
 		label.setForeground(Color.WHITE);
 		label.setFont(Settings2.FONT_TEXT1);
-		panel_1.add(label, "cell 0 0,growx,aligny top");
+		panel_1.add(label, "cell 0 0,alignx left,aligny top");
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(PANELGRAY);
@@ -206,8 +264,8 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		list.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
 		        if (evt.getClickCount() == 2 && !list.isSelectionEmpty()) {
-		            //Should open show/edit event
-		            EventFrame ef = new EventFrame();
+		            //SHOW OR EDIT????? MUST KNOW! URGENT!
+		            EventFrame ef = new ShowEventFrame();
 		            ef.setEventTitle((String) list.getSelectedValue());
 		            openFrameOnTop(ef);
 		        }
@@ -223,6 +281,15 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnShowEvent.setContentAreaFilled(false);
 		btnShowEvent.setBorderPainted(false);
 		btnShowEvent.setForeground(Color.white);
+		btnShowEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//SHOW OR EDIT????? MUST KNOW! URGENT!
+	            EventFrame ef = new ShowEventFrame();
+	            ef.setEventTitle((String) list.getSelectedValue());
+	            openFrameOnTop(ef);	
+			}
+		});
+		
 		panel_6.add(btnShowEvent);
 		btnShowEvent.setVisible(false);
 		panel_6.setVisible(false);
@@ -251,9 +318,8 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnCreateEvent.setContentAreaFilled(false);
 		panel_3.add(btnCreateEvent);
 		btnCreateEvent.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
-				openFrameOnTop(new EventFrame());
+				openFrameOnTop(new CreateEventFrame());
 			}
 		});
 		

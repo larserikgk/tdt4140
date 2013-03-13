@@ -23,9 +23,16 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
 import javax.swing.JSpinner;
 
-public class EventFrame extends BaseFrame {
-	private JTextField textField_title;
-	private JTextField textField_location;
+public abstract class EventFrame extends BaseFrame {
+	
+	private JTextField textField_title, textField_location;
+	private JTextPane textPane_description; 
+	private JLabel lblMainTitle;
+	private JComboBox comboBox_repeat;
+	private JPanel panel_3, panel_4, panel_5, panel;
+	private JButton btnClose, btnCancel;
+	
+	private JButton btnAddParticipants, btnDeleteParticipants, btnFindRoom;
 	
 	public EventFrame() {
 		super();
@@ -37,11 +44,11 @@ public class EventFrame extends BaseFrame {
 		//getContentPane().setBorder(border);
 		getContentPane().setLayout(new MigLayout("", "[][10.00,grow][99px,grow][236px,grow][112px,grow][65px,grow]", "[5%,grow][1%,grow][5%,grow][5%,grow][5%,grow][25%,grow][5%,grow][5%,grow][10%,grow][1%,grow][5%,grow]"));
 	
-		JLabel lblCreateEvent = new JLabel("Create event");
-		lblCreateEvent.setFont(Settings2.FONT_TITLE1);
-		lblCreateEvent.setFont(Settings2.FONT_TEXT1);
-		lblCreateEvent.setForeground(Color.WHITE);
-		getContentPane().add(lblCreateEvent, "cell 1 0 2 1,alignx left,aligny center");
+		lblMainTitle = new JLabel("Create event");
+		lblMainTitle.setFont(Settings2.FONT_TITLE1);
+		lblMainTitle.setFont(Settings2.FONT_TEXT1);
+		lblMainTitle.setForeground(Color.WHITE);
+		getContentPane().add(lblMainTitle, "cell 1 0 2 1,alignx left,aligny center");
 		
 		
 		JLabel lblTitle = new JLabel("Title");
@@ -115,12 +122,12 @@ public class EventFrame extends BaseFrame {
 		getContentPane().add(panel_2, "cell 4 5 1 4,grow");
 		panel_2.setLayout(new MigLayout("", "[125px]", "[23px][][][][][][][]"));
 		
-		JPanel panel_4 = new JPanel();
+		panel_4 = new JPanel();
 		panel_4.setBackground(Settings2.COLOR_DARK_GRAY);
 		panel_2.add(panel_4, "cell 0 0,grow");
 		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JButton btnAddParticipants = new JButton("Add participants");
+		btnAddParticipants = new JButton("Add participants");
 		btnAddParticipants.setContentAreaFilled(false);
 		btnAddParticipants.setForeground(Color.WHITE);
 		btnAddParticipants.setBorderPainted(false);
@@ -134,23 +141,23 @@ public class EventFrame extends BaseFrame {
 		panel_4.add(btnAddParticipants);
 		
 				
-		JPanel panel_3 = new JPanel();
+		panel_3 = new JPanel();
 		panel_3.setBackground(Settings2.COLOR_DARK_GRAY);
 		panel_2.add(panel_3, "cell 0 1,grow");
 		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JButton btnDeleteParticipants = new JButton("Delete participants");
+		btnDeleteParticipants = new JButton("Delete participants");
 		btnDeleteParticipants.setContentAreaFilled(false);
 		btnDeleteParticipants.setForeground(Color.white);
 		btnDeleteParticipants.setBorderPainted(false);
 		panel_3.add(btnDeleteParticipants);
 		
-		JPanel panel_5 = new JPanel();
+		panel_5 = new JPanel();
 		panel_5.setBackground(Settings2.COLOR_DARK_GRAY);
 		panel_2.add(panel_5, "cell 0 7,grow");
 		panel_5.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JButton btnFindRoom = new JButton("Find room");
+		btnFindRoom = new JButton("Find room");
 		panel_5.add(btnFindRoom);
 		btnFindRoom.setContentAreaFilled(false);
 		btnFindRoom.setBorderPainted(false);
@@ -161,7 +168,7 @@ public class EventFrame extends BaseFrame {
 		lblRepeat.setForeground(Color.WHITE);
 		getContentPane().add(lblRepeat, "cell 2 6,alignx left");
 		
-		JComboBox comboBox_repeat = new JComboBox();
+		comboBox_repeat = new JComboBox();
 		comboBox_repeat.setModel(new DefaultComboBoxModel(new String[] {"One-time event", "Daily", "Weekdays (Mon - Fri)", "Weekly", "Monthly", "Yearly"}));
 		getContentPane().add(comboBox_repeat, "cell 3 6,growx");
 		
@@ -179,15 +186,15 @@ public class EventFrame extends BaseFrame {
 		lblDescription.setForeground(Color.WHITE);
 		getContentPane().add(lblDescription, "cell 2 8,aligny top");
 		
-		JTextPane textPane_description = new JTextPane();
+		textPane_description = new JTextPane();
 		getContentPane().add(textPane_description, "cell 3 8,grow");
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		getContentPane().add(panel, "cell 4 10,alignx right,aligny center");
 		panel.setBackground(Settings2.COLOR_LIGHT_BLUE);
 		panel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JButton btnCancel = new JButton("Cancel");
+		btnCancel = new JButton("Cancel");
 		btnCancel.setForeground(Color.WHITE);
 		btnCancel.setBorderPainted(false);
 		btnCancel.setContentAreaFilled(false);
@@ -204,14 +211,40 @@ public class EventFrame extends BaseFrame {
 		getContentPane().add(panel_1, "cell 5 10,alignx left,aligny center");
 		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JButton btnCreate = new JButton("Create");
-		btnCreate.setForeground(Color.WHITE);
-		btnCreate.setContentAreaFilled(false);
-		btnCreate.setBorderPainted(false);
-		panel_1.add(btnCreate);
+		btnClose = new JButton("Create");
+		btnClose.setForeground(Color.WHITE);
+		btnClose.setContentAreaFilled(false);
+		btnClose.setBorderPainted(false);
+		panel_1.add(btnClose);
 	}
 	
 	public void setEventTitle(String title){
 		textField_title.setText(title);
 	}
+	
+	public void setIsEditable(boolean b) {
+		comboBox_repeat.setEnabled(b);
+		btnAddParticipants.setEnabled(b);
+		panel.setVisible(b);
+		btnCancel.setEnabled(b);
+		panel_3.setVisible(b);
+		panel_4.setVisible(b);
+		panel_5.setVisible(b);
+		btnDeleteParticipants.setEnabled(b);
+		btnFindRoom.setEnabled(b);
+		textField_title.setEditable(b);
+		textField_location.setEditable(b);
+		textPane_description.setEditable(b); 
+	}
+	
+	public void setCloseButton(String s) {
+		btnClose.setText(s);
+	}
+	
+	public void setMainTitle(String s) {
+		lblMainTitle.setText(s);
+	}
 }
+
+
+

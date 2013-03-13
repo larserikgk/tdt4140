@@ -23,14 +23,15 @@ public class LoginFrame extends BaseFrame {
 	private JLabel lblFeedback;
 	
 	public static void main(String[] args){
-		  BaseFrame frame = new LoginFrame(); 
-	      frame.setSize(300, 200);
-	      frame.setMinimumSize(new Dimension(300,200));
-	      frame.setCentered();
+		  BaseFrame frame = new LoginFrame();
 	      frame.setVisible(true);
-	 }
+	}
 	
 	public LoginFrame() {
+		setSize(300, 200);
+		setMinimumSize(new Dimension(300,200));
+	    setCentered();
+	      
 		getContentPane().setLayout(new MigLayout("", "[grow][][143.00][grow]", "[grow][][][][][][grow]"));
 		getContentPane().setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		
@@ -76,7 +77,6 @@ public class LoginFrame extends BaseFrame {
 					System.out.println("ACCESS GRANTED for user: "+user);
 					MainFrame mf = new MainFrame();
 					mf.setUser(user);
-					mf.setMaximized();
 					mf.setVisible(true);
 					dispose();
 				} else {

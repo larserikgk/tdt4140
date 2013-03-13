@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 
-//No worries, skal gjÃ¸re litt heftig refactor av navn her..
+//No worries, skal gjøre litt heftig refactor av navn her..
 public class CoolCalendar extends JPanel implements PropertyChangeListener 
 {
 	private static final long 	serialVersionUID = 1L;
@@ -97,14 +97,14 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 		return calendar.get(Calendar.MONTH);
 	}
 	
-	//Flytter kalenderen til neste mÃ¥ned.
+	//Flytter kalenderen til neste måned.
 	public void nextMonth()
 	{
 		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+1);
 		setCore(new Core(calendar));
 	}
 	
-	//Flytter kalenderen til forrige mÃ¥ned.
+	//Flytter kalenderen til forrige måned.
 	public void previousMonth()
 	{
 		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)-1);

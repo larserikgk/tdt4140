@@ -11,7 +11,7 @@ public class DayLabel extends JToggleButton
 	public DayLabel(String label)
 	{
 		super(label);
-		setBorder(BorderFactory.createLineBorder(Settings.CELL_BORDER_NO_EVENT_COLOR));
+		setBorder(BorderFactory.createLineBorder(Settings.CELL_BORDER_COLOR));
 		this.setEnabled(false);
 	}
 	
