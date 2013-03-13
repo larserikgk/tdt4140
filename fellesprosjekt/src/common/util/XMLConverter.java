@@ -13,6 +13,7 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSSerializer;
 
 import common.models.Event;
+import common.models.Notification;
 import common.models.User;
 
 public class XMLConverter 
@@ -31,6 +32,38 @@ public class XMLConverter
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public Document dateToDOMDocument(Date date)
+	{
+		Document doc = documentFactory.newDocument();
+		doc.appendChild(dateToDOMElement(date, doc));
+		
+		return doc;
+	}
+	
+	public Document userToDOMDocument(User user)
+	{
+		Document doc = documentFactory.newDocument();
+		doc.appendChild(userToDOMElement(user, doc));
+		
+		return doc;
+	}
+	
+	public Document eventToDOMDocument(Event event, boolean complete)
+	{
+		Document doc = documentFactory.newDocument();
+		doc.appendChild(eventToDOMElement(event, doc, complete));
+		
+		return doc;
+	}
+	
+	public Document notificationToDOMDocument(Notification notification, boolean complete)
+	{
+		Document doc = documentFactory.newDocument();
+		doc.appendChild(notificationToDOMElement(notification, doc, complete));
+		
+		return doc;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -77,7 +110,7 @@ public class XMLConverter
 		return user_;
 	}
 	
-	private Element eventToDOMElement(Event event, Document doc)
+	private Element eventToDOMElement(Event event, Document doc, boolean complete)
 	{
 		Element 	id, 
 					start, 
@@ -119,13 +152,59 @@ public class XMLConverter
 		bookingID.appendChild(doc.createTextNode(""+event.getBookingId()));
 		isMeeting.appendChild(doc.createTextNode(event.isMeeting() ? "true": "false"));
 		
-		for(User user : event.getParticipants())
-			participants.appendChild(userToDOMElement(user, doc));
+		if(complete)
+			for(User user : event.getParticipants())
+				participants.appendChild(userToDOMElement(user, doc));
+		else
+			for(User user : event.getParticipants())
+				participants.appendChild(doc.createTextNode(user.getName()));
+		
 		
 		return event_;
 	}
 
-
+	private Element notificationToDOMElement(Notification notification, Document doc, boolean complete)
+	{
+		Element 	id,
+					type,
+					description,
+					sentDate,
+					event,
+					notification_;
+		
+		id				= doc.createElement("id");
+		type			= doc.createElement("type");
+		description		= doc.createElement("description");
+		sentDate		= doc.createElement("sentDate");
+		event			= doc.createElement("event");
+		notification_	= doc.createElement("notification");
+		
+		notification_.appendChild(id);
+		notification_.appendChild(type);
+		notification_.appendChild(description);
+		notification_.appendChild(sentDate);
+		notification_.appendChild(event);
+		
+		id.appendChild(doc.createTextNode(""+notification.getId()));
+		
+		switch(notification.getType())
+		{
+		case INVITATION: 	type.appendChild(doc.createTextNode("INVITATION")); break;
+		case INV_RESPONSE: 	type.appendChild(doc.createTextNode("INV_RESPONSE")); break;
+		case EVENT_UPDATE:	type.appendChild(doc.createTextNode("EVENT_UPDATE")); break;
+		}
+		
+		description.appendChild(doc.createTextNode(notification.getDescription()));
+		sentDate.appendChild(dateToDOMElement(notification.getSentDate(), doc));
+		
+		if(complete)
+			event.appendChild(eventToDOMElement(notification.getEvent(), doc, complete));
+		else
+			event.appendChild(doc.createTextNode(""+notification.getEvent().getId()));
+		
+		return notification_;
+	}
+	
 	public String DOMtoString(Document doc)
 	{
 		DOMImplementation impl = doc.getImplementation();
