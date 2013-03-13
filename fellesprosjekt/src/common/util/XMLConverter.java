@@ -2,14 +2,12 @@ package common.util;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -24,21 +22,40 @@ import org.xml.sax.SAXException;
 import common.models.Event;
 import common.models.Notification;
 import common.models.User;
+import common.models.Notification.NotificationType;
 
+/*Konverterer mellom XML og objekter av klassene man finner i common.models
+ *Konvertere et objekt til XML:
+ *1. 	Hent et en instans av Document ved hjelp av getNewDocument()
+ *
+ *2. 	Benytt metoden på formen [klassenavn]ToDOMElement([klassenavn], Document, Element).
+ *		Nå vil instansen av Document inneholde en representasjon av objektet.
+ *
+ *3. 	For å få det hele representert som en String av XML så benytter man
+ *			DOMDocumentToString(Document doc)	
+ *
+ *Konvertere XML til objekter av klassene fra common.models
+ *1.	Lag en instans av Document ved hjelp av StringToDOMDocument(String xml_string)
+ *
+ *2.	Her er det et skille etter hvor vidt du vet hva slags klasse XML-meldingen din representerer
+ *		Gitt at du ikke vet hva XML-meldingen inneholder så kan du bruke genericObjectBuilder(Node current)
+ *		denne metoden returnerer bare et Object så du må bruke instanceof for å bestemme hva du har fått tilbake.
+ *
+ *		Gitt at du vet hva XML-meldingen inneholder så kan du gjøre et direkte kall på construct[klassenavn]FromNode(Node node)
+ *		Det man da sender som parameter til metoden er Document.getFirstChild()
+ *
+ *
+ */
 public class XMLConverter 
 {
 	private DocumentBuilderFactory 	builderFactory;
 	private DocumentBuilder 		documentFactory;
-	private XPathFactory			xpathFactory;
-	private XPath					xpath;
 	
 	public XMLConverter()
 	{
 		try 
 		{
 			builderFactory 	= DocumentBuilderFactory.newInstance();
-			xpathFactory	= XPathFactory.newInstance();
-			xpath			= xpathFactory.newXPath();
 			documentFactory = builderFactory.newDocumentBuilder();
 		} 
 		catch (ParserConfigurationException e) 
@@ -212,28 +229,120 @@ public class XMLConverter
 	{			
 		
 		if(current.getNodeName().equals("date"))
-		{
 			return constructDateFromNode(current);
-		}
 		else if(current.getNodeName().equals("user"))
-		{
 			return constructUserFromNode(current);
-		}
 		else if(current.getNodeName().equals("event"))
-		{
-			
-		}
+			return constructEventFromNode(current);
+		else if(current.getNodeName().equals("notification"))
+			return constructNotificationFromNode(current);
+		else if(current.getNodeName().equals("participants"))
+			return constructParticipantsFromNode(current);
 		
 		return null;
 	}
 	
-	public Event constructEventFromNode(Node node)
+	public Notification constructNotificationFromNode(Node node)
 	{
-		NodeList children = node.getChildNodes();
+		NodeList children 				= node.getChildNodes();
 		Node temp;
 		
+		int id;
+		NotificationType type;
+		String description;
+		Date sentDate;
+		Event event;
 		
-		return null;
+		id = 0;
+		type = null;
+		description = "";
+		sentDate = null;
+		event = null;
+		
+		for(int i = 0; i < children.getLength(); i++)
+		{
+			temp = children.item(i);
+			if(temp.getNodeName().equals("id"))
+				id = Integer.parseInt(temp.getFirstChild().getTextContent());
+			else if(temp.getNodeName().equals("type"))
+			{
+				if(temp.getFirstChild().getTextContent().equals("INVITATION"))
+					type = NotificationType.INVITATION;
+				else if(temp.getFirstChild().getTextContent().equals("INV_RESPONSE"))
+					type = NotificationType.INV_RESPONSE;
+				else if(temp.getFirstChild().getTextContent().equals("EVENT_UPDATE"))
+					type = NotificationType.EVENT_UPDATE;
+			}
+			else if(temp.getNodeName().equals("description"))
+				description = temp.getFirstChild().getTextContent();
+			else if(temp.getNodeName().equals("sentDate"))
+				sentDate = constructDateFromNode(temp);
+			else if(temp.getNodeName().equals("event"))
+				event = constructEventFromNode(temp);
+		}
+		
+		
+		return new Notification(id, type, description, event, sentDate);
+	}
+	
+	public Event constructEventFromNode(Node node)
+	{
+		NodeList children 				= node.getChildNodes();
+		Node temp;
+		
+		int id, bookingId;
+		Date start, end;
+		String name, description, location;
+		boolean isMeeting;
+		ArrayList<User> participants;;
+		
+		id = 0;
+		bookingId = 0;
+		start = null;
+		end = null;
+		name = "";
+		description = "";
+		location = "";
+		isMeeting = false;
+		participants = null;
+		
+		
+		for(int i = 0; i < children.getLength(); i++)
+		{
+			temp = children.item(i);
+			if(temp.getNodeName().equals("id"))
+				id = Integer.parseInt(temp.getFirstChild().getTextContent());
+			else if(temp.getNodeName().equals("start"))
+				start = constructDateFromNode(temp);
+			else if(temp.getNodeName().equals("end"))
+				end = constructDateFromNode(temp);
+			else if(temp.getNodeName().equals("bookingId"))
+				bookingId = Integer.parseInt(temp.getFirstChild().getTextContent());
+			else if(temp.getNodeName().equals("name"))
+				name = temp.getFirstChild().getTextContent();
+			else if(temp.getNodeName().equals("description"))
+				description = temp.getFirstChild().getTextContent();
+			else if(temp.getNodeName().equals("location"))
+				location = temp.getFirstChild().getTextContent();
+			else if(temp.getNodeName().equals("isMeeting"))
+				isMeeting = temp.getFirstChild().getTextContent().equals("true");
+			else if(temp.getNodeName().equals("participants"))
+				participants = constructParticipantsFromNode(temp);
+		}
+		
+		return new Event(id, start, end, name, description, location, bookingId, isMeeting, participants);
+		
+	}
+	
+	public ArrayList<User> constructParticipantsFromNode(Node node)
+	{
+		ArrayList<User> participants = new ArrayList<User>();
+		NodeList children = node.getChildNodes();
+		
+		for(int i = 0; i < children.getLength(); i++)
+			participants.add(constructUserFromNode(children.item(i)));
+		
+		return participants;
 	}
 	
 	public User constructUserFromNode(Node node)
@@ -250,9 +359,9 @@ public class XMLConverter
 		{
 			temp = children.item(i);
 			if(temp.getNodeName().equals("year"))
-				username = temp.getNodeValue();
+				username = temp.getFirstChild().getTextContent();
 			else if(temp.getNodeName().equals("month"))
-				name = temp.getNodeValue();
+				name = temp.getFirstChild().getTextContent();
 		}
 		
 		return new User(username, "", name);
@@ -287,23 +396,6 @@ public class XMLConverter
 		}
 		
 		return new Date(year,month,day,hour,minute);
-	}
-	
-	public void testXPath(Document doc)
-	{
-		try {
-			System.out.println(xpath.evaluate("/date/year", doc));
-		} catch (XPathExpressionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	
-	public User DOMElementToUser(Element element)
-	{
-		
-		return null;
 	}
 	
 	public Document getNewDocument()
