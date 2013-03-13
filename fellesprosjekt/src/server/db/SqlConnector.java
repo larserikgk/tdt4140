@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
+import common.models.Event;
 
 public class SqlConnector {
 	private String url;
@@ -32,6 +34,15 @@ public class SqlConnector {
 		{
 			System.err.println ("Cannot connect to database server"+e.toString());
 		}
+	}
+	
+	public ArrayList<Event> getEvents(int userId, int amount) {
+		ArrayList<Event> list = new ArrayList<Event>();
+		String[][] r = processQuery("SELECT * FROM access_rights WHERE user_id = " + userId + "");
+		for (int i = 0; i < r.length; i++) {
+			list.add(new Event());
+		}
+		return list;
 	}
 	
 	/** A method for processing SELECT queries easier. Returns a String[][] instead of using result sets given 

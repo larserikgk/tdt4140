@@ -48,4 +48,13 @@ public class Server {
 			
 		}
 	}
+	
+	protected void stop() {
+		keepGoing = false;
+		try {
+			new Socket("localhost", port);
+		}
+		catch(Exception e) {
+		}
+	}
 }

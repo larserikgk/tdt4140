@@ -14,6 +14,17 @@ public class Event {
 	private boolean isMeeting;
 	private ArrayList<User> participants = new ArrayList<User>();
 	
+	
+	public Event(int id, String name, Date start, Date end){
+		this.id = id;
+		this.name = name;
+		this.start = start;
+		this.end = end;
+	}
+
+	public Event() {
+		// TODO Auto-generated constructor stub
+	}
 	public Event(int id, Date start, Date end, String name, String description,
 			String location, int bookingId, boolean isMeeting,
 			ArrayList<User> participants) {
@@ -36,12 +47,7 @@ public class Event {
 		this.name = name;
 	}
 
-	public Event(int id, String name, Date start, Date end){
-		this.id = id;
-		this.name = name;
-		this.start = start;
-		this.end = end;
-	}
+	
 
 	public int getId() {
 		return id;
