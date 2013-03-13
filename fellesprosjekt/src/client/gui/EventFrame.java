@@ -23,14 +23,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
 import javax.swing.JSpinner;
 
-public class EventFrame extends JFrame {
+public class EventFrame extends BaseFrame {
 	private JTextField textField_title;
 	private JTextField textField_location;
-	private JFrame parentFrame;
 	
 	public EventFrame() {
+		super();
 		setResizable(false);
 		setSize(709, 517);
+		setCentered();
 		getContentPane().setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		Border border = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);
 		//getContentPane().setBorder(border);
@@ -125,14 +126,8 @@ public class EventFrame extends JFrame {
 		btnAddParticipants.setBorderPainted(false);
 		btnAddParticipants.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame frame = new ParticipantsFrame();
-				frame.setLocation(300, 100);
-				frame.setAlwaysOnTop(true);
-				frame.setFocusableWindowState(false);
-				frame.setEnabled(false);
-				frame.pack();
-				frame.setVisible(true);
-				
+				BaseFrame frame = new ParticipantsFrame();
+				openFrameOnTop(frame);				
 			}
 		});
 		
@@ -200,9 +195,7 @@ public class EventFrame extends JFrame {
 		
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parentFrame.setEnabled(true);
-				parentFrame.setFocusable(true);
-				dispose();
+				close();
 			}
 		});
 		
@@ -218,12 +211,7 @@ public class EventFrame extends JFrame {
 		panel_1.add(btnCreate);
 	}
 	
-	public void setParentFrame(JFrame parentFrame){
-		this.parentFrame = parentFrame;
-	}
-	
 	public void setEventTitle(String title){
 		textField_title.setText(title);
 	}
-
 }

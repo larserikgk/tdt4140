@@ -24,13 +24,14 @@ import javax.swing.JTextPane;
 import javax.swing.JSpinner;
 import java.awt.BorderLayout;
 
-public class ParticipantsFrame extends JFrame {
+public class ParticipantsFrame extends BaseFrame {
 	private JTextField textField_title;
-	private JFrame parentFrame;
 	
 	public ParticipantsFrame() {
+		super();
 		setResizable(false);
 		setSize(709, 517);
+		setCentered();
 		getContentPane().setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		Border border = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);
 		//getContentPane().setBorder(border);
@@ -111,18 +112,8 @@ public class ParticipantsFrame extends JFrame {
 		
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				parentFrame.setEnabled(true);
-				parentFrame.setFocusable(true);
-				dispose();
+				close();
 			}
 		});
-	}
-	
-	public void setParentFrame(JFrame parentFrame){
-		this.parentFrame = parentFrame;
-	}
-	
-	public void setEventTitle(String title){
-		textField_title.setText(title);
 	}
 }

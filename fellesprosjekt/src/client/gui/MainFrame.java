@@ -56,6 +56,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	}
 	 
 	public MainFrame() {
+		super();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		
 		menuBar = new JMenuBar();
@@ -204,15 +205,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		
 		list.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
-		        JList list = (JList)evt.getSource();
-		        System.out.println("Click count: "+evt.getClickCount());
-		        if (evt.getClickCount() == 2) {
-		            int index = list.locationToIndex(evt.getPoint());
-		            System.out.println("Double click: "+index+", "+list.getSelectedIndex());
+		        if (evt.getClickCount() == 2 && !list.isSelectionEmpty()) {
 		            //Should open show/edit event
 		            EventFrame ef = new EventFrame();
 		            ef.setEventTitle((String) list.getSelectedValue());
-		            openEventFrame(ef);
+		            openFrameOnTop(ef);
 		        }
 		    }
 		});
@@ -256,22 +253,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnCreateEvent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				openEventFrame(new EventFrame());
+				openFrameOnTop(new EventFrame());
 			}
 		});
 		
 		updateMonthLabels();
-	}
-	
-	public void openEventFrame(JFrame eventFrame){
-		//frame.setUndecorated(true);
-		eventFrame.setLocation(300, 100);
-		eventFrame.setAlwaysOnTop(true);
-		((EventFrame) eventFrame).setParentFrame(frame);
-		setFocusableWindowState(false);
-		setEnabled(false);
-		eventFrame.pack();
-		eventFrame.setVisible(true);
 	}
 
 	public void updateMonthLabels() {
