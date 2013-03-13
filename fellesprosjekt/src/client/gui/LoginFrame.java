@@ -15,14 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 
-public class LoginFrame extends JFrame {
+public class LoginFrame extends BaseFrame {
 	private JPasswordField passwordField;
 	private JTextField textField_user;
 	
 	public static void main(String[] args){
 		  JFrame frame = new LoginFrame(); 
 	      frame.setSize(250, 150);
-	      //frame.setLocation(300, 200);
 	      Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	      frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
 	      frame.setVisible(true);
@@ -80,13 +79,8 @@ public class LoginFrame extends JFrame {
 		});
 	}
 	
-	public void openMainFrame(JFrame frame){
-//		JFrame frame = new MainFrame(); 
-		frame.setSize(250, 150);
-		//frame.setLocation(300, 200);
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setSize(dim.width, dim.height);
-		//frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+	public void openMainFrame(BaseFrame frame){ 
+		frame.setMaximized();
 		frame.setVisible(true);
 	}
 }

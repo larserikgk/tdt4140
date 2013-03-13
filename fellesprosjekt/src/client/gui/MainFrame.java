@@ -35,7 +35,7 @@ import java.awt.Dimension;
 
 
 
-public class MainFrame extends JFrame implements PropertyChangeListener {
+public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private static JFrame frame;
 	private JMenuBar menuBar;
 	private JLabel lblSelectedDate, lblMonth, lblFullName;
