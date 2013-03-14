@@ -38,7 +38,7 @@ public class testSqlConnectior {
 		//	addSomeEventDes(dato1, dato2, "haakon1", des, "her");
 			
 			String get = "SELECT * FROM User";
-			sql.getFromUser(get, 3);
+			sql.getFromUser(get, 2);
 			 
 			
 	}

@@ -89,11 +89,12 @@ public class SQLquerries extends SqlConnector
 			return true; 
 		}
 		return false; 
-	}	
+	}		
 	
 	
-	public static ArrayList<ArrayList<String>> getFromUser(String querry, int rows) {
-		ArrayList<String> result = new ArrayList<>();
+	//beste jeg får til... returnerer en liste... 
+	public static ArrayList<String> getFromUser(String querry, int rows) {
+		ArrayList<String> result = new ArrayList<String>();
 		ArrayList<String> mid = new ArrayList<String>();
 		int teller = 0; 
 		
@@ -109,17 +110,15 @@ public class SQLquerries extends SqlConnector
 					System.out.println(i);					
 				}				
 				
-			result.add(mid);	
-
-	
+			
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(result.toString()); 
-		System.out.println(result.get(0)); 
-		return result;
+		System.out.println(mid.toString()); 
+		System.out.println(mid.get(0)); 
+		return mid;
 		
 			//note that getString anomalously starts counting at 1, not 0
 	}
