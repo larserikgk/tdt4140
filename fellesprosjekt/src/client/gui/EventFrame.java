@@ -36,7 +36,8 @@ public abstract class EventFrame extends BaseFrame {
 	private JButton btnFinish, btnCancel, btnDeleteEvent;
 	private Event event, eventOldValue;
 	
-	private JButton btnAddParticipants, btnDeleteParticipants, btnFindRoom;
+	private JButton btnAddParticipants, btnFindRoom;
+	private DatePicker datePicker_1;
 	
 	public EventFrame(final Event event) {
 		super();
@@ -73,48 +74,16 @@ public abstract class EventFrame extends BaseFrame {
 		lblFrom.setForeground(Color.WHITE);
 		getContentPane().add(lblFrom, "cell 2 3,alignx left,aligny center");
 		
-		JPanel panel_6 = new JPanel();
-		getContentPane().add(panel_6, "cell 3 3,grow");
-		panel_6.setLayout(new MigLayout("", "[][grow][][][]", "[]"));
-		
-		JSpinner spinner_3 = new JSpinner();
-		panel_6.add(spinner_3, "cell 0 0");
-		
-		JComboBox comboBox = new JComboBox();
-		panel_6.add(comboBox, "cell 1 0,growx");
-		
-		JSpinner spinner_2 = new JSpinner();
-		panel_6.add(spinner_2, "cell 2 0");
-		
-		JSpinner spinner_1 = new JSpinner();
-		panel_6.add(spinner_1, "cell 3 0");
-		
-		JSpinner spinner = new JSpinner();
-		panel_6.add(spinner, "cell 4 0");
+		DatePicker datePicker = new DatePicker();
+		getContentPane().add(datePicker, "cell 3 3,alignx left,growy");
 		
 		JLabel lblTo = new JLabel("To");
 		lblTo.setFont(Settings2.FONT_TEXT2);
 		lblTo.setForeground(Color.WHITE);
 		getContentPane().add(lblTo, "cell 2 4,alignx left,aligny center");
 		
-		JPanel panel_7 = new JPanel();
-		getContentPane().add(panel_7, "cell 3 4,grow");
-		panel_7.setLayout(new MigLayout("", "[][grow][][][]", "[]"));
-		
-		JSpinner spinner_6 = new JSpinner();
-		panel_7.add(spinner_6, "cell 0 0");
-		
-		JComboBox comboBox_1 = new JComboBox();
-		panel_7.add(comboBox_1, "cell 1 0,growx");
-		
-		JSpinner spinner_7 = new JSpinner();
-		panel_7.add(spinner_7, "cell 2 0");
-		
-		JSpinner spinner_5 = new JSpinner();
-		panel_7.add(spinner_5, "cell 3 0");
-		
-		JSpinner spinner_4 = new JSpinner();
-		panel_7.add(spinner_4, "cell 4 0");
+		datePicker_1 = new DatePicker();
+		getContentPane().add(datePicker_1, "cell 3 4,alignx left,growy");
 		
 		JLabel lblParticipants = new JLabel("Participants");
 		lblParticipants.setFont(Settings2.FONT_TEXT2);
@@ -245,7 +214,6 @@ public abstract class EventFrame extends BaseFrame {
 		panel_8.setVisible(b);
 		panel_4.setVisible(b);
 		panel_5.setVisible(b);
-		btnDeleteParticipants.setEnabled(b);
 		btnFindRoom.setEnabled(b);
 		textField_title.setEditable(b);
 		textField_location.setEditable(b);
