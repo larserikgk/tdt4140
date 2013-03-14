@@ -14,6 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import common.models.User;
+
 import java.awt.GridLayout;
 import java.util.Arrays;
 
@@ -75,7 +78,7 @@ public class LoginFrame extends BaseFrame {
 				String user = textField_user.getText();
 				if (isCorrectPassword(passwordField.getPassword())) {
 					System.out.println("ACCESS GRANTED for user: "+user);
-					MainFrame mf = new MainFrame();
+					MainFrame mf = new MainFrame());
 					mf.setUser(user);
 					mf.setVisible(true);
 					dispose();
