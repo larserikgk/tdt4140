@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
+
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -39,6 +41,9 @@ import java.awt.Dimension;
 import javax.swing.JLayeredPane;
 import javax.swing.JPopupMenu;
 
+import common.models.Event;
+import common.models.User;
+
 
 
 public class MainFrame extends BaseFrame implements PropertyChangeListener {
@@ -55,18 +60,22 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	public static Color BUTTONBLUE	= new Color(24,161,195);
 	
 	
-	public static void main (String args[]) { 
-	        frame = new MainFrame(); 
-	        frame.setSize(700, 500);
-	        frame.setLocation(300, 200);
-	        frame.setVisible(true);
+	//TESTING TESTING! 1, 2, 1, 2
+	public static void main (String args[]) {
+		User testUser = new User("TestUserName", "test", "TestUser");
+		Event testEvent = new Event(12, "TestMøte", new Date(2013, 2, 21, 12, 30), new Date(2013, 2, 21, 14, 30));
+		testUser.addEvent(testEvent);
+		frame = new MainFrame(testUser); 
+		frame.setSize(700, 500);
+		frame.setLocation(300, 200);
+		frame.setVisible(true);
 	}
 	 
-	public MainFrame() {
+	public MainFrame(User user) {
 		super();
 		setMaximized();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
-		
+				
 		// MENU BAR
 		menuBar = new JMenuBar();
 		menuBar.setToolTipText("");
@@ -218,10 +227,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		getContentPane().add(panel_4, "cell 0 1,grow");
 		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		coolCalendar = new CoolCalendar();
+		coolCalendar = new CoolCalendar(user.getEventCalendar());
 		panel_4.add(coolCalendar);
 		
 		coolCalendar.addPropertyChangeListener(this);
+		//this.addPropertyChangeListener(coolCalendar);
 				
 		
 		panel_1 = new JPanel();
@@ -334,6 +344,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	public void propertyChange(PropertyChangeEvent evt) 
 	{		
+		
 		if(evt.getPropertyName().equals("selectedDate"))
 		{
 			if(!(evt.getNewValue() instanceof Date))

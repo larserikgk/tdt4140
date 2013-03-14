@@ -1,11 +1,14 @@
 package client.gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JToggleButton;
 
-public class Cell extends JToggleButton
+public class Cell extends JToggleButton implements PropertyChangeListener
 {
 	/**
 	 * 
@@ -18,11 +21,15 @@ public class Cell extends JToggleButton
 		setBorder(BorderFactory.createLineBorder(Settings.CELL_BORDER_COLOR));
 	}
 	
-	public Cell(String label, boolean enabled)
+	public Cell(String label, boolean enabled, boolean hasEvents)
 	{
 		super(label);
 		setEnabled(enabled);
-		setBorder(BorderFactory.createLineBorder(Settings.CELL_BORDER_COLOR));
+		if (hasEvents) {
+			setBorder(BorderFactory.createLineBorder(Color.red));
+		} else {
+			setBorder(BorderFactory.createLineBorder(Settings.CELL_BORDER_COLOR));
+		}
 	}
 	
 	@Override
@@ -42,5 +49,10 @@ public class Cell extends JToggleButton
 		g.drawString(getText(), 
 					(getWidth() - g.getFontMetrics().stringWidth(getText())-10),
 					(g.getFontMetrics().getAscent())+10);
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		// TODO Auto-generated method stub
 	}
 }

@@ -8,7 +8,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 
-//No worries, skal gjøre litt heftig refactor av navn her..
+import common.models.EventCalendar;
+
+//No worries, skal gjï¿½re litt heftig refactor av navn her..
 public class CoolCalendar extends JPanel implements PropertyChangeListener 
 {
 	private static final long 	serialVersionUID = 1L;
@@ -16,26 +18,29 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	private GregorianCalendar calendar;
 	private Daybar 	daybar;
 	private Core 	core;
+	private EventCalendar eventCalendar;
 	
-	public CoolCalendar()
+	public CoolCalendar(EventCalendar eventCalendar)
 	{	
+		this.eventCalendar = eventCalendar;
 		calendar = new GregorianCalendar();
-		init();
+		init(eventCalendar);
 	}
-		
+	
+	/*
 	public CoolCalendar(GregorianCalendar calendar)
 	{	
 		this.calendar = calendar;
 		init();
-	}
+	}*/
 	
-	private void init()
+	private void init(EventCalendar eventCalendar)
 	{
 		constraints 		= new GridBagConstraints();
 		constraints.fill 	= GridBagConstraints.BOTH;
 		constraints.weightx	= 1;
 		setLayout(new GridBagLayout());
-		setCore(new Core(calendar));
+		setCore(new Core(calendar, eventCalendar));
 		setDaybar(new Daybar());
 	}
 	
@@ -82,6 +87,7 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	{	
 		this.core = core;
 		this.core.addPropertyChangeListener(this);
+		//this.addPropertyChangeListener(this.core);
 		
 		if(daybar!=null)
 			core.addPropertyChangeListener(daybar);
@@ -97,18 +103,18 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 		return calendar.get(Calendar.MONTH);
 	}
 	
-	//Flytter kalenderen til neste måned.
+	//Flytter kalenderen til neste mï¿½ned.
 	public void nextMonth()
 	{
 		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+1);
-		setCore(new Core(calendar));
+		setCore(new Core(calendar, eventCalendar));
 	}
 	
-	//Flytter kalenderen til forrige måned.
+	//Flytter kalenderen til forrige mï¿½ned.
 	public void previousMonth()
 	{
 		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)-1);
-		setCore(new Core(calendar));
+		setCore(new Core(calendar, eventCalendar));
 	}
 
 	@Override
