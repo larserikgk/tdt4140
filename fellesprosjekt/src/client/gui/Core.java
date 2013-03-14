@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -48,8 +49,8 @@ public class Core extends JPanel implements ActionListener
 		for(int i=1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH);i++)
 		{
 			Date tmpDate = new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), i);
-			boolean b=false;			
-			if (eventCalendar.getEvents(tmpDate) != null) {
+			boolean b=false;
+			if (eventCalendar.getEvents(tmpDate).size() != 0) {
 				System.out.println("Found Event" + tmpDate);
 				b = true;
 			}

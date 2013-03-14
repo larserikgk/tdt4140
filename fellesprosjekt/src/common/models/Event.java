@@ -22,6 +22,10 @@ public class Event {
 		this.start = start;
 		this.end = end;
 	}
+	
+	public String toString() {
+		return name + ", " + start.toString();
+	}
 
 	public User getAdmin() {
 		return admin;

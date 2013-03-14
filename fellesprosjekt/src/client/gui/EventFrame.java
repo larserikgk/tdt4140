@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import net.miginfocom.swing.MigLayout;
 import java.awt.GridLayout;
+import java.beans.PropertyChangeSupport;
 import java.util.Date;
 
 import javax.swing.JComboBox;
@@ -20,6 +21,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
 
 import common.models.Event;
+import common.models.EventCalendar;
 import common.models.User;
 
 public abstract class EventFrame extends BaseFrame {
@@ -35,6 +37,7 @@ public abstract class EventFrame extends BaseFrame {
 	
 	private JButton btnAddParticipants, btnFindRoom;
 	private DatePicker datePickerEnd, datePickerStart;
+	
 	
 	public EventFrame(final Event event) {
 		super();
@@ -163,9 +166,10 @@ public abstract class EventFrame extends BaseFrame {
 		panel_8.add(btnDeleteEvent);
 		btnDeleteEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Event oldValue = event;
+				User admin = event.getAdmin();
+				EventCalendar oldValue = admin.getEventCalendar();
 				event.delete();
-				firePropertyChange("EventDeleted", oldValue, null);
+				firePropertyChange("EventsCalendarChanged", oldValue, admin.getEventCalendar());
 			}
 		});
 		
@@ -231,12 +235,13 @@ public abstract class EventFrame extends BaseFrame {
 				setEventNewAttributes();
 				Event newValue = event;
 				User admin = event.getAdmin();
+				EventCalendar oldValue = admin.getEventCalendar();
 				if (EventFrame.this instanceof CreateEventFrame) {
 					admin.addEvent(event);
 				} else {
 					admin.editEvent(event, eventOldValue);
 				}
-				firePropertyChange("EventChanged", null, newValue);
+				firePropertyChange("EventsCalendarChanged", oldValue, admin.getEventCalendar());
 			}
 
 		});

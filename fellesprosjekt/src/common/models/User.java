@@ -1,6 +1,7 @@
 package common.models;
 
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class User {
@@ -35,7 +36,7 @@ public class User {
 		
 	}
 	
-	public Event getEvents(Date date) {
+	public ArrayList<Event> getEvents(Date date) {
 		return eventCalendar.getEvents(date);
 	}
 

@@ -1,5 +1,6 @@
 package common.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -19,15 +20,16 @@ public class EventCalendar {
 		eventList.remove(event);
 	}
 	
-	public Event getEvents(Date date) {
+	public ArrayList<Event> getEvents(Date date) {
+		ArrayList<Event> events = new ArrayList<Event>();
 		for (int i = 0; i < eventList.size(); i++) 
 		{
 			Date tmpDate = eventList.get(i).getStart();
 			if (tmpDate.getYear() == date.getYear() && tmpDate.getDate() == date.getDate() && tmpDate.getMonth() == date.getMonth()) {
-				return eventList.get(i);
+				events.add(eventList.get(i));
 			}
 		}
-		return null;
+		return events;
 	}
 
 }

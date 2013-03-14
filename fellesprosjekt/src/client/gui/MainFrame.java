@@ -35,7 +35,10 @@ import java.awt.Component;
 import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
+
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import javax.swing.JLayeredPane;
@@ -56,6 +59,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private Date selectedDate;
 	private JPanel panel_1;
 	private User user;
+	private JList selectedDateEventList;
 	
 	
 	//TESTING TESTING! 1, 2, 1, 2
@@ -254,28 +258,21 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		lblSelectedDate.setForeground(Color.WHITE);
 		panel.add(lblSelectedDate, "cell 0 0");
 		
-		final JList list = new JList();
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setCellRenderer(new SelectedListCellRenderer());
-		list.setForeground(Color.WHITE);
-		list.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Tannlege idag, der og da", "Avtale imorgen, hvem/hva/hvor", "w", "x", "y", "z"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		panel.add(list, "cell 0 1 2 1,grow");
+		//List for showing the selectedDate's events
+		selectedDateEventList = new JList();
+		selectedDateEventList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		selectedDateEventList.setCellRenderer(new SelectedListCellRenderer());
+		selectedDateEventList.setForeground(Color.WHITE);
+		selectedDateEventList.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
+		//setListModel(selectedDateEventList);
+		panel.add(selectedDateEventList, "cell 0 1 2 1,grow");
 		
-		list.addMouseListener(new MouseAdapter() {
+		selectedDateEventList.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
-		        if (evt.getClickCount() == 2 && !list.isSelectionEmpty()) {
+		        if (evt.getClickCount() == 2 && !selectedDateEventList.isSelectionEmpty()) {
 		            //SHOW OR EDIT????? MUST KNOW! URGENT!
 		            EventFrame ef = new ShowEventFrame(new Event());
-		            ef.setEventTitle((String) list.getSelectedValue());
+		            ef.setEventTitle((String) selectedDateEventList.getSelectedValue());
 		            openFrameOnTop(ef);
 		            ef.addPropertyChangeListener(MainFrame.this);
 		        }
@@ -295,7 +292,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			public void actionPerformed(ActionEvent arg0) {
 				//SHOW OR EDIT????? MUST KNOW! URGENT!
 	            EventFrame ef = new ShowEventFrame(new Event());
-	            ef.setEventTitle((String) list.getSelectedValue());
+	            ef.setEventTitle((String) selectedDateEventList.getSelectedValue());
 	            openFrameOnTop(ef);
 	            ef.addPropertyChangeListener(MainFrame.this);
 			}
@@ -305,9 +302,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnShowEvent.setVisible(false);
 		panel_6.setVisible(false);
 		
-		list.addListSelectionListener(new ListSelectionListener() {
+		selectedDateEventList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				if (list.isSelectionEmpty()) {
+				if (selectedDateEventList.isSelectionEmpty()) {
 					btnShowEvent.setVisible(false);
 					panel_6.setVisible(false);
 				} else {
@@ -346,9 +343,34 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnPrevMonth.setText(Settings2.MONTHS[((coolCalendar.getMonth() - 1) % 12 + 12) % 12].substring(0, 3));
 	}
 	
+	public void setListModel(JList list) {
+		System.out.println("setlistModel invoked");
+		//System.out.println(selectedDate);
+		final ArrayList<String> values = new ArrayList<String>();
+		selectedDate.setYear(selectedDate.getYear() + 1900);
+		if (user.getEvents(selectedDate).size() != 0) {
+			System.out.println("ifififififififif");
+			for (Event e : user.getEvents(selectedDate)) {
+				values.add(e.toString());
+				System.out.println("event.tostring invoked");
+			}
+		}
+		selectedDateEventList.setModel(new AbstractListModel() {
+			@Override
+			public int getSize() {
+				return (values == null) ? 0 : values.size();
+			}
+			
+			@Override
+			public Object getElementAt(int index) {
+				return (values == null) ? null : values.get(index);
+			}
+		});
+	}
+	
+	@SuppressWarnings("deprecation")
 	public void propertyChange(PropertyChangeEvent evt) 
 	{		
-		
 		if(evt.getPropertyName().equals("selectedDate"))
 		{
 			if(!(evt.getNewValue() instanceof Date))
@@ -356,12 +378,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			
 			selectedDate = (Date)evt.getNewValue();
 			lblSelectedDate.setText(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
+			
+			setListModel(selectedDateEventList);
 		}
-		if (evt.getPropertyName().equals("EventDeleted")) {
-			firePropertyChange("EventsCalendarChanged", null, user.getEventCalendar());
-		}
-		if (evt.getPropertyName().equals("EventChanged")) {
-			firePropertyChange("EventsCalendarChanged", null, user.getEventCalendar());
+		if (evt.getPropertyName().equals("EventsCAlendarchanged")) {
+			firePropertyChange("EventsCalendarChanged", evt.getOldValue(), evt.getNewValue());
 		}
 	}
 	

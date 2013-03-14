@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
@@ -121,6 +122,9 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 		if (evt.getPropertyName().equals("EventsCalendarChanged")) {
 			System.out.println("Evetscalchanged");
 			init((EventCalendar) evt.getNewValue());
+		}
+		if (evt.getPropertyName().equals("selectedDate")) {
+			firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
 		}
 	}	
 }
