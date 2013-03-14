@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Properties;
+
+import common.models.*;
 
 import server.db.SqlConnector;
 import server.logic.Server;
@@ -14,8 +15,8 @@ import server.logic.Server;
 
 public class ClientHandler implements Runnable{
 	private Socket socket;
-	private OutputStream output;
-	private InputStream input;
+	private ObjectOutputStream output;
+	private ObjectInputStream input;
 	private Server server;
 	private String username;
 	private boolean keepGoing = true;
@@ -28,18 +29,45 @@ public class ClientHandler implements Runnable{
 
 	public void run() {
 		try{
-			output = socket.getOutputStream();
-			input  = socket.getInputStream();
-//			username = (String) input.readObject();
+			output = new ObjectOutputStream(socket.getOutputStream());
+			input  = new ObjectInputStream(socket.getInputStream());
+			Request request = (Request) input.readObject();
+			username = (String) input.readObject();
+			
 
 			while(keepGoing){
+				request = (Request) input.readObject();
 
-				
+				switch(request.getType()) {
+				case Request.LOGOUT:
+					keepGoing = false;
+					kill();
+					break;
+
+				default :
+					String result = handleRequest(request);
+					output.writeObject(result);
+					output.flush();
+					break;
+				}
 			}
 		}
 		catch(IOException e) {
-			//TODO exceptions
-		} 
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 
+	}
+	
+	private String handleRequest(Request request) {
+		return null;
+		
+	}
+	
+	private void kill() throws IOException {
+		output.close();
+		input.close();
+		socket.close(); 
 	}
 }
