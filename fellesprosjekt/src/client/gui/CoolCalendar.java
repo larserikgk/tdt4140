@@ -87,7 +87,6 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	{	
 		this.core = core;
 		this.core.addPropertyChangeListener(this);
-		//this.addPropertyChangeListener(this.core);
 		
 		if(daybar!=null)
 			core.addPropertyChangeListener(daybar);
@@ -119,6 +118,8 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
+		if (evt.getPropertyName().equals("EventsCalendarChanged")) {
+			init((EventCalendar) evt.getNewValue());
+		}
 	}	
 }

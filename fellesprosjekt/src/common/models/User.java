@@ -17,8 +17,17 @@ public class User {
 		eventCalendar = new EventCalendar();
 	}
 	
+	public void editEvent(Event newEvent, Event oldEvent) {
+		deleteEvent(oldEvent);
+		addEvent(newEvent);
+	}
+	
 	public EventCalendar getEventCalendar() {
 		return eventCalendar;
+	}
+	
+	public void deleteEvent(Event event) {
+		eventCalendar.remove(event);
 	}
 	
 	public void addEvent(Event event) {

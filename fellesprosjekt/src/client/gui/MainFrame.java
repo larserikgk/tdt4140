@@ -54,6 +54,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private CoolCalendar coolCalendar;
 	private Date selectedDate;
 	private JPanel panel_1;
+	private User user;
 	
 	//Colors
 	public static Color PANELGRAY	= new Color(33,33,33);
@@ -63,18 +64,20 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	//TESTING TESTING! 1, 2, 1, 2
 	public static void main (String args[]) {
 		User testUser = new User("TestUserName", "test", "TestUser");
-		Event testEvent = new Event(12, "TestMøte", new Date(2013, 2, 21, 12, 30), new Date(2013, 2, 21, 14, 30));
-		testUser.addEvent(testEvent);
+		//Event testEvent = new Event(12, "TestMøte", new Date(2013, 2, 21, 12, 30), new Date(2013, 2, 21, 14, 30));
+		//testUser.addEvent(testEvent);
 		frame = new MainFrame(testUser); 
 		frame.setSize(700, 500);
 		frame.setLocation(300, 200);
 		frame.setVisible(true);
 	}
 	 
-	public MainFrame(User user) {
+	public MainFrame(final User user) {
 		super();
 		setMaximized();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
+		
+		this.user = user;
 				
 		// MENU BAR
 		menuBar = new JMenuBar();
@@ -231,7 +234,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_4.add(coolCalendar);
 		
 		coolCalendar.addPropertyChangeListener(this);
-		//this.addPropertyChangeListener(coolCalendar);
+		this.addPropertyChangeListener(coolCalendar);
 				
 		
 		panel_1 = new JPanel();
@@ -275,9 +278,10 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		    public void mouseClicked(MouseEvent evt) {
 		        if (evt.getClickCount() == 2 && !list.isSelectionEmpty()) {
 		            //SHOW OR EDIT????? MUST KNOW! URGENT!
-		            EventFrame ef = new ShowEventFrame();
+		            EventFrame ef = new ShowEventFrame(new Event());
 		            ef.setEventTitle((String) list.getSelectedValue());
 		            openFrameOnTop(ef);
+		            ef.addPropertyChangeListener(MainFrame.this);
 		        }
 		    }
 		});
@@ -294,9 +298,10 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnShowEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//SHOW OR EDIT????? MUST KNOW! URGENT!
-	            EventFrame ef = new ShowEventFrame();
+	            EventFrame ef = new ShowEventFrame(new Event());
 	            ef.setEventTitle((String) list.getSelectedValue());
-	            openFrameOnTop(ef);	
+	            openFrameOnTop(ef);
+	            ef.addPropertyChangeListener(MainFrame.this);
 			}
 		});
 		
@@ -329,7 +334,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_3.add(btnCreateEvent);
 		btnCreateEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openFrameOnTop(new CreateEventFrame());
+				EventFrame ef = new CreateEventFrame(new Event(user, selectedDate, selectedDate));
+				ef.addPropertyChangeListener(MainFrame.this);
+				openFrameOnTop(ef);
 			}
 		});
 		
@@ -352,6 +359,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			
 			selectedDate = (Date)evt.getNewValue();
 			lblSelectedDate.setText(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
+		}
+		if (evt.getPropertyName().equals("EventDeleted")) {
+			firePropertyChange("EventsCalendarChanged", null, user.getEventCalendar());
 		}
 	}
 	

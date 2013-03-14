@@ -15,6 +15,10 @@ public class EventCalendar {
 		eventList.add(event);	
 	}
 	
+	public void remove(Event event) {
+		eventList.remove(event);
+	}
+	
 	public Event getEvents(Date date) {
 		for (int i = 0; i < eventList.size(); i++) 
 		{

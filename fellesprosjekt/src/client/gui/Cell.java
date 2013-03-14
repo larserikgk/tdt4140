@@ -8,7 +8,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.BorderFactory;
 import javax.swing.JToggleButton;
 
-public class Cell extends JToggleButton implements PropertyChangeListener
+public class Cell extends JToggleButton
 {
 	/**
 	 * 
@@ -49,10 +49,5 @@ public class Cell extends JToggleButton implements PropertyChangeListener
 		g.drawString(getText(), 
 					(getWidth() - g.getFontMetrics().stringWidth(getText())-10),
 					(g.getFontMetrics().getAscent())+10);
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		// TODO Auto-generated method stub
 	}
 }

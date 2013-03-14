@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
+import common.models.User;
+
 public abstract class BaseFrame extends JFrame {
 	
 	private JFrame parentFrame;

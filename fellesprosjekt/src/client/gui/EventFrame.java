@@ -23,19 +23,27 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
 import javax.swing.JSpinner;
 
+import common.models.Event;
+import common.models.User;
+
 public abstract class EventFrame extends BaseFrame {
 	
 	private JTextField textField_title, textField_location;
 	private JTextPane textPane_description; 
 	private JLabel lblMainTitle;
 	private JComboBox comboBox_repeat;
-	private JPanel panel_3, panel_4, panel_5, panel;
-	private JButton btnClose, btnCancel;
+	private JPanel panel_4, panel_5, panel, panel_8;
+	private JButton btnFinish, btnCancel, btnDeleteEvent;
+	private Event event, eventOldValue;
 	
 	private JButton btnAddParticipants, btnDeleteParticipants, btnFindRoom;
 	
-	public EventFrame() {
+	public EventFrame(final Event event) {
 		super();
+		
+		this.event = event;
+		eventOldValue = event;
+		
 		setResizable(false);
 		setSize(709, 517);
 		setCentered();
@@ -140,18 +148,6 @@ public abstract class EventFrame extends BaseFrame {
 		
 		panel_4.add(btnAddParticipants);
 		
-				
-		panel_3 = new JPanel();
-		panel_3.setBackground(Settings2.COLOR_DARK_GRAY);
-		panel_2.add(panel_3, "cell 0 1,grow");
-		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		btnDeleteParticipants = new JButton("Delete participants");
-		btnDeleteParticipants.setContentAreaFilled(false);
-		btnDeleteParticipants.setForeground(Color.white);
-		btnDeleteParticipants.setBorderPainted(false);
-		panel_3.add(btnDeleteParticipants);
-		
 		panel_5 = new JPanel();
 		panel_5.setBackground(Settings2.COLOR_DARK_GRAY);
 		panel_2.add(panel_5, "cell 0 7,grow");
@@ -188,6 +184,24 @@ public abstract class EventFrame extends BaseFrame {
 		
 		textPane_description = new JTextPane();
 		getContentPane().add(textPane_description, "cell 3 8,grow");
+	
+		panel_8 = new JPanel();
+		panel_8.setBackground(Settings2.COLOR_LIGHT_BLUE);
+		getContentPane().add(panel_8, "cell 2 10,alignx left,aligny center");
+		panel_8.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		btnDeleteEvent = new JButton("Delete event");
+		btnDeleteEvent.setForeground(Color.WHITE);
+		btnDeleteEvent.setContentAreaFilled(false);
+		btnDeleteEvent.setBorderPainted(false);
+		panel_8.add(btnDeleteEvent);
+		btnDeleteEvent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Event oldValue = event;
+				event.delete();
+				firePropertyChange("EventDeleted", oldValue, null);
+			}
+		});
 		
 		panel = new JPanel();
 		getContentPane().add(panel, "cell 4 10,alignx right,aligny center");
@@ -211,11 +225,11 @@ public abstract class EventFrame extends BaseFrame {
 		getContentPane().add(panel_1, "cell 5 10,alignx left,aligny center");
 		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		btnClose = new JButton("Create");
-		btnClose.setForeground(Color.WHITE);
-		btnClose.setContentAreaFilled(false);
-		btnClose.setBorderPainted(false);
-		panel_1.add(btnClose);
+		btnFinish = new JButton("Create");
+		btnFinish.setForeground(Color.WHITE);
+		btnFinish.setContentAreaFilled(false);
+		btnFinish.setBorderPainted(false);
+		panel_1.add(btnFinish);
 	}
 	
 	public void setEventTitle(String title){
@@ -227,7 +241,8 @@ public abstract class EventFrame extends BaseFrame {
 		btnAddParticipants.setEnabled(b);
 		panel.setVisible(b);
 		btnCancel.setEnabled(b);
-		panel_3.setVisible(b);
+		btnDeleteEvent.setEnabled(b);
+		panel_8.setVisible(b);
 		panel_4.setVisible(b);
 		panel_5.setVisible(b);
 		btnDeleteParticipants.setEnabled(b);
@@ -237,8 +252,24 @@ public abstract class EventFrame extends BaseFrame {
 		textPane_description.setEditable(b); 
 	}
 	
-	public void setCloseButton(String s) {
-		btnClose.setText(s);
+	public void setFinishButtonAction() {
+		btnFinish.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Event newValue = event;
+				User admin = event.getAdmin();
+				if (EventFrame.this instanceof CreateEventFrame) {
+					admin.addEvent(event);
+				} else {
+					admin.editEvent(event, eventOldValue);
+				}
+				firePropertyChange("EventChanged", null, newValue);		
+			}
+		});
+	}
+	
+	public void setFinishButtonText(String s) {
+		btnFinish.setText(s);
 	}
 	
 	public void setMainTitle(String s) {

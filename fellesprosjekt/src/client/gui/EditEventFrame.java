@@ -5,7 +5,9 @@ public class EditEventFrame extends EventFrame {
 	public EditEventFrame() {
 		super();
 		setMainTitle("Edit event");
-		setCloseButton("Save");
+		setFinishButtonText("Save");
 		setIsEditable(true);
+		
+		
 	}
 }

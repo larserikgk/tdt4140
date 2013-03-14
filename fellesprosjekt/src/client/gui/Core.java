@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 import common.models.EventCalendar;
 
-public class Core extends JPanel implements ActionListener, PropertyChangeListener
+public class Core extends JPanel implements ActionListener
 {
 	private static final long 	serialVersionUID = 1L;
 	private GregorianCalendar	calendar, copy;
@@ -51,7 +51,6 @@ public class Core extends JPanel implements ActionListener, PropertyChangeListen
 			add(temp);
 			temp.addActionListener(this);
 			cells.add(temp);
-			this.addPropertyChangeListener(temp);
 		}
 		
 		int i = 1;
@@ -96,10 +95,5 @@ public class Core extends JPanel implements ActionListener, PropertyChangeListen
 	public GregorianCalendar getCalendar() 
 	{
 		return calendar;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
-		firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
 	}
 }
