@@ -12,5 +12,6 @@ public class ShowEventFrame extends EventFrame {
 		setMainTitle("Show event");
 		setIsEditable(false);
 		setFinishButtonText("Close");
+		setFinishButtonAction(true);
 	}
 }

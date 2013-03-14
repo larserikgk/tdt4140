@@ -9,6 +9,6 @@ public class CreateEventFrame extends EventFrame {
 		setMainTitle("Create event");
 		setFinishButtonText("Create");
 		setIsEditable(true);
-		
+		setFinishButtonAction(false);
 	}
 }

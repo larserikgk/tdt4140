@@ -9,7 +9,7 @@ public class EditEventFrame extends EventFrame {
 		setMainTitle("Edit event");
 		setFinishButtonText("Save");
 		setIsEditable(true);
-		
-		
+		setFinishButtonAction(false);		
+		setDeleteEventButtonEnabled(true);
 	}
 }

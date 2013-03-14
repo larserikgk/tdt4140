@@ -57,10 +57,6 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private JPanel panel_1;
 	private User user;
 	
-	//Colors
-	public static Color PANELGRAY	= new Color(33,33,33);
-	public static Color BUTTONBLUE	= new Color(24,161,195);
-	
 	
 	//TESTING TESTING! 1, 2, 1, 2
 	/*
@@ -248,7 +244,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_1.add(label, "cell 0 0,alignx left,aligny top");
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(PANELGRAY);
+		panel.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		getContentPane().add(panel, "cell 0 2,grow");
 		panel.setLayout(new MigLayout("", "[grow][]", "[][80%,grow][10%,grow]"));
 		
@@ -262,7 +258,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setCellRenderer(new SelectedListCellRenderer());
 		list.setForeground(Color.WHITE);
-		list.setBackground(PANELGRAY);
+		list.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		list.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Tannlege idag, der og da", "Avtale imorgen, hvem/hva/hvor", "w", "x", "y", "z"};
 			public int getSize() {
@@ -323,7 +319,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		
 				
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(BUTTONBLUE);
+		panel_3.setBackground(Settings2.COLOR_LIGHT_BLUE);
 		panel.add(panel_3, "cell 1 2,alignx right,aligny bottom");
 		panel_3.setLayout(new GridLayout(1, 0, 0, 0));
 		
@@ -362,6 +358,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			lblSelectedDate.setText(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
 		}
 		if (evt.getPropertyName().equals("EventDeleted")) {
+			firePropertyChange("EventsCalendarChanged", null, user.getEventCalendar());
+		}
+		if (evt.getPropertyName().equals("EventChanged")) {
 			firePropertyChange("EventsCalendarChanged", null, user.getEventCalendar());
 		}
 	}

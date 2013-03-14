@@ -119,6 +119,7 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("EventsCalendarChanged")) {
+			System.out.println("Evetscalchanged");
 			init((EventCalendar) evt.getNewValue());
 		}
 	}	

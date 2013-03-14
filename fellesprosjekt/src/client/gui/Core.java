@@ -10,6 +10,7 @@ import java.util.GregorianCalendar;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
+import common.models.Event;
 import common.models.EventCalendar;
 
 public class Core extends JPanel implements ActionListener
@@ -18,6 +19,7 @@ public class Core extends JPanel implements ActionListener
 	private GregorianCalendar	calendar, copy;
 	private ButtonGroup			cells;
 	
+	@SuppressWarnings("deprecation")
 	public Core(GregorianCalendar calendar, EventCalendar eventCalendar)
 	{
 		Cell temp;
@@ -39,13 +41,17 @@ public class Core extends JPanel implements ActionListener
 				cells.add(temp);
 			}
 		
+		for (Event e : eventCalendar.eventList) {
+			System.out.println(e.getStart().toString());
+		}
+		
 		for(int i=1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH);i++)
 		{
 			Date tmpDate = new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), i);
-			System.out.println(tmpDate);
 			boolean b=false;			
 			if (eventCalendar.getEvents(tmpDate) != null) {
-				b=true;
+				System.out.println("Found Event" + tmpDate);
+				b = true;
 			}
 			temp = new Cell(""+i, true, b);
 			add(temp);

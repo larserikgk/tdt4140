@@ -5,7 +5,7 @@ import java.util.Vector;
 
 
 public class EventCalendar {
-	private Vector<Event> eventList;
+	public Vector<Event> eventList;
 	
 	public EventCalendar() {
 		eventList = new Vector<Event>();

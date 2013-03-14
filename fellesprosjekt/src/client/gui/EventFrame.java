@@ -1,16 +1,11 @@
 package client.gui;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -18,26 +13,28 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import net.miginfocom.swing.MigLayout;
 import java.awt.GridLayout;
+import java.util.Date;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
-import javax.swing.JSpinner;
 
 import common.models.Event;
 import common.models.User;
 
 public abstract class EventFrame extends BaseFrame {
 	
-	private JTextField textField_title, textField_location;
+	private JTextField textField_name, textField_location;
 	private JTextPane textPane_description; 
 	private JLabel lblMainTitle;
 	private JComboBox comboBox_repeat;
 	private JPanel panel_4, panel_5, panel, panel_8;
 	private JButton btnFinish, btnCancel, btnDeleteEvent;
 	private Event event, eventOldValue;
+	private JList listParticipants;
 	
 	private JButton btnAddParticipants, btnFindRoom;
-	private DatePicker datePicker_1;
+	private DatePicker datePickerEnd, datePickerStart;
 	
 	public EventFrame(final Event event) {
 		super();
@@ -65,25 +62,25 @@ public abstract class EventFrame extends BaseFrame {
 		lblTitle.setForeground(Color.WHITE);
 		getContentPane().add(lblTitle, "cell 2 2,alignx left,aligny center");
 		
-		textField_title = new JTextField();
-		getContentPane().add(textField_title, "cell 3 2,growx,aligny center");
-		textField_title.setColumns(10);
+		textField_name = new JTextField();
+		getContentPane().add(textField_name, "cell 3 2,growx,aligny center");
+		textField_name.setColumns(10);
 		
 		JLabel lblFrom = new JLabel("From");
 		lblFrom.setFont(Settings2.FONT_TEXT2);
 		lblFrom.setForeground(Color.WHITE);
 		getContentPane().add(lblFrom, "cell 2 3,alignx left,aligny center");
 		
-		DatePicker datePicker = new DatePicker();
-		getContentPane().add(datePicker, "cell 3 3,alignx left,growy");
+		datePickerStart = new DatePicker();
+		getContentPane().add(datePickerStart, "cell 3 3,alignx left,growy");
 		
 		JLabel lblTo = new JLabel("To");
 		lblTo.setFont(Settings2.FONT_TEXT2);
 		lblTo.setForeground(Color.WHITE);
 		getContentPane().add(lblTo, "cell 2 4,alignx left,aligny center");
 		
-		datePicker_1 = new DatePicker();
-		getContentPane().add(datePicker_1, "cell 3 4,alignx left,growy");
+		datePickerEnd = new DatePicker();
+		getContentPane().add(datePickerEnd, "cell 3 4,alignx left,growy");
 		
 		JLabel lblParticipants = new JLabel("Participants");
 		lblParticipants.setFont(Settings2.FONT_TEXT2);
@@ -199,10 +196,15 @@ public abstract class EventFrame extends BaseFrame {
 		btnFinish.setContentAreaFilled(false);
 		btnFinish.setBorderPainted(false);
 		panel_1.add(btnFinish);
+		
+		//Delete event notEnabled by default
+		btnDeleteEvent.setEnabled(false);
+		panel_8.setVisible(false);
 	}
 	
 	public void setEventTitle(String title){
-		textField_title.setText(title);
+		textField_name.setText(title);
+		event.setName(title);
 	}
 	
 	public void setIsEditable(boolean b) {
@@ -215,15 +217,18 @@ public abstract class EventFrame extends BaseFrame {
 		panel_4.setVisible(b);
 		panel_5.setVisible(b);
 		btnFindRoom.setEnabled(b);
-		textField_title.setEditable(b);
+		textField_name.setEditable(b);
 		textField_location.setEditable(b);
 		textPane_description.setEditable(b); 
 	}
 	
-	public void setFinishButtonAction() {
+	public void setFinishButtonAction(final boolean onlyClose) {
 		btnFinish.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				close();
+				if (onlyClose) return;
+				setEventNewAttributes();
 				Event newValue = event;
 				User admin = event.getAdmin();
 				if (EventFrame.this instanceof CreateEventFrame) {
@@ -231,9 +236,35 @@ public abstract class EventFrame extends BaseFrame {
 				} else {
 					admin.editEvent(event, eventOldValue);
 				}
-				firePropertyChange("EventChanged", null, newValue);		
+				firePropertyChange("EventChanged", null, newValue);
 			}
+
 		});
+	}
+
+	@SuppressWarnings("deprecation")
+	public void setEventNewAttributes() {
+		event.setDescription(textPane_description.getText());
+		event.setName(textField_name.getText());
+		Date startDate = datePickerStart.getDateChooser().getDate();
+		startDate.setHours(((Date) datePickerStart.getSpinnerHour().getValue()).getHours());
+		startDate.setMinutes(((Date) datePickerStart.getSpinnerMinute().getValue()).getMinutes());
+		Date endDate = datePickerEnd.getDateChooser().getDate();
+		endDate.setHours(((Date) datePickerStart.getSpinnerHour().getValue()).getHours());
+		endDate.setMinutes(((Date) datePickerStart.getSpinnerMinute().getValue()).getMinutes());
+		event.setStart(startDate);
+		event.setEnd(endDate);
+		event.setLocation(textField_location.getText());
+		
+		//Fordi datoer er jævlig rævva.
+		//Hvilken måned man velger er fortsatt fucka
+		startDate.setYear(startDate.getYear() + 1900);
+		endDate.setYear(endDate.getYear() + 1900);
+	}
+	
+	public void setDeleteEventButtonEnabled(boolean b) {
+		btnDeleteEvent.setEnabled(b);
+		panel_8.setVisible(b);
 	}
 	
 	public void setFinishButtonText(String s) {
@@ -242,7 +273,7 @@ public abstract class EventFrame extends BaseFrame {
 	
 	public void setMainTitle(String s) {
 		lblMainTitle.setText(s);
-	}
+	}	
 }
 
 

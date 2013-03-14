@@ -17,7 +17,8 @@ import net.miginfocom.swing.MigLayout;
 
 public class DatePicker extends JPanel {
 	
-	JDateChooser dateChooser;
+	private JDateChooser dateChooser;
+	private JSpinner spinnerHour, spinnerMinute;
 	
 	public DatePicker() {
 		
@@ -31,10 +32,10 @@ public class DatePicker extends JPanel {
 		SpinnerDateModel model = new SpinnerDateModel();
 		model.setCalendarField(Calendar.HOUR_OF_DAY);
 		
-		JSpinner spinner_hour = new JSpinner();
-		spinner_hour.setModel(model);
-		spinner_hour.setEditor(new JSpinner.DateEditor(spinner_hour, "H"));
-		add(spinner_hour, "cell 2 0,alignx left,aligny top");
+		spinnerHour = new JSpinner();
+		spinnerHour.setModel(model);
+		spinnerHour.setEditor(new JSpinner.DateEditor(spinnerHour, "H"));
+		add(spinnerHour, "cell 2 0,alignx left,aligny top");
 		
 		JLabel label = new JLabel(":");
 		label.setForeground(Color.WHITE);
@@ -42,10 +43,10 @@ public class DatePicker extends JPanel {
 		
 //		SpinnerDateModel model = new SpinnerDateModel();
 //		model.setCalendarField(Calendar.HOUR_OF_DAY);
-		JSpinner spinner_minute = new JSpinner();
-		spinner_minute.setModel(model);
-		spinner_minute.setEditor(new JSpinner.DateEditor(spinner_minute, "mm"));
-		add(spinner_minute, "cell 4 0,alignx left,aligny top");
+		spinnerMinute = new JSpinner();
+		spinnerMinute.setModel(model);
+		spinnerMinute.setEditor(new JSpinner.DateEditor(spinnerMinute, "mm"));
+		add(spinnerMinute, "cell 4 0,alignx left,aligny top");
 	}
 	
 	public void setMinimumDate(Date date){
@@ -53,17 +54,26 @@ public class DatePicker extends JPanel {
 	}
 	
 	public void addListener(){
-		dateChooser.getDateEditor().addPropertyChangeListener(
-			    new PropertyChangeListener() {
-			        @Override
-			        public void propertyChange(PropertyChangeEvent e) {
-			            if ("date".equals(e.getPropertyName())) {
-			                System.out.println(e.getPropertyName()
-			                    + ": " + (Date) e.getNewValue());
-			            }
-			        }
-			    });
-			this.add(dateChooser);
+		dateChooser.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
+			  @Override
+			  public void propertyChange(PropertyChangeEvent e) {
+				  if ("date".equals(e.getPropertyName())) {
+					  System.out.println(e.getPropertyName()
+							  + ": " + (Date) e.getNewValue());
+				  }
+			  }
+		});
+		this.add(dateChooser);
+	}
+	
+	public JDateChooser getDateChooser() {
+		return dateChooser;
+	}
+	public JSpinner getSpinnerHour() {
+		return spinnerHour;
+	}
+	public JSpinner getSpinnerMinute() {
+		return spinnerMinute;
 	}
 
 }

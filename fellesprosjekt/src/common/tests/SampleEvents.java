@@ -20,6 +20,7 @@ public class SampleEvents {
 					"Rom "+i, i, true); 
 			
 			event.setAdmin(su.getSampleUsers().get(i));
+			su.getSampleUsers().get(i).addEvent(event);
 			sampleEvents.add(event);
 		}
 	}
