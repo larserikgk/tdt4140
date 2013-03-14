@@ -47,6 +47,7 @@ import common.models.User;
 
 
 public class MainFrame extends BaseFrame implements PropertyChangeListener {
+	
 	private static JFrame frame;
 	private JMenuBar menuBar;
 	private JLabel lblSelectedDate, lblMonth, lblFullName;
@@ -62,6 +63,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	
 	//TESTING TESTING! 1, 2, 1, 2
+	/*
 	public static void main (String args[]) {
 		User testUser = new User("TestUserName", "test", "TestUser");
 		//Event testEvent = new Event(12, "TestMøte", new Date(2013, 2, 21, 12, 30), new Date(2013, 2, 21, 14, 30));
@@ -70,14 +72,12 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		frame.setSize(700, 500);
 		frame.setLocation(300, 200);
 		frame.setVisible(true);
-	}
+	}*/
 	 
-	public MainFrame(final User user) {
+	public MainFrame(User loggedInUser) {
 		super();
 		setMaximized();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
-		
-		this.user = user;
 				
 		// MENU BAR
 		menuBar = new JMenuBar();
@@ -230,7 +230,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		getContentPane().add(panel_4, "cell 0 1,grow");
 		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		coolCalendar = new CoolCalendar(user.getEventCalendar());
+		coolCalendar = new CoolCalendar(loggedInUser.getEventCalendar());
 		panel_4.add(coolCalendar);
 		
 		coolCalendar.addPropertyChangeListener(this);
@@ -341,6 +341,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		});
 		
 		updateMonthLabels();
+		setUser(loggedInUser);
 	}
 
 	public void updateMonthLabels() {
@@ -365,7 +366,8 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		}
 	}
 	
-	public void setUser(String name){
-		lblFullName.setText(name);
+	public void setUser(User user){
+		this.user = user;
+		lblFullName.setText(user.getName());
 	}
 }

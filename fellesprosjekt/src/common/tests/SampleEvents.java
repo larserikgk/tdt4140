@@ -10,23 +10,29 @@ import common.models.User;
 public class SampleEvents {
 	
 	private ArrayList<Event> sampleEvents = new ArrayList<Event>();
+	private SampleUsers su;
 	
 	public SampleEvents(){
-		for (int i=0; i<10; i++){
-			Event event = new Event();
-			event.setName("Meeting "+i);
-			event.setDescription(i+". møte i 2013");
-			event.setStart(new Date(2013, 3, i, 10, 0));
-			event.setEnd(new Date(2013, 3, i, 12, 0));
-			SampleUsers su = new SampleUsers();
-			event.setParticipants((ArrayList<User>) su.getSampleUsers().subList(0, i));
+		su = new SampleUsers();
+		for (int i=0; i<10; i++){			
+			
+			Event event = new Event(su.getSampleUsers().get(i), i, new Date(2013, 2, i, 10, 0), new Date(2013, 2, i, 10, 0), "TestEvent nr: "+i, "",
+					"Rom "+i, i, true); 
+			
+			event.setAdmin(su.getSampleUsers().get(i));
 			sampleEvents.add(event);
 		}
+	}
+	
+	public SampleUsers getSampleUsers() {
+		return su;
 	}
 	
 	public ArrayList<Event> getSampleEvents(){
 		return sampleEvents;
 	}
 
-
+	public static void main(String args[]) {
+		SampleEvents s = new SampleEvents(); 
+	}
 }

@@ -11,6 +11,7 @@ public class SampleUsers {
 	public SampleUsers(){
 		for (int i=0; i<10; i++){
 			User user = new User("user"+i,i+"", "Person "+i);
+			System.out.println(user.getName());
 			sampleUsers.add(user);
 		}
 	}

@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import common.models.User;
+import common.tests.SampleEvents;
 import common.tests.SampleUsers;
 
 import java.awt.GridLayout;
@@ -76,15 +77,16 @@ public class LoginFrame extends BaseFrame {
 		
 		ActionListener al = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//String username = textField_user.getText();
+				
 				User user = getUser(textField_user.getText());
 				if (user!=null && isCorrectPassword(passwordField.getPassword())) {
 					System.out.println("ACCESS GRANTED for user: "+user);
+					System.out.println(user.getName());
+					
 					MainFrame mf = new MainFrame(user);
 					mf.setVisible(true);
 					dispose();
 				} else {
-					//lblFeedback.setText("The username or password you entered is incorrect.");
 					lblFeedback.setText("<html>The username or password you entered is incorrect.</html>");
 				}
 			}
@@ -112,7 +114,8 @@ public class LoginFrame extends BaseFrame {
 	}
 	
 	private User getUser(String username){
-		SampleUsers su = new SampleUsers();
+		SampleEvents se = new SampleEvents();
+		SampleUsers su = se.getSampleUsers();
 		for (User user : su.getSampleUsers()){
 			if (user.getUsername().equals(username)){
 				return user;
