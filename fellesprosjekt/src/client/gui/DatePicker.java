@@ -1,28 +1,28 @@
 package client.gui;
 
 import java.awt.Color;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SpinnerDateModel;
-
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JSpinner;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import java.awt.Dimension;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import net.miginfocom.swing.MigLayout;
+
+import com.toedter.calendar.JDateChooser;
 
 public class DatePicker extends JPanel {
 	
 	private JDateChooser dateChooser;
 	private JSpinner spinnerHour, spinnerMinute;
+	private Date date, minDate, maxDate;
 	
 	//For testing
 	public static void main(String[] args){
@@ -33,18 +33,28 @@ public class DatePicker extends JPanel {
 		frame.setVisible(true);
 	}
 	
+	//BRUK DENNE KONSTRUKTØREN
 	//Setter dato ved opprettelse, slik at feltet ikke er tomt
 	public DatePicker(Date date){
 		this();
+		this.date = date;
 		setDefaultDate(date);
 	}
 	
 	public DatePicker() {
 		setBackground(Settings2.COLOR_VERY_DARK_GRAY);		
 		setLayout(new MigLayout("insets 0", "[90px][][35px][2px][35px]", "[20px]"));
+		setSize(getPreferredSize());
 		
 		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd.MM.yyyy");
+		dateChooser.setDateFormatString("dd.MM.y");
+		
+		minDate = new Date(0,0,1); //Min date: 1 Jan 1900
+		maxDate = new Date(199,11,31); //Max date: 31 Dec 2099
+		
+		dateChooser.setMinSelectableDate(minDate); 
+		dateChooser.setMaxSelectableDate(maxDate); 
+		
 		add(dateChooser, "cell 0 0,growx,aligny top");
 		
 		SpinnerDateModel model = new SpinnerDateModel();
@@ -66,7 +76,8 @@ public class DatePicker extends JPanel {
 		spinnerMinute.setEditor(new JSpinner.DateEditor(spinnerMinute, "mm"));
 		add(spinnerMinute, "cell 4 0,alignx left,aligny top");
 		
-		setDefaultTime(new Date(0,0,0,11,0)); //Default time: 11:00
+		setDefaultTime(11,0); //Default time: 11:00
+		
 		addListeners();
 	}
 	
@@ -74,7 +85,14 @@ public class DatePicker extends JPanel {
 		dateChooser.setDate(date);
 	}
 	
-	public void setDefaultTime(Date date){
+	public void setDefaultTime(int hours, int minutes){
+		Date time = new Date(0,0,0,hours,minutes);
+		spinnerHour.setValue(time);
+		spinnerMinute.setValue(time);
+	}
+	
+	public void setDate(Date date){
+		dateChooser.setDate(date);
 		spinnerHour.setValue(date);
 		spinnerMinute.setValue(date);
 	}
@@ -88,14 +106,18 @@ public class DatePicker extends JPanel {
 			  @Override
 			  public void propertyChange(PropertyChangeEvent e) {
 				  if ("date".equals(e.getPropertyName())) {
-					  System.out.println("Valgt dato: "+getDate());
+					  if (isValidDate(dateChooser.getDate())){
+						  parseDate();
+						  System.out.println("Valgt dato: "+date);
+					  }
 				  }
 			  }
 		});
 		
 		ChangeListener cl = new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				System.out.println("Valgt dato: "+getDate());
+				parseDate();
+				System.out.println("Valgt dato: "+date);
 			}
 		};
 		
@@ -113,16 +135,24 @@ public class DatePicker extends JPanel {
 		return spinnerMinute;
 	}
 	
-	private Date parsedDate(){
-		Date date = dateChooser.getDate();
-		date.setHours(((Date) spinnerHour.getValue()).getHours());
-		date.setMinutes(((Date) spinnerMinute.getValue()).getMinutes());
-		date.setSeconds(0);
-		return date;
+	public void parseDate(){
+		date = dateChooser.getDate();
+		if (isValidDate(date)){
+			date.setHours(((Date) spinnerHour.getValue()).getHours());
+			date.setMinutes(((Date) spinnerMinute.getValue()).getMinutes());
+			date.setSeconds(0);
+		} else {
+			date = null;
+		}
 	}
 	
 	public Date getDate(){
-		return parsedDate();
+		return date;
+	}
+	
+	public boolean isValidDate(Date date){
+		System.out.println("Gyldig dato: "+ (date.compareTo(minDate)>=0 && date.compareTo(maxDate)<=0));
+		return (date.compareTo(minDate)>=0 && date.compareTo(maxDate)<=0);
 	}
 
 }

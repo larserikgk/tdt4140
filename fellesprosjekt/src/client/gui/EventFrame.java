@@ -75,7 +75,7 @@ public abstract class EventFrame extends BaseFrame {
 		getContentPane().add(lblFrom, "cell 2 3,alignx left,aligny center");
 		
 		datePickerStart = new DatePicker();
-		getContentPane().add(datePickerStart, "cell 3 3,alignx left,growy");
+		getContentPane().add(datePickerStart, "cell 3 3,alignx left,aligny center");
 		
 		JLabel lblTo = new JLabel("To");
 		lblTo.setFont(Settings2.FONT_TEXT2);
@@ -83,7 +83,7 @@ public abstract class EventFrame extends BaseFrame {
 		getContentPane().add(lblTo, "cell 2 4,alignx left,aligny center");
 		
 		datePickerEnd = new DatePicker();
-		getContentPane().add(datePickerEnd, "cell 3 4,alignx left,growy");
+		getContentPane().add(datePickerEnd, "cell 3 4,alignx left,aligny center");
 		
 		JLabel lblParticipants = new JLabel("Participants");
 		lblParticipants.setFont(Settings2.FONT_TEXT2);
