@@ -21,10 +21,11 @@ public class ClientHandler implements Runnable{
 	private String username;
 	private boolean keepGoing = true;
 	private SqlConnector database;
-	
+	private Properties settings;
 	
 	public ClientHandler(Socket socket, Server server, Properties settings) {
-		// TODO Auto-generated constructor stub
+		this.settings = settings;
+		database = new SqlConnector(this.settings);
 	}
 
 	public void run() {

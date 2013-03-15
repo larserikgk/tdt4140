@@ -6,12 +6,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
 
+import common.interfaces.IServerConnector;
 import common.models.*;
 
-public class ServerConnector {
+public class ServerConnector implements IServerConnector{
 	private Socket socket;
 	private Object caller;
 	private String url;
@@ -51,7 +54,7 @@ public class ServerConnector {
 			output.writeObject(username);
 		}
 		catch (IOException eIO) {
-			display("Exception doing login : " + eIO);
+			System.err.println("Exception doing login : " + eIO);
 			disconnect();
 			return false;
 		}
@@ -59,26 +62,17 @@ public class ServerConnector {
 	}
 
 
-	/** Writes parameter to command line or GUI, depending on mode. 
-	 * This primarily send error messages to the server.
-	 * 
-	 * @param req
-	 */
-	private void display(String req) {
-		caller.handleMessage(req + "\n");
-	}
-
 	/**Transmits the request via outputstream to the server.
 	 * 
 	 * @param req
 	 */
 	void sendRequest(Request req) {
 		try {
-			sOutput.writeObject(req);
-			sOutput.flush();
+			output.writeObject(req);
+			output.flush();
 		}
 		catch(IOException e) {
-			display("Exception writing to server: " + e);
+			System.err.println("Exception writing to server: " + e);
 		}
 	}
 
@@ -87,7 +81,7 @@ public class ServerConnector {
 	 */
 	public void disconnect() {
 		try {
-			output.writeObject(new Request(Request.LOGOUT));
+			output.writeObject(new Request(null,Request.LOGOUT));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -109,9 +103,61 @@ public class ServerConnector {
 
 	}
 
+	@Override
+	public User getUser(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	
+	@Override
+	public ArrayList<Event> getEvents(User user, int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public ArrayList<Event> getMeetings(User user, int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Event> getAppointments(User user, int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Notification> getNotifications(User user,
+			boolean unreadOnly, int count) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Event> getEvents(User user, Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Event> getMeetings(User user, Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Event> getAppointments(User user, Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Notification> getNotifications(User user,
+			boolean unreadOnly, Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	private class ListenFromServer extends Thread {
 		public void run() {

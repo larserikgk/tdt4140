@@ -3,7 +3,7 @@ package common.models;
 public class Request {
 	private String query;
 	private int type;
-	public static int QUERY = 1, LOGOUT = 2;
+	public static final int QUERY = 1, LOGOUT = 2;
 	
 	public Request(String query, int type) {
 		this.query = query;

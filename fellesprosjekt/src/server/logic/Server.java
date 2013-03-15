@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Properties;
 import server.net.ClientHandler;
 
@@ -16,6 +15,10 @@ public class Server {
 
 	public Server(int port) {
 		settings.setProperty("port", Integer.toString(port));
+		settings.setProperty("url","");
+		settings.setProperty("database", "");
+		settings.setProperty("username", "");
+		settings.setProperty("password", "");
 		this.port = port;
 		connectedClients = new ArrayList<ClientHandler>();
 		
