@@ -1,14 +1,43 @@
 package common.models;
 
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class User {
 	private String username;
 	private String password;
 	private String name;
+	private EventCalendar eventCalendar;
+	private PropertyChangeSupport pcs;
 	
 	public User(String username, String password, String name){
 		this.username = username;
 		this.password = password;
 		this.name = name;
+		eventCalendar = new EventCalendar();
+	}
+	
+	public void editEvent(Event newEvent, Event oldEvent) {
+		deleteEvent(oldEvent);
+		addEvent(newEvent);
+	}
+	
+	public EventCalendar getEventCalendar() {
+		return eventCalendar;
+	}
+	
+	public void deleteEvent(Event event) {
+		eventCalendar.remove(event);
+	}
+	
+	public void addEvent(Event event) {
+		eventCalendar.add(event, event.getStart());
+		
+	}
+	
+	public ArrayList<Event> getEvents(Date date) {
+		return eventCalendar.getEvents(date);
 	}
 
 	public String getUsername() {
@@ -33,6 +62,5 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-	
+	}	
 }

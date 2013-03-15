@@ -2,11 +2,17 @@ package client.gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
+
+import common.models.Event;
+import common.models.EventCalendar;
 
 public class Core extends JPanel implements ActionListener
 {
@@ -14,7 +20,8 @@ public class Core extends JPanel implements ActionListener
 	private GregorianCalendar	calendar, copy;
 	private ButtonGroup			cells;
 	
-	public Core(GregorianCalendar calendar)
+	@SuppressWarnings("deprecation")
+	public Core(GregorianCalendar calendar, EventCalendar eventCalendar)
 	{
 		Cell temp;
 				
@@ -30,22 +37,33 @@ public class Core extends JPanel implements ActionListener
 		if(copy.get(Calendar.MONTH)!=calendar.get(Calendar.MONTH))
 			for(int i=copy.get(Calendar.DAY_OF_MONTH); i<=copy.getActualMaximum(Calendar.DAY_OF_MONTH);i++)
 			{
-				temp = new Cell(""+i, false);
+				temp = new Cell(""+i, false, false);
 				add(temp);
 				cells.add(temp);
 			}
 		
+		for (Event e : eventCalendar.eventList) {
+			System.out.println(e.getStart().toString());
+		}
+		
 		for(int i=1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH);i++)
 		{
-			temp = new Cell(""+i, true);
+			Date tmpDate = new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), i);
+			boolean b=false;
+			if (eventCalendar.getEvents(tmpDate).size() != 0) {
+				System.out.println("Found Event" + tmpDate);
+				b = true;
+			}
+			temp = new Cell(""+i, true, b);
 			add(temp);
 			temp.addActionListener(this);
 			cells.add(temp);
 		}
+		
 		int i = 1;
 		while(getComponentCount()<42)
 		{
-			temp = new Cell(""+i, false);
+			temp = new Cell(""+i, false, false);
 			add(temp);
 			cells.add(temp);
 			i++;

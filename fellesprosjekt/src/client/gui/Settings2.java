@@ -3,8 +3,10 @@ package client.gui;
 import java.awt.Color;
 import java.awt.Font;
 
+import common.models.User;
+
 public class Settings2 
-{	
+{		
 	static final Color COLOR_VERY_DARK_GRAY = new Color(33,33,33);
 	static final Color COLOR_DARK_GRAY = Color.DARK_GRAY;
 	static final Color COLOR_LIGHT_BLUE = new Color(24,161,195);

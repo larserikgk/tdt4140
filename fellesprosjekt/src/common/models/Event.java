@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Event {
 	
+	private User admin;
 	private int id;
 	private Date start;
 	private Date end;
@@ -14,20 +15,32 @@ public class Event {
 	private boolean isMeeting;
 	private ArrayList<User> participants = new ArrayList<User>();
 	
-	
-	public Event(int id, String name, Date start, Date end){
-		this.id = id;
-		this.name = name;
+	public Event(User admin, Date start, Date end) {
+		this.admin = admin;
+		this.id = 12;
+		this.name = "New meeting";
 		this.start = start;
 		this.end = end;
 	}
+	
+	public String toString() {
+		return name + ", " + start.toString();
+	}
 
+	public User getAdmin() {
+		return admin;
+	}
+	
+	public void setAdmin(User admin) {
+		this.admin = admin;
+	}
+	
 	public Event() {
 		// TODO Auto-generated constructor stub
 	}
-	public Event(int id, Date start, Date end, String name, String description,
-			String location, int bookingId, boolean isMeeting,
-			ArrayList<User> participants) {
+	public Event(User admin, int id, Date start, Date end, String name, String description,
+			String location, int bookingId, boolean isMeeting) {
+		this.admin = admin;
 		this.id = id;
 		this.name = name;
 		this.start = start;
@@ -36,7 +49,14 @@ public class Event {
 		this.location = location;
 		this.bookingId = bookingId;
 		this.isMeeting = isMeeting;
-		this.participants = participants;
+		//this.participants = participants;
+	}
+	
+	public void delete() {
+		for (User participant : participants) {
+			participant.deleteEvent(this);
+		}
+		return;
 	}
 	
 	public String getName() {

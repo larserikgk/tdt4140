@@ -1,11 +1,14 @@
 package client.gui;
 
+import common.models.Event;
+
 public class CreateEventFrame extends EventFrame {
 	
-	public CreateEventFrame() {
-		super();
+	public CreateEventFrame(Event event) {
+		super(event);
 		setMainTitle("Create event");
-		setCloseButton("Create");
+		setFinishButtonText("Create");
 		setIsEditable(true);
+		setFinishButtonAction(false);
 	}
 }
