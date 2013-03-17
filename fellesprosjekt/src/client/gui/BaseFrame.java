@@ -46,6 +46,10 @@ public abstract class BaseFrame extends JFrame {
 		this.parentFrame = parentFrame;
 	}
 	
+	public JFrame getParentFrame(){
+		return parentFrame;
+	}
+	
 	public void close(){
 		if (parentFrame != null){
 			parentFrame.setEnabled(true);

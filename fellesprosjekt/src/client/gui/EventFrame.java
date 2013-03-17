@@ -1,14 +1,16 @@
-package client.gui;
+ package client.gui;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 import net.miginfocom.swing.MigLayout;
@@ -34,6 +36,7 @@ public abstract class EventFrame extends BaseFrame {
 	private JButton btnFinish, btnCancel, btnDeleteEvent;
 	private Event event, eventOldValue;
 	private JList listParticipants;
+	private DefaultListModel<User> listModel;
 	
 	private JButton btnAddParticipants, btnFindRoom;
 	private DatePicker datePickerEnd, datePickerStart;
@@ -90,8 +93,13 @@ public abstract class EventFrame extends BaseFrame {
 		lblParticipants.setForeground(Color.WHITE);
 		getContentPane().add(lblParticipants, "cell 2 5,alignx left,aligny top");
 		
-		JList list_participants = new JList();
-		getContentPane().add(list_participants, "cell 3 5,grow");
+		
+		listModel = new DefaultListModel<User>();
+		listParticipants = new JList(listModel);
+		listParticipants.setCellRenderer(new UserListRenderer());
+		setupParticipants();
+		JScrollPane participantsScrollPane = new JScrollPane(listParticipants);
+		getContentPane().add(participantsScrollPane, "cell 3 5,grow");
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
@@ -127,6 +135,11 @@ public abstract class EventFrame extends BaseFrame {
 		btnFindRoom.setContentAreaFilled(false);
 		btnFindRoom.setBorderPainted(false);
 		btnFindRoom.setForeground(Color.white);
+		btnFindRoom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openFrameOnTop(new RoomFinderFrame(1));
+			}
+		});
 		
 		JLabel lblRepeat = new JLabel("Repeat");
 		lblRepeat.setFont(Settings2.FONT_TEXT2);
@@ -278,8 +291,18 @@ public abstract class EventFrame extends BaseFrame {
 	
 	public void setMainTitle(String s) {
 		lblMainTitle.setText(s);
-	}	
+	}
+	
+	public void setupParticipants(){
+		if (event.getParticipants() != null){
+	    	for (User user : event.getParticipants()){
+	    		listModel.addElement(user);
+	    	}
+	    }
+	}
+	
+	public Event getEvent(){
+		return event;
+	}
+	
 }
-
-
-

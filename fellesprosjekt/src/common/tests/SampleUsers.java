@@ -6,18 +6,26 @@ import common.models.User;
 
 public class SampleUsers {
 	
-	private ArrayList<User> sampleUsers = new ArrayList<User>();
+	private static int userCount = 100;
+	private static ArrayList<User> sampleUsers = new ArrayList<User>();
+	private static User[] sampleUsersList = new User[userCount];
 	
-	public SampleUsers(){
-		for (int i=0; i<10; i++){
+	public static void generateLists(){
+		for (int i=0; i<userCount; i++){
 			User user = new User("user"+i,i+"", "Person "+i);
-			System.out.println(user.getName());
+			sampleUsersList[i] = user;
 			sampleUsers.add(user);
 		}
 	}
 	
-	public ArrayList<User> getSampleUsers(){
+	public static ArrayList<User> getSampleUsers(){
+		generateLists();
 		return sampleUsers;
+	}
+	
+	public static User[] getSampleUsersList(){
+		generateLists();
+		return sampleUsersList;
 	}
 
 }

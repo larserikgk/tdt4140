@@ -5,35 +5,36 @@ import java.util.Calendar;
 import java.util.Date;
 
 import common.models.Event;
+import common.models.Room;
 import common.models.User;
 
 public class SampleEvents {
 	
-	private ArrayList<Event> sampleEvents = new ArrayList<Event>();
-	private SampleUsers su;
+	private static int eventCount = 100;
+	private static ArrayList<Event> sampleEvents = new ArrayList<Event>();
+	private static ArrayList<User> sampleUsers = SampleUsers.getSampleUsers();
+	private static ArrayList<Room> sampleRooms = SampleRooms.getSampleRooms();
 	
-	public SampleEvents(){
-		su = new SampleUsers();
-		for (int i=0; i<10; i++){			
+	public static void generateEvents(){
+		for (int i=0; i<eventCount; i++){			
 			
-			Event event = new Event(su.getSampleUsers().get(i), i, new Date(2013, 2, i, 10, 0), new Date(2013, 2, i, 10, 0), "TestEvent nr: "+i, "",
-					"Rom "+i, i, true); 
+			Event event = new Event(sampleUsers.get(i), i, new Date(2013, 2, i, 10, 0), new Date(2013, 2, i, 11, 0), "TestEvent nr: "+i, "",
+					sampleRooms.get(i).getName(), i, true); 
 			
-			event.setAdmin(su.getSampleUsers().get(i));
-			su.getSampleUsers().get(i).addEvent(event);
+			event.setAdmin(sampleUsers.get(i));
+			sampleUsers.get(i).addEvent(event);
 			sampleEvents.add(event);
 		}
 	}
 	
-	public SampleUsers getSampleUsers() {
-		return su;
+	public static ArrayList<User> getSampleUsers() {
+		generateEvents();
+		return sampleUsers;
 	}
 	
-	public ArrayList<Event> getSampleEvents(){
+	public static ArrayList<Event> getSampleEvents(){
+		generateEvents();
 		return sampleEvents;
 	}
 
-	public static void main(String args[]) {
-		SampleEvents s = new SampleEvents(); 
-	}
 }

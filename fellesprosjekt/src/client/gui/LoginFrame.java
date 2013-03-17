@@ -114,9 +114,7 @@ public class LoginFrame extends BaseFrame {
 	}
 	
 	private User getUser(String username){
-		SampleEvents se = new SampleEvents();
-		SampleUsers su = se.getSampleUsers();
-		for (User user : su.getSampleUsers()){
+		for (User user : SampleUsers.getSampleUsers()){
 			if (user.getUsername().equals(username)){
 				return user;
 			}

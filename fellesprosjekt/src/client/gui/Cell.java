@@ -26,7 +26,7 @@ public class Cell extends JToggleButton
 		super(label);
 		setEnabled(enabled);
 		if (hasEvents) {
-			setBorder(BorderFactory.createLineBorder(Color.red));
+			setBorder(BorderFactory.createLineBorder(Settings2.COLOR_ORANGE));
 		} else {
 			setBorder(BorderFactory.createLineBorder(Settings.CELL_BORDER_COLOR));
 		}
