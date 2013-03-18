@@ -103,6 +103,10 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 		return calendar.get(Calendar.MONTH);
 	}
 	
+	public int getYear(){
+		return calendar.get(Calendar.YEAR);
+	}
+	
 	//Flytter kalenderen til neste m�ned.
 	public void nextMonth()
 	{

@@ -53,11 +53,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	private static JFrame frame;
 	private JMenuBar menuBar;
-	private JLabel lblSelectedDate, lblMonth, lblFullName;
+	private JLabel lblSelectedDate, lblMonth, lblFullName, lblNoEvents;
 	private JButton btnNextMonth, btnPrevMonth;
 	private CoolCalendar coolCalendar;
 	private Date selectedDate;
-	private JPanel panel_1;
+	private JPanel panel, panel_1;
 	private User user;
 	private JList selectedDateEventList;
 	
@@ -236,24 +236,27 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		coolCalendar.addPropertyChangeListener(this);
 		this.addPropertyChangeListener(coolCalendar);
 				
+		lblNoEvents = new JLabel("No events");
+		lblNoEvents.setForeground(Color.WHITE);
+		lblNoEvents.setFont(Settings2.FONT_TEXT2);
 		
 		panel_1 = new JPanel();
 		getContentPane().add(panel_1, "cell 1 1 1 2,grow");
 		panel_1.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		panel_1.setLayout(new MigLayout("", "[138px]", "[24px]"));
 		
-		JLabel label = new JLabel("Upcoming events");
-		label.setForeground(Color.WHITE);
-		label.setFont(Settings2.FONT_TEXT1);
-		panel_1.add(label, "cell 0 0,alignx left,aligny top");
+		JLabel lblUpcomingEvents = new JLabel("Upcoming events");
+		lblUpcomingEvents.setForeground(Color.WHITE);
+		lblUpcomingEvents.setFont(Settings2.FONT_TEXT1);
+		panel_1.add(lblUpcomingEvents, "cell 0 0,alignx left,aligny top");
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		getContentPane().add(panel, "cell 0 2,grow");
 		panel.setLayout(new MigLayout("", "[grow][]", "[][80%,grow][10%,grow]"));
 		
-		lblSelectedDate = new JLabel("15 March 2013");
-		
+		selectedDate = new Date();
+		lblSelectedDate = new JLabel(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
 		lblSelectedDate.setFont(Settings2.FONT_TEXT1);
 		lblSelectedDate.setForeground(Color.WHITE);
 		panel.add(lblSelectedDate, "cell 0 0");
@@ -328,9 +331,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnCreateEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("SELECTED DATE: "+selectedDate);
-				EventFrame ef = new CreateEventFrame(new Event(user, selectedDate, selectedDate));
-				ef.addPropertyChangeListener(MainFrame.this);
-				openFrameOnTop(ef);
+				CreateEventFrame cef = new CreateEventFrame(new Event(user, selectedDate, selectedDate));
+				cef.addPropertyChangeListener(MainFrame.this);
+				openFrameOnTop(cef);
 			}
 		});
 		
@@ -339,45 +342,32 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	}
 
 	public void updateMonthLabels() {
-		lblMonth.setText(Settings2.MONTHS[coolCalendar.getMonth()]);
+		lblMonth.setText(Settings2.MONTHS[coolCalendar.getMonth()]+" "+coolCalendar.getYear());
 		btnNextMonth.setText(Settings2.MONTHS[((coolCalendar.getMonth() + 1) % 12 + 12) % 12].substring(0, 3));
 		btnPrevMonth.setText(Settings2.MONTHS[((coolCalendar.getMonth() - 1) % 12 + 12) % 12].substring(0, 3));
 	}
 	
 	public void setListModel(JList list) {
 		System.out.println("setlistModel invoked");
-		//System.out.println(selectedDate);
 		final ArrayList<String> values = new ArrayList<String>();
-		selectedDate.setYear(selectedDate.getYear());
-		if (user.getEvents(selectedDate).size() == 0){
-			selectedDateEventList.setModel(new AbstractListModel() {
-			@Override
-			public int getSize() {
-				return 1;
-			}
-			
-			@Override
-			public Object getElementAt(int index) {
-				return "No events";
-			}
-		});
-		}
-		else {
+		
+		if (user.getEvents(selectedDate).size() != 0){
 			System.out.println("ifififififififif");
 			for (Event e : user.getEvents(selectedDate)) {
 				values.add(e.toString());
 				System.out.println("event.tostring invoked");
 			}
 		}
+		
 		selectedDateEventList.setModel(new AbstractListModel() {
 			@Override
 			public int getSize() {
-				return (values == null) ? 0 : values.size();
+				return values.size();
 			}
 			
 			@Override
 			public Object getElementAt(int index) {
-				return (values == null) ? null : values.get(index);
+				return values.get(index);
 			}
 		});
 	}
@@ -391,17 +381,31 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 				return;
 			
 			selectedDate = (Date)evt.getNewValue();
-			lblSelectedDate.setText(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
-			
-			setListModel(selectedDateEventList);
+			setupSelectedDatePanel(selectedDate);
 		}
 		if (evt.getPropertyName().equals("EventsCalendarchanged")) {
 			firePropertyChange("EventsCalendarChanged", evt.getOldValue(), evt.getNewValue());
 		}
 	}
 	
+	public void setupSelectedDatePanel(Date date){
+		lblSelectedDate.setText(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
+		setListModel(selectedDateEventList);
+		panel.remove(selectedDateEventList);
+		panel.remove(lblNoEvents);
+		if (user.getEvents(selectedDate).size() == 0){
+			panel.add(lblNoEvents, "cell 0 1 2 1,alignx left,aligny top");
+		}
+		else {
+			panel.add(selectedDateEventList, "cell 0 1 2 1,grow");
+		}
+		panel.repaint();
+		panel.revalidate();
+	}
+	
 	public void setUser(User user){
 		this.user = user;
 		lblFullName.setText(user.getName());
+		
 	}
 }

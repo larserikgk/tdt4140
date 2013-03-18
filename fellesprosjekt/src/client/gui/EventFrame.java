@@ -67,7 +67,7 @@ public abstract class EventFrame extends BaseFrame {
 		lblTitle.setForeground(Color.WHITE);
 		getContentPane().add(lblTitle, "cell 2 2,alignx left,aligny center");
 		
-		textField_name = new JTextField();
+		textField_name = new JTextField("Event");
 		getContentPane().add(textField_name, "cell 3 2,growx,aligny center");
 		textField_name.setColumns(10);
 		
