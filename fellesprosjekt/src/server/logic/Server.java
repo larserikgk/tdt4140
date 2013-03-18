@@ -9,26 +9,25 @@ import server.net.ClientHandler;
 
 public class Server {
 	private ArrayList<ClientHandler> connectedClients;
-	private int port;
 	private boolean keepGoing;
 	private Properties settings;
 
-	public Server(int port) {
-		settings.setProperty("port", Integer.toString(port));
+	public Server(int handlerPort, int pushPort) {
+		settings.setProperty("handlerPort", Integer.toString(handlerPort));
+		settings.setProperty("pushPort", Integer.toString(pushPort));
 		settings.setProperty("url","");
 		settings.setProperty("database", "");
 		settings.setProperty("username", "");
 		settings.setProperty("password", "");
-		this.port = port;
 		connectedClients = new ArrayList<ClientHandler>();
-		
+
 	}
-	
+
 	public void start() {
 		keepGoing = true;
 		try 
 		{
-			ServerSocket serverSocket = new ServerSocket(port);
+			ServerSocket serverSocket = new ServerSocket(Integer.parseInt(settings.getProperty("handlerPort")));
 
 			while(keepGoing) 
 			{
@@ -41,21 +40,21 @@ public class Server {
 				new Thread(t).start();
 			}
 			try {
-				
+
 			}
 			catch(Exception e) {
-				
+
 			}
 		}
 		catch (IOException e) {
-			
+
 		}
 	}
-	
+
 	protected void stop() {
 		keepGoing = false;
 		try {
-			new Socket("localhost", port);
+			new Socket("localhost", Integer.parseInt(settings.getProperty("handlerPort")));
 		}
 		catch(Exception e) {
 		}

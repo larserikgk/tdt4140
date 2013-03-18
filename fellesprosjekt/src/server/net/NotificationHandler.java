@@ -1,19 +1,18 @@
 package server.net;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Properties;
 
-import common.models.*;
-
 import server.db.SqlConnector;
 import server.logic.Server;
 
+import common.models.Request;
 
-public class ClientHandler implements Runnable{
+
+public class NotificationHandler implements Runnable{
 	private Socket socket;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
@@ -23,7 +22,7 @@ public class ClientHandler implements Runnable{
 	private SqlConnector database;
 	private Properties settings;
 
-	public ClientHandler(Socket socket, Server server, Properties settings) {
+	public NotificationHandler(Socket socket, Server server, Properties settings) {
 		this.settings = settings;
 		database = new SqlConnector(this.settings);
 	}
@@ -71,4 +70,5 @@ public class ClientHandler implements Runnable{
 		input.close();
 		socket.close(); 
 	}
+
 }

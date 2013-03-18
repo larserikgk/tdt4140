@@ -11,27 +11,38 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Properties;
 
+import org.w3c.dom.Document;
+
+import client.gui.MainFrame;
+
 import common.interfaces.IServerConnector;
 import common.models.*;
+import common.util.XMLConverter;
 
 public class ServerConnector implements IServerConnector{
 	private Socket socket;
-	private Object caller;
+	private Socket pushSocket;
+	private MainFrame gui;
 	private String url;
 	private String username;
-	private int port;
+	private int handlerPort;
+	private int pushPort;
 	private ObjectInputStream input;
+	private ObjectInputStream pushInput;
 	private ObjectOutputStream output;
+	private XMLConverter xmlConverter;
 	
 	public ServerConnector(Properties settings, String username) {
 		this.url = settings.getProperty(url);
 		this.username = username;
-		this.port = port;
+		this.handlerPort = 1600;
+		this.pushPort = 1601;
 	}
 	
 	public boolean start() {
 		try {
-			socket = new Socket(url, port);
+			socket = new Socket(url, handlerPort);
+			pushSocket = new Socket(url, pushPort);
 		} 
 		catch(Exception ec) {
 			System.err.println("Error connectiong to server:" + ec);
@@ -42,13 +53,14 @@ public class ServerConnector implements IServerConnector{
 		{
 			input  = new ObjectInputStream(socket.getInputStream());
 			output = new ObjectOutputStream(socket.getOutputStream());
+			pushInput = new ObjectInputStream(pushSocket.getInputStream());
 		}
 		catch (IOException eIO) {
 			System.err.println("Exception creating new Input/output Streams: " + eIO);
 			return false;
 		}
 
-		new ListenFromServer().start();
+		new NotificationListener().start();
 		try
 		{
 			output.writeObject(username);
@@ -66,13 +78,23 @@ public class ServerConnector implements IServerConnector{
 	 * 
 	 * @param req
 	 */
-	void sendRequest(Request req) {
+	private String sendRequest(Request req) {
 		try {
 			output.writeObject(req);
 			output.flush();
 		}
 		catch(IOException e) {
 			System.err.println("Exception writing to server: " + e);
+		}
+		
+		try {
+			String result = (String) input.readObject();			
+			return result;
+		}
+		catch(IOException e) {
+			if(gui != null) 
+				gui.connectionFailed();
+			break;
 		}
 	}
 
@@ -98,15 +120,20 @@ public class ServerConnector implements IServerConnector{
 		}
 		catch(Exception e) {/** Ignore errors */} 
 
-		if(caller != null)
-			caller.connectionFailed();
+		if(gui != null)
+			gui.connectionFailed();
 
 	}
 
 	@Override
 	public User getUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+		Request request = new Request("login", Request.USER);
+		request.addProperty("username", username);
+		request.addProperty("password", password);
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		return xmlConverter.constructUserFromNode(doc.getFirstChild());
 	}
 
 	@Override
@@ -159,16 +186,16 @@ public class ServerConnector implements IServerConnector{
 		return null;
 	}
 	
-	private class ListenFromServer extends Thread {
+	private class NotificationListener extends Thread {
 		public void run() {
 			while(true) {
 				try {
 					String result = (String) input.readObject();			
-					caller.handleResponse(result);
+					gui.handleResponse(result);
 				}
 				catch(IOException e) {
-					if(caller != null) 
-						caller.connectionFailed();
+					if(gui != null) 
+						gui.connectionFailed();
 					break;
 				}
 				
