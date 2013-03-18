@@ -10,7 +10,7 @@ import common.models.User;
 
 public class SampleEvents {
 	
-	private static int eventCount = 100;
+	private static int eventCount = 10;
 	private static ArrayList<Event> sampleEvents = new ArrayList<Event>();
 	private static ArrayList<User> sampleUsers = SampleUsers.getSampleUsers();
 	private static ArrayList<Room> sampleRooms = SampleRooms.getSampleRooms();
@@ -28,7 +28,7 @@ public class SampleEvents {
 	}
 	
 	public static ArrayList<User> getSampleUsers() {
-		generateEvents();
+		//generateEvents();
 		return sampleUsers;
 	}
 	

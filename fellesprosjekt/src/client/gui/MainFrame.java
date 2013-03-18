@@ -349,12 +349,12 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	public void setListModel(JList list) {
 		System.out.println("setlistModel invoked");
-		final ArrayList<String> values = new ArrayList<String>();
+		final ArrayList<Event> values = new ArrayList<Event>();
 		
 		if (user.getEvents(selectedDate).size() != 0){
 			System.out.println("ifififififififif");
 			for (Event e : user.getEvents(selectedDate)) {
-				values.add(e.toString());
+				values.add(e);
 				System.out.println("event.tostring invoked");
 			}
 		}

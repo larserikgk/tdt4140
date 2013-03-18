@@ -46,12 +46,11 @@ public class DatePicker extends JPanel {
 		setLayout(new MigLayout("insets 0", "[90px][][35px][2px][35px]", "[20px]"));
 		setSize(getPreferredSize());
 		
-		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd.MM.y");
-		
 		minDate = new Date(0,0,1); //Min date: 1 Jan 1900
 		maxDate = new Date(199,11,31); //Max date: 31 Dec 2099
 		
+		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("dd.MM.y");
 		dateChooser.setMinSelectableDate(minDate); 
 		dateChooser.setMaxSelectableDate(maxDate); 
 		
