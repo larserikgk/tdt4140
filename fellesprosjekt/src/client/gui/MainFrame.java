@@ -239,7 +239,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		
 		panel_1 = new JPanel();
 		getContentPane().add(panel_1, "cell 1 1 1 2,grow");
-		panel_1.setBackground(Settings2.COLOR_DARK_GRAY);
+		panel_1.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		panel_1.setLayout(new MigLayout("", "[138px]", "[24px]"));
 		
 		JLabel label = new JLabel("Upcoming events");
@@ -327,6 +327,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_3.add(btnCreateEvent);
 		btnCreateEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("SELECTED DATE: "+selectedDate);
 				EventFrame ef = new CreateEventFrame(new Event(user, selectedDate, selectedDate));
 				ef.addPropertyChangeListener(MainFrame.this);
 				openFrameOnTop(ef);
@@ -347,8 +348,21 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		System.out.println("setlistModel invoked");
 		//System.out.println(selectedDate);
 		final ArrayList<String> values = new ArrayList<String>();
-		selectedDate.setYear(selectedDate.getYear() + 1900);
-		if (user.getEvents(selectedDate).size() != 0) {
+		selectedDate.setYear(selectedDate.getYear());
+		if (user.getEvents(selectedDate).size() == 0){
+			selectedDateEventList.setModel(new AbstractListModel() {
+			@Override
+			public int getSize() {
+				return 1;
+			}
+			
+			@Override
+			public Object getElementAt(int index) {
+				return "No events";
+			}
+		});
+		}
+		else {
 			System.out.println("ifififififififif");
 			for (Event e : user.getEvents(selectedDate)) {
 				values.add(e.toString());
@@ -381,7 +395,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			
 			setListModel(selectedDateEventList);
 		}
-		if (evt.getPropertyName().equals("EventsCAlendarchanged")) {
+		if (evt.getPropertyName().equals("EventsCalendarchanged")) {
 			firePropertyChange("EventsCalendarChanged", evt.getOldValue(), evt.getNewValue());
 		}
 	}
