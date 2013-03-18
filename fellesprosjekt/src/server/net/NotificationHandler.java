@@ -65,6 +65,10 @@ public class NotificationHandler implements Runnable{
 
 	}
 
+	private void notifyConnectedUsers() {
+
+	}
+
 	private void kill() throws IOException {
 		output.close();
 		input.close();

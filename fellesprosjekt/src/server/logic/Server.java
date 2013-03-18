@@ -6,9 +6,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Properties;
 import server.net.ClientHandler;
+import server.net.NotificationHandler;
 
 public class Server {
-	private ArrayList<ClientHandler> connectedClients;
+	private ArrayList<NotificationHandler> connectedClients;
 	private boolean keepGoing;
 	private Properties settings;
 
@@ -19,7 +20,7 @@ public class Server {
 		settings.setProperty("database", "");
 		settings.setProperty("username", "");
 		settings.setProperty("password", "");
-		connectedClients = new ArrayList<ClientHandler>();
+		connectedClients = new ArrayList<NotificationHandler>();
 
 	}
 
@@ -27,17 +28,22 @@ public class Server {
 		keepGoing = true;
 		try 
 		{
-			ServerSocket serverSocket = new ServerSocket(Integer.parseInt(settings.getProperty("handlerPort")));
-
+			ServerSocket handlerSocket = new ServerSocket(Integer.parseInt(settings.getProperty("handlerPort")));
+			ServerSocket pushSocket = new ServerSocket(Integer.parseInt(settings.getProperty("pushPort")));
 			while(keepGoing) 
 			{
 
-				Socket socket = serverSocket.accept();				
+				Socket hSocket = handlerSocket.accept();				
 				if(!keepGoing)
 					break;
-				ClientHandler t = new ClientHandler(socket,this,settings);
-				connectedClients.add(t); 
-				new Thread(t).start();
+				ClientHandler handler = new ClientHandler(hSocket,this,settings); 
+				new Thread(handler).start();
+				Socket pSocket = pushSocket.accept();				
+				if(!keepGoing)
+					break;
+				NotificationHandler push = new NotificationHandler(pSocket,this,settings); 
+				new Thread(push).start();
+				connectedClients.add(push);
 			}
 			try {
 
