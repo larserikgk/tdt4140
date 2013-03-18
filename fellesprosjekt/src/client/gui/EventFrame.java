@@ -41,7 +41,6 @@ public abstract class EventFrame extends BaseFrame {
 	private JButton btnAddParticipants, btnFindRoom;
 	private DatePicker datePickerEnd, datePickerStart;
 	
-	
 	public EventFrame(final Event event) {
 		super();
 		
@@ -77,7 +76,7 @@ public abstract class EventFrame extends BaseFrame {
 		lblFrom.setForeground(Color.WHITE);
 		getContentPane().add(lblFrom, "cell 2 3,alignx left,aligny center");
 		
-		datePickerStart = new DatePicker();
+		datePickerStart = new DatePicker(event.getStart());
 		getContentPane().add(datePickerStart, "cell 3 3,alignx left,aligny center");
 		
 		JLabel lblTo = new JLabel("To");
@@ -85,14 +84,13 @@ public abstract class EventFrame extends BaseFrame {
 		lblTo.setForeground(Color.WHITE);
 		getContentPane().add(lblTo, "cell 2 4,alignx left,aligny center");
 		
-		datePickerEnd = new DatePicker();
+		datePickerEnd = new DatePicker(event.getEnd());
 		getContentPane().add(datePickerEnd, "cell 3 4,alignx left,aligny center");
 		
 		JLabel lblParticipants = new JLabel("Participants");
 		lblParticipants.setFont(Settings2.FONT_TEXT2);
 		lblParticipants.setForeground(Color.WHITE);
 		getContentPane().add(lblParticipants, "cell 2 5,alignx left,aligny top");
-		
 		
 		listModel = new DefaultListModel<User>();
 		listParticipants = new JList(listModel);
@@ -256,28 +254,16 @@ public abstract class EventFrame extends BaseFrame {
 				}
 				firePropertyChange("EventsCalendarChanged", oldValue, admin.getEventCalendar());
 			}
-
 		});
 	}
 
 	@SuppressWarnings("deprecation")
 	public void setEventNewAttributes() {
-		event.setDescription(textPane_description.getText());
 		event.setName(textField_name.getText());
-		Date startDate = datePickerStart.getDateChooser().getDate();
-		startDate.setHours(((Date) datePickerStart.getSpinnerHour().getValue()).getHours());
-		startDate.setMinutes(((Date) datePickerStart.getSpinnerMinute().getValue()).getMinutes());
-		Date endDate = datePickerEnd.getDateChooser().getDate();
-		endDate.setHours(((Date) datePickerStart.getSpinnerHour().getValue()).getHours());
-		endDate.setMinutes(((Date) datePickerStart.getSpinnerMinute().getValue()).getMinutes());
-		event.setStart(startDate);
-		event.setEnd(endDate);
+		event.setStart(datePickerStart.getDate());
+		event.setEnd(datePickerEnd.getDate());
+		event.setDescription(textPane_description.getText());
 		event.setLocation(textField_location.getText());
-		
-		//Fordi datoer er jævlig rævva.
-		//Hvilken måned man velger er fortsatt fucka
-		startDate.setYear(startDate.getYear() + 1900);
-		endDate.setYear(endDate.getYear() + 1900);
 	}
 	
 	public void setDeleteEventButtonEnabled(boolean b) {
