@@ -18,6 +18,13 @@ public class User {
 		eventCalendar = new EventCalendar();
 	}
 	
+	//brukt for querries. 
+	public User(String username, String name)
+	{
+		this.name = name; 
+		this.username = username; 
+	}
+	
 	public void editEvent(Event newEvent, Event oldEvent) {
 		deleteEvent(oldEvent);
 		addEvent(newEvent);

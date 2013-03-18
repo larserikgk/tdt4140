@@ -21,11 +21,23 @@ public class Event {
 		this.name = "New meeting";
 		this.start = start;
 		this.end = end;
+		this.description = " "; 
+		this.location = " "; 
+	}
+	public Event(User admin, int id, Date start, Date end, String description, String location, String name)
+	{
+		this.admin = admin;
+		this.id = id; 
+		this.start = start;
+		this.end = end;
+		this.description = description;  
+		this.location = location;
+		this.name = name; 
 	}
 	
-	public String toString() {
-		return name + ", " + start.toString();
-	}
+//	public String toString() {
+//		return name + ", " + start.toString();
+//	}
 
 	public User getAdmin() {
 		return admin;
