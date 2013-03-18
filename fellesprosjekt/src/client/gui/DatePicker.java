@@ -115,7 +115,6 @@ public class DatePicker extends JPanel {
 					  if (isValidDate(dateChooser.getDate())){
 						  parseDate();
 						  System.out.println("Valgt dato: "+date);
-					      DatePicker.this.pcs.firePropertyChange("datePickerDate", null, date);
 					  }
 				  }
 			  }
@@ -138,6 +137,7 @@ public class DatePicker extends JPanel {
 			date.setHours(((Date) spinnerHour.getValue()).getHours());
 			date.setMinutes(((Date) spinnerMinute.getValue()).getMinutes());
 			date.setSeconds(0);
+			DatePicker.this.pcs.firePropertyChange("datePickerDate", null, date);
 		} else {
 			date = null;
 		}

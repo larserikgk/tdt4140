@@ -1,48 +1,35 @@
 package client.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Window;
-
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JButton;
-import javax.swing.JMenu;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.JPanel;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import java.awt.Font;
-import javax.swing.JMenuItem;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Component;
-import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
 
-import javax.swing.SwingConstants;
-import java.awt.Dimension;
-import javax.swing.JLayeredPane;
+import javax.swing.AbstractListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import net.miginfocom.swing.MigLayout;
 
 import common.models.Event;
 import common.models.User;
@@ -51,7 +38,7 @@ import common.models.User;
 
 public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
-	private static JFrame frame;
+	private JFrame frame;
 	private JMenuBar menuBar;
 	private JLabel lblSelectedDate, lblMonth, lblFullName, lblNoEvents;
 	private JButton btnNextMonth, btnPrevMonth;
@@ -333,10 +320,8 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		final ArrayList<Event> values = new ArrayList<Event>();
 		
 		if (user.getEvents(selectedDate).size() != 0){
-			System.out.println("ifififififififif");
 			for (Event e : user.getEvents(selectedDate)) {
 				values.add(e);
-				System.out.println("event.tostring invoked");
 			}
 		}
 		
@@ -377,7 +362,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	}
 	
 	public void setupSelectedDatePanel(Date date){
-		lblSelectedDate.setText(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
+		lblSelectedDate.setText(date.getDate() + " " + Settings2.MONTHS[date.getMonth()] + " " + (date.getYear() + 1900));
 		setListModel(selectedDateEventList);
 		panel.remove(selectedDateEventList);
 		panel.remove(lblNoEvents);

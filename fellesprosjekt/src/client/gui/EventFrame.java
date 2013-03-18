@@ -27,6 +27,7 @@ import javax.swing.JTextPane;
 
 import common.models.Event;
 import common.models.EventCalendar;
+import common.models.Room;
 import common.models.User;
 
 public abstract class EventFrame extends BaseFrame implements PropertyChangeListener {
@@ -177,6 +178,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 			public void actionPerformed(ActionEvent arg0) {
 				User admin = event.getAdmin();
 				EventCalendar oldValue = admin.getEventCalendar();
+				admin.deleteEvent(event);
 				event.delete();
 				firePropertyChange("EventsCalendarChanged", oldValue, admin.getEventCalendar());
 			}
@@ -298,6 +300,11 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	    		listModel.addElement(user);
 	    	}
 	    }
+	}
+	
+	public void setRoom(Room room){
+		event.setLocation(room.getName());
+		textField_location.setText(room.getName());
 	}
 	
 	public Event getEvent(){

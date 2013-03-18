@@ -35,9 +35,7 @@ public class Core extends JPanel implements ActionListener
 		
 		copy = (GregorianCalendar) calendar.clone();
 		getFirstMonday(copy);
-		
 				
-//		Date defaultSelectedDate = new Date(new Date().getYear(), new Date().getMonth(), calendar.get(Calendar.DATE));
 		System.out.println("Default selected date:"+defaultSelectedDate);
 		
 		if(copy.get(Calendar.MONTH)!=calendar.get(Calendar.MONTH))

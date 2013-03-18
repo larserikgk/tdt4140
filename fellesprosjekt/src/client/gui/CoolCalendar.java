@@ -4,10 +4,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
 import javax.swing.JPanel;
 
 import common.models.EventCalendar;
@@ -75,7 +75,7 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	public void setDaybar(Daybar daybar)
 	{
 		this.daybar = daybar;
-		daybar.setDay(new Date().getDay());
+		daybar.setDay(getSelectedDate().getDay());
 		if(core!=null)
 			core.addPropertyChangeListener(daybar);
 		addComponents();
@@ -112,17 +112,38 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	//Flytter kalenderen til neste m�ned.
 	public void nextMonth()
 	{
-		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+1);
+		calendar.roll(Calendar.MONTH, true);
+		if (calendar.get(Calendar.MONTH) == Calendar.JANUARY){
+			calendar.roll(Calendar.YEAR, true);
+		}
+//		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+1);
 		setCore(new Core(calendar, eventCalendar));
-		daybar.setDay(getCore().getDefaultSelectedDate().getDay());
+		daybar.setDay(getSelectedDate().getDay());
+		firePropertyChange("selectedDate", null, getSelectedDate());
 	}
 	
 	//Flytter kalenderen til forrige m�ned.
 	public void previousMonth()
 	{
-		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)-1);
+		calendar.roll(Calendar.MONTH, false);
+		if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER){
+			calendar.roll(Calendar.YEAR, false);
+		}
+//		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)-1);
 		setCore(new Core(calendar, eventCalendar));
-		daybar.setDay(getCore().getDefaultSelectedDate().getDay());
+		daybar.setDay(getSelectedDate().getDay());
+		firePropertyChange("selectedDate", null, getSelectedDate());
+	}
+	
+	public Date getSelectedDate(){
+		Date d = new Date();
+		d.setYear(calendar.get(Calendar.YEAR)-1900);
+		d.setMonth(calendar.get(Calendar.MONTH));
+		d.setDate(calendar.get(Calendar.DAY_OF_MONTH));
+		d.setHours(calendar.get((Calendar.HOUR_OF_DAY)));
+		d.setMinutes(calendar.get(Calendar.MINUTE));
+		d.setSeconds(calendar.get(Calendar.SECOND));
+		return d;
 	}
 
 	@Override
@@ -134,6 +155,7 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 		}
 		if (evt.getPropertyName().equals("selectedDate")) {
 			firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
+			System.out.println("SELECTED DATE: "+evt.getNewValue());
 		}
-	}	
+	}
 }

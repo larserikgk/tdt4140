@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
@@ -32,7 +33,7 @@ public class Daybar extends JPanel implements PropertyChangeListener
 		saturday 	= new DayLabel(Settings.SATURDAY);
 		sunday 		= new DayLabel(Settings.SUNDAY);
 		group = new ButtonGroup();
-		
+
 		addComponents();
 	}
 	

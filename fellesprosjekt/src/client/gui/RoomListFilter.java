@@ -156,6 +156,10 @@ public class RoomListFilter extends JPanel{
 		return true;
 	}
 	
+	public Room getSelectedRoom(){
+		return roomList.getSelectedValue();
+	}
+	
 	public ArrayList<Room> getArrayList(){
 		Object[] list = listModel.toArray();
 		ArrayList<Room> al = new ArrayList<Room>();
