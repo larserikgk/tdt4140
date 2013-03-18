@@ -3,6 +3,7 @@ package client.gui;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,6 +24,12 @@ public class DatePicker extends JPanel {
 	private JDateChooser dateChooser;
 	private JSpinner spinnerHour, spinnerMinute;
 	private Date date, minDate, maxDate;
+	
+	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
 	
 	//For testing
 	public static void main(String[] args){
@@ -108,6 +115,7 @@ public class DatePicker extends JPanel {
 					  if (isValidDate(dateChooser.getDate())){
 						  parseDate();
 						  System.out.println("Valgt dato: "+date);
+					      DatePicker.this.pcs.firePropertyChange("datePickerDate", null, date);
 					  }
 				  }
 			  }
@@ -122,16 +130,6 @@ public class DatePicker extends JPanel {
 		
 		spinnerHour.getModel().addChangeListener(cl);
 		spinnerMinute.getModel().addChangeListener(cl);
-	}
-	
-	public JDateChooser getDateChooser() {
-		return dateChooser;
-	}
-	public JSpinner getSpinnerHour() {
-		return spinnerHour;
-	}
-	public JSpinner getSpinnerMinute() {
-		return spinnerMinute;
 	}
 	
 	public void parseDate(){

@@ -19,6 +19,7 @@ public class Core extends JPanel implements ActionListener
 	private static final long 	serialVersionUID = 1L;
 	private GregorianCalendar	calendar, copy;
 	private ButtonGroup			cells;
+	private Date 				defaultSelectedDate;
 	
 	@SuppressWarnings("deprecation")
 	public Core(GregorianCalendar calendar, EventCalendar eventCalendar)
@@ -27,12 +28,17 @@ public class Core extends JPanel implements ActionListener
 				
 		this.calendar 	= calendar;
 		this.cells		= new ButtonGroup();
+		this.defaultSelectedDate = new Date(calendar.get(Calendar.YEAR)-1900, calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 		
 		setLayout(new GridLayout(6,7));
 		setBackground(Settings.BACKGROUND_COLOR);
 		
 		copy = (GregorianCalendar) calendar.clone();
 		getFirstMonday(copy);
+		
+				
+//		Date defaultSelectedDate = new Date(new Date().getYear(), new Date().getMonth(), calendar.get(Calendar.DATE));
+		System.out.println("Default selected date:"+defaultSelectedDate);
 		
 		if(copy.get(Calendar.MONTH)!=calendar.get(Calendar.MONTH))
 			for(int i=copy.get(Calendar.DAY_OF_MONTH); i<=copy.getActualMaximum(Calendar.DAY_OF_MONTH);i++)
@@ -48,13 +54,17 @@ public class Core extends JPanel implements ActionListener
 		
 		for(int i=1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH);i++)
 		{
-			Date tmpDate = new Date(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), i);
+			Date tmpDate = new Date(calendar.get(Calendar.YEAR)-1900, calendar.get(Calendar.MONTH), i);
 			boolean b=false;
 			if (eventCalendar.getEvents(tmpDate).size() != 0) {
-				System.out.println("Found Event" + tmpDate);
+				System.out.println("Found Event: " + tmpDate);
 				b = true;
 			}
 			temp = new Cell(""+i, true, b);
+			if (tmpDate.equals(defaultSelectedDate)){
+				firePropertyChange("selectedDate", null, tmpDate);
+				temp.setSelected(true);
+			}
 			add(temp);
 			temp.addActionListener(this);
 			cells.add(temp);
@@ -102,5 +112,9 @@ public class Core extends JPanel implements ActionListener
 	public GregorianCalendar getCalendar() 
 	{
 		return calendar;
+	}
+	
+	public Date getDefaultSelectedDate(){
+		return defaultSelectedDate;
 	}
 }

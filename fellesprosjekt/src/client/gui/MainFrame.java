@@ -60,19 +60,6 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private JPanel panel, panel_1;
 	private User user;
 	private JList selectedDateEventList;
-	
-	
-	//TESTING TESTING! 1, 2, 1, 2
-	/*
-	public static void main (String args[]) {
-		User testUser = new User("TestUserName", "test", "TestUser");
-		//Event testEvent = new Event(12, "TestMøte", new Date(2013, 2, 21, 12, 30), new Date(2013, 2, 21, 14, 30));
-		//testUser.addEvent(testEvent);
-		frame = new MainFrame(testUser); 
-		frame.setSize(700, 500);
-		frame.setLocation(300, 200);
-		frame.setVisible(true);
-	}*/
 	 
 	public MainFrame(User loggedInUser) {
 		super();
@@ -234,7 +221,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_4.add(coolCalendar);
 		
 		coolCalendar.addPropertyChangeListener(this);
-		this.addPropertyChangeListener(coolCalendar);
+		//this.addPropertyChangeListener(coolCalendar);
 				
 		lblNoEvents = new JLabel("No events");
 		lblNoEvents.setForeground(Color.WHITE);
@@ -255,8 +242,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		getContentPane().add(panel, "cell 0 2,grow");
 		panel.setLayout(new MigLayout("", "[grow][]", "[][80%,grow][10%,grow]"));
 		
-		selectedDate = new Date();
-		lblSelectedDate = new JLabel(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
+		lblSelectedDate = new JLabel();
 		lblSelectedDate.setFont(Settings2.FONT_TEXT1);
 		lblSelectedDate.setForeground(Color.WHITE);
 		panel.add(lblSelectedDate, "cell 0 0");
@@ -273,11 +259,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		selectedDateEventList.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
 		        if (evt.getClickCount() == 2 && !selectedDateEventList.isSelectionEmpty()) {
-		            //SHOW OR EDIT????? MUST KNOW! URGENT!
-		            EventFrame ef = new ShowEventFrame(new Event());
-		            ef.setEventTitle((String) selectedDateEventList.getSelectedValue());
-		            openFrameOnTop(ef);
-		            ef.addPropertyChangeListener(MainFrame.this);
+		        	openEvent((Event) selectedDateEventList.getSelectedValue());
 		        }
 		    }
 		});
@@ -293,11 +275,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnShowEvent.setForeground(Color.white);
 		btnShowEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//SHOW OR EDIT????? MUST KNOW! URGENT!
-	            EventFrame ef = new ShowEventFrame(new Event());
-	            ef.setEventTitle((String) selectedDateEventList.getSelectedValue());
-	            openFrameOnTop(ef);
-	            ef.addPropertyChangeListener(MainFrame.this);
+				openEvent((Event) selectedDateEventList.getSelectedValue());
 			}
 		});
 		
@@ -339,6 +317,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		
 		updateMonthLabels();
 		setUser(loggedInUser);
+		
+		selectedDate = new Date();
+		setupSelectedDatePanel(selectedDate);
 	}
 
 	public void updateMonthLabels() {
@@ -371,8 +352,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			}
 		});
 	}
-	
-	@SuppressWarnings("deprecation")
+
 	public void propertyChange(PropertyChangeEvent evt) 
 	{		
 		if(evt.getPropertyName().equals("selectedDate"))
@@ -383,9 +363,17 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			selectedDate = (Date)evt.getNewValue();
 			setupSelectedDatePanel(selectedDate);
 		}
-		if (evt.getPropertyName().equals("EventsCalendarchanged")) {
-			firePropertyChange("EventsCalendarChanged", evt.getOldValue(), evt.getNewValue());
+		if (evt.getPropertyName().equals("EventCalendarChanged")) {
+			setupSelectedDatePanel(selectedDate);
 		}
+	}
+	
+	public void openEvent(Event event){
+		EventFrame ef;
+		if (user == event.getAdmin()) ef = new EditEventFrame(event);
+		else ef = new ShowEventFrame(event);
+        openFrameOnTop(ef);
+        ef.addPropertyChangeListener(MainFrame.this);
 	}
 	
 	public void setupSelectedDatePanel(Date date){

@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import common.models.Event;
 import common.models.User;
 import common.tests.SampleEvents;
-import common.tests.SampleUsers;
 
 import java.awt.GridLayout;
 import java.util.ArrayList;

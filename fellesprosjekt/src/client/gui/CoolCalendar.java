@@ -6,6 +6,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JPanel;
 
@@ -25,6 +26,7 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	{	
 		this.eventCalendar = eventCalendar;
 		calendar = new GregorianCalendar();
+		eventCalendar.addPropertyChangeListener(this);
 		init(eventCalendar);
 	}
 	
@@ -73,7 +75,7 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	public void setDaybar(Daybar daybar)
 	{
 		this.daybar = daybar;
-		
+		daybar.setDay(new Date().getDay());
 		if(core!=null)
 			core.addPropertyChangeListener(daybar);
 		addComponents();
@@ -112,6 +114,7 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	{
 		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)+1);
 		setCore(new Core(calendar, eventCalendar));
+		daybar.setDay(getCore().getDefaultSelectedDate().getDay());
 	}
 	
 	//Flytter kalenderen til forrige m�ned.
@@ -119,13 +122,15 @@ public class CoolCalendar extends JPanel implements PropertyChangeListener
 	{
 		calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH)-1);
 		setCore(new Core(calendar, eventCalendar));
+		daybar.setDay(getCore().getDefaultSelectedDate().getDay());
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("EventsCalendarChanged")) {
-			System.out.println("Evetscalchanged");
+		if (evt.getPropertyName().equals("EventCalendarChanged")) {
+			System.out.println("EventCalendar Changed");
 			init((EventCalendar) evt.getNewValue());
+			firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
 		}
 		if (evt.getPropertyName().equals("selectedDate")) {
 			firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());

@@ -64,16 +64,20 @@ public class Daybar extends JPanel implements PropertyChangeListener
 				return;
 			
 			Date newValue = (Date)evt.getNewValue();
-			switch(newValue.getDay())
-			{
-				case 0: sunday.setSelected(true); break;
-				case 1: monday.setSelected(true); break;
-				case 2: tuesday.setSelected(true); break;
-				case 3: wednesday.setSelected(true); break;
-				case 4: thursday.setSelected(true); break;
-				case 5: friday.setSelected(true); break;
-				case 6: saturday.setSelected(true); break;
-			}
+			setDay(newValue.getDay());
+		}
+	}
+	
+	public void setDay(int day){
+		switch(day)
+		{
+			case 0: sunday.setSelected(true); break;
+			case 1: monday.setSelected(true); break;
+			case 2: tuesday.setSelected(true); break;
+			case 3: wednesday.setSelected(true); break;
+			case 4: thursday.setSelected(true); break;
+			case 5: friday.setSelected(true); break;
+			case 6: saturday.setSelected(true); break;
 		}
 	}
 }

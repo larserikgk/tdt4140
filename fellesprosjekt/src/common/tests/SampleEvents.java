@@ -18,7 +18,7 @@ public class SampleEvents {
 	public static void generateEvents(){
 		for (int i=0; i<eventCount; i++){			
 			
-			Event event = new Event(sampleUsers.get(i), i, new Date(2013, 2, i, 10, 0), new Date(2013, 2, i, 11, 0), "TestEvent nr: "+i, "",
+			Event event = new Event(sampleUsers.get(i), i, new Date(2013-1900, 2, i, 10, 0), new Date(2013-1900, 2, i, 11, 0), "TestEvent nr: "+i, "",
 					sampleRooms.get(i).getName(), i, true); 
 			
 			event.setAdmin(sampleUsers.get(i));
