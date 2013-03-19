@@ -20,7 +20,7 @@ import server.db.SqlConnector;
 public class testSqlConnectior {
 
 	private static Properties set;
-	private static SQLquerries sql; 
+	private static SqlConnector sql; 
 
 	/**
 	 * @param args
@@ -33,11 +33,11 @@ public class testSqlConnectior {
 			set.setProperty("database", "prosjekt");  // må forandres
 			set.setProperty("password", "stiligPassord"); 
 			
-			sql = new SQLquerries(set);
+			sql = new SqlConnector(set); 
 		
 			
 			Date dato1 = new Date(2013,07,25,13,45);
-			Date dato2 = new Date(2016,07,25,14,35);
+			Date dato2 = new Date(2012,07,25,14,35);
 			String des = "DETTE ER ET MOTHERFUCKINGS MØTE!";
 		    User haakon = new User("haakonSexy","hei","haakon Aasebæ");
 			User hAkon = new User("håkon1","stiligPassord","håkon kwrl");
@@ -45,7 +45,7 @@ public class testSqlConnectior {
 			
 			
 //			sql.addSomeUser(p);
-			sql.addSomeUser(haakon);
+//			sql.addSomeUser(haakon);
 //			sql.addSomeUser(hAkon);	
 			
 			Event vent = new Event(haakon, dato1, dato2);
@@ -66,8 +66,14 @@ public class testSqlConnectior {
 		//	for(User p:k)
 		//		System.out.println(p.getName() + " " + p.getUsername());
 						 
-			sql.addFullEvent(vent);
-			Room rom = new Room("HAAKONSROM", 5);
+			try {
+				sql.addFullEvent(vent);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			Room rom = new Room("HAAKONSROM", 5);
 //			Booking book = new Booking(rom,vent); 
 //			sql.addRoom(rom);
 		//	sql.addBooking(vent, rom);
@@ -79,12 +85,12 @@ public class testSqlConnectior {
 			//System.out.println(sql.gettAllEvent(hAkon).toString());
 //			System.out.println(sql.getBooking(vent).toString());
 			
-			Date time = new Date(2117,07,25,14,35); 
-			sql.addAlert(vent, haakon, time); 
+//			Date time = new Date(2117,07,25,14,35); 
+//			sql.addAlert(vent, haakon, time); 
 			
-			Notification not = new Notification(NotificationType.INVITATION, "HAAKON ER AWSM #SOCKS", vent, time);
+//			Notification not = new Notification(NotificationType.INVITATION, "HAAKON ER AWSM #SOCKS", vent, time);
 			
-			not.setId(sql.addNotification(not));
+//			not.setId(sql.addNotification(not));
 			
 		//	sql.addUserNotificationRelation(not); 
 	}

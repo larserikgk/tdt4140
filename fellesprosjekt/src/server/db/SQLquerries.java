@@ -275,6 +275,8 @@ public class SQLquerries extends SqlConnector
 		set("INSERT INTO Room(room_name, capacity) VALUES('" +room.getName() +"'," + room.getCapacity() + ")"); 
 	}
 	
+	
+
 	public ArrayList<Event> getBooking(Room room)
 	{
 		String querry = "select * from Event inner join(select * from Booking where room_name= ?) as Derp ON Event.event_id = Derp.event_id;"; 
@@ -458,6 +460,7 @@ public class SQLquerries extends SqlConnector
 	
 	// for å kjøte en statement; 
 	private ResultSet set(String querry)
+
 	{
 		try {
 			stmt = conn.createStatement();
