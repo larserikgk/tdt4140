@@ -9,7 +9,7 @@ import javax.swing.ListCellRenderer;
 
 import common.models.User;
 
-public class UserListRenderer extends DefaultListCellRenderer implements ListCellRenderer{
+public class UserListRenderer extends DefaultListCellRenderer {
 
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

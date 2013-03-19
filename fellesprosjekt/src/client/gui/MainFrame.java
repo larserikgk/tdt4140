@@ -34,6 +34,7 @@ import net.miginfocom.swing.MigLayout;
 
 import common.models.Event;
 import common.models.Notification;
+import common.models.Room;
 import common.models.User;
 
 
@@ -61,7 +62,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		menuBar = new JMenuBar();
 		menuBar.setToolTipText("");
 		menuBar.setForeground(Color.WHITE);
-		menuBar.setBackground(Color.BLACK);
+		menuBar.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		setJMenuBar(menuBar);
 		
 		JMenu mnFile = new JMenu("File");
@@ -92,8 +93,15 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		mnEdit.setForeground(Color.WHITE);
 		menuBar.add(mnEdit);
 		
-		JMenuItem mntmMenuItem = new JMenuItem("Menu item 1");
-		mnEdit.add(mntmMenuItem);
+		JMenuItem mntmGoToDate = new JMenuItem("Go to date...");
+		mnEdit.add(mntmGoToDate);
+		mntmGoToDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainDatePicker mdp = new MainDatePicker(selectedDate);
+				mdp.addPropertyChangeListener(MainFrame.this);
+				openFrameOnTop(mdp);
+			}
+		});
 		
 		// Content Pane
 		getContentPane().setLayout(new MigLayout("", "[70%,grow][30%,grow]", "[6%,grow][49%,grow][44%,grow]"));
@@ -290,7 +298,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnCreateEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("SELECTED DATE: "+selectedDate);
-				CreateEventFrame cef = new CreateEventFrame(new Event(user, selectedDate, selectedDate));
+				CreateEventFrame cef = new CreateEventFrame(new Event(user, 0, selectedDate, selectedDate, "Event 1","desc","loc", null, null));
 				cef.addPropertyChangeListener(MainFrame.this);
 				openFrameOnTop(cef);
 			}
@@ -342,7 +350,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			selectedDate = (Date)evt.getNewValue();
 			setupSelectedDatePanel(selectedDate);
 		}
-		if (evt.getPropertyName().equals("EventCalendarChanged")) {
+		else if (evt.getPropertyName().equals("EventCalendarChanged")) {
+			setupSelectedDatePanel(selectedDate);
+		}
+		else if (evt.getPropertyName().equals("DatePickerDate")){
+			selectedDate = (Date)evt.getNewValue();
 			setupSelectedDatePanel(selectedDate);
 		}
 	}

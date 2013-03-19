@@ -11,7 +11,7 @@ import javax.swing.ListCellRenderer;
 import common.models.Room;
 import common.models.User;
 
-public class RoomListRenderer extends DefaultListCellRenderer implements ListCellRenderer{
+public class RoomListRenderer extends DefaultListCellRenderer {
 
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
