@@ -1,5 +1,6 @@
 package client.gui;
 
+import java.awt.Component;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -19,9 +20,9 @@ import common.tests.SampleUsers;
 public class UserListFilter extends JPanel{
 	
 	private JTextField TextLine;
-	private JList<User> userList;
+	private JList userList;
 	private JScrollPane scrollPane;
-	private DefaultListModel<User> listModel, filteredListModel;
+	private DefaultListModel listModel, filteredListModel;
 
 	public UserListFilter(ArrayList<User> users) {
 		setBackground(Settings2.COLOR_VERY_DARK_GRAY);
@@ -59,9 +60,9 @@ public class UserListFilter extends JPanel{
 	
 	private void filter(){
 		String[] searchWords = TextLine.getText().split(" ");
-		filteredListModel = new DefaultListModel<User>();
+		filteredListModel = new DefaultListModel();
 		for (int i=0; i<listModel.getSize(); i++){
-			if(containsAll(listModel.get(i).getName(), searchWords)){
+			if(containsAll(((User) listModel.get(i)).getName(), searchWords)){
 				filteredListModel.addElement(listModel.get(i));
 			}
 		}
@@ -82,7 +83,7 @@ public class UserListFilter extends JPanel{
 		ArrayList<User> removedUsers = new ArrayList<User>();
 		int[] indices = userList.getSelectedIndices();
 		for (int i=0; i<indices.length; i++) {
-			User user = userList.getModel().getElementAt(indices[i]-i);
+			User user = (User) userList.getModel().getElementAt(indices[i]-i);
 			removedUsers.add(user);
 			if (filteredListModel!=null) filteredListModel.removeElement(user);
 			listModel.removeElement(user);
@@ -109,13 +110,13 @@ public class UserListFilter extends JPanel{
 	}
 	
 	public void setListModel(ArrayList<User> users){
-		listModel = new DefaultListModel<User>();
+		listModel = new DefaultListModel();
 	    if (users != null){
 	    	for (User user : users){
 	    		listModel.addElement(user);
 	    	}
 	    }
-	    userList=new JList<User>(listModel);
+	    userList=new JList(listModel);
 	}
 	
     public static void main (String args[]) { 

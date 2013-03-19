@@ -3,6 +3,7 @@ package client.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,7 @@ import javax.swing.event.ListSelectionListener;
 import net.miginfocom.swing.MigLayout;
 
 import common.models.Event;
+import common.models.Notification;
 import common.models.User;
 
 
@@ -41,12 +43,14 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private JFrame frame;
 	private JMenuBar menuBar;
 	private JLabel lblSelectedDate, lblMonth, lblFullName, lblNoEvents;
-	private JButton btnNextMonth, btnPrevMonth;
+	private JButton btnNextMonth, btnPrevMonth, btnNotifications;
 	private CoolCalendar coolCalendar;
 	private Date selectedDate;
-	private JPanel panel, panel_1;
+	private JPanel panel, panel_1, panelNf;
 	private User user;
 	private JList selectedDateEventList;
+	private JPopupMenu popupMenu;
+	private int unreadNf;
 	 
 	public MainFrame(User loggedInUser) {
 		super();
@@ -151,41 +155,30 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_2.setLayout(new MigLayout("", "[60%,grow][40%,grow]", "[6%,grow]"));
 		
 		lblFullName = new JLabel("Full Name");
+		lblFullName.setFont(Settings2.FONT_TEXT2);
 		panel_2.add(lblFullName, "cell 0 0");
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.red);
-		panel_2.add(panel_5, "cell 1 0,grow");
-		panel_5.setLayout(new GridLayout(0, 1, 0, 0));
+		panelNf = new JPanel();
+		panelNf.setBackground(Color.red);
+		panel_2.add(panelNf, "cell 1 0,grow");
+		panelNf.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		final JButton btnNotifications = new JButton("Notifications");
+		btnNotifications = new JButton("Notifications");
 		btnNotifications.setContentAreaFilled(false);
 		btnNotifications.setBorderPainted(false);
 		btnNotifications.setForeground(Color.white);
-		panel_5.add(btnNotifications);
+		btnNotifications.setFont(Settings2.FONT_TEXT2);
+		panelNf.add(btnNotifications);
 		
-		final JPopupMenu popupMenu = new JPopupMenu();
-		//popupMenu.setBackground(new Color(200, 100, 100));
 		
-		JMenuItem mntmInvitationTomte = new JMenuItem("Invitation to \"M\u00F8te 1\"");
-		mntmInvitationTomte.setContentAreaFilled(false);
-		mntmInvitationTomte.setBorderPainted(false);
-		popupMenu.add(mntmInvitationTomte);
-		
-		JMenuItem mntmmteIs = new JMenuItem("\"M\u00F8te 2\" is canceled");
-		popupMenu.add(mntmmteIs);
-		
-		/*
-		if (popupMenu.getSubElements().length == 0) {
-			JMenuItem noNots = new JMenuItem("No notifications");
-			popupMenu.add(noNots);
-		}*/
+		//Notifications
+		popupMenu = new JPopupMenu();
 		
 		btnNotifications.addMouseListener(new MouseListener () {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
 					popupMenu.show(btnNotifications, - btnNotifications.getWidth(), btnNotifications.getHeight());
-					popupMenu.setPopupSize(2 * btnNotifications.getWidth(), 3 * btnNotifications.getHeight());
+					popupMenu.setPopupSize(2 * btnNotifications.getWidth(), 2 * btnNotifications.getHeight());
 				}
 			}
 
@@ -199,6 +192,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		});
 		
 		
+		//ebb616214177
 		//Calendar
 		JPanel panel_4 = new JPanel();
 		getContentPane().add(panel_4, "cell 0 1,grow");
@@ -374,6 +368,45 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		}
 		panel.repaint();
 		panel.revalidate();
+	}
+	
+	public void handleNotifications(final Notification notification) {
+		unreadNf++;
+		String title = "";
+		switch (notification.getType()) {
+		case INVITATION:
+			title = "Invitation to " + notification.getEvent().getName();
+			break;
+		case INV_RESPONSE:
+			// kanskje senere
+			break;
+		case EVENT_UPDATE:
+			title = notification.getEvent().getName() + " has been changed";
+			break;
+		}
+		
+		JMenuItem miNewNf = new JMenuItem(title);
+		miNewNf.setFont(Settings2.FONT_TEXT2);
+		miNewNf.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				unreadNf--;
+				setNotificationText();
+				openEvent(notification.getEvent());
+			}
+		});
+		if (popupMenu.getSubElements().length >= 5) {
+			popupMenu.getSubElements()[0] = miNewNf;
+		} else popupMenu.add(miNewNf);
+		
+		setNotificationText();
+	}
+	
+	public void setNotificationText() {
+		btnNotifications.setText("Notifications (" + unreadNf + ")");
+		if (unreadNf == 0) {
+			panelNf.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
+		}
 	}
 	
 	public void setUser(User user){

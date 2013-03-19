@@ -16,12 +16,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import common.models.Event;
+import common.models.Notification;
 import common.models.User;
 import common.tests.SampleEvents;
 
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 public class LoginFrame extends BaseFrame {
 	private JPasswordField passwordField;
@@ -86,6 +88,7 @@ public class LoginFrame extends BaseFrame {
 					System.out.println(user.getName());
 					
 					MainFrame mf = new MainFrame(user);
+					mf.handleNotifications(new Notification(12, Notification.NotificationType.INVITATION, "", sampleEvents.get(3), new Date()));
 					mf.setVisible(true);
 					dispose();
 				} else {

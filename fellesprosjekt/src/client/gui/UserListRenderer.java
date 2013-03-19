@@ -9,7 +9,7 @@ import javax.swing.ListCellRenderer;
 
 import common.models.User;
 
-public class UserListRenderer extends DefaultListCellRenderer implements ListCellRenderer<Object>{
+public class UserListRenderer extends DefaultListCellRenderer implements ListCellRenderer{
 
 	@Override
 	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
@@ -21,7 +21,7 @@ public class UserListRenderer extends DefaultListCellRenderer implements ListCel
 		User u = ((User) value);
 		String name = u.getName();
 		label.setText(name);
-//		Har foreløpig bare satt opp noen random if-setninger for å teste ikonene
+//		Har forelï¿½pig bare satt opp noen random if-setninger for ï¿½ teste ikonene
 		if (Integer.parseInt(u.getPassword())%3==0) label.setIcon(new ImageIcon("images/icon_yes_20px.png"));
 		else if ((Integer.parseInt(u.getPassword())%7==0)) label.setIcon(new ImageIcon("images/icon_no_20px.png"));
 		else if ((Integer.parseInt(u.getPassword())%5==0)) label.setIcon(new ImageIcon("images/icon_noReply_20px.png"));

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import common.models.Event;
+import common.models.Notification;
 import common.models.Room;
 import common.models.User;
 
@@ -14,6 +15,7 @@ public class SampleEvents {
 	private static ArrayList<Event> sampleEvents = new ArrayList<Event>();
 	private static ArrayList<User> sampleUsers = SampleUsers.getSampleUsers();
 	private static ArrayList<Room> sampleRooms = SampleRooms.getSampleRooms();
+	private static ArrayList<Notification> sampleNotifications = new ArrayList<Notification>();
 	
 	public static void generateEvents(){
 		for (int i=0; i<eventCount; i++){			
@@ -24,6 +26,9 @@ public class SampleEvents {
 			event.setAdmin(sampleUsers.get(i));
 			sampleUsers.get(i).addEvent(event);
 			sampleEvents.add(event);
+			
+			Notification n = new Notification(i, Notification.NotificationType.INVITATION, "", event, new Date());
+			sampleNotifications.add(n);
 		}
 	}
 	
@@ -36,5 +41,8 @@ public class SampleEvents {
 		generateEvents();
 		return sampleEvents;
 	}
-
+	
+	public ArrayList<Notification> getNotifications() {
+		return sampleNotifications;
+	}
 }

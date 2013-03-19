@@ -40,7 +40,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	private JButton btnFinish, btnCancel, btnDeleteEvent;
 	private Event event, eventOldValue;
 	private JList listParticipants;
-	private DefaultListModel<User> listModel;
+	private DefaultListModel listModel;
 	
 	private JButton btnEditParticipants, btnFindRoom;
 	private DatePicker datePickerEnd, datePickerStart;
@@ -99,7 +99,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblParticipants.setForeground(Color.WHITE);
 		getContentPane().add(lblParticipants, "cell 1 4,alignx left,aligny top");
 		
-		listModel = new DefaultListModel<User>();
+		listModel = new DefaultListModel();
 		listParticipants = new JList(listModel);
 		listParticipants.setCellRenderer(new UserListRenderer());
 		JScrollPane participantsScrollPane = new JScrollPane(listParticipants);
@@ -270,7 +270,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	@SuppressWarnings("deprecation")
 	public boolean saveAttributes() {
 		if (datePickerEnd.getDate().before(datePickerStart.getDate())) return false;
-		//Bruker bør få opp melding om at sluttid ikke kan være før starttid
+		//Bruker bï¿½r fï¿½ opp melding om at sluttid ikke kan vï¿½re fï¿½r starttid
 		System.out.println("fortsetter");
 		event.setName(textField_name.getText());
 		event.setStart(datePickerStart.getDate());

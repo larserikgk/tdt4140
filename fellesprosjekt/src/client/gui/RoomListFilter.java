@@ -1,6 +1,7 @@
 package client.gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -26,9 +27,9 @@ import common.tests.SampleRooms;
 public class RoomListFilter extends JPanel{
 	
 	private JTextField TextLine;
-	private JList<Room> roomList;
+	private JList roomList;
 	private JScrollPane scrollPane;
-	private DefaultListModel<Room> listModel, filteredListModel;
+	private DefaultListModel listModel, filteredListModel;
 	private JSpinner spinnerCapacity;
 	private JLabel lblRoomName;
 	private JLabel lblCapacity;
@@ -43,14 +44,14 @@ public class RoomListFilter extends JPanel{
 	public RoomListFilter(ArrayList<Room> rooms) {
 		setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 	    
-	    listModel = new DefaultListModel<Room>();
+	    listModel = new DefaultListModel();
 	    if (rooms != null){
 	    	for (Room room : rooms){
 	    		listModel.addElement(room);
 	    	}
 	    }
 
-	    roomList=new JList<Room>(listModel);
+	    roomList=new JList(listModel);
 	    roomList.setCellRenderer(new RoomListRenderer());
 	    roomList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    setLayout(new MigLayout("", "[85%:400px,grow][15%]", "[][23px][grow]"));
@@ -106,9 +107,9 @@ public class RoomListFilter extends JPanel{
 	
 	private void filter(){
 		String[] searchWords = TextLine.getText().split(" ");
-		filteredListModel = new DefaultListModel<Room>();
+		filteredListModel = new DefaultListModel();
 		for (int i=0; i<listModel.getSize(); i++){
-			if(containsAll(listModel.get(i).getName(), searchWords)){
+			if(containsAll(((Room) listModel.get(i)).getName(), searchWords)){
 				filteredListModel.addElement(listModel.get(i));
 			}
 		}
@@ -119,7 +120,7 @@ public class RoomListFilter extends JPanel{
 	private void filterCapacity(){
 		int capacityInput = (Integer) spinnerCapacity.getValue();
 		for (int i=0; i<filteredListModel.getSize(); i++){
-			if(filteredListModel.get(i).getCapacity()<capacityInput){
+			if(((Room) filteredListModel.get(i)).getCapacity()<capacityInput){
 				filteredListModel.removeElement(filteredListModel.get(i));
 				i--;
 				}
@@ -157,7 +158,7 @@ public class RoomListFilter extends JPanel{
 	}
 	
 	public Room getSelectedRoom(){
-		return roomList.getSelectedValue();
+		return (Room) roomList.getSelectedValue();
 	}
 	
 	public ArrayList<Room> getArrayList(){

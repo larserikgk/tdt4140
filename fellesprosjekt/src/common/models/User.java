@@ -1,6 +1,5 @@
 package common.models;
 
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,7 +8,6 @@ public class User {
 	private String password;
 	private String name;
 	private EventCalendar eventCalendar;
-	private PropertyChangeSupport pcs;
 	
 	public User(String username, String password, String name){
 		this.username = username;
