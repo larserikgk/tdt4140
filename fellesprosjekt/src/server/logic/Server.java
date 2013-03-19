@@ -31,26 +31,31 @@ public class Server {
 		try 
 		{
 			ServerSocket handlerSocket = new ServerSocket(Integer.parseInt(settings.getProperty("handlerPort")));
+			display("Starting handlerSocket");
 			ServerSocket pushSocket = new ServerSocket(Integer.parseInt(settings.getProperty("pushPort")));
+			display("Starting pushSocket");
+			display("-Server initialized-");
+			display("Awaiting connections..");
 			while(keepGoing) 
 			{
 
 				Socket hSocket = handlerSocket.accept();				
-				if(!keepGoing)
-					break;
 				ClientHandler handler = new ClientHandler(hSocket,this,settings); 
 				new Thread(handler).start();
+				display("Starting ClientHandler");
+				
 				Socket pSocket = pushSocket.accept();				
-				if(!keepGoing)
-					break;
+				
 				NotificationHandler push = new NotificationHandler(pSocket,this,settings); 
 				new Thread(push).start();
 				connectedClients.add(push);
+				display("Starting NotificationHandler");
 			}
 		}
 		catch (IOException e) {
 
 		}
+		
 	}
 
 	private void notifyClient(String username, Notification notification) {
@@ -79,6 +84,10 @@ public class Server {
 	}
 
 	public static void main(String[] args) {
-		new Server(1600, 1601);
+		new Server(1600, 1601).start();
+	}
+	
+	public void display(String message) {
+		System.out.println(message);
 	}
 }

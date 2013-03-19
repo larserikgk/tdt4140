@@ -40,6 +40,8 @@ public class ClientHandler implements Runnable{
 			input  = new ObjectInputStream(socket.getInputStream());
 			Request request = (Request) input.readObject();
 			username = (String) input.readObject();
+			server.display("User" + username +" connected to Notifier");
+			server.display("Client connected to Handler");
 
 
 			while(keepGoing){

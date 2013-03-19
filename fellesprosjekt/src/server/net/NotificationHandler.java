@@ -38,7 +38,7 @@ public class NotificationHandler implements Runnable{
 			input  = new ObjectInputStream(socket.getInputStream());
 			Request request = (Request) input.readObject();
 			username = (String) input.readObject();
-
+			server.display("Client connected to Notifier");
 
 			
 		}
