@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,15 +33,15 @@ public class ServerConnector implements IServerConnector{
 	private ObjectOutputStream output;
 	private ObjectOutputStream pushOutput;
 	private XMLConverter xmlConverter;
-	
+
 	public ServerConnector(Properties settings, String username) {
 		this.url = settings.getProperty(url);
 		this.username = username;
 		this.handlerPort = 1600;
 		this.pushPort = 1601;
 	}
-	
-	public boolean start() {
+
+	public boolean start() throws ConnectException{
 		try {
 			socket = new Socket(url, handlerPort);
 			pushSocket = new Socket(url, pushPort);
@@ -82,31 +83,31 @@ public class ServerConnector implements IServerConnector{
 	/**Transmits the request via outputstream to the server.
 	 * 
 	 * @param req
+	 * @throws ConnectException 
 	 */
-	private String sendRequest(Request req) {
+	private String sendRequest(Request req) throws ConnectException {
 		try {
 			output.writeObject(req);
 			output.flush();
-		}
-		catch(IOException e) {
-			System.err.println("Exception writing to server: " + e);
-		}
-		
-		try {
+
 			String result = (String) input.readObject();			
 			return result;
 		}
 		catch(IOException e) {
-			if(gui != null) 
-				gui.connectionFailed();
-			break;
+			System.err.println("Exception writing to server: " + e);
+			throw new ConnectException();
 		}
+		catch(ClassNotFoundException e) {
+
+		}
+		return null;
+
 	}
 
 	/**Closes all streams and shuts down the socket.
 	 * 
 	 */
-	public void disconnect() {
+	public void disconnect() throws ConnectException{
 		try {
 			output.writeObject(new Request(null,Request.LOGOUT));
 		} catch (IOException e1) {
@@ -126,145 +127,145 @@ public class ServerConnector implements IServerConnector{
 		catch(Exception e) {/** Ignore errors */} 
 
 		if(gui != null)
-			gui.connectionFailed();
+			throw new ConnectException();
 
 	}
 
 	@Override
-	public User getUser(String username, String password) {
+	public User getUser(String username, String password) throws ConnectException{
 		Request request = new Request("login", Request.USER);
 		request.addProperty("username", username);
 		request.addProperty("password", password);
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		return xmlConverter.constructUserFromNode(doc.getFirstChild());
 	}
 
 	@Override
-	public ArrayList<Event> getEvents(User user, int count) {
+	public ArrayList<Event> getEvents(User user, int count) throws ConnectException{
 		ArrayList<Event> events = new ArrayList<Event>();
 		Request request = new Request("events", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		do{
 			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
 
 		} while(false);
-		
+
 		return events;
 	}
 
 	@Override
-	public ArrayList<Event> getMeetings(User user, int count) {
+	public ArrayList<Event> getMeetings(User user, int count) throws ConnectException{
 		ArrayList<Event> events = new ArrayList<Event>();
 		Request request = new Request("meetings", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		do{
 			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
 
 		} while(false);
-		
+
 		return events;
 	}
 
 	@Override
-	public ArrayList<Event> getAppointments(User user, int count) {
+	public ArrayList<Event> getAppointments(User user, int count) throws ConnectException{
 		ArrayList<Event> events = new ArrayList<Event>();
 		Request request = new Request("appointments", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		do{
 			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
 
 		} while(false);
-		
+
 		return events;
 	}
 
 	@Override
 	public ArrayList<Notification> getNotifications(User user,
-			boolean unreadOnly, int count) {
+			boolean unreadOnly, int count) throws ConnectException{
 		ArrayList<Notification> notifications = new ArrayList<Notification>();
 		Request request = new Request("notificationslimited", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		request.addProperty("undreadonly", Boolean.toString(unreadOnly));
 		request.addProperty("amount", String.valueOf(count));
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		do{
 			notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
 
 		} while(false);
-		
+
 		return notifications;
 	}
 
 	@Override
-	public ArrayList<Event> getEvents(User user, Date from, Date to) {
+	public ArrayList<Event> getEvents(User user, Date from, Date to) throws ConnectException{
 		ArrayList<Event> events = new ArrayList<Event>();
 		Request request = new Request("eventsbydate", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		request.addProperty("startdate", from.toString());
 		request.addProperty("enddate", to.toString());
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		do{
 			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
 
 		} while(false);
-		
+
 		return events;
 	}
 
 	@Override
-	public ArrayList<Event> getMeetings(User user, Date from, Date to) {
+	public ArrayList<Event> getMeetings(User user, Date from, Date to) throws ConnectException{
 		ArrayList<Event> events = new ArrayList<Event>();
 		Request request = new Request("meetingsbydate", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		request.addProperty("startdate", from.toString());
 		request.addProperty("enddate", to.toString());
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		do{
 			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
 
 		} while(false);
-		
+
 		return events;
 	}
 
 	@Override
-	public ArrayList<Event> getAppointments(User user, Date from, Date to) {
+	public ArrayList<Event> getAppointments(User user, Date from, Date to) throws ConnectException{
 		ArrayList<Event> events = new ArrayList<Event>();
 		Request request = new Request("appoinmentsbydate", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		request.addProperty("startdate", from.toString());
 		request.addProperty("enddate", to.toString());
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		do{
 			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
 
 		} while(false);
-		
+
 		return events;
 	}
 
 	@Override
 	public ArrayList<Notification> getNotifications(User user,
-			boolean unreadOnly, Date from, Date to) {
+			boolean unreadOnly, Date from, Date to) throws ConnectException{
 		ArrayList<Notification> notifications = new ArrayList<Notification>();
 		Request request = new Request("notifications", Request.EVENT);
 		request.addProperty("username", user.getUsername());
@@ -272,29 +273,30 @@ public class ServerConnector implements IServerConnector{
 		request.addProperty("enddate", to.toString());
 		request.addProperty("undreadonly", Boolean.toString(unreadOnly));
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		do{
 			notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
 
 		} while(false);
-		
+
 		return notifications;
 	}
-	
+
 	private class NotificationListener extends Thread {
 		public void run() {
 			while(true) {
 				try {
-					String result = (String) input.readObject();			
-					gui.handleResponse(result);
+					String result = (String) input.readObject();
+					Document doc = xmlConverter.StringToDOMDocument(result);
+					gui.handleNotifications(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
 				}
 				catch(IOException e) {
-					if(gui != null) 
-						gui.connectionFailed();
-					break;
 				}
-				
+				catch(ClassNotFoundException e) {
+					
+				}
+
 			}
 		}
 	}
