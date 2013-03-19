@@ -68,27 +68,50 @@ public class ClientHandler implements Runnable{
 		String response = null;
 		switch(request.getType()){
 		case Request.USER:
-			
+			if(request.getQuery().equals("login")) {
+
+			}
+			else if(request.equals("user")) {
+
+			}
+
 			break;
 		case Request.EVENT:
-			
+			if(request.getQuery().equals("events")) {
+
+			}
+			else if(request.equals("appointments")) {
+
+			}
+			else if(request.equals("meetings")) {
+
+			}
+			else if(request.equals("eventsbydate")) {
+
+			}
+			else if(request.equals("appointmentsbydate")) {
+
+			}
+			else if(request.equals("meetingsbydate")) {
+
+			}
 			break;
 		case Request.NOTIFICATION:
-			
+			if(request.getQuery().equals("notifications")) {
+
+			}
+			else if(request.equals("notificationslimited")) {
+
+			}
 			break;
 		case 4:
-			
-			break;
-		case 5:
-			
-			break;
-		case 6:
+
 			break;
 		}
 		return response;
 	}
-	
-	
+
+
 
 	private void kill() throws IOException {
 		output.close();
