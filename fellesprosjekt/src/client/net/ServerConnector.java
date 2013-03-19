@@ -143,52 +143,143 @@ public class ServerConnector implements IServerConnector{
 
 	@Override
 	public ArrayList<Event> getEvents(User user, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Event> events = new ArrayList<Event>();
+		Request request = new Request("events", Request.EVENT);
+		request.addProperty("username", user.getUsername());
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		do{
+			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+
+		} while(false);
+		
+		return events;
 	}
 
 	@Override
 	public ArrayList<Event> getMeetings(User user, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Event> events = new ArrayList<Event>();
+		Request request = new Request("meetings", Request.EVENT);
+		request.addProperty("username", user.getUsername());
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		do{
+			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+
+		} while(false);
+		
+		return events;
 	}
 
 	@Override
 	public ArrayList<Event> getAppointments(User user, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Event> events = new ArrayList<Event>();
+		Request request = new Request("appointments", Request.EVENT);
+		request.addProperty("username", user.getUsername());
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		do{
+			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+
+		} while(false);
+		
+		return events;
 	}
 
 	@Override
 	public ArrayList<Notification> getNotifications(User user,
 			boolean unreadOnly, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Notification> notifications = new ArrayList<Notification>();
+		Request request = new Request("notificationslimited", Request.EVENT);
+		request.addProperty("username", user.getUsername());
+		request.addProperty("undreadonly", Boolean.toString(unreadOnly));
+		request.addProperty("amount", String.valueOf(count));
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		do{
+			notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
+
+		} while(false);
+		
+		return notifications;
 	}
 
 	@Override
 	public ArrayList<Event> getEvents(User user, Date from, Date to) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Event> events = new ArrayList<Event>();
+		Request request = new Request("eventsbydate", Request.EVENT);
+		request.addProperty("username", user.getUsername());
+		request.addProperty("startdate", from.toString());
+		request.addProperty("enddate", to.toString());
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		do{
+			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+
+		} while(false);
+		
+		return events;
 	}
 
 	@Override
 	public ArrayList<Event> getMeetings(User user, Date from, Date to) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Event> events = new ArrayList<Event>();
+		Request request = new Request("meetingsbydate", Request.EVENT);
+		request.addProperty("username", user.getUsername());
+		request.addProperty("startdate", from.toString());
+		request.addProperty("enddate", to.toString());
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		do{
+			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+
+		} while(false);
+		
+		return events;
 	}
 
 	@Override
 	public ArrayList<Event> getAppointments(User user, Date from, Date to) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Event> events = new ArrayList<Event>();
+		Request request = new Request("appoinmentsbydate", Request.EVENT);
+		request.addProperty("username", user.getUsername());
+		request.addProperty("startdate", from.toString());
+		request.addProperty("enddate", to.toString());
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		do{
+			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+
+		} while(false);
+		
+		return events;
 	}
 
 	@Override
 	public ArrayList<Notification> getNotifications(User user,
 			boolean unreadOnly, Date from, Date to) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Notification> notifications = new ArrayList<Notification>();
+		Request request = new Request("notifications", Request.EVENT);
+		request.addProperty("username", user.getUsername());
+		request.addProperty("startdate", from.toString());
+		request.addProperty("enddate", to.toString());
+		request.addProperty("undreadonly", Boolean.toString(unreadOnly));
+		String result = sendRequest(request);
+		
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		do{
+			notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
+
+		} while(false);
+		
+		return notifications;
 	}
 	
 	private class NotificationListener extends Thread {

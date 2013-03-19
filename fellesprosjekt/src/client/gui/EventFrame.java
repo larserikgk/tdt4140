@@ -1,10 +1,12 @@
  package client.gui;
 
 import java.awt.Color;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,6 +31,8 @@ import common.models.Event;
 import common.models.EventCalendar;
 import common.models.Room;
 import common.models.User;
+import javax.swing.JToggleButton;
+import java.awt.FlowLayout;
 
 public abstract class EventFrame extends BaseFrame implements PropertyChangeListener {
 	
@@ -41,11 +45,13 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	private Event event, eventOldValue;
 	private JList listParticipants;
 	private DefaultListModel listModel;
+	private ResponseToggleButton tbAccept, tbDecline;
 	
 	private JButton btnEditParticipants, btnFindRoom;
 	private DatePicker datePickerEnd, datePickerStart;
 	private JPanel panel_3;
 	private JPanel panel_2;
+	private JPanel panel_4;
 	
 	public EventFrame(final Event event) {
 		super();
@@ -67,6 +73,22 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblMainTitle.setForeground(Color.WHITE);
 		getContentPane().add(lblMainTitle, "cell 0 0 2 1,alignx left,aligny center");
 		
+		ButtonGroup btnG = new ButtonGroup();
+		
+		panel_4 = new JPanel();
+		panel_4.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
+		getContentPane().add(panel_4, "cell 2 0,grow");
+		
+		tbAccept = new ResponseToggleButton("Accept");
+		tbAccept.setBounds(12, 5, 100, 23);
+		tbDecline = new ResponseToggleButton("Decline");
+		tbDecline.setBounds(124, 5, 100, 23);
+		panel_4.setLayout(null);
+		panel_4.add(tbAccept);
+		panel_4.add(tbDecline);
+		
+		btnG.add(tbAccept);
+		btnG.add(tbDecline);
 		
 		JLabel lblTitle = new JLabel("Title");
 		lblTitle.setFont(Settings2.FONT_TEXT2);
@@ -230,6 +252,11 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	}
 	
 	public void setIsEditable(boolean b) {
+		datePickerStart.setEnabled(b);
+		datePickerEnd.setEnabled(b);
+		tbAccept.setEnabled(!b);
+		tbDecline.setEnabled(!b);
+		panel_4.setVisible(!b);
 		comboBox_repeat.setEnabled(b);
 		btnEditParticipants.setEnabled(b);
 		panel.setVisible(b);
@@ -269,7 +296,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 
 	@SuppressWarnings("deprecation")
 	public boolean saveAttributes() {
-		if (datePickerEnd.getDate().before(datePickerStart.getDate())) return false;
+		if (datePickerEnd.getDate().compareTo(datePickerStart.getDate()) < 0) return false;
 		//Bruker b�r f� opp melding om at sluttid ikke kan v�re f�r starttid
 		System.out.println("fortsetter");
 		event.setName(textField_name.getText());

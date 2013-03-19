@@ -40,7 +40,7 @@ public class DatePicker extends JPanel {
 		frame.setVisible(true);
 	}
 	
-	//BRUK DENNE KONSTRUKTØREN
+	//BRUK DENNE KONSTRUKTï¿½REN
 	//Setter dato ved opprettelse, slik at feltet ikke er tomt
 	public DatePicker(Date date){
 		this();
@@ -59,7 +59,7 @@ public class DatePicker extends JPanel {
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("dd.MM.y");
 		dateChooser.setMinSelectableDate(minDate); 
-		dateChooser.setMaxSelectableDate(maxDate); 
+		dateChooser.setMaxSelectableDate(maxDate);
 		
 		add(dateChooser, "cell 0 0,growx,aligny top");
 		
@@ -104,6 +104,7 @@ public class DatePicker extends JPanel {
 	}
 	
 	public void setMinimumDate(Date date){
+		date.setSeconds(0);
 		dateChooser.setMinSelectableDate(date);
 	}
 	
@@ -150,6 +151,13 @@ public class DatePicker extends JPanel {
 	public boolean isValidDate(Date date){
 		System.out.println("Gyldig dato: "+ (date.compareTo(minDate)>=0 && date.compareTo(maxDate)<=0));
 		return (date.compareTo(minDate)>=0 && date.compareTo(maxDate)<=0);
+	}
+	
+	@Override
+	public void setEnabled(boolean b){
+		dateChooser.setEnabled(b);
+		spinnerHour.setEnabled(b);
+		spinnerMinute.setEnabled(b);
 	}
 
 }

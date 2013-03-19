@@ -46,7 +46,7 @@ public class Core extends JPanel implements ActionListener
 				cells.add(temp);
 			}
 		
-		for (Event e : eventCalendar.eventList) {
+		for (Event e : eventCalendar.getEventList()) {
 			System.out.println(e.getStart().toString());
 		}
 		
