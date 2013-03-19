@@ -15,6 +15,7 @@ public class Server {
 	private Properties settings;
 
 	public Server(int handlerPort, int pushPort) {
+		settings = new Properties();
 		settings.setProperty("handlerPort", Integer.toString(handlerPort));
 		settings.setProperty("pushPort", Integer.toString(pushPort));
 		settings.setProperty("url","");
