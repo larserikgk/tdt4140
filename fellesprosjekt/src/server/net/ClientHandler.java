@@ -44,6 +44,7 @@ public class ClientHandler implements Runnable{
 				switch(request.getType()) {
 				case Request.LOGOUT:
 					keepGoing = false;
+					server.disconnect(username);
 					kill();
 					break;
 
@@ -64,18 +65,27 @@ public class ClientHandler implements Runnable{
 	}
 
 	private String handleRequest(Request request) {
+		String response = null;
 		switch(request.getType()){
-		case 1:
+		case Request.USER:
 			
 			break;
-		case 2:
+		case Request.EVENT:
 			
 			break;
-		case 3:
+		case Request.NOTIFICATION:
 			
+			break;
+		case 4:
+			
+			break;
+		case 5:
+			
+			break;
+		case 6:
 			break;
 		}
-
+		return response;
 	}
 	
 	

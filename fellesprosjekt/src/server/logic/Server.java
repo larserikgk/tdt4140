@@ -8,6 +8,7 @@ import java.util.Properties;
 import server.net.ClientHandler;
 import server.net.NotificationHandler;
 import common.models.*;
+
 public class Server {
 	private ArrayList<NotificationHandler> connectedClients;
 	private boolean keepGoing;
@@ -50,11 +51,19 @@ public class Server {
 
 		}
 	}
-	
+
 	private void notifyClient(String username, Notification notification) {
 		for (int i = 0; i < connectedClients.size(); i++) {
 			if(connectedClients.get(i).getUsername() == username) {
 				connectedClients.get(i).notifyUser(notification);
+			}
+		}
+	}
+
+	public void disconnect(String username) {
+		for (int i = 0; i < connectedClients.size(); i++) {
+			if(connectedClients.get(i).getUsername() == username) {
+				connectedClients.get(i).disconnect();
 			}
 		}
 	}
@@ -66,5 +75,9 @@ public class Server {
 		}
 		catch(Exception e) {
 		}
+	}
+
+	public static void main(String[] args) {
+		new Server(1600, 1601);
 	}
 }

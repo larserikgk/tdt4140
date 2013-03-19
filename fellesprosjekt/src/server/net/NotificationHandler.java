@@ -40,19 +40,7 @@ public class NotificationHandler implements Runnable{
 			username = (String) input.readObject();
 
 
-			while(keepGoing){
-				request = (Request) input.readObject();
-
-				switch(request.getType()) {
-				case Request.LOGOUT:
-					keepGoing = false;
-					kill();
-					break;
-
-				default :
-					break;
-				}
-			}
+			
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -65,7 +53,7 @@ public class NotificationHandler implements Runnable{
 
 	public void notifyUser(Notification notification) {
 		Document doc = xmlConverter.getNewDocument();
-		xmlConverter.notificationToDOMElement(notification, doc, doc.getDocumentElement(), false);
+		xmlConverter.notificationToDOMElement(notification, doc, null, false);
 		String msg = xmlConverter.DOMDocumentToString(doc);
 		try {
 			output.writeObject(msg);
@@ -77,6 +65,15 @@ public class NotificationHandler implements Runnable{
 	
 	public String getUsername() {
 		return username;
+	}
+	
+	public void disconnect() {
+		keepGoing = false;
+		try {
+			kill();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void kill() throws IOException {
