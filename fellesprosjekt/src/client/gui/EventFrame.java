@@ -296,7 +296,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 
 	@SuppressWarnings("deprecation")
 	public boolean saveAttributes() {
-		if (datePickerEnd.getDate().before(datePickerStart.getDate())) return false;
+		if (datePickerEnd.getDate().compareTo(datePickerStart.getDate()) < 0) return false;
 		//Bruker b�r f� opp melding om at sluttid ikke kan v�re f�r starttid
 		System.out.println("fortsetter");
 		event.setName(textField_name.getText());
