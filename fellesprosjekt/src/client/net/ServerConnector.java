@@ -137,7 +137,7 @@ public class ServerConnector implements IServerConnector{
 		request.addProperty("username", username);
 		request.addProperty("password", password);
 		String result = sendRequest(request);
-		
+
 		Document doc = xmlConverter.StringToDOMDocument(result);		
 
 		return xmlConverter.constructUserFromNode(doc.getFirstChild());
@@ -202,10 +202,16 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		do{
-			notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
 
-		} while(false);
+		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
+			if(i == 0)
+				notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
+			else
+				notifications.add(xmlConverter.constructNotificationFromNode(doc.getNextSibling()));
+		}
+
+
+
 
 		return notifications;
 	}
@@ -271,7 +277,6 @@ public class ServerConnector implements IServerConnector{
 		Request request = new Request("notifications", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		request.addProperty("startdate", from.toString());
-		request.addProperty("enddate", to.toString());
 		request.addProperty("undreadonly", Boolean.toString(unreadOnly));
 		String result = sendRequest(request);
 
@@ -295,7 +300,7 @@ public class ServerConnector implements IServerConnector{
 				catch(IOException e) {
 				}
 				catch(ClassNotFoundException e) {
-					
+
 				}
 
 			}
