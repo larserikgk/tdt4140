@@ -3,23 +3,22 @@ package common.models;
 import java.io.Serializable;
 import java.util.Properties;
 
-public class Request implements Serializable{
-	private String query;
+public class Response implements Serializable{
+	private String contents;
 	private int type;
-	public static final int USER = 1, EVENT = 2, NOTIFICATION = 3, LOGOUT = 7;
+	public static final int PUSHNOTIFICATION = 1, LOGOUT = 2;
 	private Properties properties;
-	
-	public Request(String query, int type) {
-		this.query = query;
-		this.type =  type;
+
+	public Response(int type, String contents) {
+		
 	}
 
-	public String getQuery() {
-		return query;
+	public String getContents() {
+		return contents;
 	}
 
-	public void setQuery(String query) {
-		this.query = query;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
 	public int getType() {
@@ -29,7 +28,7 @@ public class Request implements Serializable{
 	public void setType(int type) {
 		this.type = type;
 	}
-	
+
 	public Properties getProperties() {
 		return properties;
 	}
@@ -45,4 +44,6 @@ public class Request implements Serializable{
 	public String getPropety(String key) {
 		return properties.getProperty(key);
 	}
+	
+
 }

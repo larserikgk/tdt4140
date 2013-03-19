@@ -15,17 +15,19 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import common.models.Event;
 import common.models.User;
 import common.tests.SampleEvents;
-import common.tests.SampleUsers;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class LoginFrame extends BaseFrame {
 	private JPasswordField passwordField;
 	private JTextField textField_user;
 	private JLabel lblFeedback;
+	private static ArrayList<Event> sampleEvents = SampleEvents.getSampleEvents();
 	
 	public static void main(String[] args){
 		  BaseFrame frame = new LoginFrame();
@@ -114,7 +116,8 @@ public class LoginFrame extends BaseFrame {
 	}
 	
 	private User getUser(String username){
-		for (User user : SampleUsers.getSampleUsers()){
+		for (User user : SampleEvents.getSampleUsers()){
+//		for (User user : SampleUsers.getSampleUsers()){
 			if (user.getUsername().equals(username)){
 				return user;
 			}

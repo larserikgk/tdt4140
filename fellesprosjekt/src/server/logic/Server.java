@@ -6,56 +6,63 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Properties;
 import server.net.ClientHandler;
-
+import server.net.NotificationHandler;
+import common.models.*;
 public class Server {
-	private ArrayList<ClientHandler> connectedClients;
-	private int port;
+	private ArrayList<NotificationHandler> connectedClients;
 	private boolean keepGoing;
 	private Properties settings;
 
-	public Server(int port) {
-		settings.setProperty("port", Integer.toString(port));
+	public Server(int handlerPort, int pushPort) {
+		settings.setProperty("handlerPort", Integer.toString(handlerPort));
+		settings.setProperty("pushPort", Integer.toString(pushPort));
 		settings.setProperty("url","");
 		settings.setProperty("database", "");
 		settings.setProperty("username", "");
 		settings.setProperty("password", "");
-		this.port = port;
-		connectedClients = new ArrayList<ClientHandler>();
-		
+		connectedClients = new ArrayList<NotificationHandler>();
+
 	}
-	
+
 	public void start() {
 		keepGoing = true;
 		try 
 		{
-			ServerSocket serverSocket = new ServerSocket(port);
-
+			ServerSocket handlerSocket = new ServerSocket(Integer.parseInt(settings.getProperty("handlerPort")));
+			ServerSocket pushSocket = new ServerSocket(Integer.parseInt(settings.getProperty("pushPort")));
 			while(keepGoing) 
 			{
 
-				Socket socket = serverSocket.accept();				
+				Socket hSocket = handlerSocket.accept();				
 				if(!keepGoing)
 					break;
-				ClientHandler t = new ClientHandler(socket,this,settings);
-				connectedClients.add(t); 
-				new Thread(t).start();
-			}
-			try {
-				
-			}
-			catch(Exception e) {
-				
+				ClientHandler handler = new ClientHandler(hSocket,this,settings); 
+				new Thread(handler).start();
+				Socket pSocket = pushSocket.accept();				
+				if(!keepGoing)
+					break;
+				NotificationHandler push = new NotificationHandler(pSocket,this,settings); 
+				new Thread(push).start();
+				connectedClients.add(push);
 			}
 		}
 		catch (IOException e) {
-			
+
 		}
 	}
 	
+	private void notifyClient(String username, Notification notification) {
+		for (int i = 0; i < connectedClients.size(); i++) {
+			if(connectedClients.get(i).getUsername() == username) {
+				connectedClients.get(i).notifyUser(notification);
+			}
+		}
+	}
+
 	protected void stop() {
 		keepGoing = false;
 		try {
-			new Socket("localhost", port);
+			new Socket("localhost", Integer.parseInt(settings.getProperty("handlerPort")));
 		}
 		catch(Exception e) {
 		}

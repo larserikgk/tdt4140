@@ -10,7 +10,7 @@ import common.models.User;
 
 public class SampleEvents {
 	
-	private static int eventCount = 100;
+	private static int eventCount = 10;
 	private static ArrayList<Event> sampleEvents = new ArrayList<Event>();
 	private static ArrayList<User> sampleUsers = SampleUsers.getSampleUsers();
 	private static ArrayList<Room> sampleRooms = SampleRooms.getSampleRooms();
@@ -18,7 +18,7 @@ public class SampleEvents {
 	public static void generateEvents(){
 		for (int i=0; i<eventCount; i++){			
 			
-			Event event = new Event(sampleUsers.get(i), i, new Date(2013, 2, i, 10, 0), new Date(2013, 2, i, 11, 0), "TestEvent nr: "+i, "",
+			Event event = new Event(sampleUsers.get(i), i, new Date(2013-1900, 2, i, 10, 0), new Date(2013-1900, 2, i, 11, 0), "TestEvent nr: "+i, "",
 					sampleRooms.get(i).getName(), i, true); 
 			
 			event.setAdmin(sampleUsers.get(i));
@@ -28,7 +28,7 @@ public class SampleEvents {
 	}
 	
 	public static ArrayList<User> getSampleUsers() {
-		generateEvents();
+		//generateEvents();
 		return sampleUsers;
 	}
 	

@@ -18,6 +18,7 @@ import net.miginfocom.swing.MigLayout;
 
 import common.models.Event;
 import common.models.User;
+import common.tests.SampleEvents;
 import common.tests.SampleUsers;
 
 public class ParticipantsFrame extends BaseFrame {
@@ -25,20 +26,11 @@ public class ParticipantsFrame extends BaseFrame {
 	private Event event;
 	
 	public static void main(String[] args){
-		JFrame frame = new ParticipantsFrame();
+		JFrame frame = new ParticipantsFrame(new Event());
 		frame.setVisible(true);
 	}
 	
-	public ParticipantsFrame(Event event){
-		this();
-		this.event = event;
-		ArrayList<User> allUsers = SampleUsers.getSampleUsers();
-		ArrayList<User> participants = event.getParticipants();
-		allUsers.removeAll(participants);
-		allUsersList = new UserListFilter(allUsers);
-	}
-	
-	public ParticipantsFrame() {
+	public ParticipantsFrame(Event event) {
 		super();
 		setResizable(false);
 		setSize(709, 517);
@@ -48,6 +40,9 @@ public class ParticipantsFrame extends BaseFrame {
 		//getContentPane().setBorder(border);
 		getContentPane().setLayout(new MigLayout("", "[2%,grow][4.69%][20%,grow][20%,grow][5%,grow][30%,grow][10%,grow][2%,grow]", "[1%,grow][5%,grow][60%,grow][5.52%,grow][5%,grow]"));
 	
+		this.event = event;
+		setupParticipants(event);
+		
 		JLabel lblAddParticipants = new JLabel("Edit participants");
 		lblAddParticipants.setFont(Settings2.FONT_TITLE1);
 		lblAddParticipants.setFont(Settings2.FONT_TEXT1);
@@ -64,8 +59,8 @@ public class ParticipantsFrame extends BaseFrame {
 		lblParticipants.setFont(Settings2.FONT_TEXT2);
 		getContentPane().add(lblParticipants, "cell 5 1");
 		
-		ArrayList<User> allUsers = SampleUsers.getSampleUsers();
-		allUsersList = new UserListFilter(allUsers);
+//		ArrayList<User> allUsers = SampleUsers.getSampleUsers();
+//		allUsersList = new UserListFilter(allUsers);
 		getContentPane().add(allUsersList, "cell 2 2 2 1,grow");
 		
 		JPanel panel_2 = new JPanel();
@@ -111,7 +106,7 @@ public class ParticipantsFrame extends BaseFrame {
 			}
 		});
 		
-		invitedUsersList = new UserListFilter(null);
+//		invitedUsersList = new UserListFilter(null);
 		getContentPane().add(invitedUsersList, "cell 5 2 2 1,grow");
 		
 		JPanel panel_1 = new JPanel();
@@ -151,5 +146,13 @@ public class ParticipantsFrame extends BaseFrame {
 				close();
 			}
 		});
+	}
+	
+	public void setupParticipants(Event event){
+		ArrayList<User> participants = event.getParticipants();
+		invitedUsersList = new UserListFilter(participants);
+		ArrayList<User> allUsers = SampleEvents.getSampleUsers();
+		allUsers.removeAll(participants);
+		allUsersList = new UserListFilter(allUsers);
 	}
 }
