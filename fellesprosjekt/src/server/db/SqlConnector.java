@@ -2,8 +2,6 @@ package server.db;
 
 
 import java.sql.Connection;
-
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,16 +49,7 @@ public class SqlConnector {
 	
 	public void addSomeUser(User user)
 	{
-		addUser = "INSERT INTO User(username, passord, name) VALUES ('"+ user.getUsername() +"','" + user.getPassword() +"','" + user.getName() + "')";
-		
-		try {
-			stmt = conn.createStatement();
-			stmt.executeUpdate(addUser);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		addSomeUser(user.getUsername(), user.getPassword(), user.getName());
 	}
 	
 	public void addSomeUser(String userName, String pw, String name)
@@ -74,92 +63,16 @@ public class SqlConnector {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		 
-		
-		
-	}
-	
-	//Denne vil jeg helst at vi ungår å bruke.. 
-	//description feltene, osv er ikke tatt med 
-	public void addSomeEvent(int year, int month, int day, int hour, int min, int dyear,int dmonth, int dday, int dhour, int dmin, String userName)
-	{
-								//year, month, date, hrs, min
-		Date dateStart = new Date(year, month, day, hour, min); 
-		Date dateEnd = new Date(dyear, dmonth, dday, dhour, dmin); 
-	
-		System.out.println(dateStart.getTime());
-		System.out.println(dateEnd.getTime()); 
-		
-		long dateStartInMiliSec = dateStart.getTime();
-		long dateEndInMiliSec = dateEnd.getTime();	
-		 
-		
-		set("INSERT INTO Event(startTime, endTime, owner) " +
-				"VALUES(" + dateStartInMiliSec + "," + dateEndInMiliSec + ",'" +userName+"')");
-		  
-	}
-	
-	public int addSomeEvent(Date dateStart, Date dateEnd, String userName, String description, String location)
-	{	
-//		System.out.println(dateStart.getTime());
-//		System.out.println(dateEnd.getTime()); 
-		
-		long dateStartInMiliSec = dateStart.getTime();
-		long dateEndInMiliSec = dateEnd.getTime();
-		java.sql.ResultSet r = null; 
-		 
-		set("INSERT INTO Event(startTime, endTime, owner, description, location) " +
-					"VALUES(" + dateStartInMiliSec + "," + dateEndInMiliSec + ",'" +userName+"','"+description+"','"+location+"')");
-	
-		int autoIncValue = 0; 
-		try {
-			rs = (ResultSet) stmt.getGeneratedKeys();
-			autoIncValue = -1;
-			if(rs.next()) 
-			{
-			       autoIncValue = rs.getInt(1);
-			       /*You can get more generated keys if they are generated in your code*/
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return autoIncValue;  
-		
-		
-	}
-	public void addSomeEvent(long dateStartInMiliSec, long dateEndInMiliSec, String userName, String description, String location)
-	{		 
-		set("INSERT INTO Event(startTime, endTime, owner, description, location) " +
-				"VALUES(" + dateStartInMiliSec + "," + dateEndInMiliSec + ",'" +userName+"','"+description+"','"+location+"')");	
-	}
-	
-	public void addUserNotificationRelationDerp(Notification not)
-	{
-		String q = "INSERT INTO UserNotificationRelation(lest,username,notification_id) " +
-				"VALUES(false, ? ," + not.getId() + ")";
-		try {
-			PreparedStatement p = (PreparedStatement) conn.prepareStatement(q);
-			
-			for(User user: not.getEvent().getParticipants() )
-			{
-				p.setString(1, user.getUsername());
-				System.out.println(q); 
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		} 	
 	}
 	
 	public void addUserNotificationRelation(Notification not)
 	{
 		String q = "INSERT INTO UserNotificationRelation(lest,username,notification_id) " +
 				"VALUES(false, ? ," + not.getId() + ")";
-		try {
-			PreparedStatement p = (PreparedStatement) conn.prepareStatement(q);
+		try 
+		{
+			PreparedStatement p = conn.prepareStatement(q);
 			
 			for(User user: not.getEvent().getParticipants() )
 			{
@@ -178,19 +91,17 @@ public class SqlConnector {
 	{
 		set("INSERT INTO Notification(type, event_id, description) " +
 				 " VALUES('" +not.getType()+"'," + not.getEvent().getId() + ",'"+not.getDescription() +"')");
-		int autoIncValue = 0; 
-		try {
+		int autoIncValue = -1; 
+		try 
+		{
 			rs = (ResultSet) stmt.getGeneratedKeys();
-			autoIncValue = -1;
 			if(rs.next()) 
-			{
 			       autoIncValue = rs.getInt(1);
-			       /*You can get more generated keys if they are generated in your code*/
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
+		
 		not.setId(autoIncValue);
 		addUserNotificationRelation(not); 
 		return autoIncValue; 
@@ -200,17 +111,39 @@ public class SqlConnector {
 	//brukes!
 	public void addFullEvent(Event event) throws Exception 
 	{
-		
-		if(event.getStart().getTime() > event.getEnd().getTime())
-		{
+		if(event.getStart().getTime() > event.getEnd().getTime())	
 			throw new Exception("Event tid stemmer ikke overens"); 
-		}
-			
-		int event_id = addSomeEvent(event); 
-		if(event_id > 0)
-		{
+		
+		if(addSomeEvent(event) > 0)
 			addParticipantsToEvent(event);
-		}	
+	}
+	
+	//brukes 
+	public int addSomeEvent(Event event) 
+	{
+		
+		long dateStartInMiliSec = event.getStart().getTime();
+		long dateEndInMiliSec = event.getEnd().getTime();
+		String userName = event.getAdmin().getUsername(); 
+		String description = event.getDescription(); 
+		String location = event.getLocation(); 
+		 
+		set("INSERT INTO Event(startTime, endTime, owner, description, location) " +
+				"VALUES(" + dateStartInMiliSec + "," + dateEndInMiliSec + ",'" +userName+"','"+description+"','"+location+"')");
+		
+		int autoIncValue = 0; 
+		try 
+		{
+			rs = (ResultSet) stmt.getGeneratedKeys();
+			autoIncValue = -1;
+			if(rs.next()) 
+			       autoIncValue = rs.getInt(1);
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		event.setId(autoIncValue); 
+		return autoIncValue; 
 	}
 	
 	public void addParticipantsToEvent(Event event)
@@ -245,44 +178,7 @@ public class SqlConnector {
 	}
 	
 	
-	//brukes 
-	public int addSomeEvent(Event event) 
-	{
-		
-		long dateStartInMiliSec = event.getStart().getTime();
-		long dateEndInMiliSec = event.getEnd().getTime();
-		String userName = event.getAdmin().getUsername(); 
-		String description = event.getDescription(); 
-		String location = event.getLocation(); 
-		 
-		set("INSERT INTO Event(startTime, endTime, owner, description, location) " +
-				"VALUES(" + dateStartInMiliSec + "," + dateEndInMiliSec + ",'" +userName+"','"+description+"','"+location+"')");
-		
-		int autoIncValue = 0; 
-		try {
-			rs = (ResultSet) stmt.getGeneratedKeys();
-			autoIncValue = -1;
-			if(rs.next()) 
-			{
-			       autoIncValue = rs.getInt(1);
-			       /*You can get more generated keys if they are generated in your code*/
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		event.setId(autoIncValue); 
-		return autoIncValue; 
-	}
-	
-	private boolean testToSeIfTextIsEmpty(String t)
-	{
-		if(!t.equals(""))
-		{
-			return true; 
-		}
-		return false; 
-	}
+
 
 	public void addBooking(Event event, Room room)
 	{
@@ -410,14 +306,14 @@ public class SqlConnector {
 		String q = "Select * from Room join (SELECT room_name FROM Booking join (SELECT event_id FROM Event WHERE( (startTime <=" + startTimeInMili + ")" +
 				" AND( endTime >= " + startTimeInMili + 
 				"))OR(( startTime >" + startTimeInMili + ") AND( startTime <" + endTimeInMili + " ))) AS overLapp ON Booking.event_id = overLapp.event_id) AS OverlappRoom ON Room.room_name = OverlappRoom.room_name;";
-		try {
+		try 
+		{
 			rs = (ResultSet) stmt.executeQuery(q);
 			while(rs.next())
-			{
 				result.add(new Room(rs.getString(1), rs.getInt(2))); 
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 		} 
 		
@@ -441,22 +337,21 @@ public class SqlConnector {
 	public ArrayList<User> getUsers(ArrayList <String> ids, boolean hasPW)
 	{
 		ArrayList<User> result = new ArrayList<User>();
-		
 		String q; 
+		
 		if(hasPW)
-			q = "SELECT * FROM User Where username = '"+ ids.get(0) + "'" ;
+			q = "SELECT * FROM User WHERE username = '"+ ids.get(0) + "'" ;
 		else
-			q = "SELECT username, name FROM User Where username = '"+ids.get(0)+ "'" ;
+			q = "SELECT username, name FROM User WHERE username = '"+ids.get(0)+ "'" ;
 		
 		ids.remove(0);
  
 		try {
 			
 			for(String s: ids)
-			{
 				q += "OR '" + s +"'"; 
-			}
-		q += ";"; 
+
+			q += ";"; 
 			stmt = conn.createStatement(); 
 			rs = (ResultSet) stmt.executeQuery(q);
 			if(hasPW)
@@ -465,15 +360,12 @@ public class SqlConnector {
 			else
 				while(rs.next())		
 					result.add(new User(rs.getString(1), rs.getString(2))); 
-			
-			System.out.println(q); 
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+
+		} catch (Exception e) {}
 		return result;
 	}
 		
-	// for å kjøte en statement; 
+	// for å kjøRe en statement; 
 	private ResultSet set(String querry)
 
 	{

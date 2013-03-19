@@ -18,15 +18,15 @@ public class Event {
 			String description, String location, ArrayList<User> participants,
 			Room room) {
 		super();
-		this.admin = admin;
-		this.id = id;
-		this.start = start;
-		this.end = end;
-		this.name = name;
-		this.description = description;
-		this.location = location;
-		this.participants = participants;
-		this.room = room;
+		this.admin 	= admin;
+		this.id 	= id;
+		this.start 	= start;
+		this.end 	= end;
+		this.name 	= name;
+		this.description 	= description;
+		this.location 		= location;
+		this.participants 	= participants;
+		this.room 			= room;
 	}
 
 	public User getAdmin() {

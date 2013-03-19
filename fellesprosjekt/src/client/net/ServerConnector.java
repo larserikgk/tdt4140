@@ -46,7 +46,7 @@ public class ServerConnector implements IServerConnector{
 			pushSocket = new Socket(url, pushPort);
 		} 
 		catch(Exception ec) {
-			System.err.println("Error connectiong to server:" + ec);
+			System.err.println("Error connecting to server:" + ec);
 			return false;
 		}
 

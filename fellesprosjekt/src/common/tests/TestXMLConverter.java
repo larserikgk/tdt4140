@@ -5,8 +5,10 @@ import java.util.Date;
 import org.w3c.dom.Document;
 
 import common.models.Event;
+import common.models.Notification;
 import common.models.Room;
 import common.models.User;
+import common.models.Notification.NotificationType;
 import common.util.XMLConverter;
 
 public class TestXMLConverter 
@@ -16,6 +18,7 @@ public class TestXMLConverter
 	static User derp 	= new User("kwrl","swag" , "Håkon");
 	static Room room1 	= new Room("R1", 123);
 	static Event party	= new Event(derp,1,date1,date2,"Fest","My place","Epic", new ArrayList<User>(), room1);
+	static Notification not = new Notification(NotificationType.INVITATION, "Awesome parteh", party, date1);
 	static XMLConverter converter = new XMLConverter();
 	static Document doc;
 	
@@ -39,12 +42,16 @@ public class TestXMLConverter
 	
 	public static void testNotificationConversion()
 	{
+		doc = converter.getNewDocument();
+		converter.notificationToDOMElement(not, doc, null, true);
 		
+		System.out.println(converter.DOMDocumentToString(doc));
 	}
-	
 	public static void testEventConversion()
 	{
 		doc = converter.getNewDocument();
+		party.getParticipants().add(derp);
+		party.getParticipants().add(derp);
 		converter.eventToDOMElement(party, doc, null, true);
 		
 		System.out.println(converter.DOMDocumentToString(doc));

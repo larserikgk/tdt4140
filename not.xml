@@ -1,0 +1,46 @@
+<notification>
+	<id>0</id>
+	<type>INVITATION</type>
+	<description>Awesome parteh</description>
+	<sentDate>
+		<date>
+			<year>113</year>
+			<month>2</month>
+			<day>19</day>
+			<hour>14</hour>
+			<minute>1</minute>
+		</date>
+	</sentDate>
+	<event>
+		<event>
+			<ID>1</ID>
+			<start>
+				<date>
+					<year>113</year>
+					<month>2</month>
+					<day>19</day>
+					<hour>14</hour>
+					<minute>1</minute>
+				</date>
+			</start>
+			<end>
+				<date>
+					<year>113</year>
+					<month>2</month>
+					<day>19</day>
+					<hour>14</hour>
+					<minute>1</minute>
+				</date>
+			</end>
+			<name>Fest</name>
+			<location>Epic</location>
+			<room>
+				<room>
+					<name>R1</name>
+					<capacity>123</capacity>
+				</room>
+			</room>
+			<participants/>
+		</event>
+	</event>
+</notification>
