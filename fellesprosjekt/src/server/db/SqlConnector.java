@@ -59,10 +59,12 @@ public class SqlConnector {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 		
 	}
 	
+	//brukes ikke
 	public void addSomeUser(String userName, String pw, String name)
 	{
 		//username, passord, name
@@ -80,8 +82,8 @@ public class SqlConnector {
 		
 	}
 	
-	//Denne vil jeg helst at vi ungår å bruke.. 
-	//description feltene, osv er ikke tatt med 
+ 
+	//Brukes ikke
 	public void addSomeEvent(int year, int month, int day, int hour, int min, int dyear,int dmonth, int dday, int dhour, int dmin, String userName)
 	{
 								//year, month, date, hrs, min
@@ -99,7 +101,7 @@ public class SqlConnector {
 				"VALUES(" + dateStartInMiliSec + "," + dateEndInMiliSec + ",'" +userName+"')");
 		  
 	}
-	
+	//brukes ikke
 	public int addSomeEvent(Date dateStart, Date dateEnd, String userName, String description, String location)
 	{	
 //		System.out.println(dateStart.getTime());
@@ -129,12 +131,15 @@ public class SqlConnector {
 		
 		
 	}
+	//brukes ikke
 	public void addSomeEvent(long dateStartInMiliSec, long dateEndInMiliSec, String userName, String description, String location)
 	{		 
 		set("INSERT INTO Event(startTime, endTime, owner, description, location) " +
 				"VALUES(" + dateStartInMiliSec + "," + dateEndInMiliSec + ",'" +userName+"','"+description+"','"+location+"')");	
 	}
+
 	
+	//Hva faen er dette?
 	public void addUserNotificationRelationDerp(Notification not)
 	{
 		String q = "INSERT INTO UserNotificationRelation(lest,username,notification_id) " +
@@ -165,8 +170,6 @@ public class SqlConnector {
 			{
 				p.setString(1, user.getUsername());
 				p.executeUpdate(); 
-				System.out.println(q); 
-				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -213,39 +216,6 @@ public class SqlConnector {
 		}	
 	}
 	
-	public void addParticipantsToEvent(Event event)
-	{		
-	//	String IKKESVAR = "IKKESVAR"; 
-		String q; 
-		try {
-			
-			for(User k: event.getParticipants())
-			{
-				
-				q = "INSERT INTO Participant(status,username,event_id)" + 
-						"VALUES("+(k.getUsername()==event.getAdmin().getUsername() ? "'SKAL'" : "'IKKESVART'")+" , ? ," 
-								+ event.getId() + ")";
-				System.out.println(q); 
-				PreparedStatement p = conn.prepareStatement(q);
-				//p.setString(1, "'IKKESVART'"); 
-				p.setString(1, k.getUsername()); 
-				p.executeUpdate();  
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-	}	
-
-	public void addAlert(Event event, User user, Date alertTime)
-	{
-		long time = alertTime.getTime(); 
-		set("INSERT INTO HasAlert(event_id,username,alertTime)" 
-				+ "Values("+event.getId() +",'"+user.getUsername() +"',"+ time +")"); 
-	}
-	
-	
-	//brukes 
 	public int addSomeEvent(Event event) 
 	{
 		
@@ -275,15 +245,37 @@ public class SqlConnector {
 		return autoIncValue; 
 	}
 	
-	private boolean testToSeIfTextIsEmpty(String t)
-	{
-		if(!t.equals(""))
-		{
-			return true; 
-		}
-		return false; 
-	}
+	public void addParticipantsToEvent(Event event)
+	{		
+	//	String IKKESVAR = "IKKESVAR"; 
+		String q; 
+		try {
+			
+			for(User k: event.getParticipants())
+			{
+				
+				q = "INSERT INTO Participant(status,username,event_id)" + 
+						"VALUES("+(k.getUsername()==event.getAdmin().getUsername() ? "'SKAL'" : "'IKKESVART'")+" , ? ," 
+								+ event.getId() + ")";
+				System.out.println(q); 
+				PreparedStatement p = conn.prepareStatement(q);
+				//p.setString(1, "'IKKESVART'"); 
+				p.setString(1, k.getUsername()); 
+				p.executeUpdate();  
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	}	
 
+	public void addAlert(Event event, User user, Date alertTime)
+	{
+		long time = alertTime.getTime(); 
+		set("INSERT INTO HasAlert(event_id,username,alertTime)" 
+				+ "Values("+event.getId() +",'"+user.getUsername() +"',"+ time +")"); 
+	} 
+	
 	public void addBooking(Event event, Room room)
 	{
 		set("INSERT INTO Booking(room_name, event_id) " +
@@ -335,11 +327,33 @@ public class SqlConnector {
 		return result; 
 	}
 	
-	public ArrayList<Event> gettAllEvent(User user)
+	private Room getBooking(int eventID)
+	{
+		String querry = "select * from Room inner join(select * from Booking where event_id= ?) AS derp ON Room.room_name=derp.room_name;";
+		Room result = null;
+		try {
+			PreparedStatement p = conn.prepareStatement(querry); 
+			p.setInt(1, eventID); 
+			rs = (ResultSet) p.executeQuery();
+			while(rs.next())
+			{
+				p.setString(1, rs.getString(1));			 
+				result = new Room(rs.getString(1), rs.getInt(2)); 
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace(); 
+		}
+		return result; 
+	}
+	
+	public ArrayList<Event> getAllEvent(User user)
+
 	{
 		String querry = "SELECT * FROM Event WHERE event_id = ?"; 
 		ArrayList<Integer> eventID = new ArrayList<Integer>();
 		ArrayList<Event> result = new ArrayList<Event>(); 
+		ArrayList<User> users = new ArrayList<User>(); 
 		eventID = getAllEventID(user);
 		
 		try {
@@ -351,8 +365,10 @@ public class SqlConnector {
 				rs = (ResultSet) p.executeQuery(); 				
 				while(rs.next())
 				{				
-					//(User admin, int id, Date start, Date end, String description, String location, String name 
-					result.add(new Event(user, i, new Date(rs.getLong(3)), new Date(rs.getLong(4)), rs.getString(5), rs.getString(6), rs.getString(2)));
+					//(User admin, int id, Date start, Date end, String description, String location, String name
+					// User admin, int id, Date start, Date end, String name,String description, String location, ArrayList<User> participants,Room room) 
+					//(User admin, Date start, Date end, String name,String description, String location, ArrayList<User> participants,Room room) 
+					result.add(new Event(user, rs.getInt(1), new Date(rs.getLong(3)), new Date(rs.getLong(4)), rs.getString(2), rs.getString(5), rs.getString(6), null, getBooking(rs.getInt(1))));
 				}
 			}
 		} catch (SQLException e) {
@@ -363,7 +379,7 @@ public class SqlConnector {
 		
 	}
 	
-	//event, admin, start, end date	
+	
 	
 	public ArrayList<Integer> getAllEventID(User user)
 	{
@@ -383,7 +399,7 @@ public class SqlConnector {
 		return result;
 	}
 	
-	//kan brukes til å hente ut brukernavn også!
+	//Henter alle brukere... men tar inn en string.. 
 	public ArrayList<User> getFromUser(String querry) {
 		
 		//"SELECT username, name FROM User";
@@ -419,25 +435,11 @@ public class SqlConnector {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		
-		
+		}		
 		
 		return result; 
 	}
-	
-	public User login(String username, String password)
-	{
-		ArrayList<String> send = new ArrayList<String>();
-		ArrayList<User> users; 
-		send.add(username); 
-		users = getUsers(send, true); 
 		
-		if(users.get(0).getPassword().equals(password))
-		 	return(users.get(0)); 
-		return null; 
-	}	
-	
 	public ArrayList<User> getUsers(ArrayList <String> ids, boolean hasPW)
 	{
 		ArrayList<User> result = new ArrayList<User>();
@@ -466,12 +468,25 @@ public class SqlConnector {
 				while(rs.next())		
 					result.add(new User(rs.getString(1), rs.getString(2))); 
 			
-			System.out.println(q); 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		return result;
 	}
+
+	
+	
+	public User login(String username, String password)
+	{
+		ArrayList<String> send = new ArrayList<String>();
+		ArrayList<User> users; 
+		send.add(username); 
+		users = getUsers(send, true); 
+		
+		if(users.get(0).getPassword().equals(password))
+		 	return(users.get(0)); 
+		return null; 
+	}	
 		
 	// for å kjøte en statement; 
 	private ResultSet set(String querry)

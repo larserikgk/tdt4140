@@ -137,7 +137,7 @@ public class ServerConnector implements IServerConnector{
 		request.addProperty("password", password);
 		String result = sendRequest(request);
 		
-		Document doc = xmlConverter.StringToDOMDocument(result);
+		Document doc = xmlConverter.StringToDOMDocument(result);		
 		return xmlConverter.constructUserFromNode(doc.getFirstChild());
 	}
 

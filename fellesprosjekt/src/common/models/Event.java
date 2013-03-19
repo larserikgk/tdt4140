@@ -121,6 +121,11 @@ public class Event {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
+	public String toString()
+	{
+		return(this.id + " " + this.name + " " + this.start + "  "  + this.end + " " 
+				+this.description + "  " + this.location + "  " + this.admin.toString() + "  " + this.room); 
+	}
 	
 	
 	
