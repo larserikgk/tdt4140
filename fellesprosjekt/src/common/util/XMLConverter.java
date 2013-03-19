@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import common.models.Event;
 import common.models.Notification;
+import common.models.Room;
 import common.models.User;
 import common.models.Notification.NotificationType;
 
@@ -93,24 +94,26 @@ public class XMLConverter
 	
 	public void userToDOMElement(User user, Document doc, Element parent)
 	{
-		Element username, name, user_;
+		Element username, name, password, user_;
 		username 	= doc.createElement("username");
+		password	= doc.createElement("password");
 		name		= doc.createElement("name");
 		user_ 		= doc.createElement("user");
 		
-		
+		user_.appendChild(password);
 		user_.appendChild(username);
 		user_.appendChild(name);
 		
 		username.appendChild(doc.createTextNode(user.getUsername()));
 		name.appendChild(doc.createTextNode(user.getName()));
+		password.appendChild(doc.createTextNode(user.getPassword()));
 		
 		(parent==null ? doc : parent).appendChild(user_);
 	}
 	
 	public void eventToDOMElement(Event event, Document doc, Element parent, boolean complete)
 	{
-		Element 	id, start, end, name, description, location, bookingID, isMeeting, participants, event_;
+		Element 	id, start, end, name, description, location, room, participants, event_;
 		
 		id 			= doc.createElement("ID");
 		start		= doc.createElement("start");
@@ -118,8 +121,7 @@ public class XMLConverter
 		name		= doc.createElement("name");
 		description = doc.createElement("description");
 		location	= doc.createElement("location");
-		bookingID	= doc.createElement("bookingID");
-		isMeeting	= doc.createElement("isMeeting");
+		room		= doc.createElement("room");
 		participants= doc.createElement("participants");
 		event_		= doc.createElement("event");
 		
@@ -128,8 +130,7 @@ public class XMLConverter
 		event_.appendChild(end);
 		event_.appendChild(name);
 		event_.appendChild(location);
-		event_.appendChild(bookingID);
-		event_.appendChild(isMeeting);
+		event_.appendChild(room);
 		event_.appendChild(participants);
 		
 		id.appendChild(doc.createTextNode(""+event.getId()));
@@ -138,8 +139,7 @@ public class XMLConverter
 		name.appendChild(doc.createTextNode(event.getName()));
 		description.appendChild(doc.createTextNode(event.getDescription()));
 		location.appendChild(doc.createTextNode(event.getLocation()));
-		bookingID.appendChild(doc.createTextNode(""+event.getBookingId()));
-		isMeeting.appendChild(doc.createTextNode(event.isMeeting() ? "true": "false"));
+		roomToDOMElement(event.getRoom(), doc, room);
 		
 		if(complete)
 			for(User user : event.getParticipants())
@@ -149,6 +149,23 @@ public class XMLConverter
 				participants.appendChild(doc.createTextNode(user.getName()));
 		
 		(parent==null ? doc : parent).appendChild(event_);
+	}
+	
+	public void roomToDOMElement(Room room, Document doc, Element parent)
+	{
+		Element name, capacity, room_;
+		
+		name 		= doc.createElement("name");
+		capacity 	= doc.createElement("capacity");
+		room_		= doc.createElement("room");
+		
+		room_.appendChild(name);
+		room_.appendChild(capacity);
+		
+		name.appendChild(doc.createTextNode(room.getName()));
+		capacity.appendChild(doc.createTextNode(""+room.getCapacity()));
+		
+		(parent==null ? doc : parent).appendChild(room_);
 	}
 
 	public void notificationToDOMElement(Notification notification, Document doc, Element parent, boolean complete)
@@ -276,14 +293,14 @@ public class XMLConverter
 		NodeList children 				= node.getChildNodes();
 		Node temp;
 		
-		int id, bookingId;
-		Date start, end;
-		String name, description, location;
+		int 			id;
+		Date 			start, end;
+		String 			name, description, location;
 		ArrayList<User> participants;;
-		User	admin;
+		User			admin;
+		Room 			room;
 		
 		id = 0;
-		bookingId = 0;
 		start = null;
 		end = null;
 		name = "";
@@ -291,6 +308,7 @@ public class XMLConverter
 		location = "";
 		participants = null;
 		admin = null;
+		room = null;
 		
 		
 		for(int i = 0; i < children.getLength(); i++)
@@ -302,8 +320,6 @@ public class XMLConverter
 				start = constructDateFromNode(temp);
 			else if(temp.getNodeName().equals("end"))
 				end = constructDateFromNode(temp);
-			else if(temp.getNodeName().equals("bookingId"))
-				bookingId = Integer.parseInt(temp.getFirstChild().getTextContent());
 			else if(temp.getNodeName().equals("name"))
 				name = temp.getFirstChild().getTextContent();
 			else if(temp.getNodeName().equals("description"))
@@ -314,10 +330,11 @@ public class XMLConverter
 				participants = constructParticipantsFromNode(temp);
 			else if(temp.getNodeName().equals("admin"))
 				admin = constructUserFromNode(temp);
+			else if(temp.getNodeName().equals("room"))
+				room = constructRoomFromNode(temp);
 		}
 		
-		return new Event(admin, id, start, end, name, description, location, bookingId);
-		
+		return new Event(admin, id, start, end, name, description, location,participants, room);
 	}
 	
 	public ArrayList<User> constructParticipantsFromNode(Node node)
@@ -336,21 +353,25 @@ public class XMLConverter
 		NodeList children = node.getChildNodes();
 		Node temp;
 		
-		String username, name;
+		String username, name, password;
 		
 		username 	= "";
 		name		= "";
+		password 	= "";
 		
 		for(int i = 0; i < children.getLength(); i++)
 		{
 			temp = children.item(i);
-			if(temp.getNodeName().equals("year"))
+			if(temp.getNodeName().equals("username"))
 				username = temp.getFirstChild().getTextContent();
-			else if(temp.getNodeName().equals("month"))
+			else if(temp.getNodeName().equals("name"))
 				name = temp.getFirstChild().getTextContent();
+			else if(temp.getNodeName().equals("password"))
+				password = temp.getFirstChild().getTextContent();
+				
 		}
 		
-		return new User(username, "", name);
+		return new User(username, password, name);
 	}
 	
 	public Date constructDateFromNode(Node node)
@@ -382,6 +403,26 @@ public class XMLConverter
 		}
 		
 		return new Date(year,month,day,hour,minute);
+	}
+	
+	public Room constructRoomFromNode(Node node)
+	{
+		NodeList children = node.getChildNodes();
+		Node temp;
+		
+		String name		= "";
+		int capacity 	= 0;
+		
+		for(int i = 0; i < children.getLength(); i++)
+		{
+			temp = children.item(i);
+			if(temp.getNodeName().equals("name"))
+				name = temp.getFirstChild().getTextContent();
+			else if(temp.getNodeName().equals("capacity"))
+				capacity = Integer.parseInt(temp.getFirstChild().getTextContent());
+		}
+		
+		return new Room(name, capacity);
 	}
 	
 	public Document getNewDocument()

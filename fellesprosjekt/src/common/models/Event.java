@@ -11,9 +11,23 @@ public class Event {
 	private Date end;
 	private String name, description;
 	private String location;
-	private int bookingId;
 	private ArrayList<User> participants = new ArrayList<User>();
+	private Room room;  
 	
+	public Event(User admin, int id, Date start, Date end, String name,
+			String description, String location, ArrayList<User> participants,
+			Room room) {
+		super();
+		this.admin = admin;
+		this.id = id;
+		this.start = start;
+		this.end = end;
+		this.name = name;
+		this.description = description;
+		this.location = location;
+		this.participants = participants;
+		this.room = room;
+	}
 	public Event(User admin, Date start, Date end) {
 		this.admin = admin;
 		this.id = 12;
@@ -48,18 +62,6 @@ public class Event {
 	
 	public Event() {
 		// TODO Auto-generated constructor stub
-	}
-	public Event(User admin, int id, Date start, Date end, String name, String description,
-			String location, int bookingId) {
-		this.admin = admin;
-		this.id = id;
-		this.name = name;
-		this.start = start;
-		this.end = end;
-		this.description = description;
-		this.location = location;
-		this.bookingId = bookingId;
-		//this.participants = participants;
 	}
 	
 	public void delete() {
@@ -117,14 +119,6 @@ public class Event {
 		this.location = location;
 	}
 
-	public int getBookingId() {
-		return bookingId;
-	}
-
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
-	}
-
 	public boolean isMeeting() {
 		return participants.size()>1;
 	}
@@ -144,5 +138,13 @@ public class Event {
 	public void removeParticipant(User user){
 		participants.remove(user);
 	}
+	public Room getRoom() {
+		return room;
+	}
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	
+	
 	
 }
