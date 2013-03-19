@@ -52,12 +52,20 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private JList selectedDateEventList;
 	private JPopupMenu popupMenu;
 	private int unreadNf;
-	 
-	public MainFrame(User loggedInUser) {
+	
+	public static void main(String[] args){
+		MainFrame mf = new MainFrame();
+	}
+	
+	public MainFrame(){
 		super();
 		setMaximized();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
-				
+		LoginFrame lf = new LoginFrame();
+		openFrameOnTop(lf);
+	}
+	 
+	public void init(User loggedInUser) {
 		// MENU BAR
 		menuBar = new JMenuBar();
 		menuBar.setToolTipText("");
@@ -73,8 +81,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		mntmLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				close();
-				BaseFrame frame = new LoginFrame();
-				frame.setVisible(true);
+				MainFrame mf = new MainFrame();
 			}
 		});
 		

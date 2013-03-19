@@ -87,10 +87,12 @@ public class LoginFrame extends BaseFrame {
 					System.out.println("ACCESS GRANTED for user: "+user);
 					System.out.println(user.getName());
 					
-					MainFrame mf = new MainFrame(user);
-					mf.handleNotifications(new Notification(12, Notification.NotificationType.INVITATION, "", sampleEvents.get(3), new Date()));
-					mf.setVisible(true);
-					dispose();
+//					MainFrame mf = new MainFrame(user);
+//					mf.handleNotifications(new Notification(12, Notification.NotificationType.INVITATION, "", sampleEvents.get(3), new Date()));
+//					mf.setVisible(true);
+					((MainFrame) getParentFrame()).init(user);
+					((MainFrame) getParentFrame()).setVisible(true);
+					close();
 				} else {
 					lblFeedback.setText("<html>The username or password you entered is incorrect.</html>");
 				}

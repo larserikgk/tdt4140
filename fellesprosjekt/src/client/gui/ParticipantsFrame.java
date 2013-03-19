@@ -152,7 +152,9 @@ public class ParticipantsFrame extends BaseFrame {
 		ArrayList<User> participants = event.getParticipants();
 		invitedUsersList = new UserListFilter(participants);
 		ArrayList<User> allUsers = SampleEvents.getSampleUsers();
-		allUsers.removeAll(participants);
+		if (participants != null){
+			allUsers.removeAll(participants);
+		}
 		allUsersList = new UserListFilter(allUsers);
 	}
 }
