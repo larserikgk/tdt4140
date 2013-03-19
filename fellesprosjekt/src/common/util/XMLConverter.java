@@ -110,16 +110,7 @@ public class XMLConverter
 	
 	public void eventToDOMElement(Event event, Document doc, Element parent, boolean complete)
 	{
-		Element 	id, 
-					start, 
-					end, 
-					name, 
-					description, 
-					location, 
-					bookingID, 
-					isMeeting, 
-					participants, 
-					event_;
+		Element 	id, start, end, name, description, location, bookingID, isMeeting, participants, event_;
 		
 		id 			= doc.createElement("ID");
 		start		= doc.createElement("start");
@@ -162,12 +153,7 @@ public class XMLConverter
 
 	public void notificationToDOMElement(Notification notification, Document doc, Element parent, boolean complete)
 	{
-		Element 	id,
-					type,
-					description,
-					sentDate,
-					event,
-					notification_;
+		Element 	id, type, description, sentDate, event, notification_;
 		
 		id				= doc.createElement("id");
 		type			= doc.createElement("type");
@@ -293,8 +279,8 @@ public class XMLConverter
 		int id, bookingId;
 		Date start, end;
 		String name, description, location;
-		boolean isMeeting;
 		ArrayList<User> participants;;
+		User	admin;
 		
 		id = 0;
 		bookingId = 0;
@@ -303,8 +289,8 @@ public class XMLConverter
 		name = "";
 		description = "";
 		location = "";
-		isMeeting = false;
 		participants = null;
+		admin = null;
 		
 		
 		for(int i = 0; i < children.getLength(); i++)
@@ -324,13 +310,13 @@ public class XMLConverter
 				description = temp.getFirstChild().getTextContent();
 			else if(temp.getNodeName().equals("location"))
 				location = temp.getFirstChild().getTextContent();
-			else if(temp.getNodeName().equals("isMeeting"))
-				isMeeting = temp.getFirstChild().getTextContent().equals("true");
 			else if(temp.getNodeName().equals("participants"))
 				participants = constructParticipantsFromNode(temp);
+			else if(temp.getNodeName().equals("admin"))
+				admin = constructUserFromNode(temp);
 		}
 		
-		return new Event(id, start, end, name, description, location, bookingId, isMeeting, participants);
+		return new Event(admin, id, start, end, name, description, location, bookingId);
 		
 	}
 	
