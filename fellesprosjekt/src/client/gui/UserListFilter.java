@@ -28,14 +28,7 @@ public class UserListFilter extends JPanel{
 		TextLine = new JTextField(35);
 		add(TextLine, "growx");
 	    
-	    listModel = new DefaultListModel<User>();
-	    if (users != null){
-	    	for (User user : users){
-	    		listModel.addElement(user);
-	    	}
-	    }
-
-	    userList=new JList<User>(listModel);
+	    setListModel(users);
 	    userList.setCellRenderer(new UserListRenderer());
 	    setLayout(new MigLayout("", "[300.00px,grow]", "[23px][grow]"));
 		
@@ -113,6 +106,16 @@ public class UserListFilter extends JPanel{
 			al.add((User) obj);
 		}
 		return al;
+	}
+	
+	public void setListModel(ArrayList<User> users){
+		listModel = new DefaultListModel<User>();
+	    if (users != null){
+	    	for (User user : users){
+	    		listModel.addElement(user);
+	    	}
+	    }
+	    userList=new JList<User>(listModel);
 	}
 	
     public static void main (String args[]) { 

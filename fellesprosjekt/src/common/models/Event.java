@@ -77,8 +77,6 @@ public class Event {
 		this.name = name;
 	}
 
-	
-
 	public int getId() {
 		return id;
 	}

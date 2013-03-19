@@ -1,20 +1,22 @@
 package server.net;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Properties;
 
-import common.models.*;
-import common.util.XMLConverter;
+import org.w3c.dom.Document;
 
 import server.db.SqlConnector;
 import server.logic.Server;
 
+import common.models.Notification;
+import common.models.Request;
+import common.util.XMLConverter;
 
-public class ClientHandler implements Runnable{
+
+public class NotificationHandler implements Runnable{
 	private Socket socket;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
@@ -25,7 +27,7 @@ public class ClientHandler implements Runnable{
 	private Properties settings;
 	XMLConverter xmlConverter;
 
-	public ClientHandler(Socket socket, Server server, Properties settings) {
+	public NotificationHandler(Socket socket, Server server, Properties settings) {
 		this.settings = settings;
 		database = new SqlConnector(this.settings);
 	}
@@ -48,9 +50,6 @@ public class ClientHandler implements Runnable{
 					break;
 
 				default :
-					String result = handleRequest(request);
-					output.writeObject(result);
-					output.flush();
 					break;
 				}
 			}
@@ -63,26 +62,27 @@ public class ClientHandler implements Runnable{
 
 	}
 
-	private String handleRequest(Request request) {
-		switch(request.getType()){
-		case 1:
-			
-			break;
-		case 2:
-			
-			break;
-		case 3:
-			
-			break;
-		}
 
+	public void notifyUser(Notification notification) {
+		Document doc = xmlConverter.getNewDocument();
+		xmlConverter.notificationToDOMElement(notification, doc, doc.getDocumentElement(), false);
+		String msg = xmlConverter.DOMDocumentToString(doc);
+		try {
+			output.writeObject(msg);
+			output.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	
+	public String getUsername() {
+		return username;
+	}
 
 	private void kill() throws IOException {
 		output.close();
 		input.close();
 		socket.close(); 
 	}
+
 }

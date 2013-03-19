@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 
 public class RoomFinderFrame extends BaseFrame {
 	
+	private RoomListFilter roomList;
+	
 	public RoomFinderFrame(int defaultCapacity) {
 		setResizable(false);
 		setSize(709, 517);
@@ -26,7 +28,7 @@ public class RoomFinderFrame extends BaseFrame {
 		lblFindRoom.setFont(Settings2.FONT_TEXT1);
 		getContentPane().add(lblFindRoom, "cell 0 0 2 1");
 		
-		RoomListFilter roomList = new RoomListFilter(SampleRooms.getSampleRooms(),defaultCapacity);
+		roomList = new RoomListFilter(SampleRooms.getSampleRooms(),defaultCapacity);
 		getContentPane().add(roomList, "cell 1 1 2 1,grow");
 		
 		JPanel panel = new JPanel();
@@ -55,6 +57,12 @@ public class RoomFinderFrame extends BaseFrame {
 		btnSave.setContentAreaFilled(false);
 		btnSave.setBorderPainted(false);
 		btnSave.setForeground(Color.WHITE);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				((EventFrame) getParentFrame()).setRoom(roomList.getSelectedRoom());
+				close();
+			}
+		});
 		
 	}
 	
