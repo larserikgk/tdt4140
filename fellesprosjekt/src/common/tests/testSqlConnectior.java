@@ -48,7 +48,7 @@ public class testSqlConnectior {
 //			sql.addSomeUser(haakon);
 //			sql.addSomeUser(hAkon);	
 			
-			Room rom = new Room("SWAG!", 5);
+//			Room rom = new Room("tiss!!", 5);
 			ArrayList<User> s = new ArrayList<User>(); 
 			s.add(hAkon); 
 			s.add(p); 
@@ -80,9 +80,9 @@ public class testSqlConnectior {
 			}
 			
 	
-			Booking book = new Booking(rom,vent); 
+//			Booking book = new Booking(rom,vent); 
 
-			sql.addBooking(vent, rom);
+//			sql.addBooking(vent, rom);
 	
 //			System.out.println(sql.getBooking(vent).toString()); 
 //			System.out.println(sql.availableRooms(vent).toString()); 
@@ -91,16 +91,18 @@ public class testSqlConnectior {
 //			System.out.println(sql.gettAllEvent(hAkon).toString());
 //			System.out.println(sql.getBooking(vent).toString());
 			
-//			Date time = new Date(2117,07,25,14,35); 
+			Date time = new Date(2017,07,25,14,35); 
 //			sql.addAlert(vent, haakon, time); 
 			
-//			Notification not = new Notification(NotificationType.INVITATION, "HAAKON ER AWSM #SOCKS", vent, time);
+			Notification not = new Notification(NotificationType.INVITATION, "HAAKON ER AWSM #SOCKS", vent);
 			
-//			not.setId(sql.addNotification(not));
+			not.setId(sql.addNotification(not));
 			
-//			sql.addUserNotificationRelation(not);
+		//	sql.addUserNotificationRelation(not);
 			
-			System.out.println(sql.getAllEvent(haakon)); 
+		//	System.out.println(sql.getAllEvent(haakon));
+			
+			System.out.println(sql.getAllNotifications(haakon).toString()); 
 			
 	}
 	
@@ -115,15 +117,7 @@ public class testSqlConnectior {
 		}
 		
 	}
-	private static void addSomeEvent(int year, int month, int day, int hour, int min, int dyear,int dmonth, int dday, int dhour, int dmin, String userName)
-	{
-		sql.addSomeEvent(year, month, day, hour, min, dyear, dmonth, day, dhour, dmin, userName); 
-	}
-	private static void addSomeEventDes(Date dateStart, Date dateEnd, String userName, String description, String location)
-	{
-		sql.addSomeEvent(dateStart, dateEnd, userName, description, location); 
-		 
-	}
+
 	
 	
 

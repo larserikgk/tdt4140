@@ -26,8 +26,8 @@ public class SampleEvents {
 			sampleUsers.get(i).addEvent(event);
 			sampleEvents.add(event);
 			
-			Notification n = new Notification(i, Notification.NotificationType.INVITATION, "", event, new Date());
-			sampleNotifications.add(n);
+	//		Notification n = new Notification(i, Notification.NotificationType.INVITATION, "", event, new Date());
+	//		sampleNotifications.add(n);
 		}
 	}
 	

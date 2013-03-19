@@ -121,7 +121,10 @@ public class Event {
 	public void setRoom(Room room) {
 		this.room = room;
 	}
-	
+	public String toString()
+	{
+		return(name); 
+	}
 	
 	
 }

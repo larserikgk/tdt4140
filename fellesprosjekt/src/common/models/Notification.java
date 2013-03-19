@@ -9,21 +9,19 @@ public class Notification {
 	private int id;
 	private NotificationType type;
 	private String description;
-	private Date sentDate;
 	private Event event;
 
-	public Notification(int id, NotificationType type, String description, Event event, Date sentDate) {
+	public Notification(int id, NotificationType type, String description, Event event) {
 		this.type = type;
 		this.id = id;
 		this.description = description;
 		this.event = event;
-		this.sentDate = sentDate;
 	}
-	public Notification(NotificationType type, String description, Event event, Date sentDate) {
+	public Notification(NotificationType type, String description, Event event) {
 		this.type = type;
 		this.description = description;
 		this.event = event;
-		this.sentDate = sentDate;
+		this.id = -1; 
 	}
 	
 
@@ -50,14 +48,6 @@ public class Notification {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public Date getSentDate() {
-		return sentDate;
-	}
-
-	public void setSentDate(Date sentDate) {
-		this.sentDate = sentDate;
-	}
 
 	public Event getEvent() {
 		return event;
@@ -66,5 +56,8 @@ public class Notification {
 	public void setEvent(Event event) {
 		this.event = event;
 	}
-	
+	public String toString()
+	{
+		return(this.id + " " + this.type + " " + this.event.toString() +" " + description); 
+	}
 }
