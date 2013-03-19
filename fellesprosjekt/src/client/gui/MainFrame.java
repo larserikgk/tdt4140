@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,6 +26,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -47,11 +49,12 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private JButton btnNextMonth, btnPrevMonth, btnNotifications;
 	private CoolCalendar coolCalendar;
 	private Date selectedDate;
-	private JPanel panel, panel_1, panelNf;
+	private JPanel panel, panelUpcomingEvents, panelNf;
 	private User user;
 	private JList selectedDateEventList;
 	private JPopupMenu popupMenu;
 	private int unreadNf;
+	private JList upcomingEventsList;
 	
 	public static void main(String[] args){
 		MainFrame mf = new MainFrame();
@@ -61,6 +64,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		super();
 		setMaximized();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
+		//init(new User("a", "Full Name")); //for testing and preview in windowbuilder
 		LoginFrame lf = new LoginFrame();
 		openFrameOnTop(lf);
 	}
@@ -223,15 +227,23 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		lblNoEvents.setForeground(Color.WHITE);
 		lblNoEvents.setFont(Settings2.FONT_TEXT2);
 		
-		panel_1 = new JPanel();
-		getContentPane().add(panel_1, "cell 1 1 1 2,grow");
-		panel_1.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
-		panel_1.setLayout(new MigLayout("", "[138px]", "[24px]"));
+		panelUpcomingEvents = new JPanel();
+		getContentPane().add(panelUpcomingEvents, "cell 1 1 1 2,grow");
+		panelUpcomingEvents.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
+		panelUpcomingEvents.setLayout(new MigLayout("", "[138px]", "[24px]"));
 		
 		JLabel lblUpcomingEvents = new JLabel("Upcoming events");
 		lblUpcomingEvents.setForeground(Color.WHITE);
 		lblUpcomingEvents.setFont(Settings2.FONT_TEXT1);
-		panel_1.add(lblUpcomingEvents, "cell 0 0,alignx left,aligny top");
+		panelUpcomingEvents.add(lblUpcomingEvents, "cell 0 0,alignx left,aligny top");
+		
+		//List for showing the selectedDate's events
+		upcomingEventsList = new JList();
+		upcomingEventsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		upcomingEventsList.setCellRenderer(new SelectedListCellRenderer());
+		upcomingEventsList.setForeground(Color.WHITE);
+		upcomingEventsList.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
+		panelUpcomingEvents.add(upcomingEventsList, "cell 0 1,grow");
 		
 		panel = new JPanel();
 		panel.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
@@ -316,6 +328,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		
 		selectedDate = new Date();
 		setupSelectedDatePanel(selectedDate);
+		setupUpcomingEventsPanel();
 	}
 
 	public void updateMonthLabels() {
@@ -359,6 +372,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		}
 		else if (evt.getPropertyName().equals("EventCalendarChanged")) {
 			setupSelectedDatePanel(selectedDate);
+			setupUpcomingEventsPanel();
 		}
 		else if (evt.getPropertyName().equals("DatePickerDate")){
 			selectedDate = (Date)evt.getNewValue();
@@ -387,6 +401,17 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		}
 		panel.repaint();
 		panel.revalidate();
+	}
+	
+	public void setupUpcomingEventsPanel(){
+		DefaultListModel upcomingEventsListModel = new DefaultListModel<Event>();
+		Date now = new Date();
+		for (Event evt : user.getEventCalendar().eventList){
+			if (evt.getEnd().after(now)){
+				upcomingEventsListModel.addElement(evt);
+			}
+		}
+		upcomingEventsList.setModel(upcomingEventsListModel);
 	}
 	
 	public void handleNotifications(final Notification notification) {
