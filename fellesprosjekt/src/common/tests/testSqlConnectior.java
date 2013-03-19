@@ -37,7 +37,7 @@ public class testSqlConnectior {
 		
 			
 			Date dato1 = new Date(2013,07,25,13,45);
-			Date dato2 = new Date(2012,07,25,14,35);
+			Date dato2 = new Date(2013,07,25,14,35);
 			String des = "DETTE ER ET MOTHERFUCKINGS MØTE!";
 		    User haakon = new User("haakonSexy","hei","haakon Aasebæ");
 			User hAkon = new User("håkon1","stiligPassord","håkon kwrl");
@@ -48,10 +48,16 @@ public class testSqlConnectior {
 //			sql.addSomeUser(haakon);
 //			sql.addSomeUser(hAkon);	
 			
-			Event vent = new Event(haakon, dato1, dato2);
-			vent.addParticipant(hAkon); 
-			vent.addParticipant(p); 
-			vent.addParticipant(haakon); 
+			Room rom = new Room("SWAG!", 5);
+			ArrayList<User> s = new ArrayList<User>(); 
+			s.add(hAkon); 
+			s.add(p); 
+			s.add(haakon); 
+//			sql.addRoom(rom);
+			Event vent = new Event(haakon, -1 ,dato1, dato2, "Viktig møte", "litt viktig", " ", s, null);
+//			vent.addParticipant(hAkon); 
+//			vent.addParticipant(p); 
+//			vent.addParticipant(haakon); 
 			
 //			addSomeUsers(9999);	
 		//	addSomeEvent(2013,05,25,20,60,2013,06,25,21,20,"haakon1");
@@ -73,16 +79,16 @@ public class testSqlConnectior {
 				e.printStackTrace();
 			}
 			
-//			Room rom = new Room("HAAKONSROM", 5);
-//			Booking book = new Booking(rom,vent); 
-//			sql.addRoom(rom);
-		//	sql.addBooking(vent, rom);
+	
+			Booking book = new Booking(rom,vent); 
+
+			sql.addBooking(vent, rom);
 	
 //			System.out.println(sql.getBooking(vent).toString()); 
 //			System.out.println(sql.availableRooms(vent).toString()); 
 			
 			
-			//System.out.println(sql.gettAllEvent(hAkon).toString());
+//			System.out.println(sql.gettAllEvent(hAkon).toString());
 //			System.out.println(sql.getBooking(vent).toString());
 			
 //			Date time = new Date(2117,07,25,14,35); 
@@ -92,7 +98,10 @@ public class testSqlConnectior {
 			
 //			not.setId(sql.addNotification(not));
 			
-		//	sql.addUserNotificationRelation(not); 
+//			sql.addUserNotificationRelation(not);
+			
+			System.out.println(sql.getAllEvent(haakon)); 
+			
 	}
 	
 	
@@ -102,7 +111,7 @@ public class testSqlConnectior {
 		for(int i = 0; i < t; i++)
 		{
 //			test = "INSERT INTO User(username, passord, name) VALUES ('derpe" + i +"','DerpeMer', 'Derpus')";
-			sql.addSomeUser("haakon" + i, "hei", "haakon");
+			sql.addUser("haakon" + i, "hei", "haakon");
 		}
 		
 	}

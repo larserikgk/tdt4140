@@ -24,7 +24,7 @@ public class TestXMLConverter
 	
 	public static void main(String[] args)
 	{
-		testEventConversion();
+		testUserConversion();
 	}
 	
 	public static void testUserConversion()
