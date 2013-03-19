@@ -6,10 +6,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Properties;
 
+import org.w3c.dom.Document;
+
 import server.db.SqlConnector;
 import server.logic.Server;
 
+import common.models.Notification;
 import common.models.Request;
+import common.util.XMLConverter;
 
 
 public class NotificationHandler implements Runnable{
@@ -21,6 +25,7 @@ public class NotificationHandler implements Runnable{
 	private boolean keepGoing = true;
 	private SqlConnector database;
 	private Properties settings;
+	XMLConverter xmlConverter;
 
 	public NotificationHandler(Socket socket, Server server, Properties settings) {
 		this.settings = settings;
@@ -45,9 +50,6 @@ public class NotificationHandler implements Runnable{
 					break;
 
 				default :
-					String result = handleRequest(request);
-					output.writeObject(result);
-					output.flush();
 					break;
 				}
 			}
@@ -60,13 +62,21 @@ public class NotificationHandler implements Runnable{
 
 	}
 
-	private String handleRequest(Request request) {
-		return null;
 
+	public void notifyUser(Notification notification) {
+		Document doc = xmlConverter.getNewDocument();
+		xmlConverter.notificationToDOMElement(notification, doc, doc.getDocumentElement(), false);
+		String msg = xmlConverter.DOMDocumentToString(doc);
+		try {
+			output.writeObject(msg);
+			output.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
-	private void notifyConnectedUsers() {
-
+	
+	public String getUsername() {
+		return username;
 	}
 
 	private void kill() throws IOException {

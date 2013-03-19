@@ -30,6 +30,7 @@ public class ServerConnector implements IServerConnector{
 	private ObjectInputStream input;
 	private ObjectInputStream pushInput;
 	private ObjectOutputStream output;
+	private ObjectOutputStream pushOutput;
 	private XMLConverter xmlConverter;
 	
 	public ServerConnector(Properties settings, String username) {
@@ -54,6 +55,7 @@ public class ServerConnector implements IServerConnector{
 			input  = new ObjectInputStream(socket.getInputStream());
 			output = new ObjectOutputStream(socket.getOutputStream());
 			pushInput = new ObjectInputStream(pushSocket.getInputStream());
+			pushOutput = new ObjectOutputStream(pushSocket.getOutputStream());
 		}
 		catch (IOException eIO) {
 			System.err.println("Exception creating new Input/output Streams: " + eIO);
@@ -64,6 +66,9 @@ public class ServerConnector implements IServerConnector{
 		try
 		{
 			output.writeObject(username);
+			pushOutput.writeObject(username);
+			output.flush();
+			pushOutput.flush();
 		}
 		catch (IOException eIO) {
 			System.err.println("Exception doing login : " + eIO);

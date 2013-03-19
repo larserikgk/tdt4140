@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import server.net.ClientHandler;
 import server.net.NotificationHandler;
-
+import common.models.*;
 public class Server {
 	private ArrayList<NotificationHandler> connectedClients;
 	private boolean keepGoing;
@@ -45,15 +45,17 @@ public class Server {
 				new Thread(push).start();
 				connectedClients.add(push);
 			}
-			try {
-
-			}
-			catch(Exception e) {
-
-			}
 		}
 		catch (IOException e) {
 
+		}
+	}
+	
+	private void notifyClient(String username, Notification notification) {
+		for (int i = 0; i < connectedClients.size(); i++) {
+			if(connectedClients.get(i).getUsername() == username) {
+				connectedClients.get(i).notifyUser(notification);
+			}
 		}
 	}
 

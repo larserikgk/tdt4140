@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.Properties;
 
 import common.models.*;
+import common.util.XMLConverter;
 
 import server.db.SqlConnector;
 import server.logic.Server;
@@ -22,6 +23,7 @@ public class ClientHandler implements Runnable{
 	private boolean keepGoing = true;
 	private SqlConnector database;
 	private Properties settings;
+	XMLConverter xmlConverter;
 
 	public ClientHandler(Socket socket, Server server, Properties settings) {
 		this.settings = settings;
@@ -62,7 +64,17 @@ public class ClientHandler implements Runnable{
 	}
 
 	private String handleRequest(Request request) {
-		return null;
+		switch(request.getType()){
+		case 1:
+			
+			break;
+		case 2:
+			
+			break;
+		case 3:
+			
+			break;
+		}
 
 	}
 	
