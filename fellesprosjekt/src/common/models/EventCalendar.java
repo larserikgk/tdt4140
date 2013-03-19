@@ -1,5 +1,7 @@
 package common.models;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -8,16 +10,24 @@ import java.util.Vector;
 public class EventCalendar {
 	public Vector<Event> eventList;
 	
+	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
+	
 	public EventCalendar() {
 		eventList = new Vector<Event>();
 	}
 	
 	public void add(Event event, Date date) {
-		eventList.add(event);	
+		eventList.add(event);
+		this.pcs.firePropertyChange("EventCalendarChanged", null, this);
 	}
 	
 	public void remove(Event event) {
 		eventList.remove(event);
+		this.pcs.firePropertyChange("EventCalendarChanged", null, this);
 	}
 	
 	public ArrayList<Event> getEvents(Date date) {

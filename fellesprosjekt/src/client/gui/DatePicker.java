@@ -3,6 +3,7 @@ package client.gui;
 import java.awt.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,6 +24,12 @@ public class DatePicker extends JPanel {
 	private JDateChooser dateChooser;
 	private JSpinner spinnerHour, spinnerMinute;
 	private Date date, minDate, maxDate;
+	
+	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
 	
 	//For testing
 	public static void main(String[] args){
@@ -46,12 +53,11 @@ public class DatePicker extends JPanel {
 		setLayout(new MigLayout("insets 0", "[90px][][35px][2px][35px]", "[20px]"));
 		setSize(getPreferredSize());
 		
-		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("dd.MM.y");
-		
 		minDate = new Date(0,0,1); //Min date: 1 Jan 1900
 		maxDate = new Date(199,11,31); //Max date: 31 Dec 2099
 		
+		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("dd.MM.y");
 		dateChooser.setMinSelectableDate(minDate); 
 		dateChooser.setMaxSelectableDate(maxDate); 
 		
@@ -125,22 +131,13 @@ public class DatePicker extends JPanel {
 		spinnerMinute.getModel().addChangeListener(cl);
 	}
 	
-	public JDateChooser getDateChooser() {
-		return dateChooser;
-	}
-	public JSpinner getSpinnerHour() {
-		return spinnerHour;
-	}
-	public JSpinner getSpinnerMinute() {
-		return spinnerMinute;
-	}
-	
 	public void parseDate(){
 		date = dateChooser.getDate();
 		if (isValidDate(date)){
 			date.setHours(((Date) spinnerHour.getValue()).getHours());
 			date.setMinutes(((Date) spinnerMinute.getValue()).getMinutes());
 			date.setSeconds(0);
+			DatePicker.this.pcs.firePropertyChange("datePickerDate", null, date);
 		} else {
 			date = null;
 		}

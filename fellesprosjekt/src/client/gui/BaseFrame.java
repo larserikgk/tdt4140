@@ -1,11 +1,9 @@
 package client.gui;
 
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import javax.swing.JFrame;
 
-import common.models.User;
+import javax.swing.JFrame;
 
 public abstract class BaseFrame extends JFrame {
 	

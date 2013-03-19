@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Date;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 
@@ -32,7 +33,7 @@ public class Daybar extends JPanel implements PropertyChangeListener
 		saturday 	= new DayLabel(Settings.SATURDAY);
 		sunday 		= new DayLabel(Settings.SUNDAY);
 		group = new ButtonGroup();
-		
+
 		addComponents();
 	}
 	
@@ -64,16 +65,20 @@ public class Daybar extends JPanel implements PropertyChangeListener
 				return;
 			
 			Date newValue = (Date)evt.getNewValue();
-			switch(newValue.getDay())
-			{
-				case 0: sunday.setSelected(true); break;
-				case 1: monday.setSelected(true); break;
-				case 2: tuesday.setSelected(true); break;
-				case 3: wednesday.setSelected(true); break;
-				case 4: thursday.setSelected(true); break;
-				case 5: friday.setSelected(true); break;
-				case 6: saturday.setSelected(true); break;
-			}
+			setDay(newValue.getDay());
+		}
+	}
+	
+	public void setDay(int day){
+		switch(day)
+		{
+			case 0: sunday.setSelected(true); break;
+			case 1: monday.setSelected(true); break;
+			case 2: tuesday.setSelected(true); break;
+			case 3: wednesday.setSelected(true); break;
+			case 4: thursday.setSelected(true); break;
+			case 5: friday.setSelected(true); break;
+			case 6: saturday.setSelected(true); break;
 		}
 	}
 }

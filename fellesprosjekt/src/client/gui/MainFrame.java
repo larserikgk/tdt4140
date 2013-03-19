@@ -1,48 +1,35 @@
 package client.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Window;
-
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JButton;
-import javax.swing.JMenu;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.ListSelectionModel;
-import javax.swing.UIDefaults;
-import javax.swing.UIManager;
-import javax.swing.JPanel;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import java.awt.Font;
-import javax.swing.JMenuItem;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.Component;
-import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Vector;
 
-import javax.swing.SwingConstants;
-import java.awt.Dimension;
-import javax.swing.JLayeredPane;
+import javax.swing.AbstractListModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import net.miginfocom.swing.MigLayout;
 
 import common.models.Event;
 import common.models.User;
@@ -51,28 +38,15 @@ import common.models.User;
 
 public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
-	private static JFrame frame;
+	private JFrame frame;
 	private JMenuBar menuBar;
-	private JLabel lblSelectedDate, lblMonth, lblFullName;
+	private JLabel lblSelectedDate, lblMonth, lblFullName, lblNoEvents;
 	private JButton btnNextMonth, btnPrevMonth;
 	private CoolCalendar coolCalendar;
 	private Date selectedDate;
-	private JPanel panel_1;
+	private JPanel panel, panel_1;
 	private User user;
 	private JList selectedDateEventList;
-	
-	
-	//TESTING TESTING! 1, 2, 1, 2
-	/*
-	public static void main (String args[]) {
-		User testUser = new User("TestUserName", "test", "TestUser");
-		//Event testEvent = new Event(12, "TestMøte", new Date(2013, 2, 21, 12, 30), new Date(2013, 2, 21, 14, 30));
-		//testUser.addEvent(testEvent);
-		frame = new MainFrame(testUser); 
-		frame.setSize(700, 500);
-		frame.setLocation(300, 200);
-		frame.setVisible(true);
-	}*/
 	 
 	public MainFrame(User loggedInUser) {
 		super();
@@ -234,26 +208,28 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_4.add(coolCalendar);
 		
 		coolCalendar.addPropertyChangeListener(this);
-		this.addPropertyChangeListener(coolCalendar);
+		//this.addPropertyChangeListener(coolCalendar);
 				
+		lblNoEvents = new JLabel("No events");
+		lblNoEvents.setForeground(Color.WHITE);
+		lblNoEvents.setFont(Settings2.FONT_TEXT2);
 		
 		panel_1 = new JPanel();
 		getContentPane().add(panel_1, "cell 1 1 1 2,grow");
 		panel_1.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		panel_1.setLayout(new MigLayout("", "[138px]", "[24px]"));
 		
-		JLabel label = new JLabel("Upcoming events");
-		label.setForeground(Color.WHITE);
-		label.setFont(Settings2.FONT_TEXT1);
-		panel_1.add(label, "cell 0 0,alignx left,aligny top");
+		JLabel lblUpcomingEvents = new JLabel("Upcoming events");
+		lblUpcomingEvents.setForeground(Color.WHITE);
+		lblUpcomingEvents.setFont(Settings2.FONT_TEXT1);
+		panel_1.add(lblUpcomingEvents, "cell 0 0,alignx left,aligny top");
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		getContentPane().add(panel, "cell 0 2,grow");
 		panel.setLayout(new MigLayout("", "[grow][]", "[][80%,grow][10%,grow]"));
 		
-		lblSelectedDate = new JLabel("15 March 2013");
-		
+		lblSelectedDate = new JLabel();
 		lblSelectedDate.setFont(Settings2.FONT_TEXT1);
 		lblSelectedDate.setForeground(Color.WHITE);
 		panel.add(lblSelectedDate, "cell 0 0");
@@ -270,11 +246,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		selectedDateEventList.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
 		        if (evt.getClickCount() == 2 && !selectedDateEventList.isSelectionEmpty()) {
-		            //SHOW OR EDIT????? MUST KNOW! URGENT!
-		            EventFrame ef = new ShowEventFrame(new Event());
-		            ef.setEventTitle((String) selectedDateEventList.getSelectedValue());
-		            openFrameOnTop(ef);
-		            ef.addPropertyChangeListener(MainFrame.this);
+		        	openEvent((Event) selectedDateEventList.getSelectedValue());
 		        }
 		    }
 		});
@@ -290,11 +262,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnShowEvent.setForeground(Color.white);
 		btnShowEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//SHOW OR EDIT????? MUST KNOW! URGENT!
-	            EventFrame ef = new ShowEventFrame(new Event());
-	            ef.setEventTitle((String) selectedDateEventList.getSelectedValue());
-	            openFrameOnTop(ef);
-	            ef.addPropertyChangeListener(MainFrame.this);
+				openEvent((Event) selectedDateEventList.getSelectedValue());
 			}
 		});
 		
@@ -328,61 +296,48 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnCreateEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("SELECTED DATE: "+selectedDate);
-				EventFrame ef = new CreateEventFrame(new Event(user, selectedDate, selectedDate));
-				ef.addPropertyChangeListener(MainFrame.this);
-				openFrameOnTop(ef);
+				CreateEventFrame cef = new CreateEventFrame(new Event(user, selectedDate, selectedDate));
+				cef.addPropertyChangeListener(MainFrame.this);
+				openFrameOnTop(cef);
 			}
 		});
 		
 		updateMonthLabels();
 		setUser(loggedInUser);
+		
+		selectedDate = new Date();
+		setupSelectedDatePanel(selectedDate);
 	}
 
 	public void updateMonthLabels() {
-		lblMonth.setText(Settings2.MONTHS[coolCalendar.getMonth()]);
+		lblMonth.setText(Settings2.MONTHS[coolCalendar.getMonth()]+" "+coolCalendar.getYear());
 		btnNextMonth.setText(Settings2.MONTHS[((coolCalendar.getMonth() + 1) % 12 + 12) % 12].substring(0, 3));
 		btnPrevMonth.setText(Settings2.MONTHS[((coolCalendar.getMonth() - 1) % 12 + 12) % 12].substring(0, 3));
 	}
 	
 	public void setListModel(JList list) {
 		System.out.println("setlistModel invoked");
-		//System.out.println(selectedDate);
-		final ArrayList<String> values = new ArrayList<String>();
-		selectedDate.setYear(selectedDate.getYear());
-		if (user.getEvents(selectedDate).size() == 0){
-			selectedDateEventList.setModel(new AbstractListModel() {
-			@Override
-			public int getSize() {
-				return 1;
-			}
-			
-			@Override
-			public Object getElementAt(int index) {
-				return "No events";
-			}
-		});
-		}
-		else {
-			System.out.println("ifififififififif");
+		final ArrayList<Event> values = new ArrayList<Event>();
+		
+		if (user.getEvents(selectedDate).size() != 0){
 			for (Event e : user.getEvents(selectedDate)) {
-				values.add(e.toString());
-				System.out.println("event.tostring invoked");
+				values.add(e);
 			}
 		}
+		
 		selectedDateEventList.setModel(new AbstractListModel() {
 			@Override
 			public int getSize() {
-				return (values == null) ? 0 : values.size();
+				return values.size();
 			}
 			
 			@Override
 			public Object getElementAt(int index) {
-				return (values == null) ? null : values.get(index);
+				return values.get(index);
 			}
 		});
 	}
-	
-	@SuppressWarnings("deprecation")
+
 	public void propertyChange(PropertyChangeEvent evt) 
 	{		
 		if(evt.getPropertyName().equals("selectedDate"))
@@ -391,17 +346,39 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 				return;
 			
 			selectedDate = (Date)evt.getNewValue();
-			lblSelectedDate.setText(selectedDate.getDate() + " " + Settings2.MONTHS[selectedDate.getMonth()] + " " + (selectedDate.getYear() + 1900));
-			
-			setListModel(selectedDateEventList);
+			setupSelectedDatePanel(selectedDate);
 		}
-		if (evt.getPropertyName().equals("EventsCalendarchanged")) {
-			firePropertyChange("EventsCalendarChanged", evt.getOldValue(), evt.getNewValue());
+		if (evt.getPropertyName().equals("EventCalendarChanged")) {
+			setupSelectedDatePanel(selectedDate);
 		}
+	}
+	
+	public void openEvent(Event event){
+		EventFrame ef;
+		if (user == event.getAdmin()) ef = new EditEventFrame(event);
+		else ef = new ShowEventFrame(event);
+        openFrameOnTop(ef);
+        ef.addPropertyChangeListener(MainFrame.this);
+	}
+	
+	public void setupSelectedDatePanel(Date date){
+		lblSelectedDate.setText(date.getDate() + " " + Settings2.MONTHS[date.getMonth()] + " " + (date.getYear() + 1900));
+		setListModel(selectedDateEventList);
+		panel.remove(selectedDateEventList);
+		panel.remove(lblNoEvents);
+		if (user.getEvents(selectedDate).size() == 0){
+			panel.add(lblNoEvents, "cell 0 1 2 1,alignx left,aligny top");
+		}
+		else {
+			panel.add(selectedDateEventList, "cell 0 1 2 1,grow");
+		}
+		panel.repaint();
+		panel.revalidate();
 	}
 	
 	public void setUser(User user){
 		this.user = user;
 		lblFullName.setText(user.getName());
+		
 	}
 }
