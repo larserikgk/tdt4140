@@ -3,13 +3,13 @@ package common.models;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Vector;
 
 
 public class EventCalendar {
-	public Vector<Event> eventList;
-	
+	private Vector<Event> eventList;
 	private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -18,6 +18,10 @@ public class EventCalendar {
 	
 	public EventCalendar() {
 		eventList = new Vector<Event>();
+	}
+	
+	public Vector<Event> getEventList(){
+		return eventList;
 	}
 	
 	public void add(Event event, Date date) {

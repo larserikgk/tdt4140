@@ -38,6 +38,7 @@ import common.models.Event;
 import common.models.Notification;
 import common.models.Room;
 import common.models.User;
+import common.tests.SampleEvents;
 
 
 
@@ -237,13 +238,21 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		lblUpcomingEvents.setFont(Settings2.FONT_TEXT1);
 		panelUpcomingEvents.add(lblUpcomingEvents, "cell 0 0,alignx left,aligny top");
 		
-		//List for showing the selectedDate's events
+		//List for showing upcoming events
 		upcomingEventsList = new JList();
 		upcomingEventsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		upcomingEventsList.setCellRenderer(new SelectedListCellRenderer());
+		upcomingEventsList.setCellRenderer(new UpcomingEventsListCellRenderer());
 		upcomingEventsList.setForeground(Color.WHITE);
 		upcomingEventsList.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		panelUpcomingEvents.add(upcomingEventsList, "cell 0 1,grow");
+		
+		upcomingEventsList.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 2 && !upcomingEventsList.isSelectionEmpty()) {
+		        	openEvent((Event) upcomingEventsList.getSelectedValue());
+		        }
+		    }
+		});
 		
 		panel = new JPanel();
 		panel.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
@@ -329,6 +338,8 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		selectedDate = new Date();
 		setupSelectedDatePanel(selectedDate);
 		setupUpcomingEventsPanel();
+		
+		handleNotifications(new Notification(12, Notification.NotificationType.INVITATION, "", SampleEvents.getSampleEvents().get(3), new Date()));
 	}
 
 	public void updateMonthLabels() {
@@ -406,12 +417,16 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	public void setupUpcomingEventsPanel(){
 		DefaultListModel upcomingEventsListModel = new DefaultListModel<Event>();
 		Date now = new Date();
-		for (Event evt : user.getEventCalendar().eventList){
-			if (evt.getEnd().after(now)){
+		for (Event evt : user.getEventCalendar().getEventList()){
+			if (evt.getEnd().after(now) && upcomingEventsListModel.getSize()<20){
 				upcomingEventsListModel.addElement(evt);
 			}
 		}
 		upcomingEventsList.setModel(upcomingEventsListModel);
+	}
+	
+	public void connectionFailed(String s){
+		
 	}
 	
 	public void handleNotifications(final Notification notification) {
@@ -456,6 +471,5 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	public void setUser(User user){
 		this.user = user;
 		lblFullName.setText(user.getName());
-		
 	}
 }

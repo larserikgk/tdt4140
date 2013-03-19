@@ -19,5 +19,7 @@ public class Settings2
 	
 	static final String[] MONTHS = {"January", "February", "March", "April", "May", "June", "July", 
 		"August", "September", "October", "November", "December"};
+	
+	static final String[] DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 		
 }

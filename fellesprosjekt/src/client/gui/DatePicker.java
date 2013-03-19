@@ -104,6 +104,7 @@ public class DatePicker extends JPanel {
 	}
 	
 	public void setMinimumDate(Date date){
+		date.setSeconds(0);
 		dateChooser.setMinSelectableDate(date);
 	}
 	
