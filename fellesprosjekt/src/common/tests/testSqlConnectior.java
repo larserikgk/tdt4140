@@ -45,7 +45,7 @@ public class testSqlConnectior {
 			
 			
 //			sql.addSomeUser(p);
-//			sql.addSomeUser(haakon);
+			sql.addSomeUser(haakon);
 //			sql.addSomeUser(hAkon);	
 			
 			Event vent = new Event(haakon, dato1, dato2);
