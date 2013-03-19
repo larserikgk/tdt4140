@@ -12,11 +12,13 @@ import com.mysql.jdbc.CallableStatement;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSet;
 
+
 import common.models.Booking;
 import common.models.Event;
 import common.models.Room;
 import common.models.User;
 import common.models.Status;
+import common.models.Notification;
 
 
 public class SQLquerries extends SqlConnector
@@ -119,27 +121,93 @@ public class SQLquerries extends SqlConnector
 				"VALUES(" + dateStartInMiliSec + "," + dateEndInMiliSec + ",'" +userName+"','"+description+"','"+location+"')");	
 	}
 	
+	public void addUserNotificationRelationDerp(Notification not)
+	{
+		String q = "INSERT INTO UserNotificationRelation(lest,username,notification_id) " +
+				"VALUES(false, ? ," + not.getId() + ")";
+		try {
+			PreparedStatement p = (PreparedStatement) conn.prepareStatement(q);
+			
+			for(User user: not.getEvent().getParticipants() )
+			{
+				p.setString(1, user.getUsername());
+				System.out.println(q); 
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
+	public void addUserNotificationRelation(Notification not)
+	{
+		String q = "INSERT INTO UserNotificationRelation(lest,username,notification_id) " +
+				"VALUES(false, ? ," + not.getId() + ")";
+		try {
+			PreparedStatement p = (PreparedStatement) conn.prepareStatement(q);
+			
+			for(User user: not.getEvent().getParticipants() )
+			{
+				p.setString(1, user.getUsername());
+				p.executeUpdate(); 
+				System.out.println(q); 
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+	
+	public int addNotification(Notification not)
+	{
+		set("INSERT INTO Notification(type, event_id, description) " +
+				 " VALUES('" +not.getType()+"'," + not.getEvent().getId() + ",'"+not.getDescription() +"')");
+		int autoIncValue = 0; 
+		try {
+			rs = (ResultSet) stmt.getGeneratedKeys();
+			autoIncValue = -1;
+			if(rs.next()) 
+			{
+			       autoIncValue = rs.getInt(1);
+			       /*You can get more generated keys if they are generated in your code*/
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		not.setId(autoIncValue);
+		addUserNotificationRelation(not); 
+		return autoIncValue; 
+		
+	}
+	
 	//brukes!
 	public void addFullEvent(Event event)
 	{
 		int event_id = addSomeEvent(event); 
 		if(event_id > 0)
 		{
-			addParticipantsToEvent(event, event_id);
+			addParticipantsToEvent(event);
 		}	
 	}
 	
-	public void addParticipantsToEvent(Event event, int event_ID)
-	{
-		
+	public void addParticipantsToEvent(Event event)
+	{		
 	//	String IKKESVAR = "IKKESVAR"; 
-		String q = "INSERT INTO Participant(username,event_id)" + 
-				"VALUES(? ," + event_ID + ")"; 
+		String q; 
 		try {
-			PreparedStatement p = conn.prepareStatement(q);
+			
 			for(User k: event.getParticipants())
 			{
-				//p.setString(1, "'IKKESVAR'"); 
+				
+				q = "INSERT INTO Participant(status,username,event_id)" + 
+						"VALUES("+(k.getUsername()==event.getAdmin().getUsername() ? "'SKAL'" : "'IKKESVART'")+" , ? ," 
+								+ event.getId() + ")";
+				System.out.println(q); 
+				PreparedStatement p = conn.prepareStatement(q);
+				//p.setString(1, "'IKKESVART'"); 
 				p.setString(1, k.getUsername()); 
 				p.executeUpdate();  
 			}
@@ -147,8 +215,15 @@ public class SQLquerries extends SqlConnector
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		
+	}	
+
+	public void addAlert(Event event, User user, Date alertTime)
+	{
+		long time = alertTime.getTime(); 
+		set("INSERT INTO HasAlert(event_id,username,alertTime)" 
+				+ "Values("+event.getId() +",'"+user.getUsername() +"',"+ time +")"); 
 	}
+	
 	
 	//brukes 
 	public int addSomeEvent(Event event) 
@@ -176,6 +251,7 @@ public class SQLquerries extends SqlConnector
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		event.setId(autoIncValue); 
 		return autoIncValue; 
 	}
 	
@@ -187,72 +263,54 @@ public class SQLquerries extends SqlConnector
 		}
 		return false; 
 	}
+
 	public void addBooking(Event event, Room room)
 	{
-		set("INSERT INTO Booking(room_name, event_id) VALUES('" + room.getName() + "','" + event.getId() + "')"); 
+		set("INSERT INTO Booking(room_name, event_id) " +
+				"VALUES('" + room.getName() + "'," + event.getId() + ")"); 
 	}
-	public void addBooking(Booking booking)
-	{
-		set("INSERT INTO Booking(room_name, event_id) VALUES('" + booking.getRoom_name() + "','" + booking.getEvent_id()+ "')");
-	}
-	
+		
 	public void addRoom(Room room)
 	{
 		set("INSERT INTO Room(room_name, capacity) VALUES('" +room.getName() +"'," + room.getCapacity() + ")"); 
 	}
 	
-	public ArrayList<Booking> getBooking(Room room)
+	public ArrayList<Event> getBooking(Room room)
 	{
-		String querry = "SELECT * FROM Booking WHERE room_name = ?"; 
-		ArrayList<Booking> result = new ArrayList<Booking>(); 
+		String querry = "select * from Event inner join(select * from Booking where room_name= ?) as Derp ON Event.event_id = Derp.event_id;"; 
+		ArrayList<Event> result = new ArrayList<Event>(); 
 		try {
 			PreparedStatement p = conn.prepareStatement(querry); 
 			p.setString(1, room.getName()); 
 			rs = (ResultSet) p.executeQuery(); 
 			while(rs.next())
 			{
-				result.add(new Booking(rs.getInt(1), rs.getString(2), rs.getInt(3)));
-				System.out.println("!"); 
+				result.add(new Event());
+				//result.add(new Booking(rs.getInt(1), rs.getString(2), rs.getInt(3)));
+				
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return result; 
+		return null; 
 	}
-	
-	//ikke testet
-	public ArrayList<Booking> getBooking(Booking b)
+		
+	public Room getBooking(Event event)
 	{
-		String querry = "SELECT * FROM Booking WHERE booking_id = ?"; 
-		ArrayList<Booking> result = new ArrayList<Booking>(); 
-		try {
-			PreparedStatement p = conn.prepareStatement(querry); 
-			p.setInt(1, b.getBooking_id()); 
-			rs = (ResultSet) p.executeQuery(); 
-			while(rs.next())
-			{
-				result.add(new Booking(rs.getInt(1), rs.getString(2), rs.getInt(3)));
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return result; 
-	}
-	
-	public ArrayList<Booking> getBooking(Event event)
-	{
-		String querry = "SELECT * FROM Booking WHERE event_id = ?"; 
-		ArrayList<Booking> result = new ArrayList<Booking>(); 
+		String querry = "select * from Room inner join(select * from Booking where event_id= ?) AS derp ON Room.room_name=derp.room_name;";
+		Room result = null;
 		try {
 			PreparedStatement p = conn.prepareStatement(querry); 
 			p.setInt(1, event.getId()); 
-			rs = (ResultSet) p.executeQuery(); 
+			rs = (ResultSet) p.executeQuery();
 			while(rs.next())
 			{
-				result.add(new Booking(rs.getInt(1), rs.getString(2), rs.getInt(3)));
+				p.setString(1, rs.getString(1));			 
+				result = new Room(rs.getString(1), rs.getInt(2)); 
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace(); 
 		}
 		return result; 
 	}
@@ -287,6 +345,7 @@ public class SQLquerries extends SqlConnector
 	
 	//event, admin, start, end date
 	
+	
 	public ArrayList<Integer> getAllEventID(User user)
 	{
 		ArrayList<Integer> result = new ArrayList<Integer>(); 
@@ -304,8 +363,6 @@ public class SQLquerries extends SqlConnector
 		} 
 		return result;
 	}
-	
-	
 	
 	//kan brukes til å hente ut brukernavn også!
 	public ArrayList<User> getFromUser(String querry) {
@@ -327,18 +384,75 @@ public class SQLquerries extends SqlConnector
 	}
 	
 	
-	
-	public boolean isUser(String username, String passord)
+	public ArrayList<Room> availableRooms(Event event)
 	{
-		String q = "SELECT passord FROM User WHERE username = '" + username +"';"; 
+		ArrayList<Room> result =  new ArrayList<Room>();
+		long startTimeInMili = event.getStart().getTime(); 
+		long endTimeInMili = event.getEnd().getTime(); 
+		String q = "Select * from Room join (SELECT room_name FROM Booking join (SELECT event_id FROM Event WHERE( (startTime <=" + startTimeInMili + ")" +
+				" AND( endTime >= " + startTimeInMili + 
+				"))OR(( startTime >" + startTimeInMili + ") AND( startTime <" + endTimeInMili + " ))) AS overLapp ON Booking.event_id = overLapp.event_id) AS OverlappRoom ON Room.room_name = OverlappRoom.room_name;";
 		try {
+			rs = (ResultSet) stmt.executeQuery(q);
+			while(rs.next())
+			{
+				result.add(new Room(rs.getString(1), rs.getInt(2))); 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		
+		
+		return result; 
+	}
+	
+	public User login(String username, String password)
+	{
+		ArrayList<String> send = new ArrayList<String>();
+		ArrayList<User> users; 
+		send.add(username); 
+		users = getUsers(send, true); 
+		
+		if(users.get(0).getPassword().equals(password))
+		 	return(users.get(0)); 
+		return null; 
+	}	
+	
+	public ArrayList<User> getUsers(ArrayList <String> ids, boolean hasPW)
+	{
+		ArrayList<User> result = new ArrayList<User>();
+		
+		String q; 
+		if(hasPW)
+			q = "SELECT * FROM User Where username = '"+ ids.get(0) + "'" ;
+		else
+			q = "SELECT username, name FROM User Where username = '"+ids.get(0)+ "'" ;
+		
+		ids.remove(0);
+ 
+		try {
+			
+			for(String s: ids)
+			{
+				q += "OR '" + s +"'"; 
+			}
+		q += ";"; 
 			stmt = conn.createStatement(); 
-			ResultSet p = (ResultSet) stmt.executeQuery(q);
-			if(p.getString(1).equals(passord));
-			 	return true; 
+			rs = (ResultSet) stmt.executeQuery(q);
+			if(hasPW)
+				while(rs.next())
+					result.add(new User(rs.getString(1), rs.getString(2), rs.getString(3)));
+			else
+				while(rs.next())		
+					result.add(new User(rs.getString(1), rs.getString(2))); 
+			
+			System.out.println(q); 
 		} catch (Exception e) {
-			return false; 
-		}		
+			// TODO: handle exception
+		}
+		return result;
 	}
 	
 	

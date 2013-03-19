@@ -19,6 +19,13 @@ public class Notification {
 		this.event = event;
 		this.sentDate = sentDate;
 	}
+	public Notification(NotificationType type, String description, Event event, Date sentDate) {
+		this.type = type;
+		this.description = description;
+		this.event = event;
+		this.sentDate = sentDate;
+	}
+	
 
 	public int getId() {
 		return id;

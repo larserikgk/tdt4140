@@ -10,6 +10,8 @@ import common.models.Event;
 import common.models.Room;
 import common.models.User;
 import common.models.Booking;
+import common.models.Notification;
+import common.models.Notification.NotificationType;
 
 import server.db.SQLquerries;
 import server.db.SqlConnector;
@@ -34,24 +36,27 @@ public class testSqlConnectior {
 			sql = new SQLquerries(set);
 		
 			
-			Date dato1 = new Date(2012,07,25,11,50);
-			Date dato2 = new Date(2012,07,25,11,30);
+			Date dato1 = new Date(2013,07,25,13,45);
+			Date dato2 = new Date(2016,07,25,14,35);
 			String des = "DETTE ER ET MOTHERFUCKINGS MØTE!";
-		    User haakon = new User("haakon1","hei","haakon Aasebæ");
+		    User haakon = new User("haakonSexy","hei","haakon Aasebæ");
 			User hAkon = new User("håkon1","stiligPassord","håkon kwrl");
 			User p = new User("admiralen","onkel",":P");
+			
+			
 //			sql.addSomeUser(p);
 //			sql.addSomeUser(haakon);
 //			sql.addSomeUser(hAkon);	
+			
 			Event vent = new Event(haakon, dato1, dato2);
 			vent.addParticipant(hAkon); 
 			vent.addParticipant(p); 
+			vent.addParticipant(haakon); 
 			
-			
-		//	addSomeUsers(1);	
+//			addSomeUsers(9999);	
 		//	addSomeEvent(2013,05,25,20,60,2013,06,25,21,20,"haakon1");
 			//	addSomeEventDes("DETTE ER ET MOTHERFUCKINGS MØTE!");
-	//		int event_id = sql.addSomeEvent(dato1, dato2, "haakon1", des, "her");
+//			int event_id = sql.addSomeEvent(dato1, dato2, "haakon1", des, "her");
 	//		System.out.println(event_id);
 			
 			
@@ -62,12 +67,26 @@ public class testSqlConnectior {
 		//		System.out.println(p.getName() + " " + p.getUsername());
 						 
 			sql.addFullEvent(vent);
-			Room rom = new Room("HAAKONSROM", 5); 
-		//	sql.addRoom(rom);
-		//	sql.addBooking(vent, rom); 
+			Room rom = new Room("HAAKONSROM", 5);
+//			Booking book = new Booking(rom,vent); 
+//			sql.addRoom(rom);
+		//	sql.addBooking(vent, rom);
+	
+//			System.out.println(sql.getBooking(vent).toString()); 
+//			System.out.println(sql.availableRooms(vent).toString()); 
+			
 			
 			//System.out.println(sql.gettAllEvent(hAkon).toString());
-			System.out.println(sql.getBooking(vent).toString()); 
+//			System.out.println(sql.getBooking(vent).toString());
+			
+			Date time = new Date(2117,07,25,14,35); 
+			sql.addAlert(vent, haakon, time); 
+			
+			Notification not = new Notification(NotificationType.INVITATION, "HAAKON ER AWSM #SOCKS", vent, time);
+			
+			not.setId(sql.addNotification(not));
+			
+		//	sql.addUserNotificationRelation(not); 
 	}
 	
 	
