@@ -15,7 +15,7 @@ public class TestConnection {
 	public static void main(String[] args) 
 	{
 		Properties settings = new Properties();
-		settings.setProperty("url", "127.0.0.1");
+		settings.setProperty("url", "129.241.127.13");
 		ServerConnector connector = new ServerConnector(settings,"derp");
 		try {
 			connector.start();
