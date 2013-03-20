@@ -44,6 +44,38 @@ public class SqlConnector {
 			System.err.println ("Cannot connect to database server"+e.toString());
 		}
 	}
+	
+	public void deleteEvent(Event event)
+	{
+		removeAllAlerts(event);
+		removeAllParticipants(event);
+		removeBooking(event);
+		removeAllNotifications(event);
+	}
+	
+	public void removeAllParticipants(Event event)
+	{
+		String q = "DELETE FROM Participant WHERE event_id = "+event.getId();
+		set(q);
+	}
+	
+	public void removeBooking(Event event)
+	{
+		String q = "DELETE FROM Booking WHERE event_id = "+event.getId();
+		set(q);
+	}
+	
+	public void removeAllAlerts(Event event)
+	{
+		String q = "DELETE FROM HasAlert WHERE event_id= "+event.getId();
+		set(q);
+	}
+	
+	public void removeAllNotifications(Event event)
+	{
+		String q = "DELETE From Notification WHERE event_id="+event.getId();
+		set(q);
+	}
 
 	public void addUser(User user)
 	{
@@ -53,14 +85,7 @@ public class SqlConnector {
 	public void addUser(String userName, String pw, String name)
 	{
 		String addUser = "INSERT INTO User(username, passord, name) VALUES ('"+ userName +"','" + pw +"','" + name + "')";
-
-		try {
-			stmt = conn.createStatement();
-			stmt.executeUpdate(addUser);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 	
+		set(addUser);
 	} 
 
 	public void addUserNotificationRelation(Notification not)
@@ -87,7 +112,7 @@ public class SqlConnector {
 		int autoIncValue = -1; 
 		try 
 		{
-			rs = (ResultSet) stmt.getGeneratedKeys();
+			ResultSet rs = (ResultSet) stmt.getGeneratedKeys();
 			if(rs.next()) 
 				autoIncValue = rs.getInt(1);
 		} catch (SQLException e) 
@@ -118,7 +143,7 @@ public class SqlConnector {
 		int autoIncValue = -1; 
 		try 
 		{
-			rs = stmt.getGeneratedKeys();
+			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next()) 
 				autoIncValue = rs.getInt(1);
 
