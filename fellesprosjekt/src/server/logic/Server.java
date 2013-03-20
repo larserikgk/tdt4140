@@ -43,6 +43,7 @@ public class Server {
 				ClientHandler handler = new ClientHandler(hSocket,this,settings); 
 				new Thread(handler).start();
 				display("Starting ClientHandler");
+
 				
 				Socket pSocket = pushSocket.accept();				
 				

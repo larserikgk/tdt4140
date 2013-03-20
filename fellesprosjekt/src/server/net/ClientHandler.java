@@ -30,6 +30,8 @@ public class ClientHandler implements Runnable{
 	XMLConverter xmlConverter;
 
 	public ClientHandler(Socket socket, Server server, Properties settings) {
+		this.socket = socket;
+		this.server = server;
 		this.settings = settings;
 		database = new SqlConnector(this.settings);
 	}
@@ -38,7 +40,9 @@ public class ClientHandler implements Runnable{
 		try{
 			output = new ObjectOutputStream(socket.getOutputStream());
 			input  = new ObjectInputStream(socket.getInputStream());
-			Request request = (Request) input.readObject();
+
+			Request request;
+			//Request request = (Request) input.readObject();
 			username = (String) input.readObject();
 			server.display("User" + username +" connected to Notifier");
 			server.display("Client connected to Handler");

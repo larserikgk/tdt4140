@@ -28,7 +28,9 @@ public class NotificationHandler implements Runnable{
 	XMLConverter xmlConverter;
 
 	public NotificationHandler(Socket socket, Server server, Properties settings) {
+		this.socket = socket;
 		this.settings = settings;
+		this.server = server;
 		database = new SqlConnector(this.settings);
 	}
 
@@ -36,11 +38,9 @@ public class NotificationHandler implements Runnable{
 		try{
 			output = new ObjectOutputStream(socket.getOutputStream());
 			input  = new ObjectInputStream(socket.getInputStream());
-			Request request = (Request) input.readObject();
+			//Request request = (Request) input.readObject();
 			username = (String) input.readObject();
 			server.display("Client connected to Notifier");
-
-			
 		}
 		catch(IOException e) {
 			e.printStackTrace();
