@@ -65,6 +65,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		MainFrame mf = new MainFrame();
 	}
 	
+	/*
 	public MainFrame(){
 		super();
 		setServerConnector(new ServerConnector(settings, username));
@@ -75,8 +76,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		LoginFrame lf = new LoginFrame();
 		openFrameOnTop(lf);
 	}
+	*/
 	 
-	public void init(User loggedInUser) throws ConnectException {
+	public MainFrame(User loggedInUser) throws ConnectException {
 		// MENU BAR
 		
 		setUser(loggedInUser);
@@ -124,7 +126,20 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 				openFrameOnTop(mdp);
 			}
 		});
-		
+		JMenuItem mntmSetAlarm = new JMenuItem("Set alarm");
+		mnEdit.add(mntmSetAlarm);
+		mntmSetAlarm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TO DO
+			}
+		});
+		JMenuItem mntmImportCalendar = new JMenuItem("Import calendar");
+		mnEdit.add(mntmImportCalendar);
+		mntmImportCalendar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		// Content Pane
 		getContentPane().setLayout(new MigLayout("", "[70%,grow][30%,grow]", "[6%,grow][49%,grow][44%,grow]"));
 		

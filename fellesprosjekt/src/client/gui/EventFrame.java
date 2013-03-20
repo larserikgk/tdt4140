@@ -246,11 +246,11 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		textPane_description.setText(event.getDescription());
 		datePickerStart.setDate(event.getStart());
 		datePickerEnd.setDate(event.getEnd());
-		String l = getServerConnector().getLocation();
+		String l = eventOriginal.getLocation();
 		if (l != null) {
 			textField_location.setText(l);
 		} else {
-			textField_location.setText(getServerConnector().getRoom().toString());
+			textField_location.setText(eventOriginal.getRoom().toString());
 		}
 		setupParticipants();
 	}
@@ -309,7 +309,6 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		} else {
 			getServerConnector().editEvent(eventOriginal);
 		}
-		getServerConnector().addParticipants(eventOriginal);
 		return true;
 	}
 	
@@ -337,11 +336,11 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	
 	public void setRoom(Room room){
 		if (room != null) {
-				eventCopy.setLocation(room.getName());
-				eventCopy.setRoom(room);
-				textField_location.setText(room.getName());		
+			eventCopy.setLocation(room.getName());
+			eventCopy.setRoom(room);
+			textField_location.setText(room.getName());		
 		} else {
-			textField_location
+			textField_location.setText(eventOriginal.getLocation());
 		}
 	}
 	

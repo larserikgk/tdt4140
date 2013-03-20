@@ -15,11 +15,15 @@ import java.awt.event.ActionListener;
 
 public class RoomFinderFrame extends BaseFrame {
 	
+	private Event event;
 	private RoomListFilter roomList;
 	
-	public RoomFinderFrame(Event event) {
-//		int defaultCapacity = getServerConnector().getParticipants(event)
-		int defaultCapacity = event.getParticipants().size();
+	public RoomFinderFrame(final Event event) {
+		this.event = event;
+		int defaultCapacity = 1;
+		if (event != null && event.getParticipants().size() > 1) {
+			defaultCapacity = event.getParticipants().size();
+		}
 		setResizable(false);
 		setSize(709, 517);
 		setCentered();
@@ -62,7 +66,7 @@ public class RoomFinderFrame extends BaseFrame {
 		btnSave.setForeground(Color.WHITE);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				((EventFrame) getParentFrame()).setRoom(roomList.getSelectedRoom());
+				event.setRoom(roomList.getSelectedRoom());
 				close();
 			}
 		});
@@ -70,7 +74,7 @@ public class RoomFinderFrame extends BaseFrame {
 	}
 	
 	public static void main(String[] args){
-		BaseFrame frame = new RoomFinderFrame(50);
+		BaseFrame frame = new RoomFinderFrame(event);
 		frame.setVisible(true);
 	}
 

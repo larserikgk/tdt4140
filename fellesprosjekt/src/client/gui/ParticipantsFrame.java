@@ -24,16 +24,15 @@ import common.tests.SampleEvents;
 import common.tests.SampleUsers;
 
 public class ParticipantsFrame extends BaseFrame {
-	private UserListFilter allUsersList, invitedUsersList;
-	private Event event;
-	private ServerConnector serverConnector;
 	
+	private UserListFilter allUsersList, invitedUsersList;
+			
 	/*public static void main(String[] args){
 		JFrame frame = new ParticipantsFrame(new Event());
 		frame.setVisible(true);
 	}*/
 	
-	public ParticipantsFrame(Event event) {
+	public ParticipantsFrame(final Event event) {
 		super();
 		setResizable(false);
 		setSize(709, 517);
@@ -43,7 +42,6 @@ public class ParticipantsFrame extends BaseFrame {
 		//getContentPane().setBorder(border);
 		getContentPane().setLayout(new MigLayout("", "[2%,grow][4.69%][20%,grow][20%,grow][5%,grow][30%,grow][10%,grow][2%,grow]", "[1%,grow][5%,grow][60%,grow][5.52%,grow][5%,grow]"));
 	
-		this.event = event;
 		setupParticipants(event);
 		
 		JLabel lblAddParticipants = new JLabel("Edit participants");
@@ -102,6 +100,7 @@ public class ParticipantsFrame extends BaseFrame {
 		btnRemove.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel_3.add(btnRemove);
 		
+		
 		btnRemove.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<User> users = invitedUsersList.removeUsers();
@@ -138,7 +137,7 @@ public class ParticipantsFrame extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				//Save new participants list to event and refresh EventFrame (parent frame)
 				System.out.println("INVITED: "+invitedUsersList.getArrayList());
-				((EventFrame) getParentFrame()).getEvent().setParticipants(invitedUsersList.getArrayList());
+				event.setParticipants(invitedUsersList.getArrayList());
 				((EventFrame) getParentFrame()).setupParticipants();
 				close();
 			}
@@ -150,11 +149,12 @@ public class ParticipantsFrame extends BaseFrame {
 			}
 		});
 	}
+
 	
 	public void setupParticipants(Event event){
-		ArrayList<User> participants = serverConnector.getParticipants(event);
+		ArrayList<User> participants = event.getParticipants();
 		invitedUsersList = new UserListFilter(participants);
-		ArrayList<User> allUsers = serverConnector.getAllUsers();
+		ArrayList<User> allUsers = getServerConnector().getAllUsers();
 		if (participants != null){
 			allUsers.removeAll(participants);
 		}

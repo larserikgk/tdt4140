@@ -44,52 +44,6 @@ public class SqlConnector {
 			System.err.println ("Cannot connect to database server"+e.toString());
 		}
 	}
-	
-	public void deleteEvent(Event event)
-	{
-		removeAllAlerts(event);
-		removeAllParticipants(event);
-		removeBookings(event);
-		removeAllNotifications(event);
-	}
-	
-	public void editEvent(Event event)
-	{
-		String q = "UPDATE Event SET name='"+event.getName()
-						+"', startTime="+event.getStart().getTime()
-						+", endTime="+event.getEnd().getTime()
-						+", description='"+event.getDescription()
-						+"', location='"+event.getLocation()
-						+"', owner="+event.getAdmin().getUsername();
-		set(q);
-		
-		removeAllParticipants(event);
-		addParticipantsToEvent(event);
-	}
-	
-	public void removeAllParticipants(Event event)
-	{
-		String q = "DELETE FROM Participant WHERE event_id = "+event.getId();
-		set(q);
-	}
-	
-	public void removeBookings(Event event)
-	{
-		String q = "DELETE FROM Booking WHERE event_id = "+event.getId();
-		set(q);
-	}
-	
-	public void removeAllAlerts(Event event)
-	{
-		String q = "DELETE FROM HasAlert WHERE event_id= "+event.getId();
-		set(q);
-	}
-	
-	public void removeAllNotifications(Event event)
-	{
-		String q = "DELETE From Notification WHERE event_id="+event.getId();
-		set(q);
-	}
 
 	public void addUser(User user)
 	{
@@ -99,7 +53,14 @@ public class SqlConnector {
 	public void addUser(String userName, String pw, String name)
 	{
 		String addUser = "INSERT INTO User(username, passord, name) VALUES ('"+ userName +"','" + pw +"','" + name + "')";
-		set(addUser);
+
+		try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate(addUser);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 	
 	} 
 
 	public void addUserNotificationRelation(Notification not)
@@ -126,7 +87,7 @@ public class SqlConnector {
 		int autoIncValue = -1; 
 		try 
 		{
-			ResultSet rs = (ResultSet) stmt.getGeneratedKeys();
+			rs = (ResultSet) stmt.getGeneratedKeys();
 			if(rs.next()) 
 				autoIncValue = rs.getInt(1);
 		} catch (SQLException e) 
@@ -157,7 +118,7 @@ public class SqlConnector {
 		int autoIncValue = -1; 
 		try 
 		{
-			ResultSet rs = stmt.getGeneratedKeys();
+			rs = stmt.getGeneratedKeys();
 			if(rs.next()) 
 				autoIncValue = rs.getInt(1);
 
