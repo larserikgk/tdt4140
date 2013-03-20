@@ -21,6 +21,7 @@ public class EventCalendar {
 	}
 	
 	public Vector<Event> getEventList(){
+		sort();
 		return eventList;
 	}
 	
@@ -44,6 +45,10 @@ public class EventCalendar {
 			}
 		}
 		return events;
+	}
+	
+	private void sort(){
+		Collections.sort(eventList);
 	}
 
 }
