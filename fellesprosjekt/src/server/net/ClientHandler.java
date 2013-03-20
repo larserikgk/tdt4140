@@ -154,18 +154,19 @@ public class ClientHandler implements Runnable{
 			break;
 		case Request.NOTIFICATION:
 			if(request.getQuery().equals("notifications")) {
-				ArrayList<Notification> notifications = new ArrayList<>();
+				ArrayList<Notification> notifications = database.getAllNotifications(new User(request.getPropety("username"),null,null));
 						
 				Document doc = xmlConverter.getNewDocument();
 				for (int i = 0; i < notifications.size(); i++) {
-					if(notifications.get(i).g)
-				}xmlConverter.no
+					xmlConverter.notificationToDOMElement(notifications.get(i), doc, null, false);
+				}
+				
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.equals("notificationslimited")) {
-				Document doc = xmlConverter.getNewDocument();
-				xmlConverter.
-				response = xmlConverter.DOMDocumentToString(doc);
+//				Document doc = xmlConverter.getNewDocument();
+//				xmlConverter.
+//				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			break;
 		case 4:
