@@ -3,7 +3,6 @@ package client.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.AbstractListModel;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,9 +26,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -36,7 +36,6 @@ import net.miginfocom.swing.MigLayout;
 
 import common.models.Event;
 import common.models.Notification;
-import common.models.Room;
 import common.models.User;
 import common.tests.SampleEvents;
 
@@ -190,15 +189,16 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnNotifications.setFont(Settings2.FONT_TEXT2);
 		panelNf.add(btnNotifications);
 		
-		
+		Settings2.setUI();
 		//Notifications
 		popupMenu = new JPopupMenu();
-		
+		popupMenu.setBorder(BorderFactory.createLineBorder(Settings2.COLOR_ORANGE));
 		btnNotifications.addMouseListener(new MouseListener () {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getButton() == MouseEvent.BUTTON1) {
+					panelNf.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 					popupMenu.show(btnNotifications, - btnNotifications.getWidth(), btnNotifications.getHeight());
-					popupMenu.setPopupSize(2 * btnNotifications.getWidth(), 2 * btnNotifications.getHeight());
+					popupMenu.setPopupSize(2 * btnNotifications.getWidth(), (int) popupMenu.getPreferredSize().getHeight());
 				}
 			}
 
@@ -339,7 +339,10 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		setupSelectedDatePanel(selectedDate);
 		setupUpcomingEventsPanel();
 		
-		handleNotifications(new Notification(12, Notification.NotificationType.INVITATION, "", SampleEvents.getSampleEvents().get(3), new Date()));
+		handleNotifications(new Notification(Notification.NotificationType.INVITATION, "", SampleEvents.getSampleEvents().get(3)));
+		handleNotifications(new Notification(Notification.NotificationType.EVENT_UPDATE, "", SampleEvents.getSampleEvents().get(8)));
+		handleNotifications(new Notification(Notification.NotificationType.INVITATION, "", SampleEvents.getSampleEvents().get(3)));
+		handleNotifications(new Notification(Notification.NotificationType.EVENT_UPDATE, "", SampleEvents.getSampleEvents().get(8)));
 	}
 
 	public void updateMonthLabels() {
@@ -431,20 +434,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	public void handleNotifications(final Notification notification) {
 		unreadNf++;
-		String title = "";
-		switch (notification.getType()) {
-		case INVITATION:
-			title = "Invitation to " + notification.getEvent().getName();
-			break;
-		case INV_RESPONSE:
-			// kanskje senere
-			break;
-		case EVENT_UPDATE:
-			title = notification.getEvent().getName() + " has been changed";
-			break;
-		}
-		
-		JMenuItem miNewNf = new JMenuItem(title);
+		JMenuItem miNewNf = new JMenuItem(notification.getNotificationString());
+//		Border orangeBorder = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);
+//		miNewNf.setBorder(BorderFactory.createLineBorder(Settings2.COLOR_ORANGE));
+//		miNewNf.setBorder(BorderFactory.createTitledBorder(orangeBorder, notification.getType().toString()));
+		miNewNf.setBorderPainted(false);
 		miNewNf.setFont(Settings2.FONT_TEXT2);
 		miNewNf.addActionListener(new ActionListener() {
 			@Override
@@ -463,9 +457,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	public void setNotificationText() {
 		btnNotifications.setText("Notifications (" + unreadNf + ")");
-		if (unreadNf == 0) {
-			panelNf.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
-		}
+//		if (unreadNf == 0) {
+//			panelNf.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
+//		}
 	}
 	
 	public void setUser(User user){

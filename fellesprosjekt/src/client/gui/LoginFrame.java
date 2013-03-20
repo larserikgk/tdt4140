@@ -90,9 +90,9 @@ public class LoginFrame extends BaseFrame {
 //					MainFrame mf = new MainFrame(user);
 //					mf.handleNotifications(new Notification(12, Notification.NotificationType.INVITATION, "", sampleEvents.get(3), new Date()));
 //					mf.setVisible(true);
+					close();
 					((MainFrame) getParentFrame()).init(user);
 					((MainFrame) getParentFrame()).setVisible(true);
-					close();
 				} else {
 					lblFeedback.setText("<html>The username or password you entered is incorrect.</html>");
 				}

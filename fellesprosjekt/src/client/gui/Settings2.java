@@ -3,6 +3,8 @@ package client.gui;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.UIManager;
+
 import common.models.User;
 
 public class Settings2 
@@ -21,5 +23,17 @@ public class Settings2
 		"August", "September", "October", "November", "December"};
 	
 	static final String[] DAYS = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+	
+	static void setUI(){
+		//Testing
+		UIManager.put("MenuItem.selectionBackground", COLOR_DARK_GRAY);
+		UIManager.put("MenuItem.background", COLOR_VERY_DARK_GRAY);
+		UIManager.put("MenuItem.foreground", Color.WHITE);
+//		UIManager.put("MenuItem.selectionForeground", Color.WHITE);
+//		UIManager.put("Menu.selectionBackground", COLOR_VERY_DARK_GRAY);
+//		UIManager.put("Menu.selectionForeground", Color.WHITE);
+//		UIManager.put("MenuBar.selectionBackground", COLOR_VERY_DARK_GRAY);
+//		UIManager.put("MenuBar.selectionForeground", Color.WHITE);
+	}
 		
 }
