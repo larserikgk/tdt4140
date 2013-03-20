@@ -290,7 +290,7 @@ public class SqlConnector {
 					//(User admin, int id, Date start, Date end, String description, String location, String name
 					// User admin, int id, Date start, Date end, String name,String description, String location, ArrayList<User> participants,Room room) 
 					//(User admin, Date start, Date end, String name,String description, String location, ArrayList<User> participants,Room room) 
-					result.add(new Event(user, rs.getInt(1), new Date(rs.getLong(3)), new Date(rs.getLong(4)), rs.getString(2), rs.getString(5), rs.getString(6), null, getBooking(rs.getInt(1))));
+					result.add(new Event(user, rs.getInt(1), new Date(rs.getLong(3)), new Date(rs.getLong(4)), rs.getString(2), rs.getString(5), rs.getString(6), new ArrayList<User>(), getBooking(rs.getInt(1))));
 				}
 			}
 		} catch (SQLException e) {

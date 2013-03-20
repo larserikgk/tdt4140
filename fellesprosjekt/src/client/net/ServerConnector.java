@@ -35,7 +35,7 @@ public class ServerConnector implements IServerConnector{
 	private XMLConverter xmlConverter;
 
 	public ServerConnector(Properties settings, String username) {
-		this.url = settings.getProperty(url);
+		this.url = settings.getProperty("url");
 		this.username = username;
 		this.handlerPort = 1600;
 		this.pushPort = 1601;
