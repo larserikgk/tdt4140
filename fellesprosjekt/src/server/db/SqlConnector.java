@@ -49,8 +49,22 @@ public class SqlConnector {
 	{
 		removeAllAlerts(event);
 		removeAllParticipants(event);
-		removeBooking(event);
+		removeBookings(event);
 		removeAllNotifications(event);
+	}
+	
+	public void editEvent(Event event)
+	{
+		String q = "UPDATE Event SET name='"+event.getName()
+						+"', startTime="+event.getStart().getTime()
+						+", endTime="+event.getEnd().getTime()
+						+", description='"+event.getDescription()
+						+"', location='"+event.getLocation()
+						+"', owner="+event.getAdmin().getUsername();
+		set(q);
+		
+		removeAllParticipants(event);
+		addParticipantsToEvent(event);
 	}
 	
 	public void removeAllParticipants(Event event)
@@ -59,7 +73,7 @@ public class SqlConnector {
 		set(q);
 	}
 	
-	public void removeBooking(Event event)
+	public void removeBookings(Event event)
 	{
 		String q = "DELETE FROM Booking WHERE event_id = "+event.getId();
 		set(q);
