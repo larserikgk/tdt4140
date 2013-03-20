@@ -18,10 +18,10 @@ public class Server {
 		settings = new Properties();
 		settings.setProperty("handlerPort", Integer.toString(handlerPort));
 		settings.setProperty("pushPort", Integer.toString(pushPort));
-		settings.setProperty("url","");
-		settings.setProperty("database", "");
-		settings.setProperty("username", "");
-		settings.setProperty("password", "");
+		settings.setProperty("url","129.241.127.13");
+		settings.setProperty("database", "prosjekt");
+		settings.setProperty("username", "root");
+		settings.setProperty("password", "stiligPassord");
 		connectedClients = new ArrayList<NotificationHandler>();
 
 	}
