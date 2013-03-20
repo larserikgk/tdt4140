@@ -12,6 +12,7 @@ public class Request implements Serializable{
 	public Request(String query, int type) {
 		this.query = query;
 		this.type =  type;
+		this.properties = new Properties();
 	}
 
 	public String getQuery() {

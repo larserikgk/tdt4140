@@ -34,6 +34,7 @@ public class ClientHandler implements Runnable{
 		this.server = server;
 		this.settings = settings;
 		database = new SqlConnector(this.settings);
+		this.xmlConverter = new XMLConverter();
 	}
 
 	public void run() {

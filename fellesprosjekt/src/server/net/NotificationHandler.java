@@ -32,6 +32,7 @@ public class NotificationHandler implements Runnable{
 		this.settings = settings;
 		this.server = server;
 		database = new SqlConnector(this.settings);
+		this.xmlConverter = new XMLConverter();
 	}
 
 	public void run() {
