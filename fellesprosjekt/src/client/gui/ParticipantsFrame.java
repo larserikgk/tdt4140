@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import client.net.ServerConnector;
+
 import net.miginfocom.swing.MigLayout;
 
 import common.models.Event;
@@ -24,11 +26,12 @@ import common.tests.SampleUsers;
 public class ParticipantsFrame extends BaseFrame {
 	private UserListFilter allUsersList, invitedUsersList;
 	private Event event;
+	private ServerConnector serverConnector;
 	
-	public static void main(String[] args){
+	/*public static void main(String[] args){
 		JFrame frame = new ParticipantsFrame(new Event());
 		frame.setVisible(true);
-	}
+	}*/
 	
 	public ParticipantsFrame(Event event) {
 		super();
@@ -149,9 +152,9 @@ public class ParticipantsFrame extends BaseFrame {
 	}
 	
 	public void setupParticipants(Event event){
-		ArrayList<User> participants = event.getParticipants();
+		ArrayList<User> participants = serverConnector.getParticipants(event);
 		invitedUsersList = new UserListFilter(participants);
-		ArrayList<User> allUsers = SampleEvents.getSampleUsers();
+		ArrayList<User> allUsers = serverConnector.getAllUsers();
 		if (participants != null){
 			allUsers.removeAll(participants);
 		}

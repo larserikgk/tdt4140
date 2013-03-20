@@ -5,9 +5,13 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import client.net.ServerConnector;
+
 public abstract class BaseFrame extends JFrame {
 	
 	private JFrame parentFrame;
+	
+	private static ServerConnector serverConnector;
 	
 	public BaseFrame(){
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -54,5 +58,13 @@ public abstract class BaseFrame extends JFrame {
 			parentFrame.setFocusable(true);
 		}
 		dispose();
+	}
+
+	public static ServerConnector getServerConnector() {
+		return serverConnector;
+	}
+
+	public static void setServerConnector(ServerConnector serverConnector) {
+		BaseFrame.serverConnector = serverConnector;
 	}
 }

@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.JList;
 
+import common.models.Event;
 import common.tests.SampleRooms;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,7 +17,9 @@ public class RoomFinderFrame extends BaseFrame {
 	
 	private RoomListFilter roomList;
 	
-	public RoomFinderFrame(int defaultCapacity) {
+	public RoomFinderFrame(Event event) {
+//		int defaultCapacity = getServerConnector().getParticipants(event)
+		int defaultCapacity = event.getParticipants().size();
 		setResizable(false);
 		setSize(709, 517);
 		setCentered();

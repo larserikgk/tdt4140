@@ -27,6 +27,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextPane;
 
+import client.net.ServerConnector;
 import common.models.Event;
 import common.models.EventCalendar;
 import common.models.Room;
@@ -42,7 +43,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	private JComboBox comboBox_repeat;
 	private JPanel panel, panel_8;
 	private JButton btnFinish, btnCancel, btnDeleteEvent;
-	private Event event, eventOldValue;
+	private Event eventOriginal, eventCopy;
 	private JList listParticipants;
 	private DefaultListModel listModel;
 	private ResponseToggleButton tbAccept, tbDecline;
@@ -52,13 +53,12 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	private JPanel panel_3;
 	private JPanel panel_2;
 	private JPanel panel_4;
-	
+		
 	public EventFrame(final Event event) {
 		super();
-		
-		this.event = event;
-		eventOldValue = event;
-		
+		this.eventOriginal = event;
+		eventCopy = (Event) event.clone();
+			
 		setResizable(false);
 		setSize(709, 517);
 		setCentered();
@@ -104,7 +104,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblFrom.setForeground(Color.WHITE);
 		getContentPane().add(lblFrom, "cell 1 2,alignx left,aligny center");
 		
-		datePickerStart = new DatePicker(event.getStart());
+		datePickerStart = new DatePicker(eventCopy.getStart());
 		getContentPane().add(datePickerStart, "cell 2 2,alignx left,aligny center");
 		
 		JLabel lblTo = new JLabel("To");
@@ -112,7 +112,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblTo.setForeground(Color.WHITE);
 		getContentPane().add(lblTo, "cell 1 3,alignx left,aligny center");
 		
-		datePickerEnd = new DatePicker(event.getEnd());
+		datePickerEnd = new DatePicker(eventCopy.getEnd());
 		datePickerEnd.setDefaultTime(12, 0);
 		getContentPane().add(datePickerEnd, "cell 2 3,alignx left,aligny center");
 		
@@ -138,7 +138,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		btnEditParticipants.setBorderPainted(false);
 		btnEditParticipants.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ParticipantsFrame frame = new ParticipantsFrame(event);
+				ParticipantsFrame frame = new ParticipantsFrame(eventCopy);
 				openFrameOnTop(frame);				
 			}
 		});
@@ -200,8 +200,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 			public void actionPerformed(ActionEvent arg0) {
 				User admin = event.getAdmin();
 				EventCalendar oldValue = admin.getEventCalendar();
-				admin.deleteEvent(event);
-				event.delete();
+				getServerConnector().deleteEvent(eventOriginal);
 				firePropertyChange("EventsCalendarChanged", oldValue, admin.getEventCalendar());
 			}
 		});
@@ -247,7 +246,12 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		textPane_description.setText(event.getDescription());
 		datePickerStart.setDate(event.getStart());
 		datePickerEnd.setDate(event.getEnd());
-		textField_location.setText(event.getLocation());
+		String l = getServerConnector().getLocation();
+		if (l != null) {
+			textField_location.setText(l);
+		} else {
+			textField_location.setText(getServerConnector().getRoom().toString());
+		}
 		setupParticipants();
 	}
 	
@@ -281,14 +285,8 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 				}
 				if (!saveAttributes()) return;
 				close();
-				Event newValue = event;
-				User admin = event.getAdmin();
+				User admin = eventOriginal.getAdmin();
 				EventCalendar oldValue = admin.getEventCalendar();
-				if (EventFrame.this instanceof CreateEventFrame) {
-					admin.addEvent(event);
-				} else {
-					admin.editEvent(event, eventOldValue);
-				}
 				firePropertyChange("EventsCalendarChanged", oldValue, admin.getEventCalendar());
 			}
 		});
@@ -299,11 +297,19 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		if (datePickerEnd.getDate().compareTo(datePickerStart.getDate()) < 0) return false;
 		//Bruker b�r f� opp melding om at sluttid ikke kan v�re f�r starttid
 		System.out.println("fortsetter");
-		event.setName(textField_name.getText());
-		event.setStart(datePickerStart.getDate());
-		event.setEnd(datePickerEnd.getDate());
-		event.setDescription(textPane_description.getText());
-		event.setLocation(textField_location.getText());
+		eventCopy.setName(textField_name.getText());
+		eventCopy.setStart(datePickerStart.getDate());
+		eventCopy.setEnd(datePickerEnd.getDate());
+		eventCopy.setDescription(textPane_description.getText());
+		
+		
+		eventOriginal = eventCopy;
+		if (EventFrame.this instanceof CreateEventFrame) {
+			getServerConnector().addEvent(eventOriginal);
+		} else {
+			getServerConnector().editEvent(eventOriginal);
+		}
+		getServerConnector().addParticipants(eventOriginal);
 		return true;
 	}
 	
@@ -322,20 +328,25 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	
 	public void setupParticipants(){
 		listModel.clear();
-		if (event.getParticipants() != null){
-	    	for (User user : event.getParticipants()){
+		if (eventOriginal.getParticipants() != null){
+	    	for (User user : eventOriginal.getParticipants()){
 	    		listModel.addElement(user);
 	    	}
 	    }
 	}
 	
 	public void setRoom(Room room){
-		event.setLocation(room.getName());
-		textField_location.setText(room.getName());
+		if (room != null) {
+				eventCopy.setLocation(room.getName());
+				eventCopy.setRoom(room);
+				textField_location.setText(room.getName());		
+		} else {
+			textField_location
+		}
 	}
 	
 	public Event getEvent(){
-		return event;
+		return eventOriginal;
 	}
 	
 	public void propertyChange(PropertyChangeEvent evt) 

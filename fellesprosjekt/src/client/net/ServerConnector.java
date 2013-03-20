@@ -33,7 +33,28 @@ public class ServerConnector implements IServerConnector{
 	private ObjectOutputStream output;
 	private ObjectOutputStream pushOutput;
 	private XMLConverter xmlConverter;
-
+	
+	/*
+	Trenger følgende metoder:
+	
+	void deleteEvent(Event event)
+		om eventet faktisk slettes
+		eller bare relasjonen til deltagerne vet jeg ikke.
+		viktigste at kobling til hver deltager (og admin) slettes.
+		Ser ut som denne også må implementeres i SqlConnector 
+	
+	User login(String username, String password)
+		som i SqlConnector
+		
+	ArrayList<User> getParticipants(Event event)
+		
+	void addEvent(Event event)
+	
+	void editEvent(Event event)
+		får inn det nye eventet med likt event_id som det som skal endres
+	*/
+	
+	
 	public ServerConnector(Properties settings, String username) {
 		this.url = settings.getProperty("url");
 		this.username = username;

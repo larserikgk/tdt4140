@@ -15,12 +15,17 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import client.net.ServerConnector;
+
+import server.db.SqlConnector;
+
 import common.models.Event;
 import common.models.Notification;
 import common.models.User;
 import common.tests.SampleEvents;
 
 import java.awt.GridLayout;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -31,10 +36,6 @@ public class LoginFrame extends BaseFrame {
 	private JLabel lblFeedback;
 	private static ArrayList<Event> sampleEvents = SampleEvents.getSampleEvents();
 	
-	public static void main(String[] args){
-		  BaseFrame frame = new LoginFrame();
-	      frame.setVisible(true);
-	}
 	
 	public LoginFrame() {
 		setSize(300, 200);
@@ -81,18 +82,21 @@ public class LoginFrame extends BaseFrame {
 		
 		ActionListener al = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				User user = getUser(textField_user.getText());
-				if (user!=null && isCorrectPassword(passwordField.getPassword())) {
+				User user = getServerConnector().login(textField_user.getText(), passwordField.getPassword());
+				if (user!=null) {      // && isCorrectPassword(passwordField.getPassword())
 					System.out.println("ACCESS GRANTED for user: "+user);
 					System.out.println(user.getName());
 					
-//					MainFrame mf = new MainFrame(user);
-//					mf.handleNotifications(new Notification(12, Notification.NotificationType.INVITATION, "", sampleEvents.get(3), new Date()));
-//					mf.setVisible(true);
 					close();
-					((MainFrame) getParentFrame()).init(user);
-					((MainFrame) getParentFrame()).setVisible(true);
+					try {
+						((MainFrame) getParentFrame()).init(user);
+						((MainFrame) getParentFrame()).setVisible(true);
+					} catch (ConnectException e1) {
+						LoginFrame.this.openFrameOnTop(LoginFrame.this);
+						setServerConnector(new ServerConnector(settings, username));
+						e1.printStackTrace();
+					}
+					
 				} else {
 					lblFeedback.setText("<html>The username or password you entered is incorrect.</html>");
 				}

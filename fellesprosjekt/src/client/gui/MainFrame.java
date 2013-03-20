@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,6 +32,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import client.net.ServerConnector;
+
+import server.db.SqlConnector;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -62,6 +67,8 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	public MainFrame(){
 		super();
+		setServerConnector(new ServerConnector(settings, username));
+		//sqlConnector = new SqlConnector();
 		setMaximized();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
 		//init(new User("a", "Full Name")); //for testing and preview in windowbuilder
@@ -69,8 +76,12 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		openFrameOnTop(lf);
 	}
 	 
-	public void init(User loggedInUser) {
+	public void init(User loggedInUser) throws ConnectException {
 		// MENU BAR
+		
+		setUser(loggedInUser);
+		
+		Settings2.setUI();
 		menuBar = new JMenuBar();
 		menuBar.setToolTipText("");
 		menuBar.setForeground(Color.WHITE);
@@ -178,7 +189,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_2.add(lblFullName, "cell 0 0");
 		
 		panelNf = new JPanel();
-		panelNf.setBackground(Color.red);
+		panelNf.setBackground(Settings2.COLOR_RED);
 		panel_2.add(panelNf, "cell 1 0,grow");
 		panelNf.setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -189,7 +200,6 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnNotifications.setFont(Settings2.FONT_TEXT2);
 		panelNf.add(btnNotifications);
 		
-		Settings2.setUI();
 		//Notifications
 		popupMenu = new JPopupMenu();
 		popupMenu.setBorder(BorderFactory.createLineBorder(Settings2.COLOR_ORANGE));
@@ -212,7 +222,6 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		});
 		
 		
-		//ebb616214177
 		//Calendar
 		JPanel panel_4 = new JPanel();
 		getContentPane().add(panel_4, "cell 0 1,grow");
@@ -333,7 +342,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		});
 		
 		updateMonthLabels();
-		setUser(loggedInUser);
+		lblFullName.setText(loggedInUser.getName());
 		
 		selectedDate = new Date();
 		setupSelectedDatePanel(selectedDate);
@@ -418,7 +427,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	}
 	
 	public void setupUpcomingEventsPanel(){
-		DefaultListModel upcomingEventsListModel = new DefaultListModel<Event>();
+		DefaultListModel upcomingEventsListModel = new DefaultListModel();
 		Date now = new Date();
 		for (Event evt : user.getEventCalendar().getEventList()){
 			if (evt.getEnd().after(now) && upcomingEventsListModel.getSize()<20){
@@ -434,16 +443,17 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	public void handleNotifications(final Notification notification) {
 		unreadNf++;
-		JMenuItem miNewNf = new JMenuItem(notification.getNotificationString());
-//		Border orangeBorder = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);
-//		miNewNf.setBorder(BorderFactory.createLineBorder(Settings2.COLOR_ORANGE));
-//		miNewNf.setBorder(BorderFactory.createTitledBorder(orangeBorder, notification.getType().toString()));
+		final JMenuItem miNewNf = new JMenuItem(notification.getNotificationString());
+		//Border orangeBorder = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);
+		//miNewNf.setBorder(BorderFactory.createLineBorder(Settings2.COLOR_ORANGE));
+		//miNewNf.setBorder(BorderFactory.createTitledBorder(orangeBorder, notification.getType().toString()));
 		miNewNf.setBorderPainted(false);
 		miNewNf.setFont(Settings2.FONT_TEXT2);
 		miNewNf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				unreadNf--;
+				miNewNf.setBackground(Settings2.COLOR_DARK_GRAY);
 				setNotificationText();
 				openEvent(notification.getEvent());
 			}
@@ -462,8 +472,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 //		}
 	}
 	
-	public void setUser(User user){
+	public void setUser(User user) throws ConnectException {
+		ArrayList<Event> events = getServerConnector().getEvents(user, 0);
+		for (Event e : events) {
+			user.addEvent(e);
+		}
 		this.user = user;
-		lblFullName.setText(user.getName());
 	}
 }
