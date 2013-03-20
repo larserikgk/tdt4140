@@ -170,19 +170,17 @@ public class XMLConverter
 
 	public void notificationToDOMElement(Notification notification, Document doc, Element parent, boolean complete)
 	{
-		Element 	id, type, description, sentDate, event, notification_;
+		Element 	id, type, description, event, notification_;
 		
 		id				= doc.createElement("id");
 		type			= doc.createElement("type");
 		description		= doc.createElement("description");
-		sentDate		= doc.createElement("sentDate");
 		event			= doc.createElement("event");
 		notification_	= doc.createElement("notification");
 		
 		notification_.appendChild(id);
 		notification_.appendChild(type);
 		notification_.appendChild(description);
-		notification_.appendChild(sentDate);
 		notification_.appendChild(event);
 		
 		id.appendChild(doc.createTextNode(""+notification.getId()));
@@ -195,7 +193,6 @@ public class XMLConverter
 		}
 		
 		description.appendChild(doc.createTextNode(notification.getDescription()));
-		dateToDOMElement(notification.getSentDate(),doc, sentDate);
 		
 		if(complete)
 			eventToDOMElement(notification.getEvent(), doc, event, complete);
@@ -253,13 +250,11 @@ public class XMLConverter
 		int id;
 		NotificationType type;
 		String description;
-		Date sentDate;
 		Event event;
 		
 		id = 0;
 		type = null;
 		description = "";
-		sentDate = null;
 		event = null;
 		
 		for(int i = 0; i < children.getLength(); i++)
@@ -278,14 +273,12 @@ public class XMLConverter
 			}
 			else if(temp.getNodeName().equals("description"))
 				description = temp.getFirstChild().getTextContent();
-			else if(temp.getNodeName().equals("sentDate"))
-				sentDate = constructDateFromNode(temp);
 			else if(temp.getNodeName().equals("event"))
 				event = constructEventFromNode(temp);
 		}
 		
 		
-		return new Notification(id, type, description, event, sentDate);
+		return new Notification(id, type, description, event);
 	}
 	
 	public Event constructEventFromNode(Node node)

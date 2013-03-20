@@ -10,9 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
-
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
-
 import common.models.Event;
 import common.models.Notification;
 import common.models.Notification.NotificationType;
