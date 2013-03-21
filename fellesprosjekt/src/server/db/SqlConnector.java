@@ -122,7 +122,6 @@ public class SqlConnector {
 			stmt = conn.createStatement();
 			stmt.executeUpdate(addUser);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 	
 	} 
@@ -375,7 +374,6 @@ public class SqlConnector {
 				result = new Room(rs.getString(1), rs.getInt(2)); 
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace(); 
 		}
 		return result; 
@@ -408,7 +406,6 @@ public class SqlConnector {
 										));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
@@ -562,7 +559,6 @@ public class SqlConnector {
 			stmt = conn.createStatement();
 			stmt.executeUpdate(querry);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;		

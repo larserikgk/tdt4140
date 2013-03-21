@@ -20,12 +20,15 @@ public class TestXMLConverter
 	static Room room1 	= new Room("R1", 123);
 	static Event party	= new Event(derp,1,date1,date2,"Fest","My place","Epic", new ArrayList<User>(), room1);
 	static Notification not = new Notification(NotificationType.INVITATION, "Awesome parteh", party);
+	static ArrayList<User> participants = new ArrayList<User>();
 	static XMLConverter converter = new XMLConverter();
 	static Document doc;
 	
 	public static void main(String[] args)
 	{
-		testEventConversion();
+		participants.add(new User("lars1","123","lars"));
+//		testEventConversion();
+		testListConversion();
 	}
 	
 	public static void testUserConversion()
@@ -83,5 +86,14 @@ public class TestXMLConverter
 		
 		System.out.println(date1);
 		System.out.println(date2);
+	}
+	
+	public static void testListConversion() {
+		doc = converter.getNewDocument();
+		converter.userListToDOMElement(participants, doc, null);
+		
+		System.out.println(converter.DOMDocumentToString(doc));
+		
+		ArrayList<User> users = converter.constructUserListFromNode(doc.getFirstChild());
 	}
 }

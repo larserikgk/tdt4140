@@ -91,9 +91,7 @@ public class ClientHandler implements Runnable{
 				ArrayList<User> users = database.getAllUsers();
 
 				Document doc = xmlConverter.getNewDocument();
-				for (int i = 0; i < users.size(); i++) {
-					xmlConverter.userToDOMElement(users.get(i), doc, null);
-				}
+				xmlConverter.userListToDOMElement(users, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 
@@ -103,64 +101,74 @@ public class ClientHandler implements Runnable{
 				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
 
 				Document doc = xmlConverter.getNewDocument();
-				for (int j = 0; j < events.size(); j++) {
-					xmlConverter.eventToDOMElement(events.get(j), doc, null, false);
-				}
+				xmlConverter.eventListToDOMElement(events, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("appointments"))) {
-				ArrayList<Event> appointments = database.getAllEvent(new User(request.getPropety("username"),null,null));
-
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> appointments = new ArrayList<Event>();
+				
 				Document doc = xmlConverter.getNewDocument();
-				for (int k = 0; k < appointments.size(); k++) {
-					if(!appointments.get(k).isMeeting())
-						xmlConverter.eventToDOMElement(appointments.get(k), doc, null, false);
+				
+				for (int k = 0; k < events.size(); k++) {
+					if(!events.get(k).isMeeting())
+						appointments.add(events.get(k));
 				}
+				xmlConverter.eventListToDOMElement(appointments, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("meetings"))) {
-				ArrayList<Event> meetings = database.getAllEvent(new User(request.getPropety("username"),null,null));
-
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> meetings = new ArrayList<Event>();
+				
 				Document doc = xmlConverter.getNewDocument();
-				for (int l = 0; l < meetings.size(); l++) {
-					if(meetings.get(l).isMeeting())
-						xmlConverter.eventToDOMElement(meetings.get(l), doc, null, false);
+				
+				for (int k = 0; k < events.size(); k++) {
+					if(!events.get(k).isMeeting())
+						meetings.add(events.get(k));
 				}
+				xmlConverter.eventListToDOMElement(meetings, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("eventsbydate"))) {
 				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
-
+				ArrayList<Event> correct = new ArrayList<Event>();
+				
 				Document doc = xmlConverter.getNewDocument();
 				for (int m = 0; m < events.size(); m++) {
 					if(events.get(m).getStart().compareTo(new Date(request.getPropety("startdate"))) >= 0 && 
 							events.get(m).getEnd().compareTo(new Date(request.getPropety("enddate"))) <= 0)
-						xmlConverter.eventToDOMElement(events.get(m), doc, null, false);
+						correct.add(events.get(m));
 				}
+				xmlConverter.eventListToDOMElement(correct, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("appointmentsbydate"))) {
-				ArrayList<Event> appointments = database.getAllEvent(new User(request.getPropety("username"),null,null));
-
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> appointments = new ArrayList<Event>();
 				Document doc = xmlConverter.getNewDocument();
-				for (int i = 0; i < appointments.size(); i++) {
-					if(appointments.get(i).getStart().compareTo(new Date(request.getPropety("startdate"))) >= 0 && 
-							appointments.get(i).getEnd().compareTo(new Date(request.getPropety("enddate"))) <= 0 &&
-							!appointments.get(i).isMeeting())
-						xmlConverter.eventToDOMElement(appointments.get(i), doc, null, false);
+				for (int i = 0; i < events.size(); i++) {
+					if(events.get(i).getStart().compareTo(new Date(request.getPropety("startdate"))) >= 0 && 
+							events.get(i).getEnd().compareTo(new Date(request.getPropety("enddate"))) <= 0 &&
+							!events.get(i).isMeeting())
+						appointments.add(events.get(i));
 				}
+				xmlConverter.eventListToDOMElement(appointments, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("meetingsbydate"))) {
-				ArrayList<Event> appointments = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> meetings = new ArrayList<Event>();
 
+					
 				Document doc = xmlConverter.getNewDocument();
-				for (int i = 0; i < appointments.size(); i++) {
-					if(appointments.get(i).getStart().compareTo(new Date(request.getPropety("startdate"))) >= 0 && 
-							appointments.get(i).getEnd().compareTo(new Date(request.getPropety("enddate"))) <= 0 &&
-							appointments.get(i).isMeeting())
-						xmlConverter.eventToDOMElement(appointments.get(i), doc, null, false);
+				for (int i = 0; i < events.size(); i++) {
+					if(events.get(i).getStart().compareTo(new Date(request.getPropety("startdate"))) >= 0 && 
+							events.get(i).getEnd().compareTo(new Date(request.getPropety("enddate"))) <= 0 &&
+									events.get(i).isMeeting())
+						meetings.add(events.get(i));
 				}
+				xmlConverter.eventListToDOMElement(meetings, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("delete"))) {
@@ -196,10 +204,7 @@ public class ClientHandler implements Runnable{
 				ArrayList<Notification> notifications = database.getAllNotifications(new User(request.getPropety("username"),null,null));
 						
 				Document doc = xmlConverter.getNewDocument();
-				for (int i = 0; i < notifications.size(); i++) {
-					xmlConverter.notificationToDOMElement(notifications.get(i), doc, null, false);
-				}
-				
+				xmlConverter.notificationListToDOMElement(notifications, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("notificationslimited"))) {
