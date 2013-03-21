@@ -105,7 +105,7 @@ public class ClientHandler implements Runnable{
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("appointments"))) {
-				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),"",""));
 				ArrayList<Event> appointments = new ArrayList<Event>();
 				
 				Document doc = xmlConverter.getNewDocument();
@@ -118,7 +118,7 @@ public class ClientHandler implements Runnable{
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("meetings"))) {
-				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),"",""));
 				ArrayList<Event> meetings = new ArrayList<Event>();
 				
 				Document doc = xmlConverter.getNewDocument();
@@ -131,25 +131,25 @@ public class ClientHandler implements Runnable{
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("eventsbydate"))) {
-				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),"",""));
 				ArrayList<Event> correct = new ArrayList<Event>();
 				
 				Document doc = xmlConverter.getNewDocument();
 				for (int m = 0; m < events.size(); m++) {
-					if(events.get(m).getStart().compareTo(new Date(request.getPropety("startdate"))) >= 0 && 
-							events.get(m).getEnd().compareTo(new Date(request.getPropety("enddate"))) <= 0)
+					if(events.get(m).getStart().compareTo(new Date(Long.parseLong(request.getPropety("startdate")))) >= 0 && 
+							events.get(m).getEnd().compareTo(new Date(Long.parseLong(request.getPropety("enddate")))) <= 0)
 						correct.add(events.get(m));
 				}
 				xmlConverter.eventListToDOMElement(correct, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			else if(request.getQuery().equals(("appointmentsbydate"))) {
-				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),"",""));
 				ArrayList<Event> appointments = new ArrayList<Event>();
 				Document doc = xmlConverter.getNewDocument();
 				for (int i = 0; i < events.size(); i++) {
-					if(events.get(i).getStart().compareTo(new Date(request.getPropety("startdate"))) >= 0 && 
-							events.get(i).getEnd().compareTo(new Date(request.getPropety("enddate"))) <= 0 &&
+					if(events.get(i).getStart().compareTo(new Date(Long.parseLong(request.getPropety("startdate")))) >= 0 && 
+							events.get(i).getEnd().compareTo(new Date(Long.parseLong(request.getPropety("enddate")))) <= 0 &&
 							!events.get(i).isMeeting())
 						appointments.add(events.get(i));
 				}
@@ -163,8 +163,8 @@ public class ClientHandler implements Runnable{
 					
 				Document doc = xmlConverter.getNewDocument();
 				for (int i = 0; i < events.size(); i++) {
-					if(events.get(i).getStart().compareTo(new Date(request.getPropety("startdate"))) >= 0 && 
-							events.get(i).getEnd().compareTo(new Date(request.getPropety("enddate"))) <= 0 &&
+					if(events.get(i).getStart().compareTo(new Date(Long.parseLong(request.getPropety("startdate")))) >= 0 && 
+							events.get(i).getEnd().compareTo(new Date(Long.parseLong(request.getPropety("enddate")))) <= 0 &&
 									events.get(i).isMeeting())
 						meetings.add(events.get(i));
 				}

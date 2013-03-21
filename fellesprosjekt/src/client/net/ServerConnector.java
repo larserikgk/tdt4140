@@ -174,7 +174,7 @@ public class ServerConnector implements IServerConnector{
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
 
-		events = xmlConverter.constructEventListFromNode(doc);
+		events = xmlConverter.constructEventListFromNode(doc.getFirstChild());
 
 		return events;
 	}

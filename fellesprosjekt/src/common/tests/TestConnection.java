@@ -12,6 +12,7 @@ import common.models.User;
 import client.net.ServerConnector;
 
 public class TestConnection {
+	static ServerConnector connector;
 
 	/**
 	 * @param args
@@ -20,7 +21,12 @@ public class TestConnection {
 	{
 		Properties settings = new Properties();
 		settings.setProperty("url", "127.0.0.1");
-		ServerConnector connector = new ServerConnector(settings,"derp");
+		connector = new ServerConnector(settings,"derp");
+		getEvents();
+		
+	}
+	
+	public static void addEvent() {
 		try {
 			connector.start();
 			User derp = connector.getUser("admiralen", "onkel");
@@ -28,8 +34,20 @@ public class TestConnection {
 			connector.addEvent(fest);
 		} catch (ConnectException e) {
 			e.printStackTrace();
-		}		
-		
+		}	
+	}
+	
+	public static void getEvents() {
+		try {
+			connector.start();
+			User derp = connector.getUser("admiralen", "onkel");
+			ArrayList<Event> list = connector.getEvents(derp, 0);
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println("Test says: " + list.get(i).getName());
+			}
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}	
 	}
 
 }
