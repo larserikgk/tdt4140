@@ -9,13 +9,13 @@ public class Request implements Serializable{
 	private int type;
 	public static final int USER = 1, EVENT = 2, NOTIFICATION = 3, LOGOUT = 7;
 	private Properties properties;
-	ArrayList list;
+	ArrayList<User> list;
 	
 	public Request(String query, int type) {
 		this.query = query;
 		this.type =  type;
 		this.properties = new Properties();
-		list = new ArrayList<>();
+		list = new ArrayList<User>();
 	}
 
 	public String getQuery() {
@@ -50,11 +50,11 @@ public class Request implements Serializable{
 		return properties.getProperty(key);
 	}
 
-	public ArrayList getList() {
+	public ArrayList<User> getList() {
 		return list;
 	}
 
-	public void setList(ArrayList list) {
+	public void setList(ArrayList<User> list) {
 		for (int i = 0; i < list.size(); i++) {
 			this.list.add(list.get(i));
 		}
