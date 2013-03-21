@@ -212,7 +212,31 @@ public class SqlConnector {
 
 	public ArrayList<Notification> getUnreadNotifications (User user)
 	{
-		return null; 
+		ArrayList<Notification> result = new ArrayList<Notification>();
+		NotificationType type; 
+		String q = "SELECT Notification.notification_id,type,description,event_id FROM Notification JOIN(SELECT notification_id FROM UserNotificationRelation " +
+				"WHERE username = '" +user.getUsername()+ "' AND lest=0 ) AS derp ON derp.notification_id = Notification.notification_id";
+		System.out.println(q); 
+		try {
+			ResultSet rs = stmt.executeQuery(q); 
+			while(rs.next())
+			{
+				if(rs.getString(2).equals("INVITATION"))
+					type = NotificationType.INVITATION; 
+				else if(rs.getString(2).equals("INV_RESPONSE"))
+					type = NotificationType.INV_RESPONSE; 
+				else 
+					type = NotificationType.EVENT_UPDATE; 
+
+					
+				result.add(new Notification(rs.getInt(1), type, rs.getString(3), 
+						getEvent(rs.getInt(4), true)));
+			}
+		} catch (Exception e) {
+
+		}
+		return result; 
+		
 	}
 	public ArrayList<Notification> getAllNotifications (User user)
 	{
@@ -243,7 +267,30 @@ public class SqlConnector {
 	}
 	public ArrayList<Notification> getReadNotifications (User user)
 	{
-		return null; 
+		ArrayList<Notification> result = new ArrayList<Notification>();
+		NotificationType type; 
+		String q = "SELECT Notification.notification_id,type,description,event_id FROM Notification JOIN(SELECT notification_id FROM UserNotificationRelation " +
+				"WHERE username = '" +user.getUsername()+ "' AND lest=1 ) AS derp ON derp.notification_id = Notification.notification_id";
+		System.out.println(q); 
+		try {
+			ResultSet rs = stmt.executeQuery(q); 
+			while(rs.next())
+			{
+				if(rs.getString(2).equals("INVITATION"))
+					type = NotificationType.INVITATION; 
+				else if(rs.getString(2).equals("INV_RESPONSE"))
+					type = NotificationType.INV_RESPONSE; 
+				else 
+					type = NotificationType.EVENT_UPDATE; 
+
+					
+				result.add(new Notification(rs.getInt(1), type, rs.getString(3), 
+						getEvent(rs.getInt(4), true)));
+			}
+		} catch (Exception e) {
+
+		}
+		return result; 
 	}
 
 	public Event getEvent(int event_id, boolean getParticipants)
@@ -409,6 +456,26 @@ public class SqlConnector {
 			e.printStackTrace(); 
 		}
 		return getUsers(ids, false); 
+	}
+	
+	public ArrayList<User> getAllUsers()
+	{
+		ArrayList<User> users = new ArrayList<User>();
+		String q = "SELECT username, name FROM User";
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet rs = (ResultSet) stmt.executeQuery(q);
+			
+			while(rs.next())
+				users.add(new User(rs.getString(1), rs.getString(2)));
+			
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} 
+	
+		return users;
 	}
 
 	public ArrayList<User> getUsers(ArrayList <String> ids, boolean hasPW)
