@@ -86,7 +86,7 @@ public class ClientHandler implements Runnable{
 				xmlConverter.userToDOMElement(user, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("getall")) {
+			else if(request.getQuery().equals(("getall"))) {
 				ArrayList<User> users = database.getAllUsers();
 
 				Document doc = xmlConverter.getNewDocument();
@@ -107,7 +107,7 @@ public class ClientHandler implements Runnable{
 				}
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("appointments")) {
+			else if(request.getQuery().equals(("appointments"))) {
 				ArrayList<Event> appointments = database.getAllEvent(new User(request.getPropety("username"),null,null));
 
 				Document doc = xmlConverter.getNewDocument();
@@ -117,7 +117,7 @@ public class ClientHandler implements Runnable{
 				}
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("meetings")) {
+			else if(request.getQuery().equals(("meetings"))) {
 				ArrayList<Event> meetings = database.getAllEvent(new User(request.getPropety("username"),null,null));
 
 				Document doc = xmlConverter.getNewDocument();
@@ -127,7 +127,7 @@ public class ClientHandler implements Runnable{
 				}
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("eventsbydate")) {
+			else if(request.getQuery().equals(("eventsbydate"))) {
 				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
 
 				Document doc = xmlConverter.getNewDocument();
@@ -138,7 +138,7 @@ public class ClientHandler implements Runnable{
 				}
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("appointmentsbydate")) {
+			else if(request.getQuery().equals(("appointmentsbydate"))) {
 				ArrayList<Event> appointments = database.getAllEvent(new User(request.getPropety("username"),null,null));
 
 				Document doc = xmlConverter.getNewDocument();
@@ -150,7 +150,7 @@ public class ClientHandler implements Runnable{
 				}
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("meetingsbydate")) {
+			else if(request.getQuery().equals(("meetingsbydate"))) {
 				ArrayList<Event> appointments = database.getAllEvent(new User(request.getPropety("username"),null,null));
 
 				Document doc = xmlConverter.getNewDocument();
@@ -162,16 +162,16 @@ public class ClientHandler implements Runnable{
 				}
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("delete")) {
-				database.deleteEvent(Integer.parseInt(request.getPropety("id")));
+			else if(request.getQuery().equals(("delete"))) {
+				database.removeEvent(Integer.parseInt(request.getPropety("id")));
 			}
-			else if(request.equals("add")) {
+			else if(request.getQuery().equals(("add"))) {
 				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(request.getPropety("start")), new Date(request.getPropety("end")),
 						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
 						request.getList(), new Room(request.getPropety("roomname"),0));
 				database.addEvent(event);
 			}
-			else if(request.equals("edit")) {
+			else if(request.getQuery().equals(("edit"))) {
 				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(request.getPropety("start")), new Date(request.getPropety("end")),
 						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
 						request.getList(), new Room(request.getPropety("roomname"),0));
@@ -189,7 +189,7 @@ public class ClientHandler implements Runnable{
 				
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("notificationslimited")) {
+			else if(request.getQuery().equals(("notificationslimited"))) {
 //				Document doc = xmlConverter.getNewDocument();
 //				xmlConverter.
 //				response = xmlConverter.DOMDocumentToString(doc);
