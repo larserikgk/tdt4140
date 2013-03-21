@@ -59,7 +59,7 @@ public class Server {
 		
 	}
 
-	private void notifyClient(String username, Notification notification) {
+	public void notifyClient(String username, Notification notification) {
 		for (int i = 0; i < connectedClients.size(); i++) {
 			if(connectedClients.get(i).getUsername() == username) {
 				connectedClients.get(i).notifyUser(notification);

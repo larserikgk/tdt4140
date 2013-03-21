@@ -12,6 +12,7 @@ import java.util.Properties;
 import org.w3c.dom.Document;
 
 import common.models.*;
+import common.models.Notification.NotificationType;
 import common.util.XMLConverter;
 
 import server.db.SqlConnector;
@@ -170,12 +171,24 @@ public class ClientHandler implements Runnable{
 						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
 						request.getList(), new Room(request.getPropety("roomname"),0));
 				database.addEvent(event);
+				
+				for (int i = 0; i < request.getList().size(); i++) {
+					User user = (User) request.getList().get(i);
+					server.notifyClient(user.getName(), new Notification(0, NotificationType.INVITATION, event.getDescription(), event));
+					database.addNotification(new Notification(0, NotificationType.INVITATION, event.getDescription(), event));
+				}
 			}
 			else if(request.getQuery().equals(("edit"))) {
 				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(request.getPropety("start")), new Date(request.getPropety("end")),
 						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
 						request.getList(), new Room(request.getPropety("roomname"),0));
 				database.updateEvent(event);
+				
+				for (int i = 0; i < request.getList().size(); i++) {
+					User user = (User) request.getList().get(i);
+					server.notifyClient(user.getName(), new Notification(0, NotificationType.EVENT_UPDATE, event.getDescription(), event));
+					database.addNotification(new Notification(0, NotificationType.EVENT_UPDATE, event.getDescription(), event));
+				}
 			}
 			break;
 		case Request.NOTIFICATION:
