@@ -1,6 +1,7 @@
 package server.db;
 
 
+import java.security.acl.Owner;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -44,7 +45,49 @@ public class SqlConnector {
 			System.err.println ("Cannot connect to database server"+e.toString());
 		}
 	}
-
+	
+	public void updateEvent(Event event)
+	{
+		String q = "UPDATE Event SET owner='"+event.getAdmin().getUsername()
+									+"', location='"+event.getLocation()
+									+"', description='"+event.getDescription()+"'";
+		
+		removeAllParticipants(event);
+		removeBooking(event);
+		
+		addBooking(event, event.getRoom());
+		addParticipantsToEvent(event);
+		
+		set(q);
+	}
+	
+	public void removeEvent(Event event)
+	{
+		String q = "DELETE FROM Event WHERE event_id="+event.getId();
+		removeAllParticipants(event);
+		removeAllNotifications(event);
+		removeBooking(event);
+		set(q);
+	}
+	
+	public void removeAllParticipants(Event event)
+	{
+		String q = "DELETE FROM Participant WHERE event_id="+event.getId();
+		set(q);
+	}
+	
+	public void removeAllNotifications(Event event)
+	{
+		String q = "DELETE FROM Notification WHERE event_id="+event.getId();
+		set(q);
+	}
+	
+	public void removeBooking(Event event)
+	{
+		String q = "DELETE FROM Booking WHERE event_id="+event.getId();
+		set(q);
+	}
+	
 	public void addUser(User user)
 	{
 		addUser(user.getUsername(), user.getPassword(), user.getName());

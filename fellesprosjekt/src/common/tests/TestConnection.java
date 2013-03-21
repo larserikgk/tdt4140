@@ -1,8 +1,10 @@
 package common.tests;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import common.models.Event;
 import common.models.User;
 
 import client.net.ServerConnector;
@@ -20,7 +22,9 @@ public class TestConnection {
 		try {
 			connector.start();
 			User derp = connector.getUser("admiralen", "onkel");
-			System.out.println(derp.getName());
+			ArrayList<Event> events= connector.getAppointments(derp, 10); 
+			for(Event e:events)
+				System.out.println(e.getName());
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}		
