@@ -143,7 +143,7 @@ public class XMLConverter
 	
 	public void eventToDOMElement(Event event, Document doc, Element parent, boolean complete)
 	{
-		Element 	id, start, end, name, description, location, room, participants, event_;
+		Element 	id, start, end, name, description, location, room, participants, admin, event_;
 		
 		id 			= doc.createElement("ID");
 		start		= doc.createElement("start");
@@ -153,6 +153,7 @@ public class XMLConverter
 		location	= doc.createElement("location");
 		room		= doc.createElement("room");
 		participants= doc.createElement("participants");
+		admin		= doc.createElement("admin");
 		event_		= doc.createElement("event");
 		
 		event_.appendChild(id);
@@ -162,6 +163,7 @@ public class XMLConverter
 		event_.appendChild(location);
 		event_.appendChild(room);
 		event_.appendChild(participants);
+		event_.appendChild(admin);
 		
 		id.appendChild(doc.createTextNode(""+event.getId()));
 		dateToDOMElement(event.getStart(),doc, start);
@@ -170,6 +172,7 @@ public class XMLConverter
 		description.appendChild(doc.createTextNode(event.getDescription()));
 		location.appendChild(doc.createTextNode(event.getLocation()));
 		roomToDOMElement(event.getRoom(), doc, room);
+		userToDOMElement(event.getAdmin(), doc, admin);
 		
 		if(complete)
 			for(User user : event.getParticipants())
