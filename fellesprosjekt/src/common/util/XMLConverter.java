@@ -111,6 +111,36 @@ public class XMLConverter
 		(parent==null ? doc : parent).appendChild(user_);
 	}
 	
+	public void userListToDOMElement(ArrayList<User> users, Document doc, Element parent)
+	{
+		Element userlist_ = doc.createElement("userlist");
+		
+		for(User u : users)
+			userToDOMElement(u, doc, userlist_);
+		
+		(parent==null ? doc : parent).appendChild(userlist_);
+	}
+	
+	public void eventListToDOMElement(ArrayList<Event> events, Document doc, Element parent)
+	{
+		Element eventlist_ = doc.createElement("eventlist");
+		
+		for(Event e : events)
+			eventToDOMElement(e, doc, eventlist_, true);
+		
+		(parent==null ? doc : parent).appendChild(eventlist_);
+	}
+	
+	public void notificationListToDOMElement(ArrayList<Notification> notifications, Document doc, Element parent)
+	{
+		Element notificationlist_ = doc.createElement("notificationlist");
+		
+		for(Notification n : notifications)
+			notificationToDOMElement(n, doc, notificationlist_, true);
+		
+		(parent==null ? doc : parent).appendChild(notificationlist_);
+	}
+	
 	public void eventToDOMElement(Event event, Document doc, Element parent, boolean complete)
 	{
 		Element 	id, start, end, name, description, location, room, participants, event_;
@@ -237,7 +267,7 @@ public class XMLConverter
 		else if(current.getNodeName().equals("notification"))
 			return constructNotificationFromNode(current);
 		else if(current.getNodeName().equals("participants"))
-			return constructParticipantsFromNode(current);
+			return constructUserListFromNode(current);
 		
 		return null;
 	}
@@ -320,7 +350,7 @@ public class XMLConverter
 			else if(temp.getNodeName().equals("location"))
 				location = temp.getFirstChild().getTextContent();
 			else if(temp.getNodeName().equals("participants"))
-				participants = constructParticipantsFromNode(temp);
+				participants = constructUserListFromNode(temp);
 			else if(temp.getNodeName().equals("admin"))
 				admin = constructUserFromNode(temp);
 			else if(temp.getNodeName().equals("room"))
@@ -330,15 +360,26 @@ public class XMLConverter
 		return new Event(admin, id, start, end, name, description, location,participants, room);
 	}
 	
-	public ArrayList<User> constructParticipantsFromNode(Node node)
+	public ArrayList<User> constructUserListFromNode(Node node)
 	{
-		ArrayList<User> participants = new ArrayList<User>();
+		ArrayList<User> users = new ArrayList<User>();
 		NodeList children = node.getChildNodes();
 		
 		for(int i = 0; i < children.getLength(); i++)
-			participants.add(constructUserFromNode(children.item(i)));
+			users.add(constructUserFromNode(children.item(i)));
 		
-		return participants;
+		return users;
+	}
+	
+	public ArrayList<Event> constructEventListFromNode(Node node)
+	{
+		ArrayList<Event> events = new ArrayList<Event>();
+		NodeList children = node.getChildNodes();
+		
+		for(int i = 0; i < children.getLength(); i++)
+			events.add(constructEventFromNode(children.item(i)));
+		
+		return events;
 	}
 	
 	public User constructUserFromNode(Node node)

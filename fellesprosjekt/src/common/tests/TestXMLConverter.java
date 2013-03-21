@@ -16,15 +16,16 @@ public class TestXMLConverter
 	static Date date1 	= new Date();
 	static Date date2 	= new Date();
 	static User derp 	= new User("kwrl","swag" , "Håkon");
+	static User derpina = new User("derpz","yolo", "Derpina");
 	static Room room1 	= new Room("R1", 123);
 	static Event party	= new Event(derp,1,date1,date2,"Fest","My place","Epic", new ArrayList<User>(), room1);
-	static Notification not = new Notification(NotificationType.INVITATION, "Awesome parteh", party, date1);
+	static Notification not = new Notification(NotificationType.INVITATION, "Awesome parteh", party);
 	static XMLConverter converter = new XMLConverter();
 	static Document doc;
 	
 	public static void main(String[] args)
 	{
-		testUserConversion();
+		testEventConversion();
 	}
 	
 	public static void testUserConversion()
@@ -51,7 +52,8 @@ public class TestXMLConverter
 	{
 		doc = converter.getNewDocument();
 		party.getParticipants().add(derp);
-		party.getParticipants().add(derp);
+		party.getParticipants().add(derpina);
+		converter.eventToDOMElement(party, doc, null, true);
 		converter.eventToDOMElement(party, doc, null, true);
 		
 		System.out.println(converter.DOMDocumentToString(doc));
