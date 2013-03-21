@@ -27,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
@@ -56,15 +57,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private Date selectedDate;
 	private JPanel panel, panelUpcomingEvents, panelNf;
 	private User user;
-	
-	public User getUser() {
-		return user;
-	}
-
 	private JList selectedDateEventList;
 	private JPopupMenu popupMenu;
 	private int unreadNf;
 	private JList upcomingEventsList;
+	private JScrollPane scrollPaneEventList;
 	
 	public static void main(String[] args){
 		MainFrame mf = new MainFrame();
@@ -303,8 +300,10 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		selectedDateEventList.setCellRenderer(new SelectedListCellRenderer());
 		selectedDateEventList.setForeground(Color.WHITE);
 		selectedDateEventList.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
-		//setListModel(selectedDateEventList);
-		panel.add(selectedDateEventList, "cell 0 1 2 1,grow");
+		scrollPaneEventList = new JScrollPane(selectedDateEventList);
+		scrollPaneEventList.setBorder(null);
+		panel.add(scrollPaneEventList, "cell 0 1 2 1,grow");
+//		panel.add(selectedDateEventList, "cell 0 1 2 1,grow");
 		
 		selectedDateEventList.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
@@ -444,13 +443,13 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	public void setupSelectedDatePanel(Date date){
 		lblSelectedDate.setText(date.getDate() + " " + Settings2.MONTHS[date.getMonth()] + " " + (date.getYear() + 1900));
 		setListModel(selectedDateEventList);
-		panel.remove(selectedDateEventList);
+		panel.remove(scrollPaneEventList);
 		panel.remove(lblNoEvents);
 		if (user.getEvents(selectedDate).size() == 0){
 			panel.add(lblNoEvents, "cell 0 1 2 1,alignx left,aligny top");
 		}
 		else {
-			panel.add(selectedDateEventList, "cell 0 1 2 1,grow");
+			panel.add(scrollPaneEventList, "cell 0 1 2 1,grow");
 		}
 		panel.repaint();
 		panel.revalidate();
@@ -508,5 +507,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			user.addEvent(e);
 		}
 		this.user = user;
+	}
+	
+	public User getUser() {
+		return user;
 	}
 }

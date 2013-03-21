@@ -33,7 +33,7 @@ public class MainDatePicker extends BaseFrame {
 		mdp.setVisible(true);
 	}
 	
-	//BRUK DENNE KONSTRUKTØREN
+	//BRUK DENNE KONSTRUKTï¿½REN
 	//Setter dato ved opprettelse, slik at feltet ikke er tomt
 	public MainDatePicker(Date date){
 		this();
@@ -47,7 +47,7 @@ public class MainDatePicker extends BaseFrame {
 		getContentPane().setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		setSize(new Dimension(140, 80));
 		
-		minDate = new Date(0,0,1); //Min date: 1 Jan 1900
+		minDate = new Date(-5,0,1); //Min date: 1 Jan 1900
 		maxDate = new Date(199,11,31);
 		
 		dateChooser = new JDateChooser();

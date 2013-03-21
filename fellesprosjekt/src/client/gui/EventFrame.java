@@ -20,6 +20,7 @@ import java.awt.GridLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -200,7 +201,12 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 			public void actionPerformed(ActionEvent arg0) {
 				User admin = event.getAdmin();
 				EventCalendar oldValue = admin.getEventCalendar();
-				getServerConnector().removeEvent(eventOriginal);
+				try {
+					getServerConnector().deleteEvent(eventOriginal);
+				} catch (ConnectException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				firePropertyChange("EventCalendarChanged", oldValue, admin.getEventCalendar());
 			}
 		});
@@ -283,7 +289,12 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 					close();
 					return;
 				}
-				if (!saveAttributes()) return;
+				try {
+					if (!saveAttributes()) return;
+				} catch (ConnectException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				close();
 				User admin = eventOriginal.getAdmin();
 				EventCalendar oldValue = admin.getEventCalendar();
@@ -293,7 +304,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	}
 
 	
-	public boolean saveAttributes() {
+	public boolean saveAttributes() throws ConnectException {
 		if (datePickerEnd.getDate().compareTo(datePickerStart.getDate()) < 0) return false;
 		//Bruker b�r f� opp melding om at sluttid ikke kan v�re f�r starttid
 		System.out.println("fortsetter");
@@ -304,7 +315,9 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		
 		
 		eventOriginal = eventCopy;
-		getServerConnector().updateEvent(eventOriginal);
+		if (this instanceof CreateEventFrame)
+			getServerConnector().addEvent(eventOriginal);
+		else getServerConnector().editEvent(eventOriginal);
 		return true;
 	}
 	
