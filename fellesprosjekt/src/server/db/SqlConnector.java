@@ -1,7 +1,5 @@
 package server.db;
 
-
-import java.security.acl.Owner;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -239,7 +237,6 @@ public class SqlConnector {
 		NotificationType type; 
 		String q = "SELECT Notification.notification_id,type,description,event_id FROM Notification JOIN(SELECT notification_id FROM UserNotificationRelation " +
 				"WHERE username = '" +user.getUsername()+ "' AND lest=0 ) AS derp ON derp.notification_id = Notification.notification_id";
-		System.out.println(q); 
 		try {
 			ResultSet rs = stmt.executeQuery(q); 
 			while(rs.next())
