@@ -173,7 +173,7 @@ public class ClientHandler implements Runnable{
 				database.addEvent(event);
 				
 				for (int i = 0; i < request.getList().size(); i++) {
-					User user = (User) request.getList().get(i);
+					User user = request.getList().get(i);
 					server.notifyClient(user.getName(), new Notification(0, NotificationType.INVITATION, event.getDescription(), event));
 					database.addNotification(new Notification(0, NotificationType.INVITATION, event.getDescription(), event));
 				}
@@ -185,7 +185,7 @@ public class ClientHandler implements Runnable{
 				database.updateEvent(event);
 				
 				for (int i = 0; i < request.getList().size(); i++) {
-					User user = (User) request.getList().get(i);
+					User user = request.getList().get(i);
 					server.notifyClient(user.getName(), new Notification(0, NotificationType.EVENT_UPDATE, event.getDescription(), event));
 					database.addNotification(new Notification(0, NotificationType.EVENT_UPDATE, event.getDescription(), event));
 				}
