@@ -312,7 +312,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		eventCopy.setStart(datePickerStart.getDate());
 		eventCopy.setEnd(datePickerEnd.getDate());
 		eventCopy.setDescription(textPane_description.getText());
-		
+	
 		
 		eventOriginal = eventCopy;
 		if (this instanceof CreateEventFrame)
@@ -364,6 +364,10 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 			System.out.println("RECIEVED IN EVENTFRAME: "+evt.getNewValue());
 			datePickerEnd.setMinimumDate((Date) evt.getNewValue());
 		}
+	}
+
+	public void setLocationText(String location) {
+		textField_location.setText(location);		
 	}
 	
 }

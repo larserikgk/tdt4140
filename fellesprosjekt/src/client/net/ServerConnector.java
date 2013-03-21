@@ -301,7 +301,7 @@ public class ServerConnector implements IServerConnector{
 		request.addProperty("location", event.getLocation());
 		request.addProperty("description", event.getDescription());
 		request.addProperty("location", event.getLocation());
-		request.setList(event.getParticipants());
+		//request.setList(event.getParticipants());
 		request.addProperty("roomname", event.getRoom().getName());
 		request.addProperty("admin", event.getAdmin().getUsername());
 		sendRequest(request);

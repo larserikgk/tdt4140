@@ -133,7 +133,7 @@ public class XMLConverter
 	
 	public void roomListToDOMElement(ArrayList<Room> rooms, Document doc, Element parent)
 	{
-		Element roomlist_ = doc.createElement("eventlist");
+		Element roomlist_ = doc.createElement("roomlist");
 		
 		for(Room r : rooms)
 			roomToDOMElement(r, doc, roomlist_);

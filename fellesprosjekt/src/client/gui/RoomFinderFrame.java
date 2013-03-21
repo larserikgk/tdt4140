@@ -37,7 +37,7 @@ public class RoomFinderFrame extends BaseFrame {
 		getContentPane().add(lblFindRoom, "cell 0 0 2 1");
 		
 		try {
-			roomList = new RoomListFilter(getServerConnector().getAllAvailableRooms(event),defaultCapacity);
+			roomList = new RoomListFilter(getServerConnector().getAllRooms(),defaultCapacity);
 		} catch (ConnectException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,6 +73,7 @@ public class RoomFinderFrame extends BaseFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				event.setRoom(roomList.getSelectedRoom());
+				((EventFrame) getParentFrame()).setLocationText(event.getRoom().getName());
 				close();
 			}
 		});
