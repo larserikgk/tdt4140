@@ -37,9 +37,14 @@ public class ImportCalendarFrame extends BaseFrame {
 		getContentPane().setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 		Border border = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);
 		//getContentPane().setBorder(border);
-		getContentPane().setLayout(new MigLayout("", "[2%,grow][4.69%][20%,grow][20%,grow][5%,grow][10%,grow][2%,grow]", "[1%,grow][5%,grow][60%,grow][5.52%,grow][5%,grow]"));
+		getContentPane().setLayout(new MigLayout("", "[2%,grow][4.69%][20%,grow][20%,grow][13.76%,grow][10%,grow][2%,grow]", "[1%,grow][5%,grow][60%,grow][5.52%,grow][5%,grow]"));
 	
-		setupParticipants();
+		try {
+			setupUsers();
+		} catch (ConnectException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		JLabel lblAddParticipants = new JLabel("Import calendar");
 		lblAddParticipants.setFont(Settings2.FONT_TITLE1);
@@ -80,8 +85,19 @@ public class ImportCalendarFrame extends BaseFrame {
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();
-				User user = allUsersList.get
-				firePropertyChange("ImportCalendar", null, )
+				User user = allUsersList.getSelectedUser();
+				//firePropertyChange("ImportCalendar", null, user);
+				ArrayList<Event> events = new ArrayList<Event>();
+				try {
+					events = getServerConnector().getEvents(user, 0);
+				} catch (ConnectException e1) {
+					e1.printStackTrace();
+				}
+				if (events != null) {
+					for (Event evt : events){
+						((MainFrame) getParentFrame()).getUser().addEvent(evt);
+					}
+				}
 			}
 		});
 		
@@ -89,11 +105,10 @@ public class ImportCalendarFrame extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				close();
 			}
-		});pull
+		});
 	}
-
 	
-	public void setupParticipants() throws ConnectException{
+	public void setupUsers() throws ConnectException{
 		ArrayList<User> allUsers = getServerConnector().getAllUsers();
 		allUsers.add(new User("Tom", "Tom"));
 		allUsersList = new UserListFilter(allUsers);

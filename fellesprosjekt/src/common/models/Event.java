@@ -3,7 +3,7 @@ package common.models;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Event {
+public class Event implements Comparable<Event>{
 	
 	private User admin;
 	private int id;
@@ -132,6 +132,11 @@ public class Event {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	@Override
+	public int compareTo(Event arg0) {
+		return this.getStart().compareTo(arg0.getStart());
 	}
 	
 	

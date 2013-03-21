@@ -56,6 +56,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	private Date selectedDate;
 	private JPanel panel, panelUpcomingEvents, panelNf;
 	private User user;
+	
+	public User getUser() {
+		return user;
+	}
+
 	private JList selectedDateEventList;
 	private JPopupMenu popupMenu;
 	private int unreadNf;

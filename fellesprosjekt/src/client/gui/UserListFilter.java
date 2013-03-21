@@ -9,6 +9,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -126,5 +127,15 @@ public class UserListFilter extends JPanel{
         frame.pack(); 
         frame.setVisible(true);   
         }
+    
+    public void setSingleSelectionMode(boolean b){
+    	if (b) userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    	else userList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+    }
+    
+    public User getSelectedUser(){
+    	return (User) userList.getSelectedValue();
+    }
+    
     
 }

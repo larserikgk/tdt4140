@@ -26,6 +26,7 @@ public class EventCalendar {
 	
 	public void add(Event event, Date date) {
 		eventList.add(event);
+		sort();
 		this.pcs.firePropertyChange("EventCalendarChanged", null, this);
 	}
 	
@@ -44,6 +45,10 @@ public class EventCalendar {
 			}
 		}
 		return events;
+	}
+	
+	private void sort(){
+		Collections.sort(eventList);
 	}
 
 }
