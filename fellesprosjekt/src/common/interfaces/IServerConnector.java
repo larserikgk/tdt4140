@@ -27,10 +27,8 @@ public interface IServerConnector
 	
 
 	void deleteEvent(Event event) throws ConnectException;
-	User login(String username, String password) throws ConnectException;		
 	void addEvent(Event event) throws ConnectException;
 	void editEvent(Event event) throws ConnectException;
-	void addParticipants(Event event) throws ConnectException;
 	void setRoom(Event event) throws ConnectException;
 	Room getRoom(Event event) throws ConnectException;
 	void setLocation(Event event) throws ConnectException;

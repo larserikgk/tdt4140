@@ -1,6 +1,7 @@
 package common.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class Request implements Serializable{
@@ -8,11 +9,13 @@ public class Request implements Serializable{
 	private int type;
 	public static final int USER = 1, EVENT = 2, NOTIFICATION = 3, LOGOUT = 7;
 	private Properties properties;
+	ArrayList list;
 	
 	public Request(String query, int type) {
 		this.query = query;
 		this.type =  type;
 		this.properties = new Properties();
+		list = new ArrayList<>();
 	}
 
 	public String getQuery() {
@@ -46,4 +49,16 @@ public class Request implements Serializable{
 	public String getPropety(String key) {
 		return properties.getProperty(key);
 	}
+
+	public ArrayList getList() {
+		return list;
+	}
+
+	public void setList(ArrayList list) {
+		for (int i = 0; i < list.size(); i++) {
+			this.list.add(list.get(i));
+		}
+	}
+	
+	
 }
