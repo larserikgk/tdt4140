@@ -364,7 +364,7 @@ public class SqlConnector {
 
 	{
 		String querry = "select * from Room inner join(select * from Booking where event_id= ?) AS derp ON Room.room_name=derp.room_name;";
-		Room result = null;
+		Room result = new Room("",0);
 		try {
 			PreparedStatement p = conn.prepareStatement(querry); 
 			p.setInt(1, eventID); 
