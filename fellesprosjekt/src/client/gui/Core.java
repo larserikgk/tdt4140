@@ -86,7 +86,7 @@ public class Core extends JPanel implements ActionListener
 		
         while(copy.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY)
         {
-        	if(copy.get(Calendar.DAY_OF_YEAR) == 0)
+        	if(copy.get(Calendar.DAY_OF_YEAR) == 1)
         		copy.roll(Calendar.YEAR, false);
         	copy.roll(Calendar.DAY_OF_YEAR, false);
         }
