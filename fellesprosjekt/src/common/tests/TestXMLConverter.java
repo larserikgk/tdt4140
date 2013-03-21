@@ -26,9 +26,13 @@ public class TestXMLConverter
 	
 	public static void main(String[] args)
 	{
-		participants.add(new User("lars1","123","lars"));
+		participants.add(new User("lars1","123","lars1"));
+		participants.add(new User("lars4","123","lars2"));
+		participants.add(new User("lars3","123","lars3"));
+		participants.add(new User("lars2","123","lars4"));
+		
 //		testEventConversion();
-		testListConversion();
+//		testListConversion();
 	}
 	
 	public static void testUserConversion()
@@ -95,5 +99,8 @@ public class TestXMLConverter
 		System.out.println(converter.DOMDocumentToString(doc));
 		
 		ArrayList<User> users = converter.constructUserListFromNode(doc.getFirstChild());
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println(users.get(i).getName());
+		}
 	}
 }
