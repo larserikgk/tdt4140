@@ -332,13 +332,23 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		users.add(xmlConverter.constructUserFromNode(doc.getFirstChild()));
-		while(doc.getNextSibling() != doc.getLastChild()){
-			users.add(xmlConverter.constructUserFromNode(doc.getNextSibling()));
-		}
+		xmlConverter.constructUserListFromNode(doc);
 
 		return users;
 	}
+	
+	@Override
+	public ArrayList<Room> getAllRooms() throws ConnectException {
+		ArrayList<Room> rooms = new ArrayList<Room>();
+		Request request = new Request("getall", Request.ROOM);
+		String result = sendRequest(request);
+
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		rooms.add(xmlConverter.constructRoomListFromNode(doc.getFirstChild()));
+
+		return rooms;
+	}
+
 
 	private class NotificationListener extends Thread {
 		public void run() {
@@ -358,6 +368,7 @@ public class ServerConnector implements IServerConnector{
 		}
 	}
 
+	
 	
 
 	

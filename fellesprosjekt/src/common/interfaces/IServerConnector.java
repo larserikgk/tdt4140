@@ -25,6 +25,8 @@ public interface IServerConnector
 	public ArrayList<Event>getAppointments	(User user, Date from, Date to) throws ConnectException; 
 	public ArrayList<Notification>getNotifications(User user, boolean unreadOnly, Date from, Date to) throws ConnectException;
 	
+	public ArrayList<Room>getAllRooms 		() throws ConnectException;
+	
 
 	void deleteEvent(Event event) throws ConnectException;
 	void addEvent(Event event) throws ConnectException;

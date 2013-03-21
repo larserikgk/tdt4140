@@ -7,7 +7,7 @@ import java.util.Properties;
 public class Request implements Serializable{
 	private String query;
 	private int type;
-	public static final int USER = 1, EVENT = 2, NOTIFICATION = 3, LOGOUT = 7;
+	public static final int USER = 1, EVENT = 2, NOTIFICATION = 3, ROOM=4, LOGOUT = 7;
 	private Properties properties;
 	ArrayList<User> list;
 	
