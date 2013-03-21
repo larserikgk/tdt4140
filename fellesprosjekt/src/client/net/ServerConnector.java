@@ -310,6 +310,75 @@ public class ServerConnector implements IServerConnector{
 
 		return notifications;
 	}
+	
+	@Override
+	public void deleteEvent(Event event) throws ConnectException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public User login(String username, String password) throws ConnectException{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addEvent(Event event) throws ConnectException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void editEvent(Event event) throws ConnectException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addParticipants(Event event) throws ConnectException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setRoom(Event event) throws ConnectException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Room getRoom(Event event) throws ConnectException{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setLocation(Event event) throws ConnectException{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getLocation(Event event) throws ConnectException{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<User> getAllUsers() throws ConnectException {
+		ArrayList<User> users = new ArrayList<User>();
+		Request request = new Request("notifications", Request.EVENT);
+		String result = sendRequest(request);
+
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		users.add(xmlConverter.constructUserFromNode(doc.getFirstChild()));
+		while(doc.getNextSibling() != doc.getLastChild()){
+			users.add(xmlConverter.constructUserFromNode(doc.getNextSibling()));
+		}
+
+		return users;
+	}
 
 	private class NotificationListener extends Thread {
 		public void run() {
@@ -328,6 +397,8 @@ public class ServerConnector implements IServerConnector{
 			}
 		}
 	}
+
+	
 
 	
 }
