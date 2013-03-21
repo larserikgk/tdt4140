@@ -93,7 +93,7 @@ public class LoginFrame extends BaseFrame {
 					System.out.println("b/p skjekk med db...");
 					User user = getServerConnector().getUser(textField_user.getText(), pw);
 					System.out.println("b/p skjekk ferdig");
-					if (user!=null) {      // && isCorrectPassword(passwordField.getPassword())
+					if (!user.getName().equals("")) {      // && isCorrectPassword(passwordField.getPassword())
 						System.out.println("ACCESS GRANTED for user: "+user);
 						System.out.println(user.getName());
 						

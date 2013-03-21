@@ -435,7 +435,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	public void openEvent(Event event){
 		EventFrame ef;
-		if (user == event.getAdmin()) ef = new EditEventFrame(event);
+		System.out.println(event);
+		System.out.println(event.getAdmin());
+		if (user.getUsername().equals(event.getAdmin().getUsername())) ef = new EditEventFrame(event);
 		else ef = new ShowEventFrame(event);
         openFrameOnTop(ef);
         ef.addPropertyChangeListener(MainFrame.this);

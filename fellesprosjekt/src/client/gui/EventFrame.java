@@ -42,7 +42,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	private JTextPane textPane_description; 
 	private JLabel lblMainTitle;
 	private JComboBox comboBox_repeat;
-	private JPanel panel, panel_8;
+	private JPanel panel, panel_deletebtn;
 	private JButton btnFinish, btnCancel, btnDeleteEvent;
 	private Event eventOriginal, eventCopy;
 	private JList listParticipants;
@@ -51,9 +51,10 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	
 	private JButton btnEditParticipants, btnFindRoom;
 	private DatePicker datePickerEnd, datePickerStart;
-	private JPanel panel_3;
-	private JPanel panel_2;
-	private JPanel panel_4;
+	private JPanel panel_findroombtn;
+	private JPanel panel_editpartbtn;
+	private JPanel panel_RSVPtbtn;
+	private JLabel lblNameValue, lblLocationValue, lblDescriptionValue;
 		
 	public EventFrame(final Event event) {
 		super();
@@ -76,17 +77,17 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		
 		ButtonGroup btnG = new ButtonGroup();
 		
-		panel_4 = new JPanel();
-		panel_4.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
-		getContentPane().add(panel_4, "cell 2 0,grow");
+		panel_RSVPtbtn = new JPanel();
+		panel_RSVPtbtn.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
+		getContentPane().add(panel_RSVPtbtn, "cell 2 0,grow");
 		
 		tbAccept = new ResponseToggleButton("Accept");
 		tbAccept.setBounds(12, 5, 100, 23);
 		tbDecline = new ResponseToggleButton("Decline");
 		tbDecline.setBounds(124, 5, 100, 23);
-		panel_4.setLayout(null);
-		panel_4.add(tbAccept);
-		panel_4.add(tbDecline);
+		panel_RSVPtbtn.setLayout(null);
+		panel_RSVPtbtn.add(tbAccept);
+		panel_RSVPtbtn.add(tbDecline);
 		
 		btnG.add(tbAccept);
 		btnG.add(tbDecline);
@@ -95,6 +96,9 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblTitle.setFont(Settings2.FONT_TEXT2);
 		lblTitle.setForeground(Color.WHITE);
 		getContentPane().add(lblTitle, "cell 1 1,alignx left,aligny center");
+		
+		lblNameValue = new JLabel("Event");
+		lblNameValue.setForeground(Color.WHITE);
 		
 		textField_name = new JTextField("Event");
 		getContentPane().add(textField_name, "cell 2 1,growx,aligny center");
@@ -128,10 +132,10 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		JScrollPane participantsScrollPane = new JScrollPane(listParticipants);
 		getContentPane().add(participantsScrollPane, "cell 2 4,grow");
 		
-		panel_2 = new JPanel();
-		panel_2.setBackground(Color.DARK_GRAY);
-		getContentPane().add(panel_2, "cell 3 4,growx,aligny center");
-		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
+		panel_editpartbtn = new JPanel();
+		panel_editpartbtn.setBackground(Color.DARK_GRAY);
+		getContentPane().add(panel_editpartbtn, "cell 3 4,growx,aligny center");
+		panel_editpartbtn.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnEditParticipants = new JButton("Edit participants");
 		btnEditParticipants.setForeground(Color.WHITE);
@@ -143,7 +147,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 				openFrameOnTop(frame);				
 			}
 		});
-		panel_2.add(btnEditParticipants);
+		panel_editpartbtn.add(btnEditParticipants);
 		
 		JLabel lblRepeat = new JLabel("Repeat");
 		lblRepeat.setFont(Settings2.FONT_TEXT2);
@@ -159,17 +163,20 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblLocation.setForeground(Color.WHITE);
 		getContentPane().add(lblLocation, "cell 1 6,alignx left,aligny center");
 		
+		lblLocationValue = new JLabel();
+		lblLocationValue.setForeground(Color.WHITE);
+		
 		textField_location = new JTextField();
 		getContentPane().add(textField_location, "cell 2 6,growx,aligny center");
 		textField_location.setColumns(10);
 		
-		panel_3 = new JPanel();
-		getContentPane().add(panel_3, "cell 3 6,growx,aligny center");
-		panel_3.setBackground(Settings2.COLOR_DARK_GRAY);
-		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
+		panel_findroombtn = new JPanel();
+		getContentPane().add(panel_findroombtn, "cell 3 6,growx,aligny center");
+		panel_findroombtn.setBackground(Settings2.COLOR_DARK_GRAY);
+		panel_findroombtn.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnFindRoom = new JButton("Find room");
-		panel_3.add(btnFindRoom);
+		panel_findroombtn.add(btnFindRoom);
 		btnFindRoom.setContentAreaFilled(false);
 		btnFindRoom.setBorderPainted(false);
 		btnFindRoom.setForeground(Color.white);
@@ -184,19 +191,22 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblDescription.setForeground(Color.WHITE);
 		getContentPane().add(lblDescription, "cell 1 7,aligny top");
 		
+		lblDescriptionValue = new JLabel();
+		lblDescriptionValue.setForeground(Color.WHITE);
+		
 		textPane_description = new JTextPane();
 		getContentPane().add(textPane_description, "cell 2 7,grow");
 	
-		panel_8 = new JPanel();
-		panel_8.setBackground(Settings2.COLOR_LIGHT_BLUE);
-		getContentPane().add(panel_8, "cell 1 8,alignx left,aligny center");
-		panel_8.setLayout(new GridLayout(0, 1, 0, 0));
+		panel_deletebtn = new JPanel();
+		panel_deletebtn.setBackground(Settings2.COLOR_LIGHT_BLUE);
+		getContentPane().add(panel_deletebtn, "cell 1 8,alignx left,aligny center");
+		panel_deletebtn.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		btnDeleteEvent = new JButton("Delete event");
 		btnDeleteEvent.setForeground(Color.WHITE);
 		btnDeleteEvent.setContentAreaFilled(false);
 		btnDeleteEvent.setBorderPainted(false);
-		panel_8.add(btnDeleteEvent);
+		panel_deletebtn.add(btnDeleteEvent);
 		btnDeleteEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				User admin = event.getAdmin();
@@ -241,7 +251,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		
 		//Delete event notEnabled by default
 		btnDeleteEvent.setEnabled(false);
-		panel_8.setVisible(false);
+		panel_deletebtn.setVisible(false);
 		
 		datePickerStart.addPropertyChangeListener(this);
 		setupEvent(event);
@@ -249,36 +259,49 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	
 	public void setupEvent(Event event) {
 		textField_name.setText(event.getName());
+		lblNameValue.setText(event.getName());
 		textPane_description.setText(event.getDescription());
+		lblDescriptionValue.setText(event.getDescription());
 		datePickerStart.setDate(event.getStart());
 		datePickerEnd.setDate(event.getEnd());
 		String l = eventOriginal.getLocation();
 		if (l != null) {
 			textField_location.setText(l);
+			lblLocationValue.setText(l);
 		} else {
 			textField_location.setText(eventOriginal.getRoom().toString());
+			lblLocationValue.setText(eventOriginal.getRoom().toString());
 		}
 		setupParticipants();
 	}
 	
 	public void setIsEditable(boolean b) {
+		panel_RSVPtbtn.setVisible(!b);
+		panel_editpartbtn.setVisible(b);
+		panel_findroombtn.setVisible(b);
+		panel_deletebtn.setVisible(b);
+		panel.setVisible(b);
+		
 		datePickerStart.setEnabled(b);
 		datePickerEnd.setEnabled(b);
 		tbAccept.setEnabled(!b);
 		tbDecline.setEnabled(!b);
-		panel_4.setVisible(!b);
+		
 		comboBox_repeat.setEnabled(b);
 		btnEditParticipants.setEnabled(b);
-		panel.setVisible(b);
+		
 		btnCancel.setEnabled(b);
 		btnDeleteEvent.setEnabled(b);
-		panel_2.setVisible(b);
-		panel_3.setVisible(b);
-		panel_8.setVisible(b);
 		btnFindRoom.setEnabled(b);
-		textField_name.setEditable(b);
-		textField_location.setEditable(b);
-		textPane_description.setEditable(b); 
+		
+		if (!b) {
+			getContentPane().remove(textField_name);
+			getContentPane().add(lblNameValue, "cell 2 1,growx,aligny center");
+			getContentPane().remove(textField_location);
+			getContentPane().add(lblLocationValue, "cell 2 6,growx,aligny center");
+			getContentPane().remove(textPane_description);
+			getContentPane().add(lblDescriptionValue, "cell 2 7,grow");
+		}
 	}
 	
 	public void setFinishButtonAction(final boolean onlyClose) {
@@ -325,7 +348,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	
 	public void setDeleteEventButtonEnabled(boolean b) {
 		btnDeleteEvent.setEnabled(b);
-		panel_8.setVisible(b);
+		panel_deletebtn.setVisible(b);
 	}
 	
 	public void setFinishButtonText(String s) {

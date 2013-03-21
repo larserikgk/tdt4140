@@ -25,6 +25,10 @@ public class User implements Serializable{
 		this.password = "";
 	}
 	
+	public String toString() {
+		return "Name: "+name+", Username: "+username+", Password; "+password;
+	}
+	
 	public void editEvent(Event newEvent, Event oldEvent) {
 		deleteEvent(oldEvent);
 		addEvent(newEvent);

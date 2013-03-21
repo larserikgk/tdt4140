@@ -129,7 +129,11 @@ public class Event implements Comparable<Event>{
 	}
 	public String toString()
 	{
-		return(name); 
+		String r = "";
+		if (name != null) r+="name: "+name;
+		if (admin != null) r+="admin: "+admin.getUsername();
+		if (room != null) r+="room: "+room.getName();
+		return r; 
 	}
 	
 	public Event clone() {
