@@ -348,6 +348,21 @@ public class ServerConnector implements IServerConnector{
 
 		return rooms;
 	}
+	
+	@Override
+	public ArrayList<Room> getAllAvaiableRooms(Event event)
+			throws ConnectException {
+		ArrayList<Room> rooms = new ArrayList<Room>();
+		Request request = new Request("getavailable", Request.ROOM);
+		request.addProperty("starttime", String.valueOf(event.getStart().getTime()));
+		request.addProperty("endtime", String.valueOf(event.getEnd().getTime()));
+		String result = sendRequest(request);
+
+		Document doc = xmlConverter.StringToDOMDocument(result);
+		rooms = (xmlConverter.constructRoomListFromNode(doc.getFirstChild()));
+
+		return rooms;
+	}
 
 
 	private class NotificationListener extends Thread {
@@ -367,6 +382,9 @@ public class ServerConnector implements IServerConnector{
 			}
 		}
 	}
+
+
+	
 
 	
 	

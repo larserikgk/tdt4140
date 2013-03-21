@@ -28,6 +28,12 @@ public class Event implements Comparable<Event>{
 		this.participants 	= participants;
 		this.room 			= room;
 	}
+	
+	public Event(Date start, Date end) {
+		this.start 	= start;
+		this.end 	= end;	
+	}
+	
 
 	public User getAdmin() {
 		return admin;

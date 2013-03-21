@@ -201,7 +201,7 @@ public class ClientHandler implements Runnable{
 			break;
 		case Request.NOTIFICATION:
 			if(request.getQuery().equals("notifications")) {
-				ArrayList<Notification> notifications = database.getAllNotifications(new User(request.getPropety("username"),null,null));
+				ArrayList<Notification> notifications = database.getAllNotifications(new User(request.getPropety("username"),"",""));
 						
 				Document doc = xmlConverter.getNewDocument();
 				xmlConverter.notificationListToDOMElement(notifications, doc, null);
@@ -216,6 +216,13 @@ public class ClientHandler implements Runnable{
 		case 4:
 			if(request.getQuery().equals("getall")) {
 				ArrayList<Room> rooms = database.getAllRooms();
+				Document doc = xmlConverter.getNewDocument();
+				xmlConverter.constructRoomListFromNode(doc);
+				response = xmlConverter.DOMDocumentToString(doc);
+			}
+			else if(request.getQuery().equals("getavailable")) {
+				ArrayList<Room> rooms = database.getAvailableRooms(new Event(new Date(Long.parseLong(request.getPropety("starttime"))),
+						new Date(Long.parseLong(request.getPropety("endtime")))), "");
 				Document doc = xmlConverter.getNewDocument();
 				xmlConverter.constructRoomListFromNode(doc);
 				response = xmlConverter.DOMDocumentToString(doc);
