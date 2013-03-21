@@ -60,6 +60,7 @@ public class ServerConnector implements IServerConnector{
 		this.username = username;
 		this.handlerPort = 1600;
 		this.pushPort = 1601;
+		this.xmlConverter = new XMLConverter();
 	}
 
 	public boolean start() throws ConnectException{
@@ -314,7 +315,7 @@ public class ServerConnector implements IServerConnector{
 		public void run() {
 			while(true) {
 				try {
-					String result = (String) input.readObject();
+					String result = (String) pushInput.readObject();
 					Document doc = xmlConverter.StringToDOMDocument(result);
 					gui.handleNotifications(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
 				}
