@@ -173,10 +173,13 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		do{
-			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
 
-		} while(false);
+		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
+			if(i == 0)
+				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+			else
+				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
+		}
 
 		return events;
 	}
@@ -189,10 +192,13 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		do{
-			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
+			if(i == 0)
+				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+			else
+				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
+		}
 
-		} while(false);
 
 		return events;
 	}
@@ -205,10 +211,13 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		do{
-			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
+			if(i == 0)
+				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+			else
+				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
+		}
 
-		} while(false);
 
 		return events;
 	}
@@ -248,10 +257,13 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		do{
-			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
+			if(i == 0)
+				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+			else
+				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
+		}
 
-		} while(false);
 
 		return events;
 	}
@@ -266,10 +278,13 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		do{
-			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
+			if(i == 0)
+				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+			else
+				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
+		}
 
-		} while(false);
 
 		return events;
 	}
@@ -284,10 +299,13 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		do{
-			events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
+			if(i == 0)
+				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
+			else
+				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
+		}
 
-		} while(false);
 
 		return events;
 	}
@@ -303,10 +321,12 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		do{
-			notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
-
-		} while(false);
+		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
+			if(i == 0)
+				notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
+			else
+				notifications.add(xmlConverter.constructNotificationFromNode(doc.getNextSibling()));
+		}
 
 		return notifications;
 	}

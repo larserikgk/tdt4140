@@ -112,7 +112,7 @@ public class TestXMLConverter
 		participants.add(new User("pål","2","pål"));
 		participants.add(new User("askeladden","3","askeladden"));
 		
-		events.add(new Event(new User("grasdalk", "Lars Erik",""),1,new Date(450000),new Date(460000), "møte", "p15", "p15", participants, new Room("421", 30)));
+		events.add(new Event(new User("grasdalk", "Lars Erik","navn?"),1,new Date(System.currentTimeMillis()),new Date(System.currentTimeMillis()+10000), "møte", "p15", "p15", participants, new Room("421", 30)));
 		
 		doc = converter.getNewDocument();
 		converter.eventListToDOMElement(events, doc, null);
