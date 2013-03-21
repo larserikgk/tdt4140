@@ -98,7 +98,7 @@ public class ClientHandler implements Runnable{
 			break;
 		case Request.EVENT:
 			if(request.getQuery().equals("events")) {
-				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),null,null));
+				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),"",""));
 
 				Document doc = xmlConverter.getNewDocument();
 				xmlConverter.eventListToDOMElement(events, doc, null);
@@ -175,7 +175,7 @@ public class ClientHandler implements Runnable{
 				database.removeEvent(Integer.parseInt(request.getPropety("id")));
 			}
 			else if(request.getQuery().equals(("add"))) {
-				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(request.getPropety("start")), new Date(request.getPropety("end")),
+				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
 						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
 						request.getList(), new Room(request.getPropety("roomname"),0));
 				database.addEvent(event);
@@ -187,7 +187,7 @@ public class ClientHandler implements Runnable{
 				}
 			}
 			else if(request.getQuery().equals(("edit"))) {
-				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(request.getPropety("start")), new Date(request.getPropety("end")),
+				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
 						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
 						request.getList(), new Room(request.getPropety("roomname"),0));
 				database.updateEvent(event);

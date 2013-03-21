@@ -294,10 +294,10 @@ public class ServerConnector implements IServerConnector{
 
 	@Override
 	public void addEvent(Event event) throws ConnectException{
-		Request request = new Request("delete", Request.EVENT);
+		Request request = new Request("add", Request.EVENT);
 		request.addProperty("name", event.getName());
-		request.addProperty("start", event.getStart().toString());
-		request.addProperty("end", event.getStart().toString());
+		request.addProperty("start", Long.toString(event.getStart().getTime()));
+		request.addProperty("end", Long.toString(event.getEnd().getTime()));
 		request.addProperty("location", event.getLocation());
 		request.addProperty("description", event.getDescription());
 		request.addProperty("location", event.getLocation());
