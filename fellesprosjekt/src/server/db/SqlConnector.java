@@ -63,30 +63,51 @@ public class SqlConnector {
 		set(q);
 	}
 	
+	public void removeEvent(int event_id)
+	{
+		String q = "DELETE FROM Event WHERE event_id="+event_id;
+		removeAllParticipants(event_id);
+		removeAllNotifications(event_id);
+		removeBooking(event_id);
+		set(q);
+	}
+	
 	public void removeEvent(Event event)
 	{
-		String q = "DELETE FROM Event WHERE event_id="+event.getId();
-		removeAllParticipants(event);
-		removeAllNotifications(event);
-		removeBooking(event);
-		set(q);
+		removeEvent(event.getId());
 	}
 	
 	public void removeAllParticipants(Event event)
 	{
-		String q = "DELETE FROM Participant WHERE event_id="+event.getId();
+		removeAllParticipants(event.getId());
+	}
+	
+	public void removeAllParticipants(int event_id)
+	{
+		String q = "DELETE FROM Participant WHERE event_id="+event_id;
 		set(q);
 	}
 	
 	public void removeAllNotifications(Event event)
 	{
-		String q = "DELETE FROM Notification WHERE event_id="+event.getId();
+		removeAllNotifications(event.getId());
+	}
+	
+	public void removeAllNotifications(int event_id)
+	{
+		String q = "DELETE FROM Notification WHERE event_id="+event_id;
 		set(q);
 	}
 	
 	public void removeBooking(Event event)
 	{
 		String q = "DELETE FROM Booking WHERE event_id="+event.getId();
+		set(q);
+	}
+	
+	public void removeBooking(int event_id)
+	{
+		String q = "DELETE FROM Booking WHERE event_id="+event_id;
 		set(q);
 	}
 	
