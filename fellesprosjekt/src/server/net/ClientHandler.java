@@ -178,7 +178,7 @@ public class ClientHandler implements Runnable{
 				Document doc = xmlConverter.StringToDOMDocument(request.getUsers());
 				ArrayList<User> users = xmlConverter.constructUserListFromNode(doc.getFirstChild());
 				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
-						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
+						request.getPropety("name"), request.getPropety("description"), request.getPropety("location"), 
 						users, new Room(request.getPropety("roomname"),0));
 				database.addEvent(event);
 				
@@ -192,7 +192,7 @@ public class ClientHandler implements Runnable{
 				Document doc = xmlConverter.StringToDOMDocument(request.getUsers());
 				ArrayList<User> users = xmlConverter.constructUserListFromNode(doc.getFirstChild());
 				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
-						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
+						request.getPropety("name"), request.getPropety("description"), request.getPropety("location"), 
 						users, new Room(request.getPropety("roomname"),0));
 				database.updateEvent(event);
 				
