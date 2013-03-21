@@ -115,7 +115,7 @@ public class DatePicker extends JPanel {
 				  if ("date".equals(e.getPropertyName())) {
 					  if (isValidDate(dateChooser.getDate())){
 						  parseDate();
-						  System.out.println("Valgt dato: "+date);
+						  //System.out.println("Valgt dato: "+date);
 					  }
 				  }
 			  }
@@ -124,7 +124,7 @@ public class DatePicker extends JPanel {
 		ChangeListener cl = new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				parseDate();
-				System.out.println("Valgt dato: "+date);
+				//System.out.println("Valgt dato: "+date);
 			}
 		};
 		
@@ -149,7 +149,7 @@ public class DatePicker extends JPanel {
 	}
 	
 	public boolean isValidDate(Date date){
-		System.out.println("Gyldig dato: "+ (date.compareTo(minDate)>=0 && date.compareTo(maxDate)<=0));
+		//System.out.println("Gyldig dato: "+ (date.compareTo(minDate)>=0 && date.compareTo(maxDate)<=0));
 		return (date.compareTo(minDate)>=0 && date.compareTo(maxDate)<=0);
 	}
 	

@@ -359,7 +359,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		btnCreateEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("SELECTED DATE: "+selectedDate);
-				CreateEventFrame cef = new CreateEventFrame(new Event(user, 0, selectedDate, selectedDate, "Event 1","desc","loc", null, null));
+				CreateEventFrame cef = new CreateEventFrame(new Event(user, 0, selectedDate, selectedDate, "Event 1","","", null, null));
 				cef.addPropertyChangeListener(MainFrame.this);
 				openFrameOnTop(cef);
 			}
@@ -484,7 +484,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		miNewNf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				unreadNf--;
+				if (unreadNf > 0) unreadNf--;  //Midlertidlig løsning. Må bruke read/unread attributt i notification.
 				miNewNf.setBackground(Settings2.COLOR_DARK_GRAY);
 				setNotificationText();
 				openEvent(notification.getEvent());

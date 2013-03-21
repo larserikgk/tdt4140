@@ -218,6 +218,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 					e.printStackTrace();
 				}
 				firePropertyChange("EventCalendarChanged", oldValue, admin.getEventCalendar());
+				close();
 			}
 		});
 		
@@ -264,13 +265,13 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblDescriptionValue.setText(event.getDescription());
 		datePickerStart.setDate(event.getStart());
 		datePickerEnd.setDate(event.getEnd());
-		String l = eventOriginal.getLocation();
+		String l = eventOriginal.getRoom().getName();
 		if (l != null) {
 			textField_location.setText(l);
 			lblLocationValue.setText(l);
 		} else {
-			textField_location.setText(eventOriginal.getRoom().toString());
-			lblLocationValue.setText(eventOriginal.getRoom().toString());
+			textField_location.setText(eventOriginal.getLocation());
+			lblLocationValue.setText(eventOriginal.getLocation());
 		}
 		setupParticipants();
 	}

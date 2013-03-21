@@ -78,7 +78,7 @@ public class MainDatePicker extends BaseFrame {
 				  if ("date".equals(e.getPropertyName())) {
 					  if (isValidDate(dateChooser.getDate())){
 						  parseDate();
-						  System.out.println("Valgt dato: "+date);
+						  //System.out.println("Valgt dato: "+date);
 						  MainDatePicker.this.pcs.firePropertyChange("DatePickerDate", null, date);
 					  }
 				  }
