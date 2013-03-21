@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 
 public class RoomFinderFrame extends BaseFrame {
 	
-	private Event event;
+	private static Event event;
 	private RoomListFilter roomList;
 	
 	public RoomFinderFrame(final Event event) {

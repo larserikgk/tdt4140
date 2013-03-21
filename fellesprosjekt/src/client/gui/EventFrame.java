@@ -200,8 +200,8 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 			public void actionPerformed(ActionEvent arg0) {
 				User admin = event.getAdmin();
 				EventCalendar oldValue = admin.getEventCalendar();
-				getServerConnector().deleteEvent(eventOriginal);
-				firePropertyChange("EventsCalendarChanged", oldValue, admin.getEventCalendar());
+				getServerConnector().removeEvent(eventOriginal);
+				firePropertyChange("EventCalendarChanged", oldValue, admin.getEventCalendar());
 			}
 		});
 		
@@ -287,12 +287,12 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 				close();
 				User admin = eventOriginal.getAdmin();
 				EventCalendar oldValue = admin.getEventCalendar();
-				firePropertyChange("EventsCalendarChanged", oldValue, admin.getEventCalendar());
+				firePropertyChange("EventCalendarChanged", oldValue, admin.getEventCalendar());
 			}
 		});
 	}
 
-	@SuppressWarnings("deprecation")
+	
 	public boolean saveAttributes() {
 		if (datePickerEnd.getDate().compareTo(datePickerStart.getDate()) < 0) return false;
 		//Bruker b�r f� opp melding om at sluttid ikke kan v�re f�r starttid
@@ -304,11 +304,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		
 		
 		eventOriginal = eventCopy;
-		if (EventFrame.this instanceof CreateEventFrame) {
-			getServerConnector().addEvent(eventOriginal);
-		} else {
-			getServerConnector().editEvent(eventOriginal);
-		}
+		getServerConnector().updateEvent(eventOriginal);
 		return true;
 	}
 	

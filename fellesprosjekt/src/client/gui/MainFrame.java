@@ -76,7 +76,12 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	
 	 
 	public void init(User loggedInUser) {
-		setUser(loggedInUser);
+		try {
+			setUser(loggedInUser);
+		} catch (ConnectException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		// MENU BAR
 		Settings2.setUI();
@@ -126,14 +131,16 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		mnEdit.add(mntmSetAlarm);
 		mntmSetAlarm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TO DO
+				openFrameOnTop(new SetAlertFrame());
 			}
 		});
 		JMenuItem mntmImportCalendar = new JMenuItem("Import calendar");
 		mnEdit.add(mntmImportCalendar);
 		mntmImportCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TO DO
+				ImportCalendarFrame ic = new ImportCalendarFrame();
+				ic.addPropertyChangeListener(MainFrame.this);
+				openFrameOnTop(ic);
 			}
 		});
 		
@@ -413,6 +420,9 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			selectedDate = (Date)evt.getNewValue();
 			setupSelectedDatePanel(selectedDate);
 		}
+		else if (evt.getPropertyName().equals("ImportCalendar")) {
+			//
+		}
 	}
 	
 	public void openEvent(Event event){
@@ -484,11 +494,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 //		}
 	}
 	
-	public void setUser(User user) {//throws ConnectException {
-		/*ArrayList<Event> events = getServerConnector().getEvents(user, 0);
+	public void setUser(User user) throws ConnectException {
+		ArrayList<Event> events = getServerConnector().getEvents(user, 0);
 		for (Event e : events) {
 			user.addEvent(e);
-		}*/
+		}
 		this.user = user;
 	}
 }
