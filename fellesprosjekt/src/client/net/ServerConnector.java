@@ -337,38 +337,25 @@ public class ServerConnector implements IServerConnector{
 
 	@Override
 	public void editEvent(Event event) throws ConnectException{
-		// TODO Auto-generated method stub
+		Request request = new Request("edit", Request.EVENT);
+		request.addProperty("eventid", Integer.toString(event.getId()));
+		request.addProperty("name", event.getName());
+		request.addProperty("start", event.getStart().toString());
+		request.addProperty("end", event.getStart().toString());
+		request.addProperty("location", event.getLocation());
+		request.addProperty("description", event.getDescription());
+		request.addProperty("location", event.getLocation());
+		request.setList(event.getParticipants());
+		request.addProperty("roomname", event.getRoom().getName());
+		request.addProperty("admin", event.getAdmin().getUsername());
+		sendRequest(request);
 		
-	}
-
-	@Override
-	public void setRoom(Event event) throws ConnectException{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Room getRoom(Event event) throws ConnectException{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setLocation(Event event) throws ConnectException{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getLocation(Event event) throws ConnectException{
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public ArrayList<User> getAllUsers() throws ConnectException {
 		ArrayList<User> users = new ArrayList<User>();
-		Request request = new Request("notifications", Request.EVENT);
+		Request request = new Request("getall", Request.USER);
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);

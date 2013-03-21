@@ -86,8 +86,14 @@ public class ClientHandler implements Runnable{
 				xmlConverter.userToDOMElement(user, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
-			else if(request.equals("user")) {
+			else if(request.equals("getall")) {
+				ArrayList<User> users = database.getAllUsers();
 
+				Document doc = xmlConverter.getNewDocument();
+				for (int i = 0; i < users.size(); i++) {
+					xmlConverter.userToDOMElement(users.get(i), doc, null);
+				}
+				response = xmlConverter.DOMDocumentToString(doc);
 			}
 
 			break;
@@ -155,6 +161,21 @@ public class ClientHandler implements Runnable{
 						xmlConverter.eventToDOMElement(appointments.get(i), doc, null, false);
 				}
 				response = xmlConverter.DOMDocumentToString(doc);
+			}
+			else if(request.equals("delete")) {
+				database.deleteEvent(Integer.parseInt(request.getPropety("id")));
+			}
+			else if(request.equals("add")) {
+				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(request.getPropety("start")), new Date(request.getPropety("end")),
+						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
+						request.getList(), new Room(request.getPropety("roomname"),0));
+				database.addEvent(event);
+			}
+			else if(request.equals("edit")) {
+				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(request.getPropety("start")), new Date(request.getPropety("end")),
+						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
+						request.getList(), new Room(request.getPropety("roomname"),0));
+				database.updateEvent(event);
 			}
 			break;
 		case Request.NOTIFICATION:
