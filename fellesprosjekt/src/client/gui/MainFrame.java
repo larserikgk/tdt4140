@@ -402,7 +402,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		});
 	}
 
-	public void propertyChange(PropertyChangeEvent evt) 
+	public void propertyChange(PropertyChangeEvent evt)
 	{		
 		if(evt.getPropertyName().equals("selectedDate"))
 		{
@@ -421,7 +421,10 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 			setupSelectedDatePanel(selectedDate);
 		}
 		else if (evt.getPropertyName().equals("ImportCalendar")) {
-			//
+			/*ArrayList<Event> events = getServerConnector().getEvents(user, 0);
+			for (Event e : events) {
+				user.addEvent(e);
+			}*/
 		}
 	}
 	

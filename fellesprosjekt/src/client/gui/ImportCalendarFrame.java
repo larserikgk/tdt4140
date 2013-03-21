@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.color.ICC_ProfileRGB;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -78,10 +79,9 @@ public class ImportCalendarFrame extends BaseFrame {
 		
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				
-				 */
 				close();
+				User user = allUsersList.get
+				firePropertyChange("ImportCalendar", null, )
 			}
 		});
 		
@@ -89,11 +89,11 @@ public class ImportCalendarFrame extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				close();
 			}
-		});
+		});pull
 	}
 
 	
-	public void setupParticipants(){
+	public void setupParticipants() throws ConnectException{
 		ArrayList<User> allUsers = getServerConnector().getAllUsers();
 		allUsers.add(new User("Tom", "Tom"));
 		allUsersList = new UserListFilter(allUsers);
