@@ -126,5 +126,13 @@ public class Event {
 		return(name); 
 	}
 	
+	public Event clone() {
+		try {
+			return (Event) super.clone();
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	
 }

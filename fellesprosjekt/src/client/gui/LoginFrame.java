@@ -29,6 +29,7 @@ import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Properties;
 
 public class LoginFrame extends BaseFrame {
 	private JPasswordField passwordField;
@@ -82,23 +83,27 @@ public class LoginFrame extends BaseFrame {
 		
 		ActionListener al = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User user = getServerConnector().login(textField_user.getText(), passwordField.getPassword());
-				if (user!=null) {      // && isCorrectPassword(passwordField.getPassword())
-					System.out.println("ACCESS GRANTED for user: "+user);
-					System.out.println(user.getName());
-					
-					close();
-					try {
-						((MainFrame) getParentFrame()).init(user);
-						((MainFrame) getParentFrame()).setVisible(true);
-					} catch (ConnectException e1) {
-						LoginFrame.this.openFrameOnTop(LoginFrame.this);
-						setServerConnector(new ServerConnector(settings, username));
-						e1.printStackTrace();
+				try {
+					setupServerConnection();
+				
+					String pw = "";
+					for (char c : passwordField.getPassword()) {
+						pw += c;
 					}
-					
-				} else {
-					lblFeedback.setText("<html>The username or password you entered is incorrect.</html>");
+					User user = getServerConnector().getUser(textField_user.getText(), pw);
+					if (user!=null) {      // && isCorrectPassword(passwordField.getPassword())
+						System.out.println("ACCESS GRANTED for user: "+user);
+						System.out.println(user.getName());
+						
+						close();
+						((MainFrame) getParentFrame()).init(user);
+						((MainFrame) getParentFrame()).setVisible(true);					
+					} else {
+						lblFeedback.setText("<html>The username or password you entered is incorrect.</html>");
+					}
+				} catch (ConnectException ec) {
+					LoginFrame.this.openFrameOnTop(LoginFrame.this);
+					lblFeedback.setText("<html>Connection failed.</html>");
 				}
 			}
 		};
@@ -106,6 +111,13 @@ public class LoginFrame extends BaseFrame {
 		btnLogin.addActionListener(al);
 		textField_user.addActionListener(al);
 		passwordField.addActionListener(al);
+	}
+	
+	public void setupServerConnection() throws ConnectException {
+		Properties settings = new Properties();
+		settings.setProperty("url", "127.0.0.1");
+		setServerConnector(new ServerConnector(settings,"derp"));
+		getServerConnector().start();
 	}
 	
 	private boolean isCorrectPassword(char[] input){

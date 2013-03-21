@@ -174,7 +174,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		btnFindRoom.setForeground(Color.white);
 		btnFindRoom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openFrameOnTop(new RoomFinderFrame(1));
+				openFrameOnTop(new RoomFinderFrame(eventCopy));
 			}
 		});
 		

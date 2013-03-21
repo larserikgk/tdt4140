@@ -65,24 +65,20 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		MainFrame mf = new MainFrame();
 	}
 	
-	/*
+	
 	public MainFrame(){
 		super();
-		setServerConnector(new ServerConnector(settings, username));
-		//sqlConnector = new SqlConnector();
 		setMaximized();
 		getContentPane().setBackground(Color.LIGHT_GRAY);
-		//init(new User("a", "Full Name")); //for testing and preview in windowbuilder
 		LoginFrame lf = new LoginFrame();
 		openFrameOnTop(lf);
 	}
-	*/
+	
 	 
-	public MainFrame(User loggedInUser) throws ConnectException {
-		// MENU BAR
-		
+	public void init(User loggedInUser) {
 		setUser(loggedInUser);
 		
+		// MENU BAR
 		Settings2.setUI();
 		menuBar = new JMenuBar();
 		menuBar.setToolTipText("");
@@ -137,9 +133,10 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		mnEdit.add(mntmImportCalendar);
 		mntmImportCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				// TO DO
 			}
 		});
+		
 		// Content Pane
 		getContentPane().setLayout(new MigLayout("", "[70%,grow][30%,grow]", "[6%,grow][49%,grow][44%,grow]"));
 		
@@ -487,11 +484,11 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 //		}
 	}
 	
-	public void setUser(User user) throws ConnectException {
-		ArrayList<Event> events = getServerConnector().getEvents(user, 0);
+	public void setUser(User user) {//throws ConnectException {
+		/*ArrayList<Event> events = getServerConnector().getEvents(user, 0);
 		for (Event e : events) {
 			user.addEvent(e);
-		}
+		}*/
 		this.user = user;
 	}
 }
