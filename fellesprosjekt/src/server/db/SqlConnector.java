@@ -50,7 +50,9 @@ public class SqlConnector {
 	{
 		String q = "UPDATE Event SET owner='"+event.getAdmin().getUsername()
 									+"', location='"+event.getLocation()
-									+"', description='"+event.getDescription()+"'";
+									+"', description='"+event.getDescription()+"'"
+									+"', startTime="+event.getStart().getTime()
+									+", endTime="+event.getEnd().getTime();
 		
 		removeAllParticipants(event);
 		removeBooking(event);
