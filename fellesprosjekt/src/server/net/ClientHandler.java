@@ -175,9 +175,11 @@ public class ClientHandler implements Runnable{
 				database.removeEvent(Integer.parseInt(request.getPropety("id")));
 			}
 			else if(request.getQuery().equals(("add"))) {
+				Document doc = xmlConverter.StringToDOMDocument(request.getUsers());
+				ArrayList<User> users = xmlConverter.constructUserListFromNode(doc.getFirstChild());
 				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
 						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
-						request.getList(), new Room(request.getPropety("roomname"),0));
+						users, new Room(request.getPropety("roomname"),0));
 				database.addEvent(event);
 				
 				for (int i = 0; i < request.getList().size(); i++) {
@@ -187,9 +189,11 @@ public class ClientHandler implements Runnable{
 				}
 			}
 			else if(request.getQuery().equals(("edit"))) {
+				Document doc = xmlConverter.StringToDOMDocument(request.getUsers());
+				ArrayList<User> users = xmlConverter.constructUserListFromNode(doc.getFirstChild());
 				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
 						request.getPropety(""), request.getPropety(""), request.getPropety(""), 
-						request.getList(), new Room(request.getPropety("roomname"),0));
+						users, new Room(request.getPropety("roomname"),0));
 				database.updateEvent(event);
 				
 				for (int i = 0; i < request.getList().size(); i++) {

@@ -10,12 +10,14 @@ public class Request implements Serializable{
 	public static final int USER = 1, EVENT = 2, NOTIFICATION = 3, ROOM=4, LOGOUT = 7;
 	private Properties properties;
 	ArrayList<User> list;
+	String users;
 	
 	public Request(String query, int type) {
 		this.query = query;
 		this.type =  type;
 		this.properties = new Properties();
 		list = new ArrayList<User>();
+		users = new String();
 	}
 
 	public String getQuery() {
@@ -60,5 +62,12 @@ public class Request implements Serializable{
 		}
 	}
 	
+	public String getUsers() {
+		return users;
+	}
+	
+	public void setUsers(String users) {
+		this.users = users;
+	}
 	
 }

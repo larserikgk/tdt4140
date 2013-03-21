@@ -294,7 +294,13 @@ public class ServerConnector implements IServerConnector{
 
 	@Override
 	public void addEvent(Event event) throws ConnectException{
+		ArrayList<User> users = event.getParticipants();
+		Document doc = xmlConverter.getNewDocument();
+		xmlConverter.userListToDOMElement(users, doc, null);
+		
+		
 		Request request = new Request("add", Request.EVENT);
+		request.setUsers(xmlConverter.DOMDocumentToString(doc));
 		request.addProperty("name", event.getName());
 		request.addProperty("start", Long.toString(event.getStart().getTime()));
 		request.addProperty("end", Long.toString(event.getEnd().getTime()));
@@ -310,7 +316,13 @@ public class ServerConnector implements IServerConnector{
 
 	@Override
 	public void editEvent(Event event) throws ConnectException{
+		ArrayList<User> users = event.getParticipants();
+		Document doc = xmlConverter.getNewDocument();
+		xmlConverter.userListToDOMElement(users, doc, null);
+		
+		
 		Request request = new Request("edit", Request.EVENT);
+		request.setUsers(xmlConverter.DOMDocumentToString(doc));
 		request.addProperty("eventid", Integer.toString(event.getId()));
 		request.addProperty("name", event.getName());
 		request.addProperty("start", event.getStart().toString());

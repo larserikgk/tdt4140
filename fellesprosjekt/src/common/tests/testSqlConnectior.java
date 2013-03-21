@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import java.sql.*; 
-
 import common.models.Event;
 import common.models.Room;
 import common.models.User;
 import common.models.Booking;
 import common.models.Notification;
 import common.models.Notification.NotificationType;
-
-import server.db.SQLquerries;
 import server.db.SqlConnector;
 
 
