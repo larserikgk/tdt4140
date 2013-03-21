@@ -355,7 +355,7 @@ public class ServerConnector implements IServerConnector{
 	@Override
 	public ArrayList<User> getAllUsers() throws ConnectException {
 		ArrayList<User> users = new ArrayList<User>();
-		Request request = new Request("notifications", Request.EVENT);
+		Request request = new Request("getall", Request.USER);
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
