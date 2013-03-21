@@ -384,24 +384,18 @@ public class SqlConnector {
 	public ArrayList<Event> getAllEvent(User user)
 	{
 		String querry = "SELECT * FROM Event WHERE event_id = ?"; 
-		ArrayList<Integer> eventID = new ArrayList<Integer>();
+		ArrayList<Integer> eventID = getAllEventID(user);
 		ArrayList<Event> result = new ArrayList<Event>(); 
-		eventID = getAllEventID(user);
+		
 
 		try {
-			//stmt = conn.createStatement()
 			PreparedStatement p = conn.prepareStatement(querry);			
 			for(int i : eventID)
 			{
 				p.setInt(1, i);
-				rs = p.executeQuery(); 				
-				while(rs.next())
-				{				
-					//(User admin, int id, Date start, Date end, String description, String location, String name
-					// User admin, int id, Date start, Date end, String name,String description, String location, ArrayList<User> participants,Room room) 
-					//(User admin, Date start, Date end, String name,String description, String location, ArrayList<User> participants,Room room) 
+				ResultSet rs = p.executeQuery(); 				
+				while(rs.next())				
 					result.add(new Event(user, rs.getInt(1), new Date(rs.getLong(3)), new Date(rs.getLong(4)), rs.getString(2), rs.getString(5), rs.getString(6), new ArrayList<User>(), getBooking(rs.getInt(1))));
-				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
