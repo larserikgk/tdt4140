@@ -143,7 +143,9 @@ public class ParticipantsFrame extends BaseFrame {
 			public void actionPerformed(ActionEvent e) {
 				//Save new participants list to event and refresh EventFrame (parent frame)
 				System.out.println("INVITED: "+invitedUsersList.getArrayList());
-				event.setParticipants(invitedUsersList.getArrayList());
+				ArrayList<User> participants = invitedUsersList.getArrayList();
+				participants.add(getUser());
+				event.setParticipants(participants);
 				((EventFrame) getParentFrame()).setupParticipants();
 				close();
 			}

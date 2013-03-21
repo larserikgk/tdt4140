@@ -80,6 +80,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	public void init(User loggedInUser) {
 		try {
 			setUser(loggedInUser);
+			this.user = getUser();
 		} catch (ConnectException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -499,17 +500,5 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 //		if (unreadNf == 0) {
 //			panelNf.setBackground(Settings2.COLOR_VERY_DARK_GRAY);
 //		}
-	}
-	
-	public void setUser(User user) throws ConnectException {
-		ArrayList<Event> events = getServerConnector().getEvents(user, 0);
-		for (Event e : events) {
-			user.addEvent(e);
-		}
-		this.user = user;
-	}
-	
-	public User getUser() {
-		return user;
 	}
 }

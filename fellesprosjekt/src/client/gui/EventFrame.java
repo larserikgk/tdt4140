@@ -315,9 +315,11 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	
 		
 		eventOriginal = eventCopy;
-		if (this instanceof CreateEventFrame)
-			getServerConnector().addEvent(eventOriginal);
-		else getServerConnector().editEvent(eventOriginal);
+		if (this instanceof CreateEventFrame) {
+			((MainFrame) getParentFrame()).getUser().addEvent(eventOriginal);
+			System.out.println(eventOriginal.getRoom());
+			getServerConnector().addEvent(eventOriginal); 
+		} else getServerConnector().editEvent(eventOriginal);
 		return true;
 	}
 	

@@ -2,15 +2,33 @@ package client.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.net.ConnectException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import common.models.Event;
+import common.models.User;
 
 import client.net.ServerConnector;
 
 public abstract class BaseFrame extends JFrame {
 	
 	private JFrame parentFrame;
+	private static User user;
 	
+	public static User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) throws ConnectException {
+		ArrayList<Event> events = getServerConnector().getEvents(user, 0);
+		for (Event e : events) {
+			user.addEvent(e);
+		}
+		this.user = user;
+	}
+
 	private static ServerConnector serverConnector;
 	
 	public BaseFrame(){

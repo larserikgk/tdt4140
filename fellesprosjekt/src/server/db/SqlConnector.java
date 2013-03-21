@@ -166,6 +166,7 @@ public class SqlConnector {
 
 	public void addFullEvent(Event event) throws Exception 
 	{
+		System.out.println(event.toString());
 		if(event.getStart().getTime() > event.getEnd().getTime())	
 			throw new Exception("Event tid stemmer ikke overens"); 
 
@@ -566,10 +567,10 @@ public class SqlConnector {
 		ArrayList<User> users; 
 		send.add(username); 
 		users = getUsers(send, true); 
-
+		if (users.size() < 1) return new User("", "");
 		if(users.get(0).getPassword().equals(password))
 			return(users.get(0)); 
-		return null; 
+		return new User("", "");
 	}	
 
 	// for å kjøre en statement; 
