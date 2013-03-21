@@ -174,12 +174,7 @@ public class ServerConnector implements IServerConnector{
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
 
-		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
-			if(i == 0)
-				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
-			else
-				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
-		}
+		events = xmlConverter.constructEventListFromNode(doc);
 
 		return events;
 	}
@@ -192,15 +187,10 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
-			if(i == 0)
-				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
-			else
-				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
-		}
-
+		events = xmlConverter.constructEventListFromNode(doc);
 
 		return events;
+
 	}
 
 	@Override
@@ -211,13 +201,8 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
-			if(i == 0)
-				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
-			else
-				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
-		}
-
+		
+		events = xmlConverter.constructEventListFromNode(doc);
 
 		return events;
 	}
@@ -233,16 +218,8 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-
-		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
-			if(i == 0)
-				notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
-			else
-				notifications.add(xmlConverter.constructNotificationFromNode(doc.getNextSibling()));
-		}
-
-
-
+		
+		notifications = xmlConverter.constructNotificationListFromNode(doc);
 
 		return notifications;
 	}
@@ -257,13 +234,7 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
-			if(i == 0)
-				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
-			else
-				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
-		}
-
+		events = xmlConverter.constructEventListFromNode(doc);
 
 		return events;
 	}
@@ -278,13 +249,7 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
-			if(i == 0)
-				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
-			else
-				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
-		}
-
+		events = xmlConverter.constructEventListFromNode(doc);
 
 		return events;
 	}
@@ -299,13 +264,7 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
-			if(i == 0)
-				events.add(xmlConverter.constructEventFromNode(doc.getFirstChild()));
-			else
-				events.add(xmlConverter.constructEventFromNode(doc.getNextSibling()));
-		}
-
+		events = xmlConverter.constructEventListFromNode(doc);
 
 		return events;
 	}
@@ -321,12 +280,7 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		for (int i = 0; i < doc.getChildNodes().getLength(); i++) {
-			if(i == 0)
-				notifications.add(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
-			else
-				notifications.add(xmlConverter.constructNotificationFromNode(doc.getNextSibling()));
-		}
+		notifications = xmlConverter.constructNotificationListFromNode(doc);
 
 		return notifications;
 	}
