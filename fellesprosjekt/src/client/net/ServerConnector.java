@@ -344,7 +344,7 @@ public class ServerConnector implements IServerConnector{
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		rooms.add(xmlConverter.constructRoomListFromNode(doc.getFirstChild()));
+		rooms = (xmlConverter.constructRoomListFromNode(doc.getFirstChild()));
 
 		return rooms;
 	}

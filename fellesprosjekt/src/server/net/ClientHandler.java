@@ -214,7 +214,12 @@ public class ClientHandler implements Runnable{
 			}
 			break;
 		case 4:
-
+			if(request.getQuery().equals("getall")) {
+				ArrayList<Room> rooms = database.getAllRooms();
+				Document doc = xmlConverter.getNewDocument();
+				xmlConverter.constructRoomListFromNode(doc);
+				response = xmlConverter.DOMDocumentToString(doc);
+			}
 			break;
 		}
 		return response;

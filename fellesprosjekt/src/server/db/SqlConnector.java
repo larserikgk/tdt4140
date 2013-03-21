@@ -451,6 +451,23 @@ public class SqlConnector {
 
 		return result; 
 	}
+	
+	public ArrayList<Room> getAllRooms() {
+		ArrayList<Room> result =  new ArrayList<Room>();
+		String q = "Select * from Room";
+		try 
+		{
+			rs = (ResultSet) stmt.executeQuery(q);
+			while(rs.next())
+				result.add(new Room(rs.getString(1), rs.getInt(2))); 
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}		
+
+		return result; 
+	}
 
 	public ArrayList<User> getParticipants(Event event, String status) 
 	{
@@ -563,4 +580,6 @@ public class SqlConnector {
 		}
 		return null;		
 	}
+
+	
 }
