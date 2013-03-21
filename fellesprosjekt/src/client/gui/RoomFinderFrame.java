@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
 
 public class RoomFinderFrame extends BaseFrame {
 	
@@ -21,7 +22,7 @@ public class RoomFinderFrame extends BaseFrame {
 	public RoomFinderFrame(final Event event) {
 		this.event = event;
 		int defaultCapacity = 1;
-		if (event != null && event.getParticipants().size() > 1) {
+		if (event != null && event.getParticipants() != null && event.getParticipants().size() > 1) {
 			defaultCapacity = event.getParticipants().size();
 		}
 		setResizable(false);
@@ -35,7 +36,12 @@ public class RoomFinderFrame extends BaseFrame {
 		lblFindRoom.setFont(Settings2.FONT_TEXT1);
 		getContentPane().add(lblFindRoom, "cell 0 0 2 1");
 		
-		roomList = new RoomListFilter(SampleRooms.getSampleRooms(),defaultCapacity);
+		try {
+			roomList = new RoomListFilter(getServerConnector().getAllAvailableRooms(event),defaultCapacity);
+		} catch (ConnectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getContentPane().add(roomList, "cell 1 1 2 1,grow");
 		
 		JPanel panel = new JPanel();
@@ -72,10 +78,4 @@ public class RoomFinderFrame extends BaseFrame {
 		});
 		
 	}
-	
-	public static void main(String[] args){
-		BaseFrame frame = new RoomFinderFrame(event);
-		frame.setVisible(true);
-	}
-
 }

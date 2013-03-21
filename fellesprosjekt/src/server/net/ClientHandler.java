@@ -213,10 +213,11 @@ public class ClientHandler implements Runnable{
 //				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			break;
-		case 4:
+		case Request.ROOM:
 			if(request.getQuery().equals("getall")) {
 				ArrayList<Room> rooms = database.getAllRooms();
 				Document doc = xmlConverter.getNewDocument();
+				xmlConverter.roomListToDOMElement(rooms, doc, null);
 				xmlConverter.constructRoomListFromNode(doc);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
@@ -224,6 +225,7 @@ public class ClientHandler implements Runnable{
 				ArrayList<Room> rooms = database.getAvailableRooms(new Event(new Date(Long.parseLong(request.getPropety("starttime"))),
 						new Date(Long.parseLong(request.getPropety("endtime")))), "");
 				Document doc = xmlConverter.getNewDocument();
+				xmlConverter.roomListToDOMElement(rooms, doc, null);
 				xmlConverter.constructRoomListFromNode(doc);
 				response = xmlConverter.DOMDocumentToString(doc);
 			}

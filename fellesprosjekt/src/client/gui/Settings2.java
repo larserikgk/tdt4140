@@ -9,6 +9,7 @@ import common.models.User;
 
 public class Settings2 
 {		
+	static final Color COLOR_LIGHT_GRAY = new Color(140, 140, 140);
 	static final Color COLOR_VERY_DARK_GRAY = new Color(33,33,33);
 	static final Color COLOR_DARK_GRAY = Color.DARK_GRAY;
 	static final Color COLOR_LIGHT_BLUE = new Color(24,161,195);
@@ -34,6 +35,32 @@ public class Settings2
 		UIManager.put("Menu.selectionForeground", Color.WHITE);
 		//UIManager.put("MenuBar.selectionBackground", COLOR_DARK_GRAY);
 		//UIManager.put("MenuBar.selectionForeground", Color.WHITE);
+		UIManager.put("ScrollBar.allowsAbsolutePositioning", true);
+		UIManager.put("ScrollBar.background", COLOR_LIGHT_GRAY);
+		UIManager.put("ScrollBar.track", COLOR_LIGHT_GRAY);
+		UIManager.put("ScrollBar.foreground", COLOR_DARK_GRAY);
+		UIManager.put("ScrollBar.thumb", COLOR_DARK_GRAY);
+		UIManager.put("ScrollBar.thumbHighlight", COLOR_DARK_GRAY);
+		UIManager.put("ScrollBar.shadow", COLOR_DARK_GRAY);
+		
+		UIManager.put("ScrollBarUI", "javax.swing.plaf.basic.BasicScrollBarUI");
+//				ScrollBar.background                         =javax.swing.plaf.ColorUIResource[r=204,g=204,b=204]
+//				ScrollBar.darkShadow                         =javax.swing.plaf.ColorUIResource[r=102,g=102,b=102]
+//				ScrollBar.focusInputMap                      =javax.swing.plaf.InputMapUIResource@6025e7
+//				ScrollBar.foreground                         =javax.swing.plaf.ColorUIResource[r=204,g=204,b=204]
+//				ScrollBar.highlight                          =javax.swing.plaf.ColorUIResource[r=255,g=255,b=255]
+//				ScrollBar.maximumThumbSize                   =javax.swing.plaf.DimensionUIResource[width=4096,height=4096]
+//				ScrollBar.minimumThumbSize                   =javax.swing.plaf.DimensionUIResource[width=8,height=8]
+//				ScrollBar.shadow                             =javax.swing.plaf.ColorUIResource[r=153,g=153,b=153]
+//				ScrollBar.thumb                              =javax.swing.plaf.ColorUIResource[r=153,g=153,b=204]
+//				ScrollBar.thumbDarkShadow                    =javax.swing.plaf.ColorUIResource[r=102,g=102,b=102]
+//				ScrollBar.thumbHighlight                     =javax.swing.plaf.ColorUIResource[r=204,g=204,b=255]
+//				ScrollBar.thumbLightShadow                   =javax.swing.plaf.ColorUIResource[r=153,g=153,b=153]
+//				ScrollBar.thumbShadow                        =javax.swing.plaf.ColorUIResource[r=102,g=102,b=153]
+//				ScrollBar.track                              =javax.swing.plaf.ColorUIResource[r=204,g=204,b=204]
+//				ScrollBar.trackHighlight                     =javax.swing.plaf.ColorUIResource[r=102,g=102,b=102]
+//				ScrollBar.width                              =17
+//				ScrollBarUI                                  =javax.swing.plaf.metal.MetalScrollBarUI
 	}
 		
 }

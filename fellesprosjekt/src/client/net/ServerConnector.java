@@ -327,14 +327,11 @@ public class ServerConnector implements IServerConnector{
 
 	@Override
 	public ArrayList<User> getAllUsers() throws ConnectException {
-		ArrayList<User> users = new ArrayList<User>();
 		Request request = new Request("getall", Request.USER);
 		String result = sendRequest(request);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
-		xmlConverter.constructUserListFromNode(doc);
-
-		return users;
+		return xmlConverter.constructUserListFromNode(doc.getFirstChild());
 	}
 	
 	@Override
@@ -350,13 +347,14 @@ public class ServerConnector implements IServerConnector{
 	}
 	
 	@Override
-	public ArrayList<Room> getAllAvaiableRooms(Event event)
+	public ArrayList<Room> getAllAvailableRooms(Event event)
 			throws ConnectException {
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		Request request = new Request("getavailable", Request.ROOM);
 		request.addProperty("starttime", String.valueOf(event.getStart().getTime()));
 		request.addProperty("endtime", String.valueOf(event.getEnd().getTime()));
 		String result = sendRequest(request);
+		System.out.println(result);
 
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		rooms = (xmlConverter.constructRoomListFromNode(doc.getFirstChild()));
@@ -381,13 +379,5 @@ public class ServerConnector implements IServerConnector{
 
 			}
 		}
-	}
-
-
-	
-
-	
-	
-
-	
+	}	
 }

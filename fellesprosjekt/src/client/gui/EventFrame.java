@@ -58,7 +58,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 	public EventFrame(final Event event) {
 		super();
 		this.eventOriginal = event;
-		eventCopy = (Event) event.clone();
+		eventCopy = event;
 			
 		setResizable(false);
 		setSize(709, 517);

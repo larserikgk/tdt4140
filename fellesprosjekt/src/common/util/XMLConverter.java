@@ -131,6 +131,16 @@ public class XMLConverter
 		(parent==null ? doc : parent).appendChild(eventlist_);
 	}
 	
+	public void roomListToDOMElement(ArrayList<Room> rooms, Document doc, Element parent)
+	{
+		Element roomlist_ = doc.createElement("eventlist");
+		
+		for(Room r : rooms)
+			roomToDOMElement(r, doc, roomlist_);
+		
+		(parent==null ? doc : parent).appendChild(roomlist_);
+	}
+	
 	public void notificationListToDOMElement(ArrayList<Notification> notifications, Document doc, Element parent)
 	{
 		Element notificationlist_ = doc.createElement("notificationlist");
@@ -294,18 +304,18 @@ public class XMLConverter
 		{
 			temp = children.item(i);
 			if(temp.getNodeName().equals("id"))
-				id = Integer.parseInt(temp.getFirstChild().getTextContent());
+				id = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("type"))
 			{
-				if(temp.getFirstChild().getTextContent().equals("INVITATION"))
+				if(temp.getTextContent().equals("INVITATION"))
 					type = NotificationType.INVITATION;
-				else if(temp.getFirstChild().getTextContent().equals("INV_RESPONSE"))
+				else if(temp.getTextContent().equals("INV_RESPONSE"))
 					type = NotificationType.INV_RESPONSE;
-				else if(temp.getFirstChild().getTextContent().equals("EVENT_UPDATE"))
+				else if(temp.getTextContent().equals("EVENT_UPDATE"))
 					type = NotificationType.EVENT_UPDATE;
 			}
 			else if(temp.getNodeName().equals("description"))
-				description = temp.getFirstChild().getTextContent();
+				description = temp.getTextContent();
 			else if(temp.getNodeName().equals("event"))
 				event = constructEventFromNode(temp);
 		}
@@ -341,17 +351,17 @@ public class XMLConverter
 		{
 			temp = children.item(i);
 			if(temp.getNodeName().equals("id"))
-				id = Integer.parseInt(temp.getFirstChild().getTextContent());
+				id = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("start"))
 				start = constructDateFromNode(temp.getFirstChild());
 			else if(temp.getNodeName().equals("end"))
 				end = constructDateFromNode(temp.getFirstChild());
 			else if(temp.getNodeName().equals("name"))
-				name = temp.getFirstChild().getTextContent();
+				name = temp.getTextContent();
 			else if(temp.getNodeName().equals("description"))
-				description = temp.getFirstChild().getTextContent();
+				description = temp.getTextContent();
 			else if(temp.getNodeName().equals("location"))
-				location = temp.getFirstChild().getTextContent();
+				location = temp.getTextContent();
 			else if(temp.getNodeName().equals("participants"))
 				participants = constructUserListFromNode(temp);
 			else if(temp.getNodeName().equals("admin"))
@@ -411,11 +421,11 @@ public class XMLConverter
 		{
 			temp = children.item(i);
 			if(temp.getNodeName().equals("username"))
-				username = temp.getFirstChild().getTextContent();
+				username = temp.getTextContent();
 			else if(temp.getNodeName().equals("name"))
-				name = temp.getFirstChild().getTextContent();
+				name = temp.getTextContent();
 			else if(temp.getNodeName().equals("password"))
-				password = temp.getFirstChild().getTextContent();
+				password = temp.getTextContent();
 				
 		}
 		
@@ -439,15 +449,15 @@ public class XMLConverter
 		{
 			temp = children.item(i);
 			if(temp.getNodeName().equals("year"))
-				year = Integer.parseInt(temp.getFirstChild().getTextContent());
+				year = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("month"))
-				month = Integer.parseInt(temp.getFirstChild().getTextContent());
+				month = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("day"))
-				day = Integer.parseInt(temp.getFirstChild().getTextContent());
+				day = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("hour"))
-				hour = Integer.parseInt(temp.getFirstChild().getTextContent());
+				hour = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("minute"))
-				minute = Integer.parseInt(temp.getFirstChild().getTextContent());
+				minute = Integer.parseInt(temp.getTextContent());
 		}
 		
 		return new Date(year,month,day,hour,minute);
@@ -465,9 +475,9 @@ public class XMLConverter
 		{
 			temp = children.item(i);
 			if(temp.getNodeName().equals("name"))
-				name = temp.getFirstChild().getTextContent();
+				name = temp.getTextContent();
 			else if(temp.getNodeName().equals("capacity"))
-				capacity = Integer.parseInt(temp.getFirstChild().getTextContent());
+				capacity = Integer.parseInt(temp.getTextContent());
 		}
 		
 		return new Room(name, capacity);

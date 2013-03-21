@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -42,7 +43,12 @@ public class ParticipantsFrame extends BaseFrame {
 		//getContentPane().setBorder(border);
 		getContentPane().setLayout(new MigLayout("", "[2%,grow][4.69%][20%,grow][20%,grow][5%,grow][30%,grow][10%,grow][2%,grow]", "[1%,grow][5%,grow][60%,grow][5.52%,grow][5%,grow]"));
 	
-		setupParticipants(event);
+		try {
+			setupParticipants(event);
+		} catch (ConnectException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		JLabel lblAddParticipants = new JLabel("Edit participants");
 		lblAddParticipants.setFont(Settings2.FONT_TITLE1);
@@ -151,7 +157,7 @@ public class ParticipantsFrame extends BaseFrame {
 	}
 
 	
-	public void setupParticipants(Event event){
+	public void setupParticipants(Event event) throws ConnectException{
 		ArrayList<User> participants = event.getParticipants();
 		invitedUsersList = new UserListFilter(participants);
 		ArrayList<User> allUsers = getServerConnector().getAllUsers();
