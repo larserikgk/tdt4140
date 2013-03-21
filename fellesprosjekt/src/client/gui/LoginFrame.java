@@ -90,7 +90,9 @@ public class LoginFrame extends BaseFrame {
 					for (char c : passwordField.getPassword()) {
 						pw += c;
 					}
+					System.out.println("b/p skjekk med db...");
 					User user = getServerConnector().getUser(textField_user.getText(), pw);
+					System.out.println("b/p skjekk ferdig");
 					if (user!=null) {      // && isCorrectPassword(passwordField.getPassword())
 						System.out.println("ACCESS GRANTED for user: "+user);
 						System.out.println(user.getName());
@@ -104,6 +106,7 @@ public class LoginFrame extends BaseFrame {
 				} catch (ConnectException ec) {
 					LoginFrame.this.openFrameOnTop(LoginFrame.this);
 					lblFeedback.setText("<html>Connection failed.</html>");
+					ec.printStackTrace();
 				}
 			}
 		};

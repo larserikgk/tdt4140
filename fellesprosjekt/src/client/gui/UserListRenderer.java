@@ -22,9 +22,9 @@ public class UserListRenderer extends DefaultListCellRenderer {
 		String name = u.getName();
 		label.setText(name);
 //		Har forel�pig bare satt opp noen random if-setninger for � teste ikonene
-		if (Integer.parseInt(u.getPassword())%3==0) label.setIcon(new ImageIcon("images/icon_yes_20px.png"));
-		else if ((Integer.parseInt(u.getPassword())%7==0)) label.setIcon(new ImageIcon("images/icon_no_20px.png"));
-		else if ((Integer.parseInt(u.getPassword())%5==0)) label.setIcon(new ImageIcon("images/icon_noReply_20px.png"));
+		//if (Integer.parseInt(u.getPassword())%3==0) label.setIcon(new ImageIcon("images/icon_yes_20px.png"));
+		//else if ((Integer.parseInt(u.getPassword())%7==0)) label.setIcon(new ImageIcon("images/icon_no_20px.png"));
+		//else if ((Integer.parseInt(u.getPassword())%5==0)) label.setIcon(new ImageIcon("images/icon_noReply_20px.png"));
 		return label;
 	}
 }
