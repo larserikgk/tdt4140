@@ -343,9 +343,9 @@ public class XMLConverter
 			if(temp.getNodeName().equals("id"))
 				id = Integer.parseInt(temp.getFirstChild().getTextContent());
 			else if(temp.getNodeName().equals("start"))
-				start = constructDateFromNode(temp);
+				start = constructDateFromNode(temp.getFirstChild());
 			else if(temp.getNodeName().equals("end"))
-				end = constructDateFromNode(temp);
+				end = constructDateFromNode(temp.getFirstChild());
 			else if(temp.getNodeName().equals("name"))
 				name = temp.getFirstChild().getTextContent();
 			else if(temp.getNodeName().equals("description"))
