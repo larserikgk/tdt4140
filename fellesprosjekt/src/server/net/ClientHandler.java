@@ -180,7 +180,11 @@ public class ClientHandler implements Runnable{
 				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
 						request.getPropety("name"), request.getPropety("description"), request.getPropety("location"), 
 						users, new Room(request.getPropety("roomname"),0));
-				database.addEvent(event);
+				try {
+					database.addFullEvent(event);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				
 				for (int i = 0; i < request.getList().size(); i++) {
 					User user = request.getList().get(i);

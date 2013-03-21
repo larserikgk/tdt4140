@@ -43,24 +43,24 @@ public class SqlConnector {
 			System.err.println ("Cannot connect to database server"+e.toString());
 		}
 	}
-	
+
 	public void updateEvent(Event event)
 	{
 		String q = "UPDATE Event SET owner='"+event.getAdmin().getUsername()
-									+"', location='"+event.getLocation()
-									+"', description='"+event.getDescription()+"'"
-									+"', startTime="+event.getStart().getTime()
-									+", endTime="+event.getEnd().getTime();
-		
+				+"', location='"+event.getLocation()
+				+"', description='"+event.getDescription()+"'"
+				+"', startTime="+event.getStart().getTime()
+				+", endTime="+event.getEnd().getTime();
+
 		removeAllParticipants(event);
 		removeBooking(event);
-		
+
 		addBooking(event, event.getRoom());
 		addParticipantsToEvent(event);
-		
+
 		set(q);
 	}
-	
+
 	public void removeEvent(int event_id)
 	{
 		String q = "DELETE FROM Event WHERE event_id="+event_id;
@@ -69,46 +69,46 @@ public class SqlConnector {
 		removeBooking(event_id);
 		set(q);
 	}
-	
+
 	public void removeEvent(Event event)
 	{
 		removeEvent(event.getId());
 	}
-	
+
 	public void removeAllParticipants(Event event)
 	{
 		removeAllParticipants(event.getId());
 	}
-	
+
 	public void removeAllParticipants(int event_id)
 	{
 		String q = "DELETE FROM Participant WHERE event_id="+event_id;
 		set(q);
 	}
-	
+
 	public void removeAllNotifications(Event event)
 	{
 		removeAllNotifications(event.getId());
 	}
-	
+
 	public void removeAllNotifications(int event_id)
 	{
 		String q = "DELETE FROM Notification WHERE event_id="+event_id;
 		set(q);
 	}
-	
+
 	public void removeBooking(Event event)
 	{
 		String q = "DELETE FROM Booking WHERE event_id="+event.getId();
 		set(q);
 	}
-	
+
 	public void removeBooking(int event_id)
 	{
 		String q = "DELETE FROM Booking WHERE event_id="+event_id;
 		set(q);
 	}
-	
+
 	public void addUser(User user)
 	{
 		addUser(user.getUsername(), user.getPassword(), user.getName());
@@ -171,6 +171,9 @@ public class SqlConnector {
 
 		if(addEvent(event) > 0)
 			addParticipantsToEvent(event);
+
+		if(event.getRoom() != null)
+			addBooking(event, event.getRoom());
 	}
 
 	public int addEvent(Event event) 
@@ -247,7 +250,7 @@ public class SqlConnector {
 				else 
 					type = NotificationType.EVENT_UPDATE; 
 
-					
+
 				result.add(new Notification(rs.getInt(1), type, rs.getString(3), 
 						getEvent(rs.getInt(4), true)));
 			}
@@ -255,7 +258,7 @@ public class SqlConnector {
 
 		}
 		return result; 
-		
+
 	}
 	public ArrayList<Notification> getAllNotifications (User user)
 	{
@@ -275,7 +278,7 @@ public class SqlConnector {
 				else 
 					type = NotificationType.EVENT_UPDATE; 
 
-					
+
 				result.add(new Notification(rs.getInt(1), type, rs.getString(3), 
 						getEvent(rs.getInt(4), true)));
 			}
@@ -302,7 +305,7 @@ public class SqlConnector {
 				else 
 					type = NotificationType.EVENT_UPDATE; 
 
-					
+
 				result.add(new Notification(rs.getInt(1), type, rs.getString(3), 
 						getEvent(rs.getInt(4), true)));
 			}
@@ -384,7 +387,7 @@ public class SqlConnector {
 		String querry = "SELECT * FROM Event WHERE event_id = ?"; 
 		ArrayList<Integer> eventID = getAllEventID(user);
 		ArrayList<Event> result = new ArrayList<Event>(); 
-		
+
 
 		try {
 			PreparedStatement p = conn.prepareStatement(querry);			
@@ -394,16 +397,16 @@ public class SqlConnector {
 				ResultSet rs = p.executeQuery(); 				
 				while(rs.next())				
 					result.add(new Event(	
-											user, 
-											rs.getInt(1), 	
-											new Date(rs.getLong(3)), 
-											new Date(rs.getLong(4)), 
-											(rs.getString(2)!=null ? rs.getString(2) : ""), 
-											(rs.getString(5)!=null ? rs.getString(5) : ""), 
-											(rs.getString(6)!=null ? rs.getString(6) : ""), 
-											new ArrayList<User>(), 
-											getBooking(rs.getInt(1))
-										));
+							user, 
+							rs.getInt(1), 	
+							new Date(rs.getLong(3)), 
+							new Date(rs.getLong(4)), 
+							(rs.getString(2)!=null ? rs.getString(2) : ""), 
+							(rs.getString(5)!=null ? rs.getString(5) : ""), 
+							(rs.getString(6)!=null ? rs.getString(6) : ""), 
+							new ArrayList<User>(), 
+							getBooking(rs.getInt(1))
+							));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -451,7 +454,7 @@ public class SqlConnector {
 
 		return result; 
 	}
-	
+
 	public ArrayList<Room> getAllRooms() {
 		ArrayList<Room> result =  new ArrayList<Room>();
 		String q = "Select * from Room";
@@ -495,24 +498,24 @@ public class SqlConnector {
 		}
 		return getUsers(ids, false); 
 	}
-	
+
 	public ArrayList<User> getAllUsers()
 	{
 		ArrayList<User> users = new ArrayList<User>();
 		String q = "SELECT username, name FROM User";
-		
+
 		try {
 			stmt = conn.createStatement();
 			ResultSet rs = (ResultSet) stmt.executeQuery(q);
-			
+
 			while(rs.next())
 				users.add(new User(rs.getString(1), rs.getString(2)));
-			
+
 		} catch (SQLException e) 
 		{
 			e.printStackTrace();
 		} 
-	
+
 		return users;
 	}
 
@@ -556,7 +559,7 @@ public class SqlConnector {
 		return login(user.getUsername(),user.getPassword());
 	}
 
-	
+
 	public User login(String username, String password)
 	{
 		ArrayList<String> send = new ArrayList<String>();
@@ -581,5 +584,5 @@ public class SqlConnector {
 		return null;		
 	}
 
-	
+
 }
