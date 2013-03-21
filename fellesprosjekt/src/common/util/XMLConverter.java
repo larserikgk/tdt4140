@@ -477,6 +477,17 @@ public class XMLConverter
 	{
 		return documentFactory.newDocument();
 	}
+	
+	public ArrayList<Room> constructRoomListFromNode(Node node)
+	{
+		ArrayList<Room> rooms = new ArrayList<Room>();
+		NodeList children = node.getChildNodes();
+		
+		for(int i = 0; i < children.getLength(); i++)
+			rooms.add(constructRoomFromNode(children.item(i)));
+		
+		return rooms;
+	}
 }
 
 
