@@ -395,7 +395,17 @@ public class SqlConnector {
 				p.setInt(1, i);
 				ResultSet rs = p.executeQuery(); 				
 				while(rs.next())				
-					result.add(new Event(user, rs.getInt(1), new Date(rs.getLong(3)), new Date(rs.getLong(4)), rs.getString(2), rs.getString(5), rs.getString(6), new ArrayList<User>(), getBooking(rs.getInt(1))));
+					result.add(new Event(	
+											user, 
+											rs.getInt(1), 	
+											new Date(rs.getLong(3)), 
+											new Date(rs.getLong(4)), 
+											(rs.getString(2)!=null ? rs.getString(2) : ""), 
+											(rs.getString(5)!=null ? rs.getString(5) : ""), 
+											(rs.getString(6)!=null ? rs.getString(6) : ""), 
+											new ArrayList<User>(), 
+											getBooking(rs.getInt(1))
+										));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
