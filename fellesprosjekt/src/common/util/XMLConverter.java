@@ -382,6 +382,17 @@ public class XMLConverter
 		return events;
 	}
 	
+	public ArrayList<Notification> constructNotificationListFromNode(Node node)
+	{
+		ArrayList<Notification> notifications = new ArrayList<Notification>();
+		NodeList children = node.getChildNodes();
+		
+		for(int i = 0; i < children.getLength(); i++)
+			notifications.add(constructNotificationFromNode(children.item(i)));
+		
+		return notifications;
+	}
+	
 	public User constructUserFromNode(Node node)
 	{
 		NodeList children = node.getChildNodes();
