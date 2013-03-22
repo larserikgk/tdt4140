@@ -577,7 +577,19 @@ public class SqlConnector {
 	}	
 	
 	public void updateParticipantStatus(ParticipantStatus status) {
-		// TODO Auto-generated method stub
+		String q; 
+		try {			
+
+				q = "INSERT INTO Participant(status,username,event_id)" + 
+						"VALUES(" + status.getStatus() + ",'" + status.getUsername()+ "'," + status.getEventId() + ")";
+				PreparedStatement p = conn.prepareStatement(q);
+				p.setString(1, status.getUsername()); 
+				p.executeUpdate();  
+			
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		} 
 		
 	}
 

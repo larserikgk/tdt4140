@@ -4,7 +4,7 @@ public class ParticipantStatus {
 	private String username;
 	private int eventId;
 	private Status status;
-	public enum Status {ATTENDING, DECLINED, PENDING};
+	public enum Status {IKKESVART, SKAL, SKALIKKE};
 	
 	
 	public ParticipantStatus(String username, int eventId, Status status) {
