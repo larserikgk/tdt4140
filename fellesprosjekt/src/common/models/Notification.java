@@ -69,14 +69,14 @@ public class Notification {
         switch (type) {
 		case INVITATION:
 	        message = "Invitation to "+event.getName();
-	        sender = event.getAdmin().getName();
+	        sender = event.getAdmin().getUsername();
 			break;
 		case INV_RESPONSE:
 			// kanskje senere
 			break;
 		case EVENT_UPDATE:
 			message = event.getName() + " has been changed";
-			sender = event.getAdmin().getName();
+			sender = event.getAdmin().getUsername();
 			break;
 		}
 		buff.append(String.format("<tr><td>%s</td></tr><tr><td>%s</td></tr>", message, "<font size=3>by "+sender+"</font>"));

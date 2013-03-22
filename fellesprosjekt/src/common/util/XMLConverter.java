@@ -303,15 +303,13 @@ public class XMLConverter
 		for(int i = 0; i < children.getLength(); i++)
 		{
 			temp = children.item(i);
-			if(temp.getNodeName().equals("id"))
+			if (!temp.getNodeName().equals("")) System.out.println("tem.getNodeName(): "+temp.getNodeName());
+			if(temp.getNodeName().equals("id")) 
 				id = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("type"))
 			{
-				System.out.println("fant type");
-				if(temp.getTextContent().equals("INVITATION")) {
-					System.out.println("fant type = invit");
+				if(temp.getTextContent().equals("INVITATION"))
 					type = NotificationType.INVITATION;
-				}
 				else if(temp.getTextContent().equals("INV_RESPONSE"))
 					type = NotificationType.INV_RESPONSE;
 				else if(temp.getTextContent().equals("EVENT_UPDATE"))
@@ -320,7 +318,7 @@ public class XMLConverter
 			else if(temp.getNodeName().equals("description"))
 				description = temp.getTextContent();
 			else if(temp.getNodeName().equals("event"))
-				event = constructEventFromNode(temp);
+				event = constructEventFromNode(temp.getFirstChild());
 		}
 		
 		
@@ -392,9 +390,10 @@ public class XMLConverter
 		ArrayList<Event> events = new ArrayList<Event>();
 		NodeList children = node.getChildNodes();
 		
-		for(int i = 0; i < children.getLength(); i++)
+		for(int i = 0; i < children.getLength(); i++){
+			if (i == 1)System.out.println("node brukt i constrEvent: "+children.item(i).getNodeName());
 			events.add(constructEventFromNode(children.item(i)));
-		
+		}
 		return events;
 	}
 	
@@ -402,10 +401,18 @@ public class XMLConverter
 	{
 		ArrayList<Notification> notifications = new ArrayList<Notification>();
 		NodeList children = node.getChildNodes();
+		/*
+		 * Midlertidig løsning
+		 * her er det noe feil et annet sted
+		 * children er først = notificationlist
+		 * gjøres om til notification (barna til not...list)
+		 */
+		children = children.item(0).getChildNodes();
 		
-		for(int i = 0; i < children.getLength(); i++)
+		for(int i = 0; i < children.getLength(); i++) {
+			System.out.println("node brukt i constrNotif: "+children.item(i).getNodeName());
 			notifications.add(constructNotificationFromNode(children.item(i)));
-		
+		}
 		return notifications;
 	}
 	
