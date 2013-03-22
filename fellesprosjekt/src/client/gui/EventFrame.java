@@ -31,6 +31,7 @@ import javax.swing.JTextPane;
 import client.net.ServerConnector;
 import common.models.Event;
 import common.models.EventCalendar;
+import common.models.ParticipantStatus;
 import common.models.Room;
 import common.models.User;
 import javax.swing.JToggleButton;
@@ -240,7 +241,15 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 				if (!(EventFrame.this instanceof ShowEventFrame)) {
 					return;
 				}
-				// TODO
+				try {
+					if (tbAccept.isSelected())
+						getServerConnector().updateStatus(new ParticipantStatus(getUser().getUsername(), eventOriginal.getId(), ParticipantStatus.Status.SKAL));
+					else if (tbDecline.isSelected())
+						getServerConnector().updateStatus(new ParticipantStatus(getUser().getUsername(), eventOriginal.getId(), ParticipantStatus.Status.SKALIKKE));
+				} catch (ConnectException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		

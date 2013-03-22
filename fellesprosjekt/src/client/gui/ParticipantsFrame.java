@@ -168,8 +168,16 @@ public class ParticipantsFrame extends BaseFrame {
 		invitedUsersList = new UserListFilter(participants);
 		ArrayList<User> allUsers = getServerConnector().getAllUsers();
 		if (participants != null){
-			allUsers.removeAll(participants);
+			for (User u : participants) {
+				System.out.println("user removed!");
+				for (int i=0;i<allUsers.size();i++) {
+					if (u.getUsername().equals(allUsers.get(i).getUsername())) {
+						allUsers.remove(i);
+					}
+				}
+			}
 		}
 		allUsersList = new UserListFilter(allUsers);
+		for (User u : allUsers) System.out.println(u.getName());
 	}
 }

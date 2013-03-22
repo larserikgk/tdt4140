@@ -378,10 +378,9 @@ public class ServerConnector implements IServerConnector{
 		return rooms;
 	}
 	
-	public void updateStatus(ParticipantStatus status) throws ConnectException {
-		Request request = new Request(Request.STATUS, status);
+	public void updateStatus(ParticipantStatus participantStatus) throws ConnectException {
+		Request request = new Request(Request.STATUS, participantStatus);
 		sendRequest(request);
-		
 	}
 
 

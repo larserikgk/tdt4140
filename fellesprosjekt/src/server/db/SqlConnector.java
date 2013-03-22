@@ -579,8 +579,8 @@ public class SqlConnector {
 	public void updateParticipantStatus(ParticipantStatus status) {
 		String q; 
 		try {			
-
-				q = "INSERT INTO Participant(status,username,event_id)" + 
+				System.out.println("updStat i sqlConn: status: "+status.getUsername()+",  "+status.getStatus().toString());
+				q = "UPDATE Participant(status,username,event_id)" + 
 						"VALUES(" + status.getStatus() + ",'" + status.getUsername()+ "'," + status.getEventId() + ")";
 				PreparedStatement p = conn.prepareStatement(q);
 				p.setString(1, status.getUsername()); 
