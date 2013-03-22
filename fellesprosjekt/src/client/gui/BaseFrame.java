@@ -7,15 +7,16 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import client.net.ServerConnector;
+
 import common.models.Event;
 import common.models.User;
-
-import client.net.ServerConnector;
 
 public abstract class BaseFrame extends JFrame {
 	
 	private JFrame parentFrame;
 	private static User user;
+	private static ServerConnector serverConnector;
 	
 	public static User getUser() {
 		return user;
@@ -29,8 +30,6 @@ public abstract class BaseFrame extends JFrame {
 		}
 		this.user = user;
 	}
-
-	private static ServerConnector serverConnector;
 	
 	public BaseFrame(){
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -59,7 +58,6 @@ public abstract class BaseFrame extends JFrame {
 		setEnabled(false);
 		frame.setParentFrame(this);
 		frame.setAlwaysOnTop(true);
-		//frame.pack();
 		frame.setVisible(true);
 	}
 	
@@ -72,11 +70,24 @@ public abstract class BaseFrame extends JFrame {
 	}
 	
 	public void close(){
+		dispose();
 		if (parentFrame != null){
+//			parentFrame.setEnabled(true);
+//			parentFrame.setFocusable(true);
+//			if (parentFrame instanceof BaseFrame){
+//				JFrame parentParentFrame = ((BaseFrame)parentFrame).getParentFrame();
+//				if (parentParentFrame != null){
+//					parentParentFrame.setVisible(true);
+//					System.out.println("ppframe");
+//				}
+//			}
+			JFrame parentParentFrame = (parentFrame instanceof BaseFrame) ? ((BaseFrame) parentFrame).getParentFrame() : null;
+			if (parentParentFrame != null) parentParentFrame.setVisible(true);
 			parentFrame.setEnabled(true);
 			parentFrame.setFocusable(true);
+			parentFrame.setFocusableWindowState(true);
+			parentFrame.setVisible(true);
 		}
-		dispose();
 	}
 
 	public static ServerConnector getServerConnector() {
