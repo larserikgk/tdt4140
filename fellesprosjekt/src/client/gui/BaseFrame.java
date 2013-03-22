@@ -24,7 +24,7 @@ public abstract class BaseFrame extends JFrame {
 	public void setUser(User user) throws ConnectException {
 		ArrayList<Event> events = getServerConnector().getEvents(user, 0);
 		for (Event e : events) {
-			System.out.println(e);
+			System.out.println("baseF event: "+e);
 			user.addEvent(e);
 		}
 		this.user = user;

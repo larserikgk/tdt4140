@@ -237,6 +237,10 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				close();
+				if (!(EventFrame.this instanceof ShowEventFrame)) {
+					return;
+				}
+				// TODO
 			}
 		});
 		
@@ -346,10 +350,17 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		eventOriginal = eventCopy;
 		System.out.println("gui sender eventId: "+eventOriginal.getId());
 		if (this instanceof CreateEventFrame) {
-			((MainFrame) getParentFrame()).getUser().addEvent(eventOriginal);
-			System.out.println(eventOriginal.getRoom());
-			getServerConnector().addEvent(eventOriginal); 
-		} else getServerConnector().editEvent(eventOriginal);
+			ArrayList<Event> updatedEvents = getServerConnector().getEvents(getUser(), 0);
+			getUser().newEventCalendar();
+			for (Event e : updatedEvents) {
+				getUser().addEvent(e);
+			}
+			System.out.println("gui kaller addEvent");
+			getServerConnector().addEvent(eventOriginal);
+		} else {
+			System.out.println("gui kaller editEvent");
+			getServerConnector().editEvent(eventOriginal);
+		}
 		return true;
 	}
 	

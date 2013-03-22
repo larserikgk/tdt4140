@@ -47,6 +47,10 @@ public class User implements Serializable{
 		
 	}
 	
+	public void newEventCalendar() {
+		eventCalendar = new EventCalendar();
+	}
+	
 	public ArrayList<Event> getEvents(Date date) {
 		return eventCalendar.getEvents(date);
 	}

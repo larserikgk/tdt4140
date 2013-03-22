@@ -358,7 +358,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		panel_3.add(btnCreateEvent);
 		btnCreateEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("SELECTED DATE: "+selectedDate);
+				//System.out.println("SELECTED DATE: "+selectedDate);
 				CreateEventFrame cef = new CreateEventFrame(new Event(user, 0, selectedDate, selectedDate, "Event 1","","", null, null));
 				cef.addPropertyChangeListener(MainFrame.this);
 				openFrameOnTop(cef);
@@ -400,6 +400,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		
 		if (user.getEvents(selectedDate).size() != 0){
 			for (Event e : user.getEvents(selectedDate)) {
+				System.out.println("setlistmodel event: "+e);
 				values.add(e);
 			}
 		}

@@ -173,7 +173,7 @@ public class SqlConnector {
 		if(addEvent(event) > 0)
 			addParticipantsToEvent(event);
 
-		if(event.getRoom() != null && !(event.getRoom().getName() != null))
+		if(event.getRoom() != null && event.getRoom().getName() != null)
 			addBooking(event, event.getRoom());
 	}
 
