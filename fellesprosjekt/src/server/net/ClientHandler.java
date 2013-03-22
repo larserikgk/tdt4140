@@ -240,6 +240,9 @@ public class ClientHandler implements Runnable{
 				response = xmlConverter.DOMDocumentToString(doc);
 			}
 			break;
+		case Request.STATUS:
+			database.updateParticipantStatus(request.getStatus());
+			break;
 		}
 		return response;
 	}

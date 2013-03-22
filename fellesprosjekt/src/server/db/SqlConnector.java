@@ -12,6 +12,7 @@ import java.util.Properties;
 import common.models.Event;
 import common.models.Notification;
 import common.models.Notification.NotificationType;
+import common.models.ParticipantStatus;
 import common.models.Room;
 import common.models.User;
 
@@ -574,6 +575,11 @@ public class SqlConnector {
 			return(users.get(0)); 
 		return new User("", "");
 	}	
+	
+	public void updateParticipantStatus(ParticipantStatus status) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	// for å kjøre en statement; 
 	private ResultSet set(String querry)
@@ -586,6 +592,8 @@ public class SqlConnector {
 		}
 		return null;		
 	}
+
+	
 
 
 }

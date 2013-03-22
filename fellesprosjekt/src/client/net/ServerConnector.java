@@ -377,6 +377,12 @@ public class ServerConnector implements IServerConnector{
 
 		return rooms;
 	}
+	
+	public void updateStatus(ParticipantStatus status) throws ConnectException {
+		Request request = new Request(Request.STATUS, status);
+		sendRequest(request);
+		
+	}
 
 
 	private class NotificationListener extends Thread {

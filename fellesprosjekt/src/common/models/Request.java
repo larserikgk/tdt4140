@@ -21,7 +21,7 @@ public class Request implements Serializable{
 		users = new String();
 	}
 	
-	public Request(ParticipantStatus status, int type) {
+	public Request(int type, ParticipantStatus status) {
 		this.type =  type;
 		this.properties = new Properties();
 		list = new ArrayList<User>();
