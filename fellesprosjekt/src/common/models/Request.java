@@ -7,10 +7,11 @@ import java.util.Properties;
 public class Request implements Serializable{
 	private String query;
 	private int type;
-	public static final int USER = 1, EVENT = 2, NOTIFICATION = 3, ROOM=4, LOGOUT = 7;
+	public static final int USER = 1, EVENT = 2, NOTIFICATION = 3, ROOM = 4, STATUS = 5, LOGOUT = 7;
 	private Properties properties;
-	ArrayList<User> list;
-	String users;
+	private ArrayList<User> list;
+	private String users;
+	private ParticipantStatus status;
 	
 	public Request(String query, int type) {
 		this.query = query;
@@ -18,6 +19,14 @@ public class Request implements Serializable{
 		this.properties = new Properties();
 		list = new ArrayList<User>();
 		users = new String();
+	}
+	
+	public Request(ParticipantStatus status, int type) {
+		this.type =  type;
+		this.properties = new Properties();
+		list = new ArrayList<User>();
+		users = new String();
+		this.status = status;
 	}
 
 	public String getQuery() {
@@ -68,6 +77,14 @@ public class Request implements Serializable{
 	
 	public void setUsers(String users) {
 		this.users = users;
+	}
+
+	public ParticipantStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(ParticipantStatus status) {
+		this.status = status;
 	}
 	
 }
