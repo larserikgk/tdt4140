@@ -307,8 +307,11 @@ public class XMLConverter
 				id = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("type"))
 			{
-				if(temp.getTextContent().equals("INVITATION"))
+				System.out.println("fant type");
+				if(temp.getTextContent().equals("INVITATION")) {
+					System.out.println("fant type = invit");
 					type = NotificationType.INVITATION;
+				}
 				else if(temp.getTextContent().equals("INV_RESPONSE"))
 					type = NotificationType.INV_RESPONSE;
 				else if(temp.getTextContent().equals("EVENT_UPDATE"))

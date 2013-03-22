@@ -213,6 +213,7 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 				EventCalendar oldValue = admin.getEventCalendar();
 				try {
 					getServerConnector().deleteEvent(eventOriginal);
+					getUser().deleteEvent(eventOriginal);
 				} catch (ConnectException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

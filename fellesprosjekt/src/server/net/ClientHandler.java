@@ -103,7 +103,7 @@ public class ClientHandler implements Runnable{
 				Document doc = xmlConverter.getNewDocument();
 				xmlConverter.eventListToDOMElement(events, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
-				System.out.println("from clientHandler"+response);
+				//System.out.println("from clientHandler"+response);
 			}
 			else if(request.getQuery().equals(("appointments"))) {
 				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),"",""));
@@ -211,7 +211,8 @@ public class ClientHandler implements Runnable{
 		case Request.NOTIFICATION:
 			if(request.getQuery().equals("notifications")) {
 				ArrayList<Notification> notifications = database.getAllNotifications(new User(request.getPropety("username"),"",""));
-						
+				
+				System.out.println("array nots[0] i CH: "+notifications.get(0).getType().toString());
 				Document doc = xmlConverter.getNewDocument();
 				xmlConverter.notificationListToDOMElement(notifications, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);

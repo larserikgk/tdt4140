@@ -212,12 +212,17 @@ public class ServerConnector implements IServerConnector{
 	public ArrayList<Notification> getNotifications(User user,
 			boolean unreadOnly, int count) throws ConnectException{
 		ArrayList<Notification> notifications = new ArrayList<Notification>();
-		Request request = new Request("notificationslimited", Request.EVENT);
+		Request request;
+		if (unreadOnly)
+			request = new Request("notificationslimited", Request.NOTIFICATION);
+		else
+			request = new Request("notifications", Request.NOTIFICATION);
 		request.addProperty("username", user.getUsername());
 		request.addProperty("undreadonly", Boolean.toString(unreadOnly));
 		request.addProperty("amount", String.valueOf(count));
 		String result = sendRequest(request);
-
+		
+		System.out.println("result i serconn allnotif: "+result);
 		Document doc = xmlConverter.StringToDOMDocument(result);
 		
 		notifications = xmlConverter.constructNotificationListFromNode(doc);
@@ -376,10 +381,12 @@ public class ServerConnector implements IServerConnector{
 
 	private class NotificationListener extends Thread {
 		public void run() {
+			System.out.println("notif listener initialized");
 			while(true) {
 				try {
 					String result = (String) pushInput.readObject();
 					Document doc = xmlConverter.StringToDOMDocument(result);
+					System.out.println("next: gui.handlenotif");
 					gui.handleNotifications(xmlConverter.constructNotificationFromNode(doc.getFirstChild()));
 				}
 				catch(IOException e) {
@@ -390,5 +397,5 @@ public class ServerConnector implements IServerConnector{
 
 			}
 		}
-	}	
+	}
 }

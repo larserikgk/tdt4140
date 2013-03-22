@@ -66,7 +66,7 @@ public class Notification {
 		String sender = "";
 		StringBuilder buff = new StringBuilder();
         buff.append("<html><table>");
-		switch (type) {
+        switch (type) {
 		case INVITATION:
 	        message = "Invitation to "+event.getName();
 	        sender = event.getAdmin().getName();

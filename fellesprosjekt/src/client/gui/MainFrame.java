@@ -372,10 +372,20 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		setupSelectedDatePanel(selectedDate);
 		setupUpcomingEventsPanel();
 		
-		handleNotifications(new Notification(Notification.NotificationType.INVITATION, "", SampleEvents.getSampleEvents().get(3)));
-		handleNotifications(new Notification(Notification.NotificationType.EVENT_UPDATE, "", SampleEvents.getSampleEvents().get(8)));
-		handleNotifications(new Notification(Notification.NotificationType.INVITATION, "", SampleEvents.getSampleEvents().get(3)));
-		handleNotifications(new Notification(Notification.NotificationType.EVENT_UPDATE, "", SampleEvents.getSampleEvents().get(8)));
+		try {
+			setupNotifications();
+		} catch (ConnectException e1) {
+			System.out.println("setupNotifications failed: ");
+			e1.printStackTrace();
+		}
+		
+	}
+	
+	public void setupNotifications() throws ConnectException {
+		ArrayList<Notification> notifications = getServerConnector().getNotifications(user, false, 0);
+		for (Notification n : notifications) {
+			handleNotifications(n);
+		}
 	}
 
 	public void updateMonthLabels() {
@@ -474,6 +484,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 	}
 	
 	public void handleNotifications(final Notification notification) {
+		System.out.println("mottatt notification");
 		unreadNf++;
 		final JMenuItem miNewNf = new JMenuItem(notification.getNotificationString());
 		//Border orangeBorder = BorderFactory.createLineBorder(Settings2.COLOR_ORANGE);

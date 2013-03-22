@@ -281,11 +281,12 @@ public class SqlConnector {
 
 
 				result.add(new Notification(rs.getInt(1), type, rs.getString(3), 
-						getEvent(rs.getInt(4), true)));
+						getEvent(rs.getInt(4), false)));
 			}
 		} catch (Exception e) {
 
 		}
+		System.out.println("result fra database spørring  allnots: "+result.get(0).getEvent().getAdmin().getUsername());
 		return result; 
 	}
 	public ArrayList<Notification> getReadNotifications (User user)
@@ -346,7 +347,7 @@ public class SqlConnector {
 				else
 				{
 					ids.add(rs.getString(7)); 
-					result = new Event(getUsers(ids, false).get(0), event_id, new Date(rs.getLong(3)), new Date(rs.getLong(4)), rs.getString(2), rs.getString(5),rs.getString(6), new ArrayList<User>(), getBooking(event_id));
+					result = new Event(new User(rs.getString(7), "", ""), event_id, new Date(rs.getLong(3)), new Date(rs.getLong(4)), rs.getString(2), rs.getString(5),rs.getString(6), new ArrayList<User>(), getBooking(event_id));
 				}
 
 			}
