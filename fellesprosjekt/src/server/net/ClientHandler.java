@@ -103,6 +103,7 @@ public class ClientHandler implements Runnable{
 				Document doc = xmlConverter.getNewDocument();
 				xmlConverter.eventListToDOMElement(events, doc, null);
 				response = xmlConverter.DOMDocumentToString(doc);
+				System.out.println("from clientHandler"+response);
 			}
 			else if(request.getQuery().equals(("appointments"))) {
 				ArrayList<Event> events = database.getAllEvent(new User(request.getPropety("username"),"",""));
@@ -195,7 +196,7 @@ public class ClientHandler implements Runnable{
 			else if(request.getQuery().equals(("edit"))) {
 				Document doc = xmlConverter.StringToDOMDocument(request.getUsers());
 				ArrayList<User> users = xmlConverter.constructUserListFromNode(doc.getFirstChild());
-				Event event = new Event(new User(request.getPropety("admin"), null), 0, new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
+				Event event = new Event(new User(request.getPropety("admin"), null), Integer.parseInt(request.getPropety("eventid")), new Date(Long.parseLong(request.getPropety("start"))), new Date(Long.parseLong(request.getPropety("end"))),
 						request.getPropety("name"), request.getPropety("description"), request.getPropety("location"), 
 						users, new Room(request.getPropety("roomname"),0));
 				database.updateEvent(event);

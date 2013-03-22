@@ -48,10 +48,10 @@ public class SqlConnector {
 	{
 		String q = "UPDATE Event SET owner='"+event.getAdmin().getUsername()
 				+"', location='"+event.getLocation()
-				+"', description='"+event.getDescription()+"'"
+				+"', description='"+event.getDescription()
 				+"', startTime="+event.getStart().getTime()
 				+", endTime="+event.getEnd().getTime();
-
+		System.out.println(event.getId());
 		removeAllParticipants(event);
 		removeBooking(event);
 
@@ -173,7 +173,7 @@ public class SqlConnector {
 		if(addEvent(event) > 0)
 			addParticipantsToEvent(event);
 
-		if(event.getRoom() != null)
+		if(event.getRoom() != null || event.getRoom().getName().equals(""))
 			addBooking(event, event.getRoom());
 	}
 
@@ -398,20 +398,21 @@ public class SqlConnector {
 				ResultSet rs = p.executeQuery(); 				
 				while(rs.next())				
 					result.add(new Event(	
-							user, 
+							new User(rs.getString(7),""), 
 							rs.getInt(1), 	
 							new Date(rs.getLong(3)), 
 							new Date(rs.getLong(4)), 
 							(rs.getString(2)!=null ? rs.getString(2) : ""), 
 							(rs.getString(5)!=null ? rs.getString(5) : ""), 
 							(rs.getString(6)!=null ? rs.getString(6) : ""), 
-							new ArrayList<User>(), 
+							getParticipants(i, ""), 
 							getBooking(rs.getInt(1))
 							));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		//System.out.println(result.get(0).getId());
 		return result;
 
 	}

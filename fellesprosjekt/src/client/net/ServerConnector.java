@@ -171,11 +171,12 @@ public class ServerConnector implements IServerConnector{
 		Request request = new Request("events", Request.EVENT);
 		request.addProperty("username", user.getUsername());
 		String result = sendRequest(request);
-
 		Document doc = xmlConverter.StringToDOMDocument(result);
 
 		events = xmlConverter.constructEventListFromNode(doc.getFirstChild());
-
+		for (Event e : events) {
+			System.out.println("Serverconnector\t"+e.getId());
+		}
 		return events;
 	}
 
@@ -302,12 +303,12 @@ public class ServerConnector implements IServerConnector{
 		Request request = new Request("add", Request.EVENT);
 		request.setUsers(xmlConverter.DOMDocumentToString(doc));
 		request.addProperty("name", event.getName());
-		request.addProperty("start", Long.toString(event.getStart().getTime()));
+		request.addProperty("start", Long.toString(event.getStart().getTime()));	
 		request.addProperty("end", Long.toString(event.getEnd().getTime()));
 		request.addProperty("location", event.getLocation());
 		request.addProperty("description", event.getDescription());
 		request.addProperty("location", event.getLocation());
-		request.addProperty("roomname", event.getRoom().getName());
+		if (event.getRoom() != null) request.addProperty("roomname", event.getRoom().getName());
 		request.addProperty("admin", event.getAdmin().getUsername());
 		sendRequest(request);
 		
@@ -324,8 +325,8 @@ public class ServerConnector implements IServerConnector{
 		request.setUsers(xmlConverter.DOMDocumentToString(doc));
 		request.addProperty("eventid", Integer.toString(event.getId()));
 		request.addProperty("name", event.getName());
-		request.addProperty("start", event.getStart().toString());
-		request.addProperty("end", event.getStart().toString());
+		request.addProperty("start", event.getStart().getTime()+"");
+		request.addProperty("end", event.getStart().getTime()+"");
 		request.addProperty("location", event.getLocation());
 		request.addProperty("description", event.getDescription());
 		request.addProperty("location", event.getLocation());

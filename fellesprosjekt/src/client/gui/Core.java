@@ -46,10 +46,6 @@ public class Core extends JPanel implements ActionListener
 				cells.add(temp);
 			}
 		
-		for (Event e : eventCalendar.getEventList()) {
-			System.out.println(e.getStart().toString());
-		}
-		
 		for(int i=1; i <= calendar.getActualMaximum(Calendar.DAY_OF_MONTH);i++)
 		{
 			Date tmpDate = new Date(calendar.get(Calendar.YEAR)-1900, calendar.get(Calendar.MONTH), i);

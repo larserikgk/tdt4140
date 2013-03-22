@@ -25,7 +25,10 @@ public class Event implements Comparable<Event>{
 		this.name 	= name;
 		this.description 	= description;
 		this.location 		= location;
-		this.participants 	= participants;
+		if (participants == null) 
+			this.participants = new ArrayList<User>();
+		else
+			this.participants 	= participants;
 		this.room 			= room;
 	}
 	
@@ -132,7 +135,9 @@ public class Event implements Comparable<Event>{
 		String r = "";
 		if (name != null) r+="name: "+name;
 		if (admin != null) r+="admin: "+admin.getUsername();
-		if (room != null) r+="room: "+room.getName();
+		if (room != null) r+=" room: "+room.getName();
+		r+=" description: "+description;
+		r+=" eventId: " +id;
 		return r; 
 	}
 	

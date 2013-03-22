@@ -265,8 +265,11 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		lblDescriptionValue.setText(event.getDescription());
 		datePickerStart.setDate(event.getStart());
 		datePickerEnd.setDate(event.getEnd());
-		String l = eventOriginal.getRoom().getName();
-		if (l != null) {
+		String l ="";
+		if (eventOriginal.getRoom() != null) {
+			l = event.getRoom().getName();
+		}
+		if (!l.equals("")) {
 			textField_location.setText(l);
 			lblLocationValue.setText(l);
 		} else {
@@ -336,9 +339,11 @@ public abstract class EventFrame extends BaseFrame implements PropertyChangeList
 		eventCopy.setStart(datePickerStart.getDate());
 		eventCopy.setEnd(datePickerEnd.getDate());
 		eventCopy.setDescription(textPane_description.getText());
-	
+		if (eventCopy.getParticipants() == null || eventCopy.getParticipants().size() == 0) 
+			eventCopy.addParticipant(getUser());
 		
 		eventOriginal = eventCopy;
+		System.out.println("gui sender eventId: "+eventOriginal.getId());
 		if (this instanceof CreateEventFrame) {
 			((MainFrame) getParentFrame()).getUser().addEvent(eventOriginal);
 			System.out.println(eventOriginal.getRoom());

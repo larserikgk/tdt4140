@@ -350,7 +350,7 @@ public class XMLConverter
 		for(int i = 0; i < children.getLength(); i++)
 		{
 			temp = children.item(i);
-			if(temp.getNodeName().equals("id"))
+			if(temp.getNodeName().equals("ID"))
 				id = Integer.parseInt(temp.getTextContent());
 			else if(temp.getNodeName().equals("start"))
 				start = constructDateFromNode(temp.getFirstChild());
@@ -365,9 +365,9 @@ public class XMLConverter
 			else if(temp.getNodeName().equals("participants"))
 				participants = constructUserListFromNode(temp);
 			else if(temp.getNodeName().equals("admin"))
-				admin = constructUserFromNode(temp);
+				admin = constructUserFromNode(temp.getFirstChild());
 			else if(temp.getNodeName().equals("room"))
-				room = constructRoomFromNode(temp);
+				room = constructRoomFromNode(temp.getFirstChild());
 		}
 		
 		return new Event(admin, id, start, end, name, description, location,participants, room);

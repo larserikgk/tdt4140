@@ -484,7 +484,7 @@ public class MainFrame extends BaseFrame implements PropertyChangeListener {
 		miNewNf.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (unreadNf > 0) unreadNf--;  //Midlertidlig løsning. Må bruke read/unread attributt i notification.
+				if (unreadNf > 0) unreadNf--;  //Midlertidlig lï¿½sning. Mï¿½ bruke read/unread attributt i notification.
 				miNewNf.setBackground(Settings2.COLOR_DARK_GRAY);
 				setNotificationText();
 				openEvent(notification.getEvent());
