@@ -1,0 +1,36 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12:55:58.279     NETWORK                                                                                                                                 Packet 0 send!                                    
+12:55:58.291     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:55:58.295     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+12:55:58.313     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:64310
+12:55:58.320     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+12:55:58.323     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+12:55:58.327     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:55:58.330     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+12:55:58.333     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+12:56:1.129      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:56:1.131      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+12:56:1.134      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+12:56:2.998      NETWORK                                                                                                                                 Packet 0 send!                                    
+12:56:3.931      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:56:3.934      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+12:56:3.937      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+12:56:6.733      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:56:6.736      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+12:56:6.738      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+12:56:6.962      NETWORK                                                                                                                                 Packet 0 send!                                    
+12:56:9.535      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:56:9.538      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+12:56:9.544      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+12:56:12.339     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:56:12.341     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+12:56:12.343     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        

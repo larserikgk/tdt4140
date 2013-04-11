@@ -1,0 +1,19 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11:40:54.954     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+11:40:54.960     CLSocket::receive                                                                                                                       Receiving at:10500                                
+11:40:57.757     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+11:40:57.759     CLSocket::receive                                                                                                                       Receiving at:10500                                
+11:40:57.761     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+11:40:59.46      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64024
+11:40:59.74      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+11:40:59.76      AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+11:40:59.79      AbstractConnection       null:10500               null:5555                9140    SYN_ACK 0                                0           Sending Ack: 0                                    

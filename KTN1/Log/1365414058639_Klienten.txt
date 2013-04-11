@@ -1,0 +1,11 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11:40:59.58      NETWORK                                                                                                                                 Packet 0 send!                                    
+11:40:59.60      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+11:40:59.64      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:41:1.863      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+11:41:1.865      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:41:1.867      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        

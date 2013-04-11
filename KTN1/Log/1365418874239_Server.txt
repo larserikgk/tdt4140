@@ -1,0 +1,331 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:1:14.418      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.424      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.429      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.432      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.434      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.437      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.440      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.442      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.444      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.447      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.450      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.483      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.485      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.488      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.490      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.493      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.495      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.497      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.499      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.502      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.504      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.507      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.511      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.514      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.519      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.522      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.526      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.528      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.531      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.535      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.539      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.542      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.544      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.547      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.549      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.552      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.554      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.557      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.559      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.563      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.565      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.568      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.570      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.573      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.576      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.579      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.582      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.586      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.591      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.595      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.598      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.602      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.606      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.609      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.614      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.618      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.621      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.626      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.630      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.634      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.638      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.642      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.645      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.649      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.653      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.657      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.662      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.668      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.673      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.677      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.682      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.686      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.691      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.697      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.702      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.706      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.711      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.716      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.720      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.725      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.732      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.737      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.742      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.747      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.752      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.757      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.761      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.766      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.771      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.775      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.780      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.789      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.794      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.800      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.805      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.810      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.815      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.821      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.826      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.831      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.836      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.841      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.847      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.852      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.857      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.862      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.867      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.873      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.878      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.884      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.890      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.897      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.903      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.912      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.918      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.923      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.929      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.934      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.940      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.945      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.951      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.957      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.962      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.968      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.974      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.979      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:14.985      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:14.990      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:14.996      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.2        AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.8        CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.14       ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.20       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.25       CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.30       ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.35       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.41       CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.47       ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.53       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.58       CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.64       ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.70       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.75       CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.81       ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.87       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.95       CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.106      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.113      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.120      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.125      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.131      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.137      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.143      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.149      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.156      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.162      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.169      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.176      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.182      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.188      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.194      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:15.200      ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use: JVM_Bind
+13:1:15.206      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:15.213      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:18.12       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:18.19       CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:18.25       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:20.248      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64345
+13:1:20.277      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:20.286      AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+13:1:20.293      AbstractConnection       78.91.23.5:10500         78.91.23.5:5555          348     SYN_ACK 0                                0           Sending Ack: 0                                    
+13:1:20.309      NETWORK                                                                                                                                 Packet 348 send!                                  
+13:1:20.320      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:20.328      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:20.336      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:22.727      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64347
+13:1:22.736      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:22.743      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:22.751      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:22.757      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:23.128      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:23.135      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:23.142      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:25.936      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:25.944      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:25.950      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:28.743      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:28.750      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:28.758      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:28.869      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64349
+13:1:28.878      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:28.892      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:28.904      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:28.916      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:31.550      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:31.557      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:31.568      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:32.330      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64350
+13:1:32.338      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:32.345      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:32.353      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:32.360      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:34.280      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64351
+13:1:34.288      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:34.296      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:34.304      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:34.311      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:34.357      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:34.365      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:34.375      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:36.311      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64352
+13:1:36.323      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:36.333      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:36.341      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:36.349      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:37.165      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:37.173      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:37.181      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:38.199      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64353
+13:1:38.208      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:38.215      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:38.223      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:38.230      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:39.328      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64354
+13:1:39.337      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:39.344      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:39.351      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:39.359      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:39.973      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:39.981      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:39.988      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:40.585      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64355
+13:1:40.594      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:40.602      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:40.610      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:40.617      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:41.180      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64356
+13:1:41.188      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:41.196      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:41.203      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:41.211      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:41.793      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64357
+13:1:41.803      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:41.811      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:41.818      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:41.826      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:42.781      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:42.790      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:42.800      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:42.942      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:64358
+13:1:42.953      CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:1:42.960      AbstractConnection                                                                                                                      Received an external packet in doReceive          
+13:1:42.968      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:42.975      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:45.588      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:45.595      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:45.603      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:48.395      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:48.403      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:48.410      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:51.203      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:51.210      CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:51.217      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:1:54.10       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:1:54.18       CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:1:54.25       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
