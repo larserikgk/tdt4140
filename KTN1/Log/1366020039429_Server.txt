@@ -1,0 +1,13 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12:0:40.270      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:0:40.279      CLSocket::receive                                                                                                                       Receiving at:10500                                
+12:0:43.73       AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:0:43.78       CLSocket::receive                                                                                                                       Receiving at:10500                                
+12:0:43.83       CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+12:0:45.878      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+12:0:45.884      CLSocket::receive                                                                                                                       Receiving at:10500                                
+12:0:45.889      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        

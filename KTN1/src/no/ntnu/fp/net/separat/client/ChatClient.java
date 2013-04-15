@@ -30,9 +30,9 @@ public class ChatClient {
 
     private Gui gui;
 
-    private int port_to_server = 4444;
+    private int port_to_server = 10500;
 
-    private String addressServer = "localhost";
+    private String addressServer = "78.91.20.154";
 
     private int thisPort = 5555;
 
@@ -40,7 +40,7 @@ public class ChatClient {
 
     private Connection connection;
 
-    private static boolean SIMPLE_CONNECTION = true;
+    private static boolean SIMPLE_CONNECTION = false;
 
     public ChatClient(String address, int port) {
         port_to_server = port;

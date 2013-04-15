@@ -1,0 +1,50 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:31:28.325     NETWORK                                                                                                                                 Packet 7539 send!                                 
+14:31:28.332     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:31:28.344     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+14:31:28.436     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:57770
+14:31:28.482     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+14:31:28.484     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:31:28.486     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7540    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.510     NETWORK                                                                                                                                 Packet 7540 send!                                 
+14:31:28.535     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7541    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.560     NETWORK                                                                                                                                 Packet 7541 send!                                 
+14:31:28.562     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7542    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.581     NETWORK                                                                                                                                 Packet 7542 send!                                 
+14:31:28.582     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7543    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.602     NETWORK                                                                                                                                 Packet 7543 send!                                 
+14:31:28.603     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7544    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.611     NETWORK                                                                                                                                 Packet 7544 send!                                 
+14:31:28.612     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7545    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.618     NETWORK                                                                                                                                 Packet 7545 send!                                 
+14:31:28.625     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7546    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.631     NETWORK                                                                                                                                 Packet 7546 send!                                 
+14:31:28.632     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7547    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.637     NETWORK                                                                                                                                 Packet 7547 send!                                 
+14:31:28.639     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7548    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.644     NETWORK                                                                                                                                 Packet 7548 send!                                 
+14:31:28.655     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7549    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.667     NETWORK                                                                                                                                 Packet 7549 send!                                 
+14:31:28.669     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          7550    ACK     8356                             0           Sending Ack: 8356                                 
+14:31:28.710     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:31:28.711     SendTimer                127.0.1.1:5555           127.0.0.1:10500          7551    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+14:31:28.724     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+14:31:28.725     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+14:31:28.750     NETWORK                                                                                                                                 Packet 7551 send!                                 
+14:31:28.761     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:57783
+14:31:28.768     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+14:31:28.769     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         

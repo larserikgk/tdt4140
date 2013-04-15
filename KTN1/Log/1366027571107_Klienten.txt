@@ -1,0 +1,24 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:6:12.714      NETWORK                                                                                                                                 Packet 217 send!                                  
+14:6:12.716      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:6:12.733      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+14:6:12.814      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:57565
+14:6:12.837      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+14:6:12.840      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:6:12.842      AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          218     ACK     9959                             0           Sending Ack: 9959                                 
+14:6:12.855      NETWORK                                                                                                                                 Packet 218 send!                                  
+14:6:12.880      NETWORK                                                                                                                                 Packet 72 send!                                   
+14:6:12.899      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+14:6:12.901      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+14:6:12.902      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+14:6:18.233      NETWORK                                                                                                                                 Packet 100 send!                                  
+14:6:33.185      NETWORK                                                                                                                                 Packet 100 send!                                  

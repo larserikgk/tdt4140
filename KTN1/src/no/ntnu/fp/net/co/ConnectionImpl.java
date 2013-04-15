@@ -7,6 +7,7 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Collections;
@@ -27,12 +28,15 @@ import no.ntnu.fp.net.cl.KtnDatagram.Flag;
  * of the functionality, leaving message passing and error handling to this
  * implementation.
  * 
- * @author Sebjørn Birkeland and Stein Jakob Nordbø
+ * @author Sebjï¿½rn Birkeland and Stein Jakob Nordbï¿½
  * @see no.ntnu.fp.net.co.Connection
  * @see no.ntnu.fp.net.cl.ClSocket
  */
+
 public class ConnectionImpl extends AbstractConnection {
 
+	public final int ATTEMPTS = 10;
+	
 	/** Keeps track of the used ports for each server port. */
 	private static Map<Integer, Boolean> usedPorts = Collections.synchronizedMap(new HashMap<Integer, Boolean>());
 	/**
@@ -41,15 +45,12 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @param myPort
 	 *            - the local port to associate with this connection
 	 */
-	public ConnectionImpl(int myPort) {
+	public ConnectionImpl(int myPort) 
+	{
+		super();
+		usedPorts.put(myPort, true);
 		this.myPort = myPort;
-		try {
-			this.myAddress = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		this.myAddress = getIPv4Address();
 	}
 
 	private String getIPv4Address() {
@@ -76,32 +77,91 @@ public class ConnectionImpl extends AbstractConnection {
 	 */
 	public void connect(InetAddress remoteAddress, int remotePort) throws IOException,
 	SocketTimeoutException {
-		KtnDatagram syn = new KtnDatagram();
-		KtnDatagram synAck = new KtnDatagram();
+		if(state!=State.CLOSED)
+			throw new IllegalStateException();
+		
 		this.remoteAddress = remoteAddress.getHostAddress();
 		this.remotePort = remotePort;
-		syn.setDest_addr(this.remoteAddress);
-		syn.setDest_port(remotePort);
-		syn.setFlag(Flag.SYN);
-		syn.setSrc_addr(myAddress);
-		syn.setSrc_port(myPort);
+		
+		KtnDatagram syn = constructInternalPacket(Flag.SYN);
+		KtnDatagram synAck = null;		
+		
+		synAck = sendingDurr(syn, State.CLOSED, State.SYN_SENT);
+		
+		if(synAck==null)
+			throw new IOException();
+		
+		this.lastValidPacketReceived = synAck;
+		this.remotePort = synAck.getSrc_port();
+		
 		try {
-			simplySendPacket(syn);
-		} catch (ClException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			sendingAckDurr(synAck);
+		} catch (Exception e1) {
+			return;
 		}
-
-		while(true) {
-			synAck = receivePacket(true);
-			if(synAck != null) {
-				if(synAck.getFlag()==Flag.SYN_ACK && synAck.getSrc_addr().equals(remoteAddress.toString()) && synAck.getSrc_port() == remotePort){
-					sendAck(synAck, false);
-					return;
-				}
+		
+				
+		int attempts = ATTEMPTS;
+		
+		while(attempts-- > 0)
+		{
+			try{
+				sendAck(lastValidPacketReceived, false);
+				state = State.ESTABLISHED;
 			}
-
+			catch(SocketException e)
+			{
+				continue;
+			}
 		}
+		
+	}
+	
+	public KtnDatagram sendingDurr(KtnDatagram datagram, State before, State after)
+	{
+		KtnDatagram ack = null;
+		
+		int attempts = ATTEMPTS;
+		
+		while(!isValid(ack) && attempts-- > 0)
+		{
+			try{
+				this.state = before;
+				
+				simplySendPacket(datagram);
+				
+				this.state = after;
+				
+				ack = receiveAck();
+			}
+			catch(Exception e)
+			{}
+		}
+		
+		return ack;
+			
+	}
+	
+	public void sendingAckDurr(KtnDatagram datagram) throws Exception 
+	{
+		if(datagram.getFlag()==Flag.ACK)
+			throw new IllegalArgumentException("Flag:\t"+datagram.getFlag());
+		
+		int attempts = ATTEMPTS;
+		
+		while(attempts-- > 0)
+		{
+			try{
+				sendAck(datagram, false);
+				return;
+			}
+			catch(IOException e)
+			{
+				continue;
+			}
+		}
+		
+		throw new Exception();
 	}
 
 	/**
@@ -117,6 +177,7 @@ public class ConnectionImpl extends AbstractConnection {
 				if(syn.getFlag() == Flag.SYN) {
 					this.remoteAddress = syn.getSrc_addr();
 					this.remotePort = syn.getSrc_port();
+					
 					sendAck(syn, true);
 					while(true) {
 						KtnDatagram ack = receivePacket(true);
@@ -145,21 +206,24 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see no.ntnu.fp.net.co.Connection#send(String)
 	 */
 	public void send(String msg) throws ConnectException, IOException {
-		KtnDatagram packet = new KtnDatagram();
-		packet.setPayload(msg);
-		packet.setDest_addr(remoteAddress);
-		packet.setDest_port(remotePort);
-		packet.setSrc_addr(myAddress);
-		packet.setSrc_port(myPort);
-		packet.setFlag(Flag.NONE);
-		System.out.println((int)msg.getBytes()[0]); 
-		packet.setSeq_nr((int)msg.getBytes()[0]); 
-		try {
-			simplySendPacket(packet);
-		} catch (ClException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if(state!=State.ESTABLISHED)
+			return;
+		
+		KtnDatagram packet 	= constructDataPacket(msg);
+		KtnDatagram ack		= null;
+		
+		int attempts = ATTEMPTS;
+		
+		while(attempts-- > 0)
+			if(isValid(ack = sendDataPacketWithRetransmit(packet)))
+			{
+				lastValidPacketReceived = ack;
+				//lastDataPacketSent = packet;
+				return;
+			}
+		
+		state= State.CLOSED;
+		throw new IOException();
 	}
 
 	/**
@@ -174,7 +238,7 @@ public class ConnectionImpl extends AbstractConnection {
 		KtnDatagram packet = new KtnDatagram();
 		while(true) {
 			packet =  receivePacket(false);
-			if(packet.getSrc_addr().equals(remoteAddress) && packet.getSrc_port() == remotePort && packet.getFlag() == Flag.NONE) {
+			if(packet.getSrc_addr().equals(remoteAddress) && packet.getSrc_port() == remotePort) {
 				sendAck(packet, false);
 				return (String) packet.getPayload();
 			}
@@ -218,6 +282,32 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @return true if packet is free of errors, false otherwise.
 	 */
 	protected boolean isValid(KtnDatagram packet) {
-		return true;
+		if(packet==null)
+			return false;
+		if(packet.getChecksum() != packet.calculateChecksum())
+			return false;
+		
+		boolean addr, port;
+		
+		addr = packet.getSrc_addr().equals(remoteAddress);
+		port = packet.getSrc_port() == remotePort;
+		
+		switch(state)
+		{
+		case CLOSED: 		return false;
+		case TIME_WAIT:
+		case CLOSE_WAIT:
+		case FIN_WAIT_2: 	return addr && port && packet.getFlag()==Flag.FIN;
+		case LISTEN: 		return packet.getFlag()==Flag.SYN;
+		case ESTABLISHED: 	return 	 ((packet.getFlag() == Flag.NONE || packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.FIN)
+										&& (packet.getFlag() == Flag.NONE || packet.getAck() == lastDataPacketSent.getSeq_nr())
+										&& (packet.getFlag() == Flag.ACK || packet.getSeq_nr() > lastValidPacketReceived.getSeq_nr())
+										&& addr && port);
+		case LAST_ACK:
+		case FIN_WAIT_1:
+		case SYN_RCVD: 		return addr && port && packet.getFlag()==Flag.ACK;
+		case SYN_SENT: 		return packet.getFlag()==Flag.SYN_ACK;
+		default:			return false;
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package tull.test.tøys;
+package tull.test.tÃ¸ys;
 
 public class BareTull {
 

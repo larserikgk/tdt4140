@@ -1,0 +1,22 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14:5:31.124      NETWORK                                                                                                                                 Packet 5514 send!                                 
+14:5:31.126      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+14:5:31.145      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+14:5:31.226      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:57558
+14:5:31.248      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+14:5:31.250      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+14:5:31.252      AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          5515    ACK     2801                             0           Sending Ack: 2801                                 
+14:5:31.265      NETWORK                                                                                                                                 Packet 5515 send!                                 
+14:5:31.294      NETWORK                                                                                                                                 Packet 72 send!                                   
+14:5:31.321      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+14:5:31.322      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+14:5:31.324      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
