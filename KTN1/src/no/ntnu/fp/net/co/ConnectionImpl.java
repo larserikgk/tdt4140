@@ -152,7 +152,8 @@ public class ConnectionImpl extends AbstractConnection {
 		while(attempts-- > 0)
 		{
 			try{
-				sendAck(datagram, false);
+				System.out.println("Teit test.");
+				sendAck(datagram, datagram.getFlag()==Flag.SYN);
 				return;
 			}
 			catch(IOException e)
@@ -171,26 +172,51 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see Connection#accept()
 	 */
 	public Connection accept() throws IOException, SocketTimeoutException {
-		while(true) {
-			KtnDatagram syn = receivePacket(true);
-			if(syn != null) {
-				if(syn.getFlag() == Flag.SYN) {
-					this.remoteAddress = syn.getSrc_addr();
-					this.remotePort = syn.getSrc_port();
-					
-					sendAck(syn, true);
-					while(true) {
-						KtnDatagram ack = receivePacket(true);
-						if(ack != null) {
-							if(ack.getFlag() == Flag.ACK && ack.getSrc_addr().equals(remoteAddress) && ack.getSrc_port() == remotePort) {
-								return this;
-							}
-						}
-
-					}
-				}
+		if(state!=State.CLOSED)
+			throw new IllegalStateException();
+		state = State.LISTEN;
+		
+		KtnDatagram syn = null;
+		
+		while(!isValid(syn))
+			try{
+				syn = receivePacket(true);
+			}catch(Exception e){}
+		
+		ConnectionImpl connection = new ConnectionImpl(getNewPort());
+		connection.remoteAddress = syn.getSrc_addr(); 
+		connection.remotePort = syn.getSrc_port();
+		connection.state = State.SYN_RCVD;
+		KtnDatagram ack = null;
+		try{
+			int attempts = ATTEMPTS;
+			
+			while(!connection.isValid(ack) && attempts-- > 0)
+			{
+				connection.sendAck(syn, true);
+				ack = connection.receiveAck();
 			}
+		}catch(Exception e)
+		{}
+		
+		state = State.CLOSED;
+		
+		if(isValid(ack))
+		{
+			connection.state = State.ESTABLISHED;
+			connection.lastValidPacketReceived = ack;
+			return connection;
 		}
+		else 
+			throw new IOException();
+	}
+	
+	public static int getNewPort()
+	{
+		for(int i = 1001; i <= 9999; i++)
+			if(!usedPorts.containsValue(i))
+				return i;
+		return -1;
 	}
 
 	/**
@@ -198,7 +224,7 @@ public class ConnectionImpl extends AbstractConnection {
 	 * 
 	 * @param msg
 	 *            - the String to be sent.
-	 * @throws ConnectException
+	 * @throws Exception
 	 *             If no connection exists.
 	 * @throws IOException
 	 *             If no ACK was received.

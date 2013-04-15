@@ -1,0 +1,148 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:16:57.326     NETWORK                                                                                                                                 Packet 8315 send!                                 
+15:16:57.329     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:16:57.345     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:16:57.485     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:58355
+15:16:57.509     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+15:16:57.522     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:16:57.524     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8316    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.539     NETWORK                                                                                                                                 Packet 8316 send!                                 
+15:16:57.545     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8317    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.582     NETWORK                                                                                                                                 Packet 8317 send!                                 
+15:16:57.584     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8318    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.592     NETWORK                                                                                                                                 Packet 8318 send!                                 
+15:16:57.593     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8319    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.600     NETWORK                                                                                                                                 Packet 8319 send!                                 
+15:16:57.601     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8320    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.607     NETWORK                                                                                                                                 Packet 8320 send!                                 
+15:16:57.609     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8321    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.615     NETWORK                                                                                                                                 Packet 8321 send!                                 
+15:16:57.623     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8322    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.629     NETWORK                                                                                                                                 Packet 8322 send!                                 
+15:16:57.631     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8323    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.636     NETWORK                                                                                                                                 Packet 8323 send!                                 
+15:16:57.638     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8324    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.645     NETWORK                                                                                                                                 Packet 8324 send!                                 
+15:16:57.667     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8325    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.677     NETWORK                                                                                                                                 Packet 8325 send!                                 
+15:16:57.678     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          8326    ACK     5430                             0           Sending Ack: 5430                                 
+15:16:57.688     NETWORK                                                                                                                                 Packet 8326 send!                                 
+15:16:57.708     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:16:57.709     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:16:57.715     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:16:57.716     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:16:57.724     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:16:58.509     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:16:58.517     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:16:59.309     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:16:59.316     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:0.109      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:0.117      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:0.511      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:0.515      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:0.518      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:0.522      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:0.539      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:1.311      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:1.321      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:2.111      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:2.122      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:2.911      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:2.919      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:3.316      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:3.328      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:3.329      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:3.330      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:3.334      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:4.117      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:4.125      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:4.917      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:4.925      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:5.717      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:5.725      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:6.120      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:6.122      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:6.124      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:6.129      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:6.135      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:6.920      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:6.925      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:7.721      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:7.728      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:8.521      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:8.528      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:8.924      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:8.927      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:8.928      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:8.930      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:8.941      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:9.724      SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:9.731      NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:10.524     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:10.531     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:11.325     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:11.332     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:11.727     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:11.730     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:11.731     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:11.733     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:11.765     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:12.527     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:12.534     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:13.328     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:13.335     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:14.127     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:14.134     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:14.531     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:14.534     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:14.534     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:14.535     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:14.545     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:15.331     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:15.338     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:16.131     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:16.145     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:16.932     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:16.939     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:17.333     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:17.338     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:17.338     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:17.339     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:17.348     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:18.134     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:18.141     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:18.933     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:18.940     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:19.733     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:19.740     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:20.137     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:20.142     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:20.144     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:20.146     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:20.151     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:20.938     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:20.945     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:21.738     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:21.745     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:22.537     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:22.544     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:22.942     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:17:22.945     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:17:22.946     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:17:22.947     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:17:22.954     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:23.743     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:17:23.750     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:24.543     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:17:24.550     NETWORK                                                                                                                                 Packet 8327 send!                                 
+15:17:25.343     SendTimer                127.0.1.1:5555           127.0.0.1:10500          8327    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:17:25.353     NETWORK                                                                                                                                 Packet 8327 send!                                 

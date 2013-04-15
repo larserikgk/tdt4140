@@ -1,0 +1,83 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:53:16.979     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:53:17.40      CLSocket::receive                                                                                                                       Receiving at:10500                                
+15:53:19.782     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:53:19.787     CLSocket::receive                                                                                                                       Receiving at:10500                                
+15:53:19.792     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:53:22.587     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:53:22.594     CLSocket::receive                                                                                                                       Receiving at:10500                                
+15:53:22.612     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:53:22.678     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:39133
+15:53:22.911     CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+15:53:22.913     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+15:53:22.916     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9172    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:22.976     NETWORK                                                                                                                                 Packet 9172 send!                                 
+15:53:22.978     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:22.999     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.23      ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.43      AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9173    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.63      NETWORK                                                                                                                                 Packet 9173 send!                                 
+15:53:23.65      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.68      CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.78      ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.89      AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9174    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.100     NETWORK                                                                                                                                 Packet 9174 send!                                 
+15:53:23.108     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.123     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.125     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.134     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9175    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.144     NETWORK                                                                                                                                 Packet 9175 send!                                 
+15:53:23.145     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.160     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.161     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.179     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9176    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.188     NETWORK                                                                                                                                 Packet 9176 send!                                 
+15:53:23.190     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.195     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.197     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.219     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9177    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.225     NETWORK                                                                                                                                 Packet 9177 send!                                 
+15:53:23.226     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.228     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.232     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.245     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9178    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.250     NETWORK                                                                                                                                 Packet 9178 send!                                 
+15:53:23.252     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.255     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.280     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.290     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9179    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.296     NETWORK                                                                                                                                 Packet 9179 send!                                 
+15:53:23.297     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.298     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.300     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.314     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9180    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.318     NETWORK                                                                                                                                 Packet 9180 send!                                 
+15:53:23.319     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.324     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.339     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.343     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           9181    SYN_ACK 4410                             0           Sending Ack: 4410                                 
+15:53:23.348     NETWORK                                                                                                                                 Packet 9181 send!                                 
+15:53:23.349     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:23.350     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+15:53:23.352     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+15:53:23.356     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:53:23.359     CLSocket::receive                                                                                                                       Receiving at:10500                                
+15:53:23.370     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:53:26.160     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:53:26.162     CLSocket::receive                                                                                                                       Receiving at:10500                                
+15:53:26.163     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:53:28.962     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:53:28.965     CLSocket::receive                                                                                                                       Receiving at:10500                                
+15:53:28.966     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:53:31.764     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+15:53:31.767     CLSocket::receive                                                                                                                       Receiving at:10500                                
+15:53:31.769     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        

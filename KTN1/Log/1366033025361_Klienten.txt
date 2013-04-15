@@ -1,0 +1,26 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:37:7.7        NETWORK                                                                                                                                 Packet 7582 send!                                 
+15:37:7.10       AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:37:7.32       CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:37:7.103      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:58594
+15:37:7.125      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+15:37:7.129      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:37:7.131      AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:7.568      AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:7.997      AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:8.425      AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:8.852      AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:9.276      AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:9.699      AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:10.128     AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:10.565     AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 
+15:37:10.993     AbstractConnection       127.0.1.1:5555           127.0.0.1:1              7583    ACK     4335                             0           Sending Ack: 4335                                 

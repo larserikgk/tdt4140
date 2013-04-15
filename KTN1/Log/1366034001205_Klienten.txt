@@ -1,0 +1,22 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:53:22.829     NETWORK                                                                                                                                 Packet 4410 send!                                 
+15:53:22.837     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:53:22.848     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:53:22.931     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:58889
+15:53:22.957     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+15:53:22.967     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:53:22.969     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           4411    ACK     9172                             0           Sending Ack: 9172                                 
+15:53:23.389     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           4411    ACK     9172                             0           Sending Ack: 9172                                 
+15:53:23.825     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           4411    ACK     9172                             0           Sending Ack: 9172                                 
+15:53:24.260     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           4411    ACK     9172                             0           Sending Ack: 9172                                 
+15:53:24.692     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           4411    ACK     9172                             0           Sending Ack: 9172                                 
+15:53:25.121     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           4411    ACK     9172                             0           Sending Ack: 9172                                 
