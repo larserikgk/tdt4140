@@ -235,14 +235,34 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see AbstractConnection#sendAck(KtnDatagram, boolean)
 	 */
 	public String receive() throws ConnectException, IOException {
-		KtnDatagram packet = new KtnDatagram();
-		while(true) {
-			packet =  receivePacket(false);
-			if(packet.getSrc_addr().equals(remoteAddress) && packet.getSrc_port() == remotePort) {
-				sendAck(packet, false);
-				return (String) packet.getPayload();
-			}
+		if(state != State.ESTABLISHED)
+			throw new IllegalStateException();
+		
+		KtnDatagram packet = null;
+		
+		try{
+			packet = receivePacket(false);
 		}
+		catch(EOFException e)
+		{}
+		
+		if(isValid(packet) && packet.getSeq_nr()==lastValidPacketReceived.getPayloadAsBytes().length+lastValidPacketReceived.getSeq_nr())
+		{
+			lastValidPacketReceived = packet;
+			try {
+				sendingAckDurr(packet);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return (String)packet.getPayload();
+		}
+		try {
+			sendingAckDurr(lastValidPacketReceived);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return receive();
 	}
 
 	/**
