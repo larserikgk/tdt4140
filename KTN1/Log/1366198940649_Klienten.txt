@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:42:21.516     NETWORK                                                                                                                                 Packet 3045 send!                                 
+13:42:21.517     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:42:21.520     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+13:42:21.585     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:43263
+13:42:21.597     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+13:42:21.598     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:42:21.600     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           3046    ACK     5569                             0           Sending Ack: 5569                                 

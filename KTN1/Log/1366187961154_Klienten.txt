@@ -1,0 +1,26 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10:39:22.99      NETWORK                                                                                                                                 Packet 5765 send!                                 
+10:39:22.101     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+10:39:22.104     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+10:39:22.171     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:41829
+10:39:22.182     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+10:39:22.184     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+10:39:22.186     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:22.604     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:23.22      AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:23.436     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:23.846     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:24.259     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:24.671     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:25.84      AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:25.494     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 
+10:39:25.908     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5766    ACK     3880                             0           Sending Ack: 3880                                 

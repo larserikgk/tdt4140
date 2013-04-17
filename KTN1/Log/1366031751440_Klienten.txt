@@ -1,0 +1,67 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:15:52.640     NETWORK                                                                                                                                 Packet 4560 send!                                 
+15:15:52.642     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:15:52.646     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:15:52.698     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:34610
+15:15:52.713     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+15:15:52.715     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:15:52.716     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4561    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.720     NETWORK                                                                                                                                 Packet 4561 send!                                 
+15:15:52.722     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4562    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.727     NETWORK                                                                                                                                 Packet 4562 send!                                 
+15:15:52.729     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4563    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.734     NETWORK                                                                                                                                 Packet 4563 send!                                 
+15:15:52.735     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4564    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.742     NETWORK                                                                                                                                 Packet 4564 send!                                 
+15:15:52.744     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4565    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.749     NETWORK                                                                                                                                 Packet 4565 send!                                 
+15:15:52.750     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4566    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.755     NETWORK                                                                                                                                 Packet 4566 send!                                 
+15:15:52.756     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4567    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.759     NETWORK                                                                                                                                 Packet 4567 send!                                 
+15:15:52.760     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4568    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.762     NETWORK                                                                                                                                 Packet 4568 send!                                 
+15:15:52.763     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4569    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.768     NETWORK                                                                                                                                 Packet 4569 send!                                 
+15:15:52.769     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4570    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.773     NETWORK                                                                                                                                 Packet 4570 send!                                 
+15:15:52.774     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          4571    ACK     6301                             0           Sending Ack: 6301                                 
+15:15:52.776     NETWORK                                                                                                                                 Packet 4571 send!                                 
+15:15:52.779     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:15:52.780     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:15:52.785     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:15:52.785     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:15:52.787     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:53.579     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:15:53.584     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:54.380     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:15:54.384     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:55.179     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:15:55.184     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:55.581     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:15:55.582     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:15:55.583     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:15:55.584     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:15:55.587     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:56.382     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:15:56.387     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:57.182     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:15:57.186     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:57.981     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:15:57.986     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:58.384     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:15:58.386     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:15:58.386     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:15:58.387     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:15:58.389     NETWORK                                                                                                                                 Packet 4572 send!                                 
+15:15:59.184     SendTimer                127.0.1.1:5555           127.0.0.1:10500          4572    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:15:59.188     NETWORK                                                                                                                                 Packet 4572 send!                                 

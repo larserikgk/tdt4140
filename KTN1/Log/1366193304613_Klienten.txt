@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12:8:25.477      NETWORK                                                                                                                                 Packet 4940 send!                                 
+12:8:25.479      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+12:8:25.481      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+12:8:25.538      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:43155
+12:8:25.550      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+12:8:25.552      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+12:8:25.554      AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           4941    ACK     906                              0           Sending Ack: 906                                  

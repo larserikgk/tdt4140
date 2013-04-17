@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:56:10.98      NETWORK                                                                                                                                 Packet 9122 send!                                 
+13:56:10.110     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:56:10.118     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+13:56:10.164     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:43284
+13:56:10.173     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+13:56:10.174     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:56:10.176     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           9123    ACK     4032                             0           Sending Ack: 4032                                 

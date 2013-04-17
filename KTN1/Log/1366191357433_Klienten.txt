@@ -1,0 +1,45 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11:35:58.370     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.372     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.376     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.381     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.388     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.390     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.395     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.401     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.423     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.424     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.432     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.433     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.438     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.440     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.441     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.443     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.449     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.450     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.459     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.460     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.465     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.466     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.468     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.469     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.475     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.476     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.477     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.478     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.484     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.484     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.487     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.488     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.494     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.494     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.496     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.496     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+11:35:58.500     NETWORK                                                                                                                                 Packet 4125 send!                                 
+11:35:58.501     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:35:58.502     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:35:58.503     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 

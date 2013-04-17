@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+21:48:34.422     NETWORK                                                                                                                                 Packet 3615 send!                                 
+21:48:34.424     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+21:48:34.428     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+21:48:34.484     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:45373
+21:48:34.496     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+21:48:34.497     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+21:48:34.499     AbstractConnection       127.0.1.1:5555           127.0.1.1:1001           3616    ACK     523                              0           Sending Ack: 523                                  

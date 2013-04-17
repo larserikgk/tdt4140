@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11:41:16.437     NETWORK                                                                                                                                 Packet 8641 send!                                 
+11:41:16.439     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:41:16.442     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:41:16.503     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:42788
+11:41:16.514     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+11:41:16.516     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+11:41:16.518     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           8642    ACK     3703                             0           Sending Ack: 3703                                 

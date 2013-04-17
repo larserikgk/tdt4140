@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11:20:33.862     NETWORK                                                                                                                                 Packet 4670 send!                                 
+11:20:33.863     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:20:33.865     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:20:33.929     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:42661
+11:20:33.940     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+11:20:33.942     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+11:20:33.944     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           4671    ACK     7406                             0           Sending Ack: 7406                                 

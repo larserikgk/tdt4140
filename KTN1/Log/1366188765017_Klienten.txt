@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10:52:45.933     NETWORK                                                                                                                                 Packet 2533 send!                                 
+10:52:45.935     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+10:52:45.939     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+10:52:46.12      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:42002
+10:52:46.25      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+10:52:46.26      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+10:52:46.27      AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           2534    ACK     7735                             0           Sending Ack: 7735                                 

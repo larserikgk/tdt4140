@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11:27:39.477     NETWORK                                                                                                                                 Packet 424 send!                                  
+11:27:39.478     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:27:39.484     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:27:39.547     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:42712
+11:27:39.561     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+11:27:39.563     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+11:27:39.565     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           425     ACK     3966                             0           Sending Ack: 3966                                 

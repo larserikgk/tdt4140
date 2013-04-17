@@ -308,7 +308,8 @@ public abstract class AbstractConnection implements Connection {
             }
         }
         while (!sent && (tries-- > 0));
-    
+        
+        System.out.println("sent: " + sent);
         if (!sent) {
             nextSequenceNo--;
             throw new ConnectException("Unable to send ACK.");

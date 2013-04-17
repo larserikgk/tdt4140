@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+21:38:56.503     NETWORK                                                                                                                                 Packet 9223 send!                                 
+21:38:56.505     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+21:38:56.508     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+21:38:56.564     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:45355
+21:38:56.577     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+21:38:56.579     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+21:38:56.581     AbstractConnection       127.0.1.1:5555           127.0.1.1:1001           9224    ACK     8843                             0           Sending Ack: 8843                                 

@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10:43:27.796     NETWORK                                                                                                                                 Packet 8583 send!                                 
+10:43:27.798     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+10:43:27.802     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+10:43:27.848     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:41882
+10:43:27.867     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+10:43:27.868     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+10:43:27.870     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           8584    ACK     8209                             0           Sending Ack: 8209                                 

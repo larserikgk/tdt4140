@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10:51:26.514     NETWORK                                                                                                                                 Packet 5191 send!                                 
+10:51:26.516     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+10:51:26.520     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+10:51:26.593     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:41995
+10:51:26.608     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+10:51:26.610     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+10:51:26.612     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           5192    ACK     379                              0           Sending Ack: 379                                  

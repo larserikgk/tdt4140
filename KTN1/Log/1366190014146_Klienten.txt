@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11:13:35.48      NETWORK                                                                                                                                 Packet 8720 send!                                 
+11:13:35.50      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:13:35.54      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:13:35.128     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:42406
+11:13:35.141     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+11:13:35.143     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+11:13:35.145     AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           8721    ACK     7733                             0           Sending Ack: 7733                                 

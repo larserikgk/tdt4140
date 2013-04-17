@@ -1,0 +1,9 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11:34:55.785     NETWORK                                                                                                                                 Packet 5238 send!                                 
+11:34:55.787     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+11:34:55.790     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+11:34:55.795     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 

@@ -1,0 +1,17 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10:49:3.462      NETWORK                                                                                                                                 Packet 2603 send!                                 
+10:49:3.463      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+10:49:3.467      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+10:49:3.520      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:41981
+10:49:3.532      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+10:49:3.534      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+10:49:3.535      AbstractConnection       127.0.1.1:5555           127.0.0.1:1001           2604    ACK     1245                             0           Sending Ack: 1245                                 

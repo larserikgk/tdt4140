@@ -35,7 +35,7 @@ import no.ntnu.fp.net.cl.KtnDatagram.Flag;
 
 public class ConnectionImpl extends AbstractConnection {
 
-	public final int ATTEMPTS = 10;
+	public final int ATTEMPTS = 2;
 	
 	/** Keeps track of the used ports for each server port. */
 	private static Map<Integer, Boolean> usedPorts = Collections.synchronizedMap(new HashMap<Integer, Boolean>());
@@ -55,6 +55,7 @@ public class ConnectionImpl extends AbstractConnection {
 
 	private String getIPv4Address() {
 		try {
+			System.out.println("IP: " + InetAddress.getLocalHost().getHostAddress());
 			return InetAddress.getLocalHost().getHostAddress();
 		}
 		catch (UnknownHostException e) {
@@ -75,74 +76,77 @@ public class ConnectionImpl extends AbstractConnection {
 	 *             If timeout expires before connection is completed.
 	 * @see Connection#connect(InetAddress, int)
 	 */
-	public void connect(InetAddress remoteAddress, int remotePort) throws IOException,
-	SocketTimeoutException {
+	public void connect(InetAddress remoteAddress, int remotePort) throws IOException,SocketTimeoutException {
+				
 		if(state!=State.CLOSED)
-			throw new IllegalStateException();
+			throw new IllegalStateException("VI er av en aller annet teit grunn ikke closed");
 		
-		this.remoteAddress = remoteAddress.getHostAddress();
+		//det vi skal koble oss på. 
+		
+		//this.remoteAddress = remoteAddress.getHostAddress();  
+		this.remoteAddress = "127.0.1.1"; 
 		this.remotePort = remotePort;
 		
-		KtnDatagram syn = constructInternalPacket(Flag.SYN);
+		//opprette en syn vi skal sende. 
+		KtnDatagram syn = constructInternalPacket(Flag.SYN);		
 		KtnDatagram synAck = null;		
 		
-		synAck = sendingDurr(syn, State.CLOSED, State.SYN_SENT);
 		
-		if(synAck==null)
-			throw new IOException();
+		//vi sender en syn, og mottar synAck. 
+		synAck = sendingDurr(syn, State.CLOSED, State.SYN_SENT);
+		System.out.println("STATE: " + this.state);
+		
+		//første mottat skal være SYN_ACK
+		if(synAck == null || synAck.getFlag()!= Flag.SYN_ACK)
+			throw new IOException("Flag er ikke SYN_ACK" + synAck.getFlag());
 		
 		this.lastValidPacketReceived = synAck;
+		System.out.println("synAck Port" + synAck.getSrc_port());
 		this.remotePort = synAck.getSrc_port();
 		
+
+		
+		//sender ACK på SYN_ACK vi mottokk. 
 		try {
-			sendingAckDurr(synAck);
+			sendAck(synAck, false); //innebygd 3 forsøk. Tror jeg.
+			state = State.ESTABLISHED; 
 		} catch (Exception e1) {
-			return;
-		}
-		
-				
-		int attempts = ATTEMPTS;
-		
-		while(attempts-- > 0)
-		{
-			try{
-				sendAck(lastValidPacketReceived, false);
-				state = State.ESTABLISHED;
-			}
-			catch(SocketException e)
-			{
-				continue;
-			}
-		}
-		
+			e1.printStackTrace();
+		}		
 	}
 	
+	//første gang skal ack være SYN_ACK
+	// datagram er SYN
 	public KtnDatagram sendingDurr(KtnDatagram datagram, State before, State after)
 	{
+		//pakken vi mottar og skal sjekke. 
 		KtnDatagram ack = null;
 		
 		int attempts = ATTEMPTS;
 		
+		//state på state
 		while(!isValid(ack) && attempts-- > 0)
 		{
 			try{
-				this.state = before;
 				
-				simplySendPacket(datagram);
-				
-				this.state = after;
+				this.state = before;				
+				simplySendPacket(datagram);				
+				this.state = after; 
 				
 				ack = receiveAck();
 			}
 			catch(Exception e)
-			{}
+			{
+				e.printStackTrace(); 
+			}
 		}
 		
+		System.out.println(isValid(ack));
 		return ack;
 			
 	}
 	
-	public void sendingAckDurr(KtnDatagram datagram) throws Exception 
+	public void sendAckDurr(KtnDatagram datagram) throws Exception 
 	{
 		if(datagram.getFlag()==Flag.ACK)
 			throw new IllegalArgumentException("Flag:\t"+datagram.getFlag());
@@ -153,15 +157,21 @@ public class ConnectionImpl extends AbstractConnection {
 		{
 			try{
 				System.out.println("Teit test.");
+				System.out.println("flagget skal ikke være SYN: " + (datagram.getFlag()==Flag.SYN));
 				sendAck(datagram, datagram.getFlag()==Flag.SYN);
 				return;
+			}
+			catch(ConnectException c)
+			{
+				System.out.println("liten penis");
 			}
 			catch(IOException e)
 			{
 				continue;
 			}
+			
 		}
-		
+		System.out.println("chill pill");
 		throw new Exception();
 	}
 
@@ -172,37 +182,55 @@ public class ConnectionImpl extends AbstractConnection {
 	 * @see Connection#accept()
 	 */
 	public Connection accept() throws IOException, SocketTimeoutException {
+		
 		if(state!=State.CLOSED)
-			throw new IllegalStateException();
+			throw new IllegalStateException("Vi står ikke i closed");
+		
+		//Server er nå i Listen
 		state = State.LISTEN;
 		
+		//synen vi mottar
 		KtnDatagram syn = null;
 		
+		
 		while(!isValid(syn))
+		{
 			try{
 				syn = receivePacket(true);
-			}catch(Exception e){}
+			}catch(Exception e){
+				e.printStackTrace(); 
+			}
+		}
+		
+		//den som skal være i SYn_receive skal egentlig være en annen instans.
+		
 		
 		ConnectionImpl connection = new ConnectionImpl(getNewPort());
 		connection.remoteAddress = syn.getSrc_addr(); 
 		connection.remotePort = syn.getSrc_port();
+		connection.state = State.LISTEN; 
 		connection.state = State.SYN_RCVD;
+		System.out.println(this.myPort);
+		System.out.println(connection.myPort);
+		System.out.println(connection.myAddress);
 		KtnDatagram ack = null;
 		try{
 			int attempts = ATTEMPTS;
 			
 			while(!connection.isValid(ack) && attempts-- > 0)
 			{
-				connection.sendAck(syn, true);
+				connection.sendAck(syn, true); //sender SYN_ACK
 				ack = connection.receiveAck();
 			}
 		}catch(Exception e)
-		{}
-		
-		state = State.CLOSED;
-		
-		if(isValid(ack))
 		{
+			e.printStackTrace(); 
+		}
+		
+		state = State.CLOSED; //STENGER
+		
+		if(connection.isValid(ack))
+		{			
 			connection.state = State.ESTABLISHED;
 			connection.lastValidPacketReceived = ack;
 			return connection;
@@ -215,7 +243,10 @@ public class ConnectionImpl extends AbstractConnection {
 	{
 		for(int i = 1001; i <= 9999; i++)
 			if(!usedPorts.containsValue(i))
+			{
+				usedPorts.put(i, true); 
 				return i;
+			}
 		return -1;
 	}
 
@@ -262,7 +293,7 @@ public class ConnectionImpl extends AbstractConnection {
 	 */
 	public String receive() throws ConnectException, IOException {
 		if(state != State.ESTABLISHED)
-			throw new IllegalStateException();
+			throw new IllegalStateException("SWAG: receive");
 		
 		KtnDatagram packet = null;
 		
@@ -276,14 +307,14 @@ public class ConnectionImpl extends AbstractConnection {
 		{
 			lastValidPacketReceived = packet;
 			try {
-				sendingAckDurr(packet);
+				sendAck(packet, false);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return (String)packet.getPayload();
 		}
 		try {
-			sendingAckDurr(lastValidPacketReceived);
+			sendAck(lastValidPacketReceived, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -329,28 +360,41 @@ public class ConnectionImpl extends AbstractConnection {
 	 */
 	protected boolean isValid(KtnDatagram packet) {
 		if(packet==null)
+		{
+			System.out.println("Packet var null");
 			return false;
+		}
 		if(packet.getChecksum() != packet.calculateChecksum())
+		{
+			System.out.println("CHECKSUM FEIL");
 			return false;
+		}
 		
 		boolean addr, port;
 		
 		addr = packet.getSrc_addr().equals(remoteAddress);
 		port = packet.getSrc_port() == remotePort;
+		System.out.println("addr:  " + addr);
+		System.out.println("port:  " + port);
+		System.out.println("Flag: " + packet.getFlag());
 		
 		switch(state)
 		{
-		case CLOSED: 		return false;
-		case TIME_WAIT:
-		case CLOSE_WAIT:
+		case CLOSED: 		return false;  
+		case TIME_WAIT: 	return false; 
+		case CLOSE_WAIT: 	return false; //forandret 
 		case FIN_WAIT_2: 	return addr && port && packet.getFlag()==Flag.FIN;
-		case LISTEN: 		return packet.getFlag()==Flag.SYN;
-		case ESTABLISHED: 	return 	 ((packet.getFlag() == Flag.NONE || packet.getFlag() == Flag.ACK || packet.getFlag() == Flag.FIN)
-										&& (packet.getFlag() == Flag.NONE || packet.getAck() == lastDataPacketSent.getSeq_nr())
-										&& (packet.getFlag() == Flag.ACK || packet.getSeq_nr() > lastValidPacketReceived.getSeq_nr())
-										&& addr && port);
-		case LAST_ACK:
-		case FIN_WAIT_1:
+		case LISTEN: 		return packet.getFlag()==Flag.SYN; // return true hvis SYN.
+		case ESTABLISHED: 	return 		((packet.getFlag() == Flag.NONE) && (packet.getSeq_nr()>lastValidPacketReceived.getSeq_nr()) 
+				 						|| //eller
+				 						(packet.getFlag() == Flag.ACK && packet.getAck() == (lastDataPacketSent.getSeq_nr() + lastDataPacketSent.getPayloadAsBytes().length))
+				 						|| //eller
+										(packet.getFlag() == Flag.FIN)
+										) //og
+										&& addr && port
+				 						;		 							
+		case LAST_ACK:  	return addr && port && packet.getFlag()==Flag.ACK;
+		case FIN_WAIT_1:    return addr && port && packet.getFlag()==Flag.ACK;
 		case SYN_RCVD: 		return addr && port && packet.getFlag()==Flag.ACK;
 		case SYN_SENT: 		return packet.getFlag()==Flag.SYN_ACK;
 		default:			return false;

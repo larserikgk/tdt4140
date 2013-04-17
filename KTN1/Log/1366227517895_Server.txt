@@ -1,0 +1,206 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+21:38:38.425     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.444     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.453     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.461     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.464     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.466     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.470     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.472     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.473     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.478     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.480     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.482     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.484     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.486     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.488     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.491     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.492     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.493     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.496     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.497     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.499     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.503     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.506     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.507     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.512     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.514     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.516     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.520     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.522     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.524     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.528     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.530     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.531     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.540     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.542     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.543     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.548     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.549     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.550     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.554     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.556     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.557     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.561     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.562     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.563     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.565     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.566     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.568     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.569     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.571     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.573     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.576     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.578     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.579     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.582     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.597     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.598     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.600     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.601     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.602     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.605     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.605     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.606     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.613     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.614     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.615     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.618     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.629     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.630     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.632     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.647     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.648     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.650     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.652     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.653     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.665     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.675     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.676     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.679     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.685     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.686     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.689     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.696     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.696     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.698     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.699     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.700     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.703     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.707     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.707     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.709     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.745     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.746     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.748     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.755     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.756     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.758     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.759     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.760     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.762     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.763     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.764     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.767     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.768     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.769     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.772     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.772     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.773     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.776     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.777     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.778     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.781     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.782     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.782     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.785     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.786     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.787     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.790     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.791     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.791     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.792     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.793     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.793     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.795     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.795     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.796     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.797     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.798     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.798     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.799     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.800     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.800     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.801     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.802     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.803     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.804     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.804     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.805     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.806     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.807     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.807     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.809     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.810     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.810     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.811     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.812     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.813     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.814     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.815     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.816     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.817     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.818     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.819     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.820     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.821     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.821     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.823     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.824     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.825     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.827     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.828     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:38.828     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+21:38:38.830     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:38.832     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:41.632     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:41.633     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:41.633     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+21:38:44.433     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:44.435     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:44.435     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+21:38:47.235     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:47.236     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:47.236     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+21:38:50.36      AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:50.37      CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:50.37      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+21:38:52.837     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:52.838     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:52.838     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+21:38:55.638     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:55.639     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:55.640     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+21:38:56.455     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:48408
+21:38:56.553     CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+21:38:56.553     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+21:38:56.555     AbstractConnection       127.0.1.1:1001           127.0.1.1:5555           8843    SYN_ACK 9223                             0           Sending Ack: 9223                                 
+21:38:56.572     NETWORK                                                                                                                                 Packet 8843 send!                                 
+21:38:56.573     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+21:38:56.574     CLSocket::receive                                                                                                                       Receiving at:1001                                 
+21:38:56.575     ClSocketReceiver                                                                                                                        Exception while receiving: Permission denied      
+21:38:56.577     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:56.579     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:56.579     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+21:38:59.377     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+21:38:59.379     CLSocket::receive                                                                                                                       Receiving at:10500                                
+21:38:59.380     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        

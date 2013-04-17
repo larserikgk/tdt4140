@@ -1,0 +1,148 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15:18:42.124     NETWORK                                                                                                                                 Packet 6456 send!                                 
+15:18:42.126     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:18:42.129     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:18:42.175     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:34656
+15:18:42.188     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+15:18:42.189     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+15:18:42.191     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6457    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.196     NETWORK                                                                                                                                 Packet 6457 send!                                 
+15:18:42.198     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6458    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.209     NETWORK                                                                                                                                 Packet 6458 send!                                 
+15:18:42.210     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6459    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.215     NETWORK                                                                                                                                 Packet 6459 send!                                 
+15:18:42.216     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6460    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.219     NETWORK                                                                                                                                 Packet 6460 send!                                 
+15:18:42.220     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6461    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.224     NETWORK                                                                                                                                 Packet 6461 send!                                 
+15:18:42.226     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6462    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.230     NETWORK                                                                                                                                 Packet 6462 send!                                 
+15:18:42.231     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6463    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.236     NETWORK                                                                                                                                 Packet 6463 send!                                 
+15:18:42.237     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6464    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.240     NETWORK                                                                                                                                 Packet 6464 send!                                 
+15:18:42.241     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6465    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.244     NETWORK                                                                                                                                 Packet 6465 send!                                 
+15:18:42.244     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6466    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.249     NETWORK                                                                                                                                 Packet 6466 send!                                 
+15:18:42.250     AbstractConnection       127.0.1.1:5555           127.0.0.1:10500          6467    ACK     7491                             0           Sending Ack: 7491                                 
+15:18:42.254     NETWORK                                                                                                                                 Packet 6467 send!                                 
+15:18:42.257     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:18:42.258     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:18:42.259     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:18:42.259     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:18:42.262     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:43.58      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:18:43.62      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:43.858     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:18:43.862     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:44.658     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:18:44.662     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:45.59      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:18:45.61      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:18:45.62      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:18:45.63      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:18:45.66      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:45.859     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:18:45.864     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:46.659     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:18:46.664     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:47.459     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:18:47.464     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:47.862     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:18:47.863     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:18:47.863     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:18:47.864     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:18:47.868     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:48.663     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:18:48.665     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:49.463     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:18:49.467     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:50.262     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:18:50.267     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:50.664     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:18:50.666     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:18:50.668     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:18:50.669     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:18:50.670     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:51.464     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:18:51.468     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:52.264     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:18:52.267     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:53.64      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:18:53.69      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:53.467     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:18:53.468     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:18:53.468     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:18:53.469     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:18:53.471     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:54.267     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:18:54.270     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:55.67      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:18:55.70      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:55.868     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:18:55.871     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:56.270     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:18:56.270     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:18:56.271     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:18:56.272     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:18:56.278     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:57.70      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:18:57.75      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:57.871     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:18:57.874     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:58.670     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:18:58.673     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:59.74      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:18:59.75      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:18:59.76      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:18:59.76      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:18:59.80      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:18:59.874     SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:18:59.879     NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:0.674      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:19:0.679      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:1.474      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:19:1.477      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:1.878      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:19:1.879      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:19:1.881      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:1.882      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:19:1.882      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:19:2.678      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:19:2.681      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:3.478      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:19:3.482      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:4.278      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:19:4.281      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:4.681      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:19:4.682      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:19:4.683      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:19:4.684      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:19:4.687      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:5.482      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:19:5.486      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:6.281      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:19:6.286      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:7.81       SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:19:7.84       NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:7.484      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+15:19:7.484      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+15:19:7.485      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+15:19:7.485      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+15:19:7.488      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:8.283      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+15:19:8.286      NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:9.84       SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+15:19:9.86       NETWORK                                                                                                                                 Packet 6468 send!                                 
+15:19:9.883      SendTimer                127.0.1.1:5555           127.0.0.1:10500          6468    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+15:19:9.886      NETWORK                                                                                                                                 Packet 6468 send!                                 
