@@ -1,0 +1,33 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0:46:45.863      NETWORK                                                                                                                                 Packet 7572 send!                                 
+0:46:45.865      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+0:46:45.871      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+0:46:45.928      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:46189
+0:46:45.937      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+0:46:45.939      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+0:46:45.940      AbstractConnection       127.0.1.1:5555           127.0.0.1:2331           7573    ACK     5493                             0           Sending Ack: 5493                                 
+0:46:45.944      NETWORK                                                                                                                                 Packet 7573 send!                                 
+0:46:45.949      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+0:46:45.950      SendTimer                127.0.1.1:5555           127.0.0.1:2331           7574    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+0:46:45.951      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+0:46:45.953      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+0:46:45.957      NETWORK                                                                                                                                 Packet 7574 send!                                 
+0:46:46.749      SendTimer                127.0.1.1:5555           127.0.0.1:2331           7574    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+0:46:46.755      NETWORK                                                                                                                                 Packet 7574 send!                                 
+0:46:46.765      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:46193
+0:46:46.769      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+0:46:46.770      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         

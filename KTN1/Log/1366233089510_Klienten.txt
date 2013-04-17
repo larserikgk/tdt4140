@@ -1,0 +1,40 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+23:11:30.361     NETWORK                                                                                                                                 Packet 4809 send!                                 
+23:11:30.362     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:11:30.365     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:11:30.448     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:58891
+23:11:30.467     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+23:11:30.468     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+23:11:30.470     AbstractConnection       78.91.80.194:5555        129.241.163.242:2331     4810    ACK     6345                             0           Sending Ack: 6345                                 
+23:11:30.475     NETWORK                                                                                                                                 Packet 4810 send!                                 
+23:11:30.480     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:11:30.482     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4811    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+23:11:30.484     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:11:30.486     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+23:11:30.490     NETWORK                                                                                                                                 Packet 4811 send!                                 
+23:11:31.280     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4811    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+23:11:31.287     NETWORK                                                                                                                                 Packet 4811 send!                                 
+23:11:32.80      SendTimer                78.91.80.194:5555        129.241.163.242:2331     4811    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+23:11:32.87      NETWORK                                                                                                                                 Packet 4811 send!                                 
+23:11:32.880     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4811    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+23:11:32.888     NETWORK                                                                                                                                 Packet 4811 send!                                 
+23:11:33.284     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:11:33.285     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4811    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+23:11:33.287     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:11:33.289     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+23:11:33.294     NETWORK                                                                                                                                 Packet 4811 send!                                 
+23:11:34.84      SendTimer                78.91.80.194:5555        129.241.163.242:2331     4811    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+23:11:34.91      NETWORK                                                                                                                                 Packet 4811 send!                                 
+23:11:34.884     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4811    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+23:11:34.892     SendTimer                                                                                                                               ERROR: Could not establish a connection to 129.241.163.242:2331
+23:11:35.685     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4811    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+23:11:35.691     SendTimer                                                                                                                               ERROR: Could not establish a connection to 129.241.163.242:2331

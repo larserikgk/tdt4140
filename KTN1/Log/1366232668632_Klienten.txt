@@ -1,0 +1,40 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+23:4:29.592      NETWORK                                                                                                                                 Packet 3763 send!                                 
+23:4:29.593      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:4:29.596      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:4:29.685      CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:58871
+23:4:29.699      CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+23:4:29.700      AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+23:4:29.702      AbstractConnection       78.91.80.194:5555        129.241.163.242:2331     3764    ACK     5666                             0           Sending Ack: 5666                                 
+23:4:29.813      NETWORK                                                                                                                                 Packet 3764 send!                                 
+23:4:29.820      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:4:29.822      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:4:29.823      SendTimer                78.91.80.194:5555        129.241.163.242:2331     3765    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+23:4:29.825      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+23:4:29.831      NETWORK                                                                                                                                 Packet 3765 send!                                 
+23:4:30.619      SendTimer                78.91.80.194:5555        129.241.163.242:2331     3765    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+23:4:30.625      NETWORK                                                                                                                                 Packet 3765 send!                                 
+23:4:31.419      SendTimer                78.91.80.194:5555        129.241.163.242:2331     3765    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+23:4:31.427      NETWORK                                                                                                                                 Packet 3765 send!                                 
+23:4:32.220      SendTimer                78.91.80.194:5555        129.241.163.242:2331     3765    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+23:4:32.227      NETWORK                                                                                                                                 Packet 3765 send!                                 
+23:4:32.623      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:4:32.625      SendTimer                78.91.80.194:5555        129.241.163.242:2331     3765    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+23:4:32.626      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:4:32.627      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+23:4:32.632      NETWORK                                                                                                                                 Packet 3765 send!                                 
+23:4:33.424      SendTimer                78.91.80.194:5555        129.241.163.242:2331     3765    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+23:4:33.431      NETWORK                                                                                                                                 Packet 3765 send!                                 
+23:4:34.224      SendTimer                78.91.80.194:5555        129.241.163.242:2331     3765    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+23:4:34.231      NETWORK                                                                                                                                 Packet 3765 send!                                 
+23:4:35.23       SendTimer                78.91.80.194:5555        129.241.163.242:2331     3765    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+23:4:35.29       NETWORK                                                                                                                                 Packet 3765 send!                                 

@@ -1,0 +1,14 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+22:56:5.177      NETWORK                                                                                                                                 Packet 7231 send!                                 
+22:56:5.179      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+22:56:5.182      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+22:56:7.981      AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+22:56:7.983      CLSocket::receive                                                                                                                       Receiving at:5555                                 
+22:56:7.985      CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+22:56:10.783     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+22:56:10.786     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+22:56:10.788     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        

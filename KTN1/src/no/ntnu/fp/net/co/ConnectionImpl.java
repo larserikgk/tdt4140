@@ -83,9 +83,9 @@ public class ConnectionImpl extends AbstractConnection {
 		
 		//det vi skal koble oss på. 
 		
-		//this.remoteAddress = remoteAddress.getHostAddress();  
-		this.remoteAddress = "127.0.1.1"; 
+		this.remoteAddress = remoteAddress.getHostAddress();   
 		this.remotePort = remotePort;
+		this.myAddress = getIPv4Address(); 
 		
 		//opprette en syn vi skal sende. 
 		KtnDatagram syn = constructInternalPacket(Flag.SYN);		
@@ -125,25 +125,33 @@ public class ConnectionImpl extends AbstractConnection {
 		int attempts = ATTEMPTS;
 		
 		//state på state
-		while(!isValid(ack) && attempts-- > 0)
+		while(attempts-- > 1)
 		{
-			try{
-				
+			try{				
 				this.state = before;				
 				simplySendPacket(datagram);				
-				this.state = after; 
+				this.state = after;			
 				
-				ack = receiveAck();
 			}
 			catch(Exception e)
 			{
 				e.printStackTrace(); 
 			}
 		}
-		
-		System.out.println(isValid(ack));
-		return ack;
-			
+		int x = ATTEMPTS;
+		while(!isValid(ack) && x++ < 5)
+		{
+			try {
+				ack = receiveAck();
+			} catch (EOFException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+		}		
+		return ack;			
 	}
 	
 	public void sendAckDurr(KtnDatagram datagram) throws Exception 
@@ -207,12 +215,12 @@ public class ConnectionImpl extends AbstractConnection {
 		
 		ConnectionImpl connection = new ConnectionImpl(getNewPort());
 		connection.remoteAddress = syn.getSrc_addr(); 
-		connection.remotePort = syn.getSrc_port();
+		connection.remotePort = syn.getSrc_port(); // Enorm sikkerthetsrisiko 
+		connection.myAddress = syn.getDest_addr();
+		
 		connection.state = State.LISTEN; 
 		connection.state = State.SYN_RCVD;
-		System.out.println(this.myPort);
-		System.out.println(connection.myPort);
-		System.out.println(connection.myAddress);
+
 		KtnDatagram ack = null;
 		try{
 			int attempts = ATTEMPTS;
@@ -241,7 +249,7 @@ public class ConnectionImpl extends AbstractConnection {
 	
 	public static int getNewPort()
 	{
-		for(int i = 1001; i <= 9999; i++)
+		for(int i = 2331; i <= 9999; i++)
 			if(!usedPorts.containsValue(i))
 			{
 				usedPorts.put(i, true); 
@@ -271,13 +279,15 @@ public class ConnectionImpl extends AbstractConnection {
 		
 		int attempts = ATTEMPTS;
 		
-		while(attempts-- > 0)
-			if(isValid(ack = sendDataPacketWithRetransmit(packet)))
+		while(attempts-- > 1)
+		{
+			if(isValid(ack = sendDataPacketWithRetransmit(packet))) 
 			{
 				lastValidPacketReceived = ack;
 				//lastDataPacketSent = packet;
 				return;
 			}
+		}
 		
 		state= State.CLOSED;
 		throw new IOException();
@@ -293,7 +303,7 @@ public class ConnectionImpl extends AbstractConnection {
 	 */
 	public String receive() throws ConnectException, IOException {
 		if(state != State.ESTABLISHED)
-			throw new IllegalStateException("SWAG: receive");
+			throw new IllegalStateException("Error i: receive");
 		
 		KtnDatagram packet = null;
 		
@@ -303,7 +313,8 @@ public class ConnectionImpl extends AbstractConnection {
 		catch(EOFException e)
 		{}
 		
-		if(isValid(packet) && packet.getSeq_nr()==lastValidPacketReceived.getPayloadAsBytes().length+lastValidPacketReceived.getSeq_nr())
+		if(isValid(packet))
+		//if(isValid(packet) && packet.getSeq_nr()==lastValidPacketReceived.getPayloadAsBytes().length+lastValidPacketReceived.getSeq_nr())
 		{
 			lastValidPacketReceived = packet;
 			try {
@@ -372,8 +383,20 @@ public class ConnectionImpl extends AbstractConnection {
 		
 		boolean addr, port;
 		
+		
 		addr = packet.getSrc_addr().equals(remoteAddress);
 		port = packet.getSrc_port() == remotePort;
+		
+		if(!addr)
+		{
+			System.out.println("Addresse stemmer ikke");
+		}
+		if(!port)
+		{
+			System.out.println("Port stemmer ikke");
+		}
+			
+		
 		System.out.println("addr:  " + addr);
 		System.out.println("port:  " + port);
 		System.out.println("Flag: " + packet.getFlag());
@@ -387,7 +410,8 @@ public class ConnectionImpl extends AbstractConnection {
 		case LISTEN: 		return packet.getFlag()==Flag.SYN; // return true hvis SYN.
 		case ESTABLISHED: 	return 		((packet.getFlag() == Flag.NONE) && (packet.getSeq_nr()>lastValidPacketReceived.getSeq_nr()) 
 				 						|| //eller
-				 						(packet.getFlag() == Flag.ACK && packet.getAck() == (lastDataPacketSent.getSeq_nr() + lastDataPacketSent.getPayloadAsBytes().length))
+				 						//(packet.getFlag() == Flag.ACK && packet.getAck() == (lastDataPacketSent.getSeq_nr() + lastDataPacketSent.getPayloadAsBytes().length))
+				 						(packet.getFlag() == Flag.ACK)
 				 						|| //eller
 										(packet.getFlag() == Flag.FIN)
 										) //og

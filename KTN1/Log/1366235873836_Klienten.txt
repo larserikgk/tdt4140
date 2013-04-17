@@ -1,0 +1,15 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+23:57:54.775     NETWORK                                                                                                                                 Packet 8894 send!                                 
+23:57:54.776     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:57:54.779     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:57:54.784     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+23:57:54.788     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:57:54.789     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:57:54.790     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+23:57:54.792     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:57:54.794     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:57:54.796     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 

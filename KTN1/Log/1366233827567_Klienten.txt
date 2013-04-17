@@ -1,0 +1,40 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+23:23:48.442     NETWORK                                                                                                                                 Packet 4538 send!                                 
+23:23:48.445     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:23:48.448     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:23:48.542     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:38151
+23:23:48.554     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+23:23:48.556     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+23:23:48.558     AbstractConnection       78.91.80.194:5555        129.241.163.242:2331     4539    ACK     7170                             0           Sending Ack: 7170                                 
+23:23:48.565     NETWORK                                                                                                                                 Packet 4539 send!                                 
+23:23:48.571     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:23:48.573     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4540    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+23:23:48.574     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:23:48.577     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+23:23:48.584     NETWORK                                                                                                                                 Packet 4540 send!                                 
+23:23:49.371     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4540    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+23:23:49.378     NETWORK                                                                                                                                 Packet 4540 send!                                 
+23:23:50.171     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4540    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+23:23:50.179     NETWORK                                                                                                                                 Packet 4540 send!                                 
+23:23:50.971     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4540    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+23:23:50.976     NETWORK                                                                                                                                 Packet 4540 send!                                 
+23:23:51.374     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:23:51.375     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4540    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+23:23:51.376     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:23:51.377     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+23:23:51.383     NETWORK                                                                                                                                 Packet 4540 send!                                 
+23:23:52.174     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4540    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+23:23:52.180     NETWORK                                                                                                                                 Packet 4540 send!                                 
+23:23:52.975     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4540    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+23:23:52.983     NETWORK                                                                                                                                 Packet 4540 send!                                 
+23:23:53.774     SendTimer                78.91.80.194:5555        129.241.163.242:2331     4540    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+23:23:53.780     NETWORK                                                                                                                                 Packet 4540 send!                                 

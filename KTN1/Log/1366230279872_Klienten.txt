@@ -1,0 +1,13 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+22:24:40.803     NETWORK                                                                                                                                 Packet 3482 send!                                 
+22:24:40.805     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+22:24:40.809     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+22:24:40.812     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 
+22:24:40.823     NETWORK                                                                                                                                 Packet 3482 send!                                 
+22:24:40.824     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+22:24:40.826     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+22:24:40.828     ClSocketReceiver                                                                                                                        Exception while receiving: Address already in use 

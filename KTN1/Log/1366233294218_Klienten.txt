@@ -1,0 +1,40 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+23:14:55.157     NETWORK                                                                                                                                 Packet 3826 send!                                 
+23:14:55.159     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:14:55.161     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:14:55.258     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 5555
+Remote Port:58897
+23:14:55.273     CLSocket::receive                                                                                                                       Finished receiving at:5555                        
+23:14:55.274     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+23:14:55.276     AbstractConnection       78.91.80.194:5555        129.241.163.242:2331     3827    ACK     1672                             0           Sending Ack: 1672                                 
+23:14:55.386     NETWORK                                                                                                                                 Packet 3827 send!                                 
+23:14:55.392     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:14:55.394     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:14:55.395     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+23:14:55.399     SendTimer                78.91.80.194:5555        129.241.163.242:2331     3828    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+23:14:55.405     NETWORK                                                                                                                                 Packet 3828 send!                                 
+23:14:56.192     SendTimer                78.91.80.194:5555        129.241.163.242:2331     3828    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+23:14:56.198     NETWORK                                                                                                                                 Packet 3828 send!                                 
+23:14:56.992     SendTimer                78.91.80.194:5555        129.241.163.242:2331     3828    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+23:14:57.0       NETWORK                                                                                                                                 Packet 3828 send!                                 
+23:14:57.792     SendTimer                78.91.80.194:5555        129.241.163.242:2331     3828    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+23:14:57.799     NETWORK                                                                                                                                 Packet 3828 send!                                 
+23:14:58.195     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:14:58.196     SendTimer                78.91.80.194:5555        129.241.163.242:2331     3828    NONE    -1      Hello:default            215245029   Sending this datagram (try: 1)                    
+23:14:58.198     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:14:58.199     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+23:14:58.204     NETWORK                                                                                                                                 Packet 3828 send!                                 
+23:14:58.996     SendTimer                78.91.80.194:5555        129.241.163.242:2331     3828    NONE    -1      Hello:default            215245029   Sending this datagram (try: 2)                    
+23:14:59.3       NETWORK                                                                                                                                 Packet 3828 send!                                 
+23:14:59.795     SendTimer                78.91.80.194:5555        129.241.163.242:2331     3828    NONE    -1      Hello:default            215245029   Sending this datagram (try: 3)                    
+23:14:59.801     NETWORK                                                                                                                                 Packet 3828 send!                                 
+23:15:0.595      SendTimer                78.91.80.194:5555        129.241.163.242:2331     3828    NONE    -1      Hello:default            215245029   Sending this datagram (try: 4)                    
+23:15:0.600      NETWORK                                                                                                                                 Packet 3828 send!                                 

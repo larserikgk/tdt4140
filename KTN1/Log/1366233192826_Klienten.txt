@@ -1,0 +1,10 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+23:13:13.707     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:13:13.711     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:13:16.509     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+23:13:16.512     CLSocket::receive                                                                                                                       Receiving at:5555                                 
+23:13:16.515     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
