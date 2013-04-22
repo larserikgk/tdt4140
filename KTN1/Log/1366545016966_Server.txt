@@ -1,0 +1,173 @@
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Timestamp        Logging Entity           Source                   Destination              Seq No  Flag    Ack No  Start Payload            Checksum    Comment                                           
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13:50:17.493     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:50:17.503     CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:50:20.295     AbstractConnection                                                                                                                      Waiting for incoming packet in doReceive()        
+13:50:20.296     CLSocket::receive                                                                                                                       Receiving at:10500                                
+13:50:20.298     CLSocket::coAccept                                                                                                                      Fant gjenbrukbar innsocket                        
+13:50:22.742     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 10500
+Remote Port:42639
+13:50:22.845     CLSocket::receive                                                                                                                       Finished receiving at:10500                       
+13:50:22.847     AbstractConnection                                                                                                                      Received an internal packet in doReceive          
+13:50:22.850     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2640    SYN_ACK 4277                             0           Sending Ack: 4277                                 
+13:50:22.873     NETWORK                                                                                                                                 Packet 2640 send!                                 
+13:50:22.875     AbstractConnection                                                                                                                      Waiting for incoming packet in receiveAck()       
+13:50:22.877     CLSocket::receive                                                                                                                       Receiving at:2331                                 
+13:50:22.884     CLSocket::coReceive                                                                                                                     State of socket is:
+Bound:true
+Closed: false
+Connected: true
+Local Port: 2331
+Remote Port:40220
+13:50:22.891     CLSocket::receive                                                                                                                       Finished receiving at:2331                        
+13:50:22.893     AbstractConnection                                                                                                                      Received an internal packet in receiveAck         
+13:50:22.894     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2641    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:22.900     NETWORK                                                                                                                                 Packet 2641 send!                                 
+13:50:22.902     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2642    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:22.910     NETWORK                                                                                                                                 Packet 2642 send!                                 
+13:50:22.912     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2643    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:22.919     NETWORK                                                                                                                                 Packet 2643 send!                                 
+13:50:22.924     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2644    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:22.931     NETWORK                                                                                                                                 Packet 2644 send!                                 
+13:50:22.943     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2645    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:22.950     NETWORK                                                                                                                                 Packet 2645 send!                                 
+13:50:22.952     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2646    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:22.959     NETWORK                                                                                                                                 Packet 2646 send!                                 
+13:50:22.961     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2647    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:22.975     NETWORK                                                                                                                                 Packet 2647 send!                                 
+13:50:22.977     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2648    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:22.997     NETWORK                                                                                                                                 Packet 2648 send!                                 
+13:50:22.999     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2649    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.7       NETWORK                                                                                                                                 Packet 2649 send!                                 
+13:50:23.8       AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2650    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.16      NETWORK                                                                                                                                 Packet 2650 send!                                 
+13:50:23.18      AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2651    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.26      NETWORK                                                                                                                                 Packet 2651 send!                                 
+13:50:23.27      AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2652    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.37      NETWORK                                                                                                                                 Packet 2652 send!                                 
+13:50:23.38      AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2653    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.45      NETWORK                                                                                                                                 Packet 2653 send!                                 
+13:50:23.46      AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2654    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.54      NETWORK                                                                                                                                 Packet 2654 send!                                 
+13:50:23.55      AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2655    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.75      NETWORK                                                                                                                                 Packet 2655 send!                                 
+13:50:23.76      AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2656    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.84      NETWORK                                                                                                                                 Packet 2656 send!                                 
+13:50:23.85      AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2657    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.94      NETWORK                                                                                                                                 Packet 2657 send!                                 
+13:50:23.95      AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2658    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.101     NETWORK                                                                                                                                 Packet 2658 send!                                 
+13:50:23.102     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2659    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.108     NETWORK                                                                                                                                 Packet 2659 send!                                 
+13:50:23.112     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2660    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.119     NETWORK                                                                                                                                 Packet 2660 send!                                 
+13:50:23.120     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2661    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.126     NETWORK                                                                                                                                 Packet 2661 send!                                 
+13:50:23.127     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2662    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.131     NETWORK                                                                                                                                 Packet 2662 send!                                 
+13:50:23.132     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2663    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.136     NETWORK                                                                                                                                 Packet 2663 send!                                 
+13:50:23.142     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2664    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.150     NETWORK                                                                                                                                 Packet 2664 send!                                 
+13:50:23.151     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2665    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.162     NETWORK                                                                                                                                 Packet 2665 send!                                 
+13:50:23.163     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2666    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.165     NETWORK                                                                                                                                 Packet 2666 send!                                 
+13:50:23.166     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2667    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.172     NETWORK                                                                                                                                 Packet 2667 send!                                 
+13:50:23.173     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2668    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.179     NETWORK                                                                                                                                 Packet 2668 send!                                 
+13:50:23.180     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2669    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.185     NETWORK                                                                                                                                 Packet 2669 send!                                 
+13:50:23.186     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2670    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.192     NETWORK                                                                                                                                 Packet 2670 send!                                 
+13:50:23.192     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2671    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.212     NETWORK                                                                                                                                 Packet 2671 send!                                 
+13:50:23.212     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2672    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.215     NETWORK                                                                                                                                 Packet 2672 send!                                 
+13:50:23.215     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2673    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.218     NETWORK                                                                                                                                 Packet 2673 send!                                 
+13:50:23.219     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2674    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.221     NETWORK                                                                                                                                 Packet 2674 send!                                 
+13:50:23.222     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2675    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.224     NETWORK                                                                                                                                 Packet 2675 send!                                 
+13:50:23.224     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2676    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.226     NETWORK                                                                                                                                 Packet 2676 send!                                 
+13:50:23.227     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2677    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.228     NETWORK                                                                                                                                 Packet 2677 send!                                 
+13:50:23.229     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2678    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.231     NETWORK                                                                                                                                 Packet 2678 send!                                 
+13:50:23.231     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2679    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.237     NETWORK                                                                                                                                 Packet 2679 send!                                 
+13:50:23.238     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2680    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.242     NETWORK                                                                                                                                 Packet 2680 send!                                 
+13:50:23.242     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2681    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.245     NETWORK                                                                                                                                 Packet 2681 send!                                 
+13:50:23.246     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2682    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.249     NETWORK                                                                                                                                 Packet 2682 send!                                 
+13:50:23.249     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2683    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.251     NETWORK                                                                                                                                 Packet 2683 send!                                 
+13:50:23.251     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2684    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.253     NETWORK                                                                                                                                 Packet 2684 send!                                 
+13:50:23.253     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2685    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.255     NETWORK                                                                                                                                 Packet 2685 send!                                 
+13:50:23.255     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2686    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.257     NETWORK                                                                                                                                 Packet 2686 send!                                 
+13:50:23.257     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2687    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.259     NETWORK                                                                                                                                 Packet 2687 send!                                 
+13:50:23.259     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2688    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.261     NETWORK                                                                                                                                 Packet 2688 send!                                 
+13:50:23.261     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2689    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.263     NETWORK                                                                                                                                 Packet 2689 send!                                 
+13:50:23.263     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2690    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.265     NETWORK                                                                                                                                 Packet 2690 send!                                 
+13:50:23.265     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2691    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.267     NETWORK                                                                                                                                 Packet 2691 send!                                 
+13:50:23.267     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2692    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.269     NETWORK                                                                                                                                 Packet 2692 send!                                 
+13:50:23.269     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2693    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.271     NETWORK                                                                                                                                 Packet 2693 send!                                 
+13:50:23.271     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2694    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.273     NETWORK                                                                                                                                 Packet 2694 send!                                 
+13:50:23.274     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2695    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:23.275     NETWORK                                                                                                                                 Packet 2695 send!                                 
+13:50:23.276     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2696    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:26.279     NETWORK                                                                                                                                 Packet 2696 send!                                 
+13:50:26.279     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2697    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:26.281     NETWORK                                                                                                                                 Packet 2697 send!                                 
+13:50:26.282     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2698    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:29.287     NETWORK                                                                                                                                 Packet 2698 send!                                 
+13:50:29.287     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2699    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:29.292     NETWORK                                                                                                                                 Packet 2699 send!                                 
+13:50:29.292     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2700    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:32.298     NETWORK                                                                                                                                 Packet 2700 send!                                 
+13:50:32.299     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2701    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:32.303     NETWORK                                                                                                                                 Packet 2701 send!                                 
+13:50:32.303     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2702    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:35.310     NETWORK                                                                                                                                 Packet 2702 send!                                 
+13:50:35.311     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2703    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:35.329     NETWORK                                                                                                                                 Packet 2703 send!                                 
+13:50:35.330     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2704    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:38.335     NETWORK                                                                                                                                 Packet 2704 send!                                 
+13:50:38.335     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2705    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:38.340     NETWORK                                                                                                                                 Packet 2705 send!                                 
+13:50:38.340     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2706    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:41.347     NETWORK                                                                                                                                 Packet 2706 send!                                 
+13:50:41.347     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2707    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:41.352     NETWORK                                                                                                                                 Packet 2707 send!                                 
+13:50:41.353     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2708    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:44.359     NETWORK                                                                                                                                 Packet 2708 send!                                 
+13:50:44.359     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2709    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:44.364     NETWORK                                                                                                                                 Packet 2709 send!                                 
+13:50:44.365     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2710    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:47.371     NETWORK                                                                                                                                 Packet 2710 send!                                 
+13:50:47.371     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2711    ACK     4278                             0           Sending Ack: 4278                                 
+13:50:47.376     NETWORK                                                                                                                                 Packet 2711 send!                                 
+13:50:47.377     AbstractConnection       127.0.0.1:2331           127.0.1.1:5555           2712    ACK     4278                             0           Sending Ack: 4278                                 

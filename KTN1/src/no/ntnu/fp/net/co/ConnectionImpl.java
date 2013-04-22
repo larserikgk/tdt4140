@@ -305,17 +305,30 @@ public class ConnectionImpl extends AbstractConnection {
 		if(state != State.ESTABLISHED)
 			throw new IllegalStateException("Error i: receive");
 		
+		
 		KtnDatagram packet = null;
 		
-		try{
+		
+		try{			
 			packet = receivePacket(false);
 		}
 		catch(EOFException e)
-		{}
-		
+		{}	
+
 		if(isValid(packet))
 		//if(isValid(packet) && packet.getSeq_nr()==lastValidPacketReceived.getPayloadAsBytes().length+lastValidPacketReceived.getSeq_nr())
 		{
+
+			if(packet.getFlag() == Flag.FIN)
+			{
+				
+				System.out.println("jungelSwag");
+				disconnectRequest = packet; 
+				
+				close(); 
+				return "avsluttet"; 
+			}
+			
 			lastValidPacketReceived = packet;
 			try {
 				sendAck(packet, false);
@@ -338,28 +351,67 @@ public class ConnectionImpl extends AbstractConnection {
 	 * 
 	 * @see Connection#close()
 	 */
-	public void close() throws IOException {
-		KtnDatagram fin = new KtnDatagram();
-		KtnDatagram ack = new KtnDatagram();
-		fin.setFlag(Flag.FIN);
-		fin.setDest_addr(remoteAddress);
-		fin.setDest_port(remotePort);
-		try {
-			simplySendPacket(fin);
-		} catch (ClException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		while(true) {
-			ack = receiveAck();
-			fin = receivePacket(true);
-			if(fin.getSrc_addr().equals(remoteAddress) && fin.getSrc_port() == remotePort && fin.getFlag() == Flag.ACK) {
-				sendAck(fin, false);
-				return;
-			}
-
-		}
-	}
+	  public void close() { //mulig begge parter timer ut om begge kaller close samtidig
+	   
+		  if(this.state != state.ESTABLISHED)
+		  {
+			  System.out.println("vi er ikke establisja");
+			  return;
+		  }
+		  
+		  KtnDatagram fin = constructInternalPacket(Flag.FIN); 
+		  KtnDatagram ack = null;		 
+		  
+		  if(disconnectRequest == null)
+		  {
+			  try {
+				simplySendPacket(fin);
+				this.state = State.FIN_WAIT_1;
+				
+				while(!isValid(ack))
+					ack = receiveAck();				
+				
+			} catch (ClException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			 
+		  }
+		  else
+		  {
+			  try {
+				System.out.println("jungelPenis");
+				sendAck(disconnectRequest, false);
+				this.state = State.CLOSE_WAIT; 
+				Thread.sleep(100);
+				simplySendPacket(fin);
+				this.state = state.LAST_ACK; 
+				while(!isValid(ack))
+					ack = receiveAck(); 
+				
+				this.state = state.CLOSED; 
+				
+			} catch (ConnectException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			  
+		  }
+			
+		 
+	  }
 
 	/**
 	 * Test a packet for transmission errors. This function should only called
@@ -372,12 +424,10 @@ public class ConnectionImpl extends AbstractConnection {
 	protected boolean isValid(KtnDatagram packet) {
 		if(packet==null)
 		{
-			System.out.println("Packet var null");
 			return false;
 		}
 		if(packet.getChecksum() != packet.calculateChecksum())
 		{
-			System.out.println("CHECKSUM FEIL");
 			return false;
 		}
 		
@@ -386,20 +436,6 @@ public class ConnectionImpl extends AbstractConnection {
 		
 		addr = packet.getSrc_addr().equals(remoteAddress);
 		port = packet.getSrc_port() == remotePort;
-		
-		if(!addr)
-		{
-			System.out.println("Addresse stemmer ikke");
-		}
-		if(!port)
-		{
-			System.out.println("Port stemmer ikke");
-		}
-			
-		
-		System.out.println("addr:  " + addr);
-		System.out.println("port:  " + port);
-		System.out.println("Flag: " + packet.getFlag());
 		
 		switch(state)
 		{
